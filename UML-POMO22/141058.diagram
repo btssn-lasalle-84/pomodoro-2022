@@ -1,0 +1,74 @@
+format 224
+
+classcanvas 128002 class_ref 128002 // Utilisateur
+  simpleclassdiagramsettings end
+  xyz 72.1 255.8 2000
+end
+usecasecanvas 128130 usecase_ref 128002 // Configurer le minuteur
+  xyzwh 227 186 3005 64 32 label_xy 186 219
+end
+usecasecanvas 129026 usecase_ref 128130 // Editer une tâche
+  xyzwh 248 78 3013 64 32 label_xy 227 110
+end
+usecasecanvas 129154 usecase_ref 128258 // Sélectionner un mode
+  xyzwh 220 372 3005 64 32 label_xy 181 403
+end
+usecasecanvas 129282 usecase_ref 128386 // Visualiser un Evenement
+  xyzwh 271 483 3005 64 32 label_xy 222 514
+end
+usecasecanvas 130306 usecase_ref 128514 // Enregistrer le Suivi
+  xyzwh 524 72 3005 64 32 label_xy 495 103
+end
+usecasecanvas 130562 usecase_ref 128642 // Démarrer un Pomodoro
+  xyzwh 464 161 3005 64 32 label_xy 419 192
+end
+usecasecanvas 131074 usecase_ref 128770 // Gérer l'alarme sonore
+  xyzwh 354 350 3005 64 32 label_xy 317 381
+end
+usecasecanvas 131202 usecase_ref 128898 // Configurer les minuteries
+  xyzwh 456 297 3005 64 32 label_xy 407 329
+end
+usecasecanvas 132098 usecase_ref 129026 // Dialoguer avec le minuteur
+  xyzwh 650 288 3005 64 32 label_xy 595 320
+end
+line 129666 ----
+  from ref 128002 z 3014 to point 159 121
+  line 129794 z 3014 to ref 129026
+line 130050 ---- decenter_end 551
+  from ref 128002 z 3006 to point 157 434
+  line 130178 z 3006 to ref 129282
+simplerelationcanvas 130434 simplerelation_ref 128002
+  decenter_end 620
+  from ref 130306 z 3014 stereotype "<<extend>>" xyz 378 91 3014 to ref 129026
+end
+simplerelationcanvas 130690 simplerelation_ref 128130
+  decenter_begin 293
+  from ref 130562 z 3014 stereotype "<<extend>>" xyz 370 150 3014 to point 356 130
+  line 130818 z 3014 to ref 129026
+end
+simplerelationcanvas 131586 simplerelation_ref 128386
+  from ref 129154 z 3006 stereotype "<<extend>>" xyz 214 293 3000 to ref 128130
+end
+simplerelationcanvas 131842 simplerelation_ref 128514
+  from ref 131074 z 3006 stereotype "<<extend>>" xyz 283 281 3000 to ref 128130
+end
+simplerelationcanvas 131970 simplerelation_ref 128642
+  from ref 131202 z 3006 stereotype "<<extend>>" xyz 332 254 3000 to ref 128130
+end
+simplerelationcanvas 132226 simplerelation_ref 128770
+  from ref 128130 z 3006 stereotype "<<include>>" xyz 429 251 3000 to ref 132098
+end
+simplerelationcanvas 132354 simplerelation_ref 128898
+  from ref 130562 z 3006 stereotype "<<include>>" xyz 547 237 3000 to ref 132098
+end
+simplerelationcanvas 132482 simplerelation_ref 129026
+  from ref 130306 z 3006 stereotype "<<extend>>" xyz 577 193 3000 to ref 132098
+end
+simplerelationcanvas 132738 simplerelation_ref 129154
+  from ref 129282 z 3006 stereotype "<<extend>>" xyz 399 438 3000 to point 540 393
+  line 133122 z 3006 to ref 132098
+end
+line 132866 ----
+  from ref 128002 z 3006 to point 196 198
+  line 132994 z 3006 to ref 128130
+end
