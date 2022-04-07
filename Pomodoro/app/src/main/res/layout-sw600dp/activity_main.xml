@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:screenOrientation="landscape"
+    android:textAlignment="center"
+    android:visibility="visible"
+
+    tools:context=".MainActivity">
+
+    <ImageView
+        android:id="@+id/logoPomoConnect"
+        android:layout_width="425dp"
+        android:layout_height="65dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.021"
+        app:srcCompat="@drawable/pomo_connect" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="266dp"
+        android:layout_height="374dp"
+        android:clickable="false"
+        app:layout_constraintBottom_toBottomOf="@+id/demarrerPause"
+        app:layout_constraintEnd_toEndOf="@+id/demarrerPause"
+        app:layout_constraintStart_toStartOf="@+id/demarrerPause"
+        app:layout_constraintTop_toTopOf="@+id/demarrerPause" />
+
+    <Button
+        android:id="@+id/demarrerPause"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:text="Démarrer / Pause"
+        app:cornerRadius="250dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logoPomoConnect"
+        app:layout_constraintVertical_bias="0.487"
+        />
+
+    <Button
+        android:id="@+id/supprimerTache"
+        android:layout_width="125dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="28dp"
+        android:layout_weight="1"
+        android:text="Supprimer"
+        app:layout_constraintBottom_toTopOf="@+id/organisationTaches"
+        app:layout_constraintEnd_toEndOf="@+id/organisationTaches"
+        app:layout_constraintStart_toEndOf="@+id/editerTache"
+        app:layout_constraintTop_toBottomOf="@+id/logoPomoConnect" />
+
+    <Button
+        android:id="@+id/editerTache"
+        android:layout_width="90dp"
+        android:layout_height="50dp"
+        android:layout_weight="1"
+        android:text="Editer"
+        app:layout_constraintBottom_toTopOf="@+id/organisationTaches"
+        app:layout_constraintEnd_toStartOf="@+id/supprimerTache"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/organisationTaches"
+        app:layout_constraintTop_toBottomOf="@+id/logoPomoConnect" />
+
+    <Button
+        android:id="@+id/menu"
+        android:layout_width="194dp"
+        android:layout_height="123dp"
+        android:layout_marginStart="30dp"
+        android:text="Menu"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.012"
+        app:layout_constraintStart_toEndOf="@+id/progressBar"
+        app:layout_constraintTop_toTopOf="@+id/progressBar" />
+
+    <Button
+        android:id="@+id/seConnecterAuModule"
+        android:layout_width="194dp"
+        android:layout_height="123dp"
+        android:layout_marginStart="30dp"
+        android:text="Se Connecter au module"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/synchroniser"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.012"
+        app:layout_constraintStart_toEndOf="@+id/progressBar" />
+
+    <Button
+        android:id="@+id/synchroniser"
+        android:layout_width="194dp"
+        android:layout_height="123dp"
+        android:layout_marginStart="30dp"
+        android:text="Synchroniser le module"
+        app:layout_constraintBottom_toBottomOf="@+id/progressBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.012"
+        app:layout_constraintStart_toEndOf="@+id/progressBar" />
+
+    <TextView
+        android:id="@+id/horloge"
+        android:layout_width="193dp"
+        android:layout_height="63dp"
+        android:background="#6200EE"
+        android:paddingVertical="@dimen/cardview_default_radius"
+        android:text="00 : 00"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textIsSelectable="false"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toTopOf="@+id/demarrerPause"
+        app:layout_constraintEnd_toEndOf="@+id/progressBar"
+        app:layout_constraintStart_toStartOf="@+id/progressBar"
+        app:layout_constraintTop_toBottomOf="@+id/logoPomoConnect" />
+
+    <ScrollView
+        android:id="@+id/organisationTaches"
+        android:layout_width="239dp"
+        android:layout_height="544dp"
+        android:layout_marginStart="80dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/progressBar"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logoPomoConnect">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/tache2"
+                android:layout_width="193dp"
+                android:layout_height="123dp"
+                android:text="Tache 2"
+                android:textAlignment="center" />
+
+            <Button
+                android:id="@+id/tache1"
+                android:layout_width="194dp"
+                android:layout_height="123dp"
+                android:text="Tache 1"
+                android:textAlignment="center" />
+
+            <Button
+                android:id="@+id/tache4"
+                android:layout_width="194dp"
+                android:layout_height="123dp"
+                android:text="Tache 4"
+                android:textAlignment="center" />
+
+            <Button
+                android:id="@+id/tache5"
+                android:layout_width="194dp"
+                android:layout_height="123dp"
+                android:text="Tache 5"
+                android:textAlignment="center" />
+
+            <Button
+                android:id="@+id/tache3"
+                android:layout_width="194dp"
+                android:layout_height="123dp"
+                android:text="Tache 3"
+                android:textAlignment="center" />
+
+            <Button
+                android:id="@+id/tache6"
+                android:layout_width="194dp"
+                android:layout_height="12dp"
+                android:text="Tache 6"
+                android:textAlignment="center" />
+
+            <Button
+                android:id="@+id/tache7"
+                android:layout_width="194dp"
+                android:layout_height="123dp"
+                android:text="Tache 7"
+                android:textAlignment="center" />
+        </LinearLayout>
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="© Projet Pomodoro"
+        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ensemble scolaire Saint Jean Baptiste de LaSalle Avignon"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
