@@ -1,7 +1,7 @@
 format 224
 "UML-POMO22"
-  revision 5
-  modified_by 2 "btssn2"
+  revision 6
+  modified_by 23 "tv"
 
 
   
@@ -68,7 +68,7 @@ format 224
      end
     sequencediagram 128002 "Diagramme de Séquence Système"
       sequencediagramsettings end
-      overlapping_bars size A4
+      overlapping_bars size A0
     end
 
     class 128002 "Utilisateur"
@@ -463,6 +463,39 @@ ${members}}
       
       activitydiagramsettings
        end
+    end
+  end
+
+  deploymentview 128023 "Vue de déploiement"
+    //deployment diagram settings
+    deploymentdiagramsettings
+     end
+    deploymentdiagram 128023 "Diagramme de déploiement"
+      deploymentdiagramsettings
+       end
+      size A0
+    end
+
+    deploymentnode 128023 "Minuteur"
+    end
+
+    deploymentnode 128151 "Tablette"
+    end
+
+    artifact 128023 "Pomodoro"
+      stereotype "Application Android"
+      associated_artifacts
+      end
+      simplerelation 128023
+	-_->
+	  on artifact_ref 128151 // pomodoro.db
+      end
+    end
+
+    artifact 128151 "pomodoro.db"
+      stereotype "SQLite"
+      associated_artifacts
+      end
     end
   end
 preserve_bodies

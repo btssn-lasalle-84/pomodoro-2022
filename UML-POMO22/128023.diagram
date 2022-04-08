@@ -1,0 +1,20 @@
+format 224
+
+deploymentnodecanvas 128023 deploymentnode_ref 128023 // Minuteur
+  xyzwh 927 227 2000 140 47
+end
+deploymentnodecanvas 128151 deploymentnode_ref 128151 // Tablette
+  xyzwh 19 27 2000 509 447
+end
+artifactcanvas 128407 artifact_ref 128023 // Pomodoro
+  xyz 46 105 2005
+end
+artifactcanvas 128535 artifact_ref 128151 // pomodoro.db
+  xyz 139 297 2000
+end
+line 128279 ----
+  from ref 128151 z 2001 stereotype "<<Bluetooth>>" xyz 630 250 3000 to ref 128023
+simplerelationcanvas 128663 simplerelation_ref 128023
+  from ref 128407 z 2006 to ref 128535
+end
+end
