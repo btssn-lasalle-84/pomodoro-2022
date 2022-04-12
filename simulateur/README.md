@@ -7,7 +7,7 @@
   - [platform.ini](#platformini)
   - [Auteur](#auteur)
 
-Ce document présente rapidement le fonctionnement du simulateur ainsi que le protocole implémenté. Le protocole complet est disponible dans Google Drive. Actuellement, la version du protocole est la **0.1** (11 avril 2022).
+Ce document présente rapidement le fonctionnement du simulateur ainsi que le protocole implémenté. Le protocole complet est disponible dans Google Drive. Actuellement, la version du protocole est la **0.2** (12 avril 2022).
 
 ![](./simulateur-pomodoro.jpg)
 
@@ -28,10 +28,10 @@ Les éléments de base du protocole :
 
 ```cpp
 #define PERIPHERIQUE_BLUETOOTH  "pomodoro-1"
-#define EN_TETE_TRAME           "$"
-#define DELIMITEUR_CHAMP        ";"
+#define EN_TETE_TRAME           "#"
+#define DELIMITEUR_CHAMP        "&"
 #define DELIMITEURS_FIN         "\r\n"
-#define DELIMITEUR_DATAS        ';'
+#define DELIMITEUR_DATAS        '&'
 ```
 
 Les différentes types de trame :
@@ -40,25 +40,27 @@ Les différentes types de trame :
 enum TypeTrame
 {
   Inconnu = -1,
-  START, PAUSE_COURTE, PAUSE_LONGUE, ATTENTE, RESUME, STOP, RESET, SET, ALIVE, ACK, ERREUR, ETAT,
+  POMODORO, USER, BELL, TASK, REST, STOP, RESET, WAIT, DARN, HEARTBEAT, STATE, ERROR, ACK,
+//"P",      "U",  "B",  "T",  "R",  "S",  "X",   "W",  "D",  "H",       "E",   "F",   "A"
   NB_TRAMES
 };
 ```
 
-Le format général des trames est le suivant : `${TypeTrame}[;...]\r\n`
+Le format général des trames est le suivant : `#{TypeTrame}[&...]\r\n`
 
-Chaque trame reçue entraîne l'envoi d'une trame d'acquittement `$ACK\r\n` ou d'erreur `$ERREUR;{CODE}\r\n` par le simulateur.
+Chaque trame reçue entraîne l'envoi d'une trame d'acquittement `#A\r\n` ou d'erreur `#F&{CODE}\r\n` par le simulateur.
 
 Les codes d'erreur :
 
 ```cpp
 #define ERREUR_TRAME_INCONNUE       0
 #define ERREUR_TRAME_NON_SUPPORTEE  1
-#define ERREUR_TYPE_INCONNU         2
-#define ERREUR_CONFIGURATION        3
+#define ERREUR_COMMANDE             2
+#define ERREUR_PARAMETRE            3
+#define ERREUR_CONFIGURATION        4
 ```
 
-La trame `ETAT` précise l'état du pomodoro : `$ETAT;{EtatPomodoro}\r\n`
+La trame `ETAT` précise l'état du pomodoro : `#E&{EtatPomodoro}\r\n`
 
 Les différents états sont :
 
@@ -77,27 +79,29 @@ enum EtatPomodoro
 };
 ```
 
-La trame `SET` de configuration possède le format suivant : `$SET;{TypeConfiguration};[...]\r\n`
+La trame `T` de démarrage d'une tâche possède le format suivant : `#T&[NOM]\r\n` où il est possible de donner un nom à la tâche.
+
+La trame `R` de démarrage d'une pause possède le format suivant : `#R&{TypePause}\r\n`
 
 ```cpp
-enum TypeConfiguration
+enum TypePause
 {
   Invalide = -1,
-  TACHE, UTILISATEUR, POMODORO, SONNETTE,
-  NB_TYPES_CONFIGURATION
+  COURTE, LONGUE,
+  NB_TYPES_PAUSE
 };
 ```
+
+Les trames `#W\r\n` (WAIT) et `#D\r\n` (DARN) permettent respectivement de geler le temps (d'une tâche ou d'une pause) ou de le reprendre.
 
 Les possibilités de configuration sont :
 
 ```
-$SET;UTILISATEUR;NOM;PRENOM\r\n
+#P&duree&pauseCourte&pauseLongue&nbPomodori&autoPomodoro&autoPause&mode\r\n
 
-$SET;TACHE;NOM\r\n
+#U&NOM&PRENOM\r\n
 
-$SET;SONNETTE;ACTIVATION\r\n
-
-$SET;POMODORO;duree;pauseCourte;pauseLongue;nbPomodori;autoPomodoro;autoPause;mode\r\n
+#B&ACTIVATION\r\n
 ```
 
 Le champ `mode` admet deux valeurs :
@@ -114,7 +118,7 @@ _Remarque :_ le mode `Chronometre` n'est pas géré actuellement. Les champs `au
 
 ## Fonctionnement
 
-Pour l'instant, le simulatur ne fonctionne qu'en mode `Minuteur`.
+Pour l'instant, le simulateur ne fonctionne qu'en mode `Minuteur`.
 
 ## platform.ini
 

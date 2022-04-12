@@ -43,6 +43,8 @@ void loop()
 {
   String trame;
   TypeTrame typeTrame;
+  String champType;
+  TypePause typePause;
 
   if(lireTrame(trame))
   {
@@ -51,67 +53,123 @@ void loop()
     if(typeTrame > Inconnu && typeTrame < NB_TRAMES)
       Serial.println("Trame : " + getNomTrame(typeTrame));
     #endif
-    switch (typeTrame)
+    //POMODORO, USER, BELL, TASK, REST, STOP, RESET, WAIT, DARN, HEARTBEAT, STATE, ERROR, ACK,
+    //"P",      "U",  "B",  "T",  "R",  "S",  "X",   "W",  "D",  "H",       "E",   "F",   "A"
+    switch(typeTrame)
     {
-      case Inconnu:
+      case TypeTrame::Inconnu:
         envoyerTrameErreur(ERREUR_TRAME_INCONNUE);
         break;
-      case TypeTrame::START:
+      case TypeTrame::POMODORO:
         if(getEtatPomodoro() == EnAttente)
         {
-          envoyerTrameAcquittement();
-          setEtatPomodoro(EnCours);
-          envoyerTrameEtat((int)getEtatPomodoro());
-          etatPrecedent = getEtatPomodoro();
           #ifdef DEBUG
-          Serial.println("Démarrage tâche");
+          Serial.println("Configuration POMODORO");
           #endif
+          if(configurerPomodoro(trame))
+          {
+            envoyerTrameAcquittement();
+          }
+          else
+          {
+            envoyerTrameErreur(ERREUR_CONFIGURATION);
+          }
         }
+        else
+          envoyerTrameErreur(ERREUR_COMMANDE);
         break;
-      case TypeTrame::PAUSE_COURTE:
+      case TypeTrame::USER:
         if(getEtatPomodoro() == EnAttente)
         {
-          envoyerTrameAcquittement();
-          setEtatPomodoro(EnCourtePause);
-          envoyerTrameEtat((int)getEtatPomodoro());
-          etatPrecedent = getEtatPomodoro();
           #ifdef DEBUG
-          Serial.println("Tâche en pause courte");
+          Serial.println("Configuration UTILISATEUR");
           #endif
+          if(configurerUtilisateur(trame))
+          {
+            envoyerTrameAcquittement();
+          }
+          else
+          {
+            envoyerTrameErreur(ERREUR_CONFIGURATION);
+          }
+        }
+        else
+          envoyerTrameErreur(ERREUR_COMMANDE);
+        break;
+      case TypeTrame::BELL:
+        #ifdef DEBUG
+        Serial.println("Configuration SONNERIE");
+        #endif
+        if(configurerSonnette(trame))
+        {
+          envoyerTrameAcquittement();
+        }
+        else
+        {
+          envoyerTrameErreur(ERREUR_CONFIGURATION);
         }
         break;
-      case TypeTrame::PAUSE_LONGUE:
+      case TypeTrame::TASK:
         if(getEtatPomodoro() == EnAttente)
         {
-          envoyerTrameAcquittement();
-          setEtatPomodoro(EnLonguePause);
-          envoyerTrameEtat((int)getEtatPomodoro());
-          etatPrecedent = getEtatPomodoro();
-          #ifdef DEBUG
-          Serial.println("Tâche en pause longue");
-          #endif
+          if(configrerTache(trame))
+          {
+            envoyerTrameAcquittement();
+            setEtatPomodoro(EnCours);
+            envoyerTrameEtat((int)getEtatPomodoro());
+            etatPrecedent = getEtatPomodoro();
+            #ifdef DEBUG
+            Serial.println("Démarrage tâche");
+            #endif
+          }
+          else
+          {
+            envoyerTrameErreur(ERREUR_PARAMETRE);
+          }
         }
+        else
+          envoyerTrameErreur(ERREUR_COMMANDE);
         break;
-      case TypeTrame::ATTENTE:
-        if(getEtatPomodoro() == EnCours || getEtatPomodoro() == EnCourtePause || getEtatPomodoro() == EnLonguePause)
+      case TypeTrame::REST: // Pause
+        champType = extraireChamp(trame, CHAMP_TYPE_PAUSE);
+        #ifdef DEBUG_VERIFICATION
+        Serial.print("type = ");
+        Serial.println(champType);
+        #endif
+        typePause = verifierTypePause(champType);
+        switch(typePause)
         {
-          envoyerTrameAcquittement();
-          setEtatPomodoro(Gele);
-          envoyerTrameEtat((int)getEtatPomodoro());
-          #ifdef DEBUG
-          Serial.println("Tâche gelée");
-          #endif
-        }
-        break;
-      case TypeTrame::RESUME:
-        if(getEtatPomodoro() == Gele)
-        {
-          envoyerTrameAcquittement();
-          setEtatPomodoro(etatPrecedent);
-          envoyerTrameEtat((int)getEtatPomodoro());
-          #ifdef DEBUG
-          Serial.println("Tâche en reprise");
-          #endif
+          case COURTE:
+            if(getEtatPomodoro() == EnAttente)
+            {
+              envoyerTrameAcquittement();
+              setEtatPomodoro(EnCourtePause);
+              envoyerTrameEtat((int)getEtatPomodoro());
+              etatPrecedent = getEtatPomodoro();
+              #ifdef DEBUG
+              Serial.println("Tâche en pause courte");
+              #endif
+            }
+            else
+              envoyerTrameErreur(ERREUR_COMMANDE);
+            break;
+          case LONGUE:
+            if(getEtatPomodoro() == EnAttente)
+            {
+              envoyerTrameAcquittement();
+              setEtatPomodoro(EnLonguePause);
+              envoyerTrameEtat((int)getEtatPomodoro());
+              etatPrecedent = getEtatPomodoro();
+              #ifdef DEBUG
+              Serial.println("Tâche en pause longue");
+              #endif
+            }
+            else
+              envoyerTrameErreur(ERREUR_COMMANDE);
+            break;
+            default:
+              envoyerTrameErreur(ERREUR_PARAMETRE);
+              break;
         }
         break;
       case TypeTrame::STOP:
@@ -136,6 +194,8 @@ void loop()
           setEtatPomodoro(EnAttente);
           envoyerTrameEtat((int)getEtatPomodoro());
         }
+        else
+          envoyerTrameErreur(ERREUR_COMMANDE);
         break;
       case TypeTrame::RESET:
         envoyerTrameAcquittement();
@@ -145,86 +205,37 @@ void loop()
         Serial.println("Tâche ou pause annulée");
         #endif
         break;
-      case TypeTrame::SET:
-        if(getEtatPomodoro() == EnAttente)
+      case TypeTrame::WAIT:
+        if(getEtatPomodoro() == EnCours || getEtatPomodoro() == EnCourtePause || getEtatPomodoro() == EnLonguePause)
         {
+          envoyerTrameAcquittement();
+          setEtatPomodoro(Gele);
+          envoyerTrameEtat((int)getEtatPomodoro());
           #ifdef DEBUG
-          Serial.println("Configuration");
+          Serial.println("Tâche gelée");
           #endif
-          int nbParametres = compterParametres(trame);
-          #ifdef DEBUG_VERIFICATION
-          Serial.print("nbParametres = ");
-          Serial.println(nbParametres);
-          String champ;
-          for(int i=0;i<nbParametres+1;++i)
-          {
-            champ = extraireChamp(trame, i);
-            Serial.print(i);
-            Serial.print(" = ");
-            Serial.println(champ);
-          }
-          #endif
-          if(nbParametres > CHAMP_TYPES_CONFIGURATION)
-          {
-            String type = extraireChamp(trame, CHAMP_TYPES_CONFIGURATION);
-            #ifdef DEBUG_VERIFICATION
-            Serial.print("type = ");
-            Serial.println(type);
-            #endif
-            TypeConfiguration typeConfiguration = verifierTypeConfiguration(type);
-            switch(typeConfiguration)
-            {
-              case Invalide:
-                envoyerTrameErreur(ERREUR_TYPE_INCONNU);
-                break;
-              case TACHE:
-                if(configrerTache(trame))
-                {
-                  envoyerTrameAcquittement();
-                }
-                else
-                {
-                  envoyerTrameErreur(ERREUR_CONFIGURATION);
-                }
-                break;
-              case UTILISATEUR:
-                if(configurerUtilisateur(trame))
-                {
-                  envoyerTrameAcquittement();
-                }
-                else
-                {
-                  envoyerTrameErreur(ERREUR_CONFIGURATION);
-                }
-                break;
-              case POMODORO:
-                if(configurerPomodoro(trame))
-                {
-                  envoyerTrameAcquittement();
-                }
-                else
-                {
-                  envoyerTrameErreur(ERREUR_CONFIGURATION);
-                }
-                break;
-              case SONNETTE:
-                if(configurerSonnette(trame))
-                {
-                  envoyerTrameAcquittement();
-                }
-                else
-                {
-                  envoyerTrameErreur(ERREUR_CONFIGURATION);
-                }
-                break;
-              default:
-                #ifdef DEBUG
-                Serial.println("Type invalide !");
-                #endif
-                break;
-            }
-          }
         }
+        else
+          envoyerTrameErreur(ERREUR_COMMANDE);
+        break;
+      case TypeTrame::DARN: // Reprise
+        if(getEtatPomodoro() == Gele)
+        {
+          envoyerTrameAcquittement();
+          setEtatPomodoro(etatPrecedent);
+          envoyerTrameEtat((int)getEtatPomodoro());
+          #ifdef DEBUG
+          Serial.println("Tâche en reprise");
+          #endif
+        }
+        else
+          envoyerTrameErreur(ERREUR_COMMANDE);
+        break;
+      case TypeTrame::HEARTBEAT:
+        envoyerTrameAcquittement();
+        break;
+      case TypeTrame::ERROR:
+        envoyerTrameErreur(ERREUR_TRAME_NON_SUPPORTEE);
         break;
       case TypeTrame::ACK:
         break;

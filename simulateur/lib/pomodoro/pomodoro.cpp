@@ -5,11 +5,11 @@
 // Bluetooth
 static BluetoothSerial SerialBT; //!< objet pour la communication Bluetooth
 static bool connecte = false; //!< état de la connexion Bluetooth
-const String nomsTrame[TypeTrame::NB_TRAMES] = { "START", "PAUSE_COURTE", "PAUSE_LONGUE", "ATTENTE", "RESUME", "STOP", "RESET", "SET", "ALIVE", "ACK", "ERREUR", "ETAT" }; //!< nom des trames dans le protocole
+const String nomsTrame[TypeTrame::NB_TRAMES] = { "P", "U", "B", "T", "R", "S", "X", "W", "D", "H", "E", "F", "A" }; //!< identifiant des trames dans le protocole
 static String entete = String(EN_TETE_TRAME); // caractère séparateur
 static String separateur = String(DELIMITEUR_CHAMP); // caractère séparateur
 static String delimiteurFin = String(DELIMITEURS_FIN); // fin de trame
-const String nomsTypeConfiguration[TypeConfiguration::NB_TYPES_CONFIGURATION] = { "TACHE", "UTILISATEUR", "POMODORO", "SONNETTE" }; //!< nom des type de configuration
+const String nomsTypePause[TypePause::NB_TYPES_PAUSE] = { "C", "L" }; //!< nom des types de pause
 static int rssi = 0; //!< le niveau RSSI du Bluetooth
 static String adresseBluetooth; //!< l'adresse MAC Bluetooth du Pomodoro
 static uint8_t adresseDistante[ESP_BD_ADDR_LEN] = {0, 0, 0, 0, 0, 0}; //!< l'adresse MAC du Bluetooth connecté
@@ -127,21 +127,21 @@ TypeTrame verifierTrame(String &trame)
   return Inconnu;
 }
 
-TypeConfiguration verifierTypeConfiguration(String &type)
+TypePause verifierTypePause(String &type)
 {
-  String typeConfiguration;
+  String typePause;
 
-  for(int i=0;i<TypeConfiguration::NB_TYPES_CONFIGURATION;i++)
+  for(int i=0;i<TypePause::NB_TYPES_PAUSE;i++)
   {
-    //Format : $SET;{TYPE};...\r\n
-    typeConfiguration = nomsTypeConfiguration[i];
+    //Format : $R;{TYPE}\r\n
+    typePause = nomsTypePause[i];
     #ifdef DEBUG_VERIFICATION
     Serial.print("Verification type : ");
-    Serial.print(typeConfiguration);
+    Serial.print(typePause);
     #endif
-    if(type == typeConfiguration)
+    if(type == typePause)
     {
-      return (TypeConfiguration)i;
+      return (TypePause)i;
     }
     else
     {
@@ -162,23 +162,6 @@ String getNomTrame(TypeTrame typeTrame)
 }
 
 /**
- * @brief Envoie une trame Pomodoro via le Bluetooth
- *
- * @fn envoyerTrame()
- */
-void envoyerTrame()
-{
-  char trameEnvoi[64];
-
-  // Trame envoyée : $ETAT;SONNETTE;PRESENCE;MODE_SONNETTE;MODE_PRESENCE\r\n
-  //sprintf((char *)trameEnvoi, "$%d;%d;%d;%d;%d\r\n", (int)etatPomodoro, (int)sonnette, (int)presence, (int)activationSonnette, (int)activationDetecteurPresence);
-  //SerialBT.write((uint8_t*)trameEnvoi, strlen((char *)trameEnvoi));
-  #ifdef DEBUG
-  Serial.println(String(trameEnvoi));
-  #endif
-}
-
-/**
  * @brief Envoie une trame Alive via le Bluetooth
  *
  * @fn envoyerTrameAlive()
@@ -187,8 +170,8 @@ void envoyerTrameAlive()
 {
   char trameEnvoi[64];
 
-  // Trame envoyée : $ALIVE\r\n
-  sprintf((char *)trameEnvoi, "%s%s\r\n", entete.c_str(), nomsTrame[TypeTrame::ALIVE].c_str());
+  // Trame envoyée : #H\r\n
+  sprintf((char *)trameEnvoi, "%s%s\r\n", entete.c_str(), nomsTrame[TypeTrame::HEARTBEAT].c_str());
   SerialBT.write((uint8_t*)trameEnvoi, strlen((char *)trameEnvoi));
   #ifdef DEBUG
   Serial.println(String(trameEnvoi));
@@ -203,8 +186,8 @@ void envoyerTrameErreur(int code)
 {
   char trameEnvoi[64];
 
-  //Format : $ERREUR;{CODE}\r\n
-  sprintf((char *)trameEnvoi, "%s%s;%d\r\n", entete.c_str(), nomsTrame[TypeTrame::ERREUR].c_str(), code);
+  //Format : #F&{CODE}\r\n
+  sprintf((char *)trameEnvoi, "%s%s%s%d\r\n", entete.c_str(), nomsTrame[TypeTrame::ERROR].c_str(), DELIMITEUR_CHAMP, code);
 
   SerialBT.write((uint8_t*)trameEnvoi, strlen((char *)trameEnvoi));
   #ifdef DEBUG
@@ -223,7 +206,7 @@ void envoyerTrameAcquittement()
 {
   char trameEnvoi[64];
 
-  //Format : $ACK\r\n
+  //Format : #A\r\n
   sprintf((char *)trameEnvoi, "%s%s\r\n", entete.c_str(), nomsTrame[TypeTrame::ACK].c_str());
 
   SerialBT.write((uint8_t*)trameEnvoi, strlen((char *)trameEnvoi));
@@ -243,8 +226,8 @@ void envoyerTrameEtat(int etat)
 {
   char trameEnvoi[64];
 
-  //Format : $ETAT;{ETAT}\r\n
-  sprintf((char *)trameEnvoi, "%s%s;%d\r\n", entete.c_str(), nomsTrame[TypeTrame::ETAT].c_str(), etat);
+  //Format : #E&{ETAT}\r\n
+  sprintf((char *)trameEnvoi, "%s%s%s%d\r\n", entete.c_str(), nomsTrame[TypeTrame::STATE].c_str(), DELIMITEUR_CHAMP, etat);
 
   SerialBT.write((uint8_t*)trameEnvoi, strlen((char *)trameEnvoi));
   #ifdef DEBUG
@@ -490,6 +473,7 @@ bool estEcheance(unsigned long intervalle)
 
 bool configrerTache(String &trame)
 {
+  // #T&[NOM]\r\n
   int nbParametres = compterParametres(trame);
   if(nbParametres == NB_PARAMETRES_TACHE)
   {
@@ -511,6 +495,7 @@ bool configrerTache(String &trame)
 
 bool configurerUtilisateur(String &trame)
 {
+  // #U&NOM&PRENOM\r\n
   int nbParametres = compterParametres(trame);
   if(nbParametres == NB_PARAMETRES_UTILISATEUR)
   {
@@ -538,6 +523,7 @@ bool configurerUtilisateur(String &trame)
 
 bool configurerPomodoro(String &trame)
 {
+  // #P&duree&pauseCourte&pauseLongue&nbPomodori&autoPomodoro&autoPause&mode\r\n
   int nbParametres = compterParametres(trame);
   if(nbParametres == NB_PARAMETRES_POMODORO)
   {
@@ -595,6 +581,7 @@ bool configurerPomodoro(String &trame)
 
 bool configurerSonnette(String &trame)
 {
+  // #B&ACTIVATION\r\n
   int nbParametres = compterParametres(trame);
   if(nbParametres == NB_PARAMETRES_SONNETTE)
   {

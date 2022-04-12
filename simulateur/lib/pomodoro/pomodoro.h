@@ -44,22 +44,23 @@ using namespace Codingfield::UI;
 enum TypeTrame
 {
   Inconnu = -1,
-  START, PAUSE_COURTE, PAUSE_LONGUE, ATTENTE, RESUME, STOP, RESET, SET, ALIVE, ACK, ERREUR, ETAT,
+  POMODORO, USER, BELL, TASK, REST, STOP, RESET, WAIT, DARN, HEARTBEAT, STATE, ERROR, ACK,
+//"P",      "U",  "B",  "T",  "R",  "S",  "X",   "W",  "D",  "H",       "E",   "F",   "A"
   NB_TRAMES
 };
 
 /**
- * @enum TypeConfiguration
- * @brief Les differents types de configuration
+ * @enum TypePause
+ * @brief Les differents types de pause
  */
-enum TypeConfiguration
+enum TypePause
 {
   Invalide = -1,
-  TACHE, UTILISATEUR, POMODORO, SONNETTE,
-  NB_TYPES_CONFIGURATION
+  COURTE, LONGUE,
+  NB_TYPES_PAUSE
 };
 
-#define CHAMP_TYPES_CONFIGURATION 1
+#define CHAMP_TYPE_PAUSE 1
 
 /**
  * @enum EtatPomodoro
@@ -157,45 +158,45 @@ struct Pomodoro
  * @brief Définit le nom du préiphérique Bluetooth
  */
 #define PERIPHERIQUE_BLUETOOTH  "pomodoro-1"
-#define EN_TETE_TRAME           "$"
-#define DELIMITEUR_CHAMP        ";"
+#define EN_TETE_TRAME           "#"
+#define DELIMITEUR_CHAMP        "&"
 #define DELIMITEURS_FIN         "\r\n"
-#define DELIMITEUR_DATAS        ';'
+#define DELIMITEUR_DATAS        '&'
 #define DELIMITEUR_FIN          '\n'
 
 #define ERREUR_TRAME_INCONNUE       0
 #define ERREUR_TRAME_NON_SUPPORTEE  1
-#define ERREUR_TYPE_INCONNU         2
-#define ERREUR_CONFIGURATION        3
+#define ERREUR_COMMANDE             2
+#define ERREUR_PARAMETRE            3
+#define ERREUR_CONFIGURATION        4
 
-// $SET;UTILISATEUR;NOM;PRENOM\r\n
-#define NB_PARAMETRES_UTILISATEUR   3
-#define CHAMP_NOM_UTILISATEUR       2
-#define CHAMP_PRENOM_UTILISATEUR    3
-// $SET;TACHE;NOM\r\n
-#define NB_PARAMETRES_TACHE         2
-#define CHAMP_NOM_TACHE             2
+// #U&NOM&PRENOM\r\n
+#define NB_PARAMETRES_UTILISATEUR   2
+#define CHAMP_NOM_UTILISATEUR       1
+#define CHAMP_PRENOM_UTILISATEUR    2
+// #T&[NOM]\r\n
+#define NB_PARAMETRES_TACHE         1
+#define CHAMP_NOM_TACHE             1
 #define LONGUEUR_MAX                28
-// $SET;SONNETTE;ACTIVATION\r\n
-#define NB_PARAMETRES_SONNETTE      2
-#define CHAMP_ACTIVATION_SONNETTE   2
-// $SET;POMODORO;duree;pauseCourte;pauseLongue;nbPomodori;autoPomodoro;autoPause;mode\r\n
-#define NB_PARAMETRES_POMODORO      8
-#define CHAMP_DUREE                 2
-#define CHAMP_PAUSE_COURTE          3
-#define CHAMP_PAUSE_LONGUE          4
-#define CHAMP_NB_POMODORI           5
-#define CHAMP_AUTO_POMODORO         6
-#define CHAMP_AUTO_PAUSE            7
-#define CHAMP_MODE                  8
+// #B&ACTIVATION\r\n
+#define NB_PARAMETRES_SONNETTE      1
+#define CHAMP_ACTIVATION_SONNETTE   1
+// #P&duree&pauseCourte&pauseLongue&nbPomodori&autoPomodoro&autoPause&mode\r\n
+#define NB_PARAMETRES_POMODORO      7
+#define CHAMP_DUREE                 1
+#define CHAMP_PAUSE_COURTE          2
+#define CHAMP_PAUSE_LONGUE          3
+#define CHAMP_NB_POMODORI           4
+#define CHAMP_AUTO_POMODORO         5
+#define CHAMP_AUTO_PAUSE            6
+#define CHAMP_MODE                  7
 
 // Fonctions de service
 bool lireTrame(String &trame);
 int compterParametres(const String &trame);
 TypeTrame verifierTrame(String &trame);
-TypeConfiguration verifierTypeConfiguration(String &type);
+TypePause verifierTypePause(String &type);
 String getNomTrame(TypeTrame typeTrame);
-void envoyerTrame();
 void envoyerTrameAlive();
 void envoyerTrameErreur(int code);
 void envoyerTrameAcquittement();
