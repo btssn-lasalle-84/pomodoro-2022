@@ -27,7 +27,34 @@ using namespace Codingfield::UI;
 #define M5_MARGE_BAS        10
 #define M5_MARGE_DROITE     10
 #define M5_MARGE_GAUCHE     10
+
+#define M5_LARGEUR_TEXTE_12 300
 #define M5_HAUTEUR_TEXTE_12 30
+#define M5_LARGEUR_TEXTE_9  300
+#define M5_HAUTEUR_TEXTE_9  20
+#define M5_LARGEUR_LABEL    160 //240
+#define M5_HAUTEUR_LABEL    60
+
+// Labels
+#define M5_POSITION_X_LABEL_UTILISATEUR  10
+#define M5_POSITION_Y_LABEL_UTILISATEUR  25
+#define M5_POSITION_X_LABEL_ETAT         80 //40
+#define M5_POSITION_Y_LABEL_ETAT         60
+#define M5_POSITION_X_LABEL_TACHE        10
+#define M5_POSITION_Y_LABEL_TACHE        125
+#define M5_POSITION_X_LABEL_POMODORI     10
+#define M5_POSITION_Y_LABEL_POMODORI     160
+
+// Boutons
+#define M5_POSITION_X_BOUTON_A  25
+#define M5_POSITION_Y_BOUTON_A  190
+#define M5_POSITION_X_BOUTON_B  120
+#define M5_POSITION_Y_BOUTON_B  190
+#define M5_POSITION_X_BOUTON_C  215
+#define M5_POSITION_Y_BOUTON_C  190
+#define M5_LARGEUR_BOUTON       80
+#define M5_HAUTEUR_BOUTON       40
+
 /**
  * @def DEBUG
  * @brief A définir si on désire les message de debug sur le port série
@@ -36,6 +63,7 @@ using namespace Codingfield::UI;
 //#define DEBUG_RSSI
 //#define DEBUG_BATTERIE
 //#define DEBUG_HORLOGE
+//#define DEBUG_AUTO
 
 /**
  * @enum TypeTrame
@@ -202,11 +230,16 @@ void envoyerTrameErreur(int code);
 void envoyerTrameAcquittement();
 void envoyerTrameEtat(int etat);
 String extraireChamp(String &trame, unsigned int numeroChamp);
-
 void setActivationPomodoro(bool etat);
 void enregistreEtatPomodoro(EtatPomodoro etat);
+void enregistreNbPomodori();
+void incrementerNbPomodori();
+void reinitialiserNbPomodori();
+bool gererModeAutomatique();
+void reinitialiserPomodoro();
 void setEtatPomodoro(int etat);
 EtatPomodoro getEtatPomodoro();
+EtatPomodoro getEtatPomodoroPrecedent();
 bool getChangementEtatPomodoro();
 void setChangementEtatPomodoro(bool etat);
 void setActivationSonnette(int etat);
@@ -215,8 +248,10 @@ bool configrerTache(String &trame);
 bool configurerUtilisateur(String &trame);
 bool configurerPomodoro(String &trame);
 bool configurerSonnette(String &trame);
-
 bool cliquerBoutonPomodoro(Codingfield::UI::Button* widget, IdButton button, bool pressed);
+bool cliquerBoutonPause(Codingfield::UI::Button* widget, IdButton button, bool pressed);
+bool allumer(Codingfield::UI::Button* widget, IdButton button, bool pressed);
+bool eteindreM5();
 bool eteindre(Codingfield::UI::Button* widget, IdButton button, bool pressed);
 void controlerAffichageBouton(bool actif=true);
 void initialiserSD();
@@ -240,6 +275,8 @@ void afficherInformationsUtilisateur(bool redraw=false);
 void afficherTache(bool redraw=false);
 void afficherNbPomodori(bool redraw=false);
 void rafraichirEcran(uint32_t tempo=100);
+void afficherLogo();
+void cacherLogo();
 
 // Fonctions utilitaires
 int count(const String& str, const String& sub);

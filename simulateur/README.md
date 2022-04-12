@@ -92,8 +92,6 @@ enum TypePause
 };
 ```
 
-Les trames `#W\r\n` (WAIT) et `#D\r\n` (DARN) permettent respectivement de geler le temps (d'une tâche ou d'une pause) ou de le reprendre.
-
 Les possibilités de configuration sont :
 
 ```
@@ -114,7 +112,9 @@ enum Mode
 };
 ```
 
-_Remarque :_ le mode `Chronometre` n'est pas géré actuellement. Les champs `autoPomodoro` et `autoPause` non plus.
+_Remarque :_ le mode `Chronometre` n'est pas géré actuellement.
+
+En option (on géré actuellement) : Les trames `#W\r\n` (WAIT) et `#D\r\n` (DARN) permettent respectivement de geler le temps (d'une tâche ou d'une pause) ou de le reprendre.
 
 ## Fonctionnement
 

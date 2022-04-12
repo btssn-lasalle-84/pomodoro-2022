@@ -3,8 +3,6 @@
 #include <M5Stack.h>
 #include "pomodoro.h"
 
-EtatPomodoro etatPrecedent;
-
 /**
  * @brief Initialise les ressources
  *
@@ -116,8 +114,6 @@ void loop()
           {
             envoyerTrameAcquittement();
             setEtatPomodoro(EnCours);
-            envoyerTrameEtat((int)getEtatPomodoro());
-            etatPrecedent = getEtatPomodoro();
             #ifdef DEBUG
             Serial.println("Démarrage tâche");
             #endif
@@ -144,8 +140,6 @@ void loop()
             {
               envoyerTrameAcquittement();
               setEtatPomodoro(EnCourtePause);
-              envoyerTrameEtat((int)getEtatPomodoro());
-              etatPrecedent = getEtatPomodoro();
               #ifdef DEBUG
               Serial.println("Tâche en pause courte");
               #endif
@@ -158,8 +152,6 @@ void loop()
             {
               envoyerTrameAcquittement();
               setEtatPomodoro(EnLonguePause);
-              envoyerTrameEtat((int)getEtatPomodoro());
-              etatPrecedent = getEtatPomodoro();
               #ifdef DEBUG
               Serial.println("Tâche en pause longue");
               #endif
@@ -173,63 +165,57 @@ void loop()
         }
         break;
       case TypeTrame::STOP:
-        if(getEtatPomodoro() != Termine)
+        if(getEtatPomodoro() > Termine)
         {
           #ifdef DEBUG
-          if(getEtatPomodoro() != EnCours)
+          if(getEtatPomodoro() == EnCours)
             Serial.println("Tâche terminée");
-          else if(getEtatPomodoro() != EnCourtePause)
+          else if(getEtatPomodoro() == EnCourtePause)
             Serial.println("Pause courte terminée");
-          else if(getEtatPomodoro() != EnLonguePause)
+          else if(getEtatPomodoro() == EnLonguePause)
             Serial.println("Pause longue terminée");
           #endif
           envoyerTrameAcquittement();
-          if(getEtatPomodoro() != EnCours)
+          if(getEtatPomodoro() == EnCours)
             setEtatPomodoro(Termine);
-          else if(getEtatPomodoro() != EnCourtePause)
+          else if(getEtatPomodoro() == EnCourtePause)
             setEtatPomodoro(FinCourtePause);
-          else if(getEtatPomodoro() != EnLonguePause)
+          else if(getEtatPomodoro() == EnLonguePause)
             setEtatPomodoro(FinLonguePause);
-          envoyerTrameEtat((int)getEtatPomodoro());
-          setEtatPomodoro(EnAttente);
-          envoyerTrameEtat((int)getEtatPomodoro());
+          gererModeAutomatique();
         }
         else
           envoyerTrameErreur(ERREUR_COMMANDE);
         break;
       case TypeTrame::RESET:
         envoyerTrameAcquittement();
-        setEtatPomodoro(EnAttente);
-        envoyerTrameEtat((int)getEtatPomodoro());
-        #ifdef DEBUG
-        Serial.println("Tâche ou pause annulée");
-        #endif
+        reinitialiserPomodoro();
         break;
       case TypeTrame::WAIT:
-        if(getEtatPomodoro() == EnCours || getEtatPomodoro() == EnCourtePause || getEtatPomodoro() == EnLonguePause)
+        /*if(getEtatPomodoro() == EnCours || getEtatPomodoro() == EnCourtePause || getEtatPomodoro() == EnLonguePause)
         {
           envoyerTrameAcquittement();
           setEtatPomodoro(Gele);
-          envoyerTrameEtat((int)getEtatPomodoro());
           #ifdef DEBUG
           Serial.println("Tâche gelée");
           #endif
         }
         else
-          envoyerTrameErreur(ERREUR_COMMANDE);
+          envoyerTrameErreur(ERREUR_COMMANDE);*/
+        envoyerTrameErreur(ERREUR_TRAME_NON_SUPPORTEE);
         break;
       case TypeTrame::DARN: // Reprise
-        if(getEtatPomodoro() == Gele)
+        /*if(getEtatPomodoro() == Gele)
         {
           envoyerTrameAcquittement();
-          setEtatPomodoro(etatPrecedent);
-          envoyerTrameEtat((int)getEtatPomodoro());
+          setEtatPomodoro(getEtatPomodoroPrecedent());
           #ifdef DEBUG
           Serial.println("Tâche en reprise");
           #endif
         }
         else
-          envoyerTrameErreur(ERREUR_COMMANDE);
+          envoyerTrameErreur(ERREUR_COMMANDE);*/
+        envoyerTrameErreur(ERREUR_TRAME_NON_SUPPORTEE);
         break;
       case TypeTrame::HEARTBEAT:
         envoyerTrameAcquittement();

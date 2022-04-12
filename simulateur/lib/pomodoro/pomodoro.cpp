@@ -40,9 +40,10 @@ static Codingfield::UI::Label* labelEtatPomodoro;
 static Codingfield::UI::Label* labelNomTache;
 static Codingfield::UI::Label* labelNbPomodori;
 static Codingfield::UI::Button* boutonPomodoro;
+static Codingfield::UI::Button* boutonPause;
 static Codingfield::UI::Button* boutonOff;
-static Codingfield::UI::Image* logoLasalle;
-static Codingfield::UI::Image* logoPomodoro;
+static Codingfield::UI::Image* logoPomodoroGauche;
+static Codingfield::UI::Image* logoPomodoroDroit;
 static std::string titre = "Pomodoro";
 
 /**
@@ -286,6 +287,96 @@ void enregistreEtatPomodoro(EtatPomodoro etat)
   preferences.putInt("etat", (int)pomodoro.etat);
 }
 
+void enregistreNbPomodori()
+{
+  preferences.putInt("nb", nbPomodori);
+}
+
+void incrementerNbPomodori()
+{
+  ++nbPomodori;
+  enregistreNbPomodori();
+  //if(nbPomodori <= pomodoro.nbPomodori)
+    afficherNbPomodori();
+  /*if(nbPomodori > pomodoro.nbPomodori)
+  {
+    nbPomodori = 0;
+    enregistreNbPomodori();
+    afficherNbPomodori();
+  }*/
+}
+
+void reinitialiserNbPomodori()
+{
+  nbPomodori = 0;
+  enregistreNbPomodori();
+  afficherNbPomodori();
+}
+
+bool gererModeAutomatique()
+{
+  #ifdef DEBUG_AUTO
+  Serial.print("autoPomodoro : ");
+  Serial.println(pomodoro.autoPomodoro);
+  Serial.print("autoPause : ");
+  Serial.println(pomodoro.autoPause);
+  Serial.print("nbPomodori : ");
+  Serial.println(nbPomodori);
+  Serial.print("pomodoro.etat : ");
+  Serial.println(pomodoro.etat);
+  Serial.print("etatPrecedent : ");
+  Serial.println(etatPrecedent);
+  #endif
+  // passage automatique en pause ?
+  if((etatPrecedent == EnCours && pomodoro.etat == Termine) && pomodoro.autoPause && nbPomodori < pomodoro.nbPomodori)
+  {
+    // passage automatique en pause courte
+    #ifdef DEBUG
+    Serial.println("Passage automatique en pause courte");
+    #endif
+    setEtatPomodoro(EnCourtePause);
+    return true;
+  }
+  else if((etatPrecedent == EnCours && pomodoro.etat == Termine) && pomodoro.autoPause && nbPomodori == pomodoro.nbPomodori)
+  {
+    // passage automatique en pause longue
+    #ifdef DEBUG
+    Serial.println("Passage automatique en pause longue");
+    #endif
+    setEtatPomodoro(EnLonguePause);
+    return true;
+  }
+  // passage automatique en pomodoro ?
+  if(pomodoro.etat == FinCourtePause && pomodoro.autoPomodoro)
+  {
+    #ifdef DEBUG
+    Serial.println("Passage automatique en tâche");
+    #endif
+    setEtatPomodoro(EnCours);
+    return true;
+  }
+  // repasse en attente ?
+  if(pomodoro.etat == Termine || pomodoro.etat == FinCourtePause || pomodoro.etat == FinLonguePause)
+  {
+    #ifdef DEBUG
+    Serial.println("Passage en attente");
+    #endif
+    setEtatPomodoro(EnAttente);
+    return false;
+  }
+
+  return false;
+}
+
+void reinitialiserPomodoro()
+{
+  reinitialiserNbPomodori();
+  setEtatPomodoro(EnAttente);
+  #ifdef DEBUG
+  Serial.println("Tâche ou pause annulée");
+  #endif
+}
+
 /**
  * @brief Met à jour l'état du Pomodoro
  *
@@ -294,80 +385,84 @@ void enregistreEtatPomodoro(EtatPomodoro etat)
  */
 void setEtatPomodoro(int etat)
 {
-  std::string texteEtat = "";
-
   if(pomodoro.etat != (EtatPomodoro)etat)
   {
     enregistreEtatPomodoro((EtatPomodoro)etat);
+    envoyerTrameEtat((int)getEtatPomodoro());
     switch(pomodoro.etat)
     {
     case EnAttente:
+      arreterTimerPomodoro();
       arreterTimerHorloge();
       setActivationPomodoro(false);
       tempsHorloge.reset();
+      labelEtatPomodoro->SetText("00:00");
       boutonPomodoro->SetText("START");
+      //boutonPause->Hide();
+      boutonOff->Show();
+      boutonOff->EnableControls();
       break;
     case Termine:
       arreterTimerHorloge();
       setActivationPomodoro(false);
       tempsHorloge.reset();
-      texteEtat = "Fini";
       labelEtatPomodoro->SetText("00:00");
-      //labelEtatPomodoro->SetBackgroundColor(CouleurPomodoro::Bleu);
       boutonPomodoro->SetText("START");
+      //boutonPause->Hide();
+      boutonOff->Show();
+      boutonOff->EnableControls();
       if(pomodoro.sonnette)
       {
         M5.Speaker.tone(432, 500);
       }
-      /**
-       * @todo gérer l'autopause et l'autopomodoro
-       *
-       */
-      ++nbPomodori;
-      preferences.putInt("nb", nbPomodori);
-      afficherNbPomodori();
-      if(nbPomodori == pomodoro.nbPomodori)
-      {
-        nbPomodori = 0;
-        preferences.putInt("nb", nbPomodori);
-      }
+      incrementerNbPomodori();
       break;
     case EnCours:
       if(!pomodoro.actif)
       {
         tempsHorloge.setTemps(pomodoro.duree);
         labelEtatPomodoro->SetText(tempsHorloge.getMMSS().c_str());
+        arreterTimerPomodoro();
         demarrerTimerPomodoro(pomodoro.duree);
         setActivationPomodoro(true);
       }
       demarrerTimerHorloge();
-      texteEtat = "EnCours";
       labelEtatPomodoro->SetFont(&FreeSansBold24pt7b);
       labelEtatPomodoro->SetBackgroundColor(CouleurPomodoro::Rouge);
-      boutonPomodoro->SetText("PAUSE");
+      boutonPomodoro->SetText("STOP");
+      //boutonPause->SetText("PAUSE");
+      //boutonPause->Show();
+      boutonOff->Hide();
+      boutonOff->DisableControls();
       break;
     case EnCourtePause:
       if(!pomodoro.actif)
       {
         tempsHorloge.setTemps(pomodoro.pauseCourte);
         labelEtatPomodoro->SetText(tempsHorloge.getMMSS().c_str());
+        arreterTimerPomodoro();
         demarrerTimerPomodoro(pomodoro.pauseCourte);
         setActivationPomodoro(true);
       }
       demarrerTimerHorloge();
-      texteEtat = "PAUSE";
       labelEtatPomodoro->SetFont(&FreeSans24pt7b);
       labelEtatPomodoro->SetBackgroundColor(CouleurPomodoro::Jaune);
-      boutonPomodoro->SetText("PAUSE");
+      boutonPomodoro->SetText("STOP");
+      //boutonPause->SetText("PAUSE");
+      //boutonPause->Show();
+      boutonOff->Hide();
+      boutonOff->DisableControls();
       break;
     case FinCourtePause:
+      arreterTimerPomodoro();
       arreterTimerHorloge();
       setActivationPomodoro(false);
       tempsHorloge.reset();
-      texteEtat = "Fini";
       labelEtatPomodoro->SetText("00:00");
-      //labelEtatPomodoro->SetBackgroundColor(CouleurPomodoro::Bleu);
       boutonPomodoro->SetText("START");
+      //boutonPause->Hide();
+      boutonOff->Show();
+      boutonOff->EnableControls();
       if(pomodoro.sonnette)
       {
         M5.Speaker.tone(1230, 500);
@@ -378,44 +473,57 @@ void setEtatPomodoro(int etat)
       {
         tempsHorloge.setTemps(pomodoro.pauseLongue);
         labelEtatPomodoro->SetText(tempsHorloge.getMMSS().c_str());
+        arreterTimerPomodoro();
         demarrerTimerPomodoro(pomodoro.pauseLongue);
         setActivationPomodoro(true);
       }
       demarrerTimerHorloge();
-      texteEtat = "PAUSE";
       labelEtatPomodoro->SetFont(&FreeSans24pt7b);
       labelEtatPomodoro->SetBackgroundColor(CouleurPomodoro::Vert);
-      boutonPomodoro->SetText("PAUSE");
+      boutonPomodoro->SetText("STOP");
+      //boutonPause->SetText("PAUSE");
+      //boutonPause->Show();
+      boutonOff->Hide();
+      boutonOff->DisableControls();
       break;
     case FinLonguePause:
+      arreterTimerPomodoro();
       arreterTimerHorloge();
       setActivationPomodoro(false);
       tempsHorloge.reset();
-      texteEtat = "Fini";
       labelEtatPomodoro->SetText("00:00");
       //labelEtatPomodoro->SetBackgroundColor(CouleurPomodoro::Bleu);
       boutonPomodoro->SetText("START");
+      //boutonPause->Hide();
+      boutonOff->Show();
+      boutonOff->EnableControls();
       if(pomodoro.sonnette)
       {
         M5.Speaker.tone(1230, 500);
       }
+      reinitialiserNbPomodori();
       break;
     case Gele:
       arreterTimerHorloge();
-      texteEtat = "EnAttente";
       labelEtatPomodoro->SetFont(&FreeSans24pt7b);
       labelEtatPomodoro->SetBackgroundColor(CouleurPomodoro::Orange);
-      boutonPomodoro->SetText("REPRISE");
+      boutonPomodoro->SetText("STOP");
+      //boutonPause->SetText("GO");
+      //boutonPause->Show();
+      boutonOff->Hide();
+      boutonOff->DisableControls();
       break;
     case Reprise:
       demarrerTimerHorloge();
-      texteEtat = "EnCours";
-      boutonPomodoro->SetText("PAUSE");
+      boutonPomodoro->SetText("STOP");
+      //boutonPause->SetText("PAUSE");
+      //boutonPause->Show();
+      boutonOff->Hide();
+      boutonOff->DisableControls();
       break;
     default:
       break;
     }
-    //labelEtatPomodoro->SetText(texteEtat);
     controlerAffichageBouton();
   }
 }
@@ -423,6 +531,11 @@ void setEtatPomodoro(int etat)
 EtatPomodoro getEtatPomodoro()
 {
   return pomodoro.etat;
+}
+
+EtatPomodoro getEtatPomodoroPrecedent()
+{
+  return etatPrecedent;
 }
 
 bool getChangementEtatPomodoro()
@@ -602,7 +715,7 @@ bool configurerSonnette(String &trame)
 }
 
 /**
-* @brief Fontion de callback pour le clic sur le bouton
+* @brief Fonction de callback pour le clic sur le bouton
 *
 * @fn cliquerBoutonPomodoro(Button* widget, IdButton button, bool pressed)
 *
@@ -616,36 +729,75 @@ bool cliquerBoutonPomodoro(Codingfield::UI::Button* widget, IdButton button, boo
 {
   if(pressed)
   {
-    /*#ifdef DEBUG
-    Serial.print("etatPomodoro = ");
-    Serial.println((int)pomodoro.etat);
-    #endif*/
     widget->SetBackgroundColor(WHITE);
     widget->SetTextColor(DARKGREY);
-    M5.Speaker.tone(432, 400);
-    //delay(400);
-    //M5.Speaker.tone(1230, 400);
     switch(pomodoro.etat)
     {
     case EnAttente:
       setEtatPomodoro(EnCours);
-      envoyerTrameEtat((int)getEtatPomodoro());
       break;
     case EnCours:
+      setEtatPomodoro(Termine);
+      gererModeAutomatique();
+      //setEtatPomodoro(EnAttente);
+      break;
+    case EnCourtePause:
+      setEtatPomodoro(FinCourtePause);
+      gererModeAutomatique();
+      //setEtatPomodoro(EnAttente);
+      break;
+    case EnLonguePause:
+      setEtatPomodoro(FinLonguePause);
+      gererModeAutomatique();
+      //setEtatPomodoro(EnAttente);
+      break;
+    case Gele:
+      setEtatPomodoro(Termine);
+      gererModeAutomatique();
+      //setEtatPomodoro(EnAttente);
+      break;
+    default:
+      break;
+    }
+  }
+  else
+  {
+    widget->SetBackgroundColor(DARKGREY);
+    widget->SetTextColor(WHITE);
+  }
+  return true;
+}
+
+/**
+* @brief Fonction de callback pour le clic sur le bouton
+*
+* @fn cliquerBoutonPause(Button* widget, IdButton button, bool pressed)
+*
+* @param widget le widget sur lequel on a cliqué
+* @param button l'identifiant du bouton
+* @param pressed vrai si appui sinon faux pour relachement
+*
+* @return bool vrai
+*/
+bool cliquerBoutonPause(Codingfield::UI::Button* widget, IdButton button, bool pressed)
+{
+  if(pressed)
+  {
+    widget->SetBackgroundColor(WHITE);
+    widget->SetTextColor(DARKGREY);
+    switch(pomodoro.etat)
+    {
+    case EnCours:
       setEtatPomodoro(Gele);
-      envoyerTrameEtat((int)getEtatPomodoro());
       break;
     case EnCourtePause:
       setEtatPomodoro(Gele);
-      envoyerTrameEtat((int)getEtatPomodoro());
       break;
     case EnLonguePause:
       setEtatPomodoro(Gele);
-      envoyerTrameEtat((int)getEtatPomodoro());
       break;
     case Gele:
       setEtatPomodoro(etatPrecedent);
-      envoyerTrameEtat((int)getEtatPomodoro());
       break;
     default:
       break;
@@ -673,11 +825,45 @@ void controlerAffichageBouton(bool actif/*=true*/)
   }
 }
 
-bool eteindre(Codingfield::UI::Button* widget, IdButton button, bool pressed)
+bool allumer(Codingfield::UI::Button* widget, IdButton button, bool pressed)
 {
+  Serial.println("allumer");
+  return true;
+}
+
+bool eteindreM5()
+{
+  Serial.println("eteindre");
+  esp_sleep_enable_ext0_wakeup(GPIO_NUM_37, 0); // = BUTTON_C_PIN, 1 = High, 0 = Low
+  esp_deep_sleep_start();
+  return true;
+
+  M5.Power.setWakeupButton(BUTTON_C_PIN);
   //M5.Power.deepSleep(60000000); // réveil au bout de 60 s
   M5.Power.deepSleep(); // réveil avec la touche A
   //M5.Power.lightSleep(); //
+  return true;
+}
+
+bool eteindre(Codingfield::UI::Button* widget, IdButton button, bool pressed)
+{
+  if(pressed)
+  {
+    Serial.println("eteindre");
+    esp_sleep_enable_ext0_wakeup(GPIO_NUM_39, 0); // = BUTTON_A_PIN, 1 = High, 0 = Low
+    esp_deep_sleep_start();
+    return true;
+
+    M5.Power.setWakeupButton(BUTTON_A_PIN);
+    //M5.Power.deepSleep(60000000); // réveil au bout de 60 s
+    M5.Power.deepSleep(); // réveil avec la touche A
+    //M5.Power.lightSleep(); //
+    return true;
+  }
+  else
+  {
+    
+  }
   return true;
 }
 
@@ -710,38 +896,38 @@ void initialiserEcran()
 
   screen = new AppScreen(Size(M5_WIDTH, M5_HEIGHT), LIGHTGREY, topBar, nullptr, nullptr);
 
-  logoLasalle = new Codingfield::UI::Image(screen, Point(5, 160), Size(0,0));
-  //logoLasalle = new Codingfield::UI::Image(screen, Point(0,25), Size(0,0)); // en fond
-  logoLasalle->SetBackgroundColor(LIGHTGREY);
-  logoLasalle->SetImage(&SD, "/pomodoro-icone.png"); // icone-pomodoro.png
-  //logoLasalle->SetScale(0.25);
+  logoPomodoroGauche = new Codingfield::UI::Image(screen, Point(5, 65), Size(0,0));
+  logoPomodoroGauche->SetBackgroundColor(LIGHTGREY);
+  logoPomodoroGauche->SetImage(&SD, "/pomodoro-icone.png"); // icone-pomodoro.png
+  logoPomodoroGauche->SetScale(0.8);
 
-  logoPomodoro = new Codingfield::UI::Image(screen, Point(230, 150), Size(0,0));
-  logoPomodoro->SetBackgroundColor(LIGHTGREY);
-  logoPomodoro->SetImage(&SD, "/pomodoro-logo.png");
+  logoPomodoroDroit = new Codingfield::UI::Image(screen, Point(245, 55), Size(0,0));
+  logoPomodoroDroit->SetBackgroundColor(LIGHTGREY);
+  logoPomodoroDroit->SetImage(&SD, "/pomodoro-logo.png");
+  logoPomodoroDroit->SetScale(0.8);
 
-  labelUtilisateur = new Codingfield::UI::Label(screen, Point(M5_MARGE_DROITE, M5_MARGE_HAUT), Size(M5_WIDTH - M5_MARGE_GAUCHE - M5_MARGE_GAUCHE, M5_HAUTEUR_TEXTE_12), &FreeSerifBoldItalic12pt7b);
+  labelUtilisateur = new Codingfield::UI::Label(screen, Point(M5_POSITION_X_LABEL_UTILISATEUR, M5_POSITION_Y_LABEL_UTILISATEUR), Size(M5_LARGEUR_TEXTE_12, M5_HAUTEUR_TEXTE_12), &FreeSerifBoldItalic12pt7b);
   labelUtilisateur->SetBackgroundColor(LIGHTGREY); // ORANGE YELLOW PURPLE GREEN MAROON
   labelUtilisateur->SetTextColor(BLACK);
   labelUtilisateur->SetText(" ");
 
-  labelEtatPomodoro = new Codingfield::UI::Label(screen, Point(40, 60), Size(240, 60), &FreeSansBold24pt7b);
+  labelEtatPomodoro = new Codingfield::UI::Label(screen, Point(M5_POSITION_X_LABEL_ETAT, M5_POSITION_Y_LABEL_ETAT), Size(M5_LARGEUR_LABEL, M5_HAUTEUR_LABEL), &FreeSansBold24pt7b);
   labelEtatPomodoro->SetBackgroundColor(CouleurPomodoro::Rouge); // ORANGE YELLOW PURPLE GREEN MAROON
   labelEtatPomodoro->SetTextColor(WHITE);
   labelEtatPomodoro->SetRounded(true, 4);
   labelEtatPomodoro->Hide();
 
-  labelNomTache = new Codingfield::UI::Label(screen, Point(10, 125), Size(300, 20), &FreeMonoBold9pt7b);
+  labelNomTache = new Codingfield::UI::Label(screen, Point(M5_POSITION_X_LABEL_TACHE, M5_POSITION_Y_LABEL_TACHE), Size(M5_LARGEUR_TEXTE_9, M5_HAUTEUR_TEXTE_9), &FreeMonoBold9pt7b);
   labelNomTache->SetBackgroundColor(LIGHTGREY);
   labelNomTache->SetTextColor(BLACK);
   labelNomTache->SetText(" ");
 
-  labelNbPomodori = new Codingfield::UI::Label(screen, Point(90, 165), Size(140,20), &FreeSansBold9pt7b);
+  labelNbPomodori = new Codingfield::UI::Label(screen, Point(M5_POSITION_X_LABEL_POMODORI, M5_POSITION_Y_LABEL_POMODORI), Size(M5_LARGEUR_TEXTE_9, M5_HAUTEUR_TEXTE_9), &FreeSansBold9pt7b);
   labelNbPomodori->SetBackgroundColor(LIGHTGREY);
   labelNbPomodori->SetTextColor(BLACK);
   labelNbPomodori->SetText(" ");
 
-  boutonPomodoro = new Codingfield::UI::Button(screen, Point(100,190), Size(120,40), &FreeSansBold12pt7b);
+  boutonPomodoro = new Codingfield::UI::Button(screen, Point(M5_POSITION_X_BOUTON_B, M5_POSITION_Y_BOUTON_B), Size(M5_LARGEUR_BOUTON, M5_HAUTEUR_BOUTON), &FreeSansBold9pt7b);
   boutonPomodoro->SetBackgroundColor(DARKGREY);
   boutonPomodoro->SetTextColor(WHITE);
   boutonPomodoro->SetBorderColor(WHITE);
@@ -750,9 +936,26 @@ void initialiserEcran()
   boutonPomodoro->SetPressedCallback(Codingfield::UI::ButtonB, cliquerBoutonPomodoro);
   boutonPomodoro->SetReleasedCallback(Codingfield::UI::ButtonB, cliquerBoutonPomodoro);
 
-  boutonOff = new Codingfield::UI::Button(screen, Point(280,190), Size(0,0), &FreeSansBold12pt7b);
+  boutonPause = new Codingfield::UI::Button(screen, Point(M5_POSITION_X_BOUTON_A, M5_POSITION_Y_BOUTON_A), Size(M5_LARGEUR_BOUTON, M5_HAUTEUR_BOUTON), &FreeSansBold9pt7b);
+  boutonPause->SetBackgroundColor(DARKGREY);
+  boutonPause->SetTextColor(WHITE);
+  boutonPause->SetBorderColor(WHITE);
+  boutonPause->SetBorder(true, 1);
+  boutonPause->SetText("PAUSE");
+  boutonPause->SetPressedCallback(Codingfield::UI::ButtonA, cliquerBoutonPause);
+  boutonPause->SetReleasedCallback(Codingfield::UI::ButtonA, cliquerBoutonPause);
+  boutonPause->Hide();
+  boutonPause->DisableControls();
+
+  boutonOff = new Codingfield::UI::Button(screen, Point(M5_POSITION_X_BOUTON_C, M5_POSITION_Y_BOUTON_C), Size(M5_LARGEUR_BOUTON, M5_HAUTEUR_BOUTON), &FreeSansBold9pt7b);
+  boutonOff->SetBackgroundColor(DARKGREY);
+  boutonOff->SetTextColor(WHITE);
+  boutonOff->SetBorderColor(WHITE);
+  boutonOff->SetBorder(true, 1);
+  boutonOff->SetText("OFF");
   boutonOff->SetPressedCallback(Codingfield::UI::ButtonC, eteindre);
-  boutonOff->Hide();
+  boutonOff->SetReleasedCallback(Codingfield::UI::ButtonC, eteindre);
+  //boutonOff->Hide();
 }
 
 /**
@@ -861,9 +1064,13 @@ void lireNiveauBatterie()
     {
         topBar->SetStatusLeft(HeaderBar::BatteryStatuses::WeakBattery);
     }
-    else
+    else if(bat >= 10)
     {
         topBar->SetStatusLeft(HeaderBar::BatteryStatuses::LowBattery);
+    }
+    else
+    {
+      eteindreM5();
     }
     #ifdef DEBUG_BATTERIE
     char msg[8];
@@ -1000,27 +1207,24 @@ void terminerTimerPomodoro(int id)
     Serial.println("Fin du pomodoro");
     #endif
     setEtatPomodoro(Termine);
-    envoyerTrameEtat((int)getEtatPomodoro());
-    setEtatPomodoro(EnAttente);
-    envoyerTrameEtat((int)getEtatPomodoro());
+    gererModeAutomatique();
+    //setEtatPomodoro(EnAttente);
     break;
   case EnCourtePause:
     #ifdef DEBUG
     Serial.println("Fin de la pause courte");
     #endif
     setEtatPomodoro(FinCourtePause);
-    envoyerTrameEtat((int)getEtatPomodoro());
-    setEtatPomodoro(EnAttente);
-    envoyerTrameEtat((int)getEtatPomodoro());
+    gererModeAutomatique();
+    //setEtatPomodoro(EnAttente);
     break;
   case EnLonguePause:
     #ifdef DEBUG
     Serial.println("Fin de la pause longue");
     #endif
     setEtatPomodoro(FinLonguePause);
-    envoyerTrameEtat((int)getEtatPomodoro());
-    setEtatPomodoro(EnAttente);
-    envoyerTrameEtat((int)getEtatPomodoro());
+    gererModeAutomatique();
+    //setEtatPomodoro(EnAttente);
     break;
   default:
     break;
@@ -1086,10 +1290,6 @@ void afficherInformationsUtilisateur(bool redraw)
 void afficherTache(bool redraw)
 {
   nettoyerChaines();
-  #ifdef DEBUG
-  Serial.print("nomTache.length() = ");
-  Serial.println(nomTache.length());
-  #endif
   if(nomTache.length() > LONGUEUR_MAX)
   {
     nomTache.resize(LONGUEUR_MAX-3);
@@ -1113,6 +1313,24 @@ void rafraichirEcran(uint32_t tempo)
   M5.update();
   screen->Run();
   //delay(tempo);
+}
+
+void afficherLogo()
+{
+  logoPomodoroGauche->Show();
+  logoPomodoroDroit->Show();
+  logoPomodoroGauche->Draw();
+  logoPomodoroDroit->Draw();
+  screen->Draw();
+}
+
+void cacherLogo()
+{
+  logoPomodoroGauche->Hide();
+  logoPomodoroDroit->Hide();
+  logoPomodoroGauche->Draw();
+  logoPomodoroDroit->Draw();
+  screen->Draw();
 }
 
 // Fonctions utilitaires
