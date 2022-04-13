@@ -1,0 +1,145 @@
+format 224
+
+classinstancecanvas 128002 classinstance_ref 128002 // 
+  drawing_mode actor  xyz 117.1 85.7 2005 life_line_z 2000
+end
+fragment 128023 "opt"
+  xyzwh 55 200 1995 757 947
+  separator 1394
+  separator 2440
+  separator 3518
+  separator 4455
+  separator 5590
+end
+classinstancecanvas 128130 classinstance_ref 128130 // 
+  xyz 592.6 75.1 2005 life_line_z 2000
+end
+fragment 128151 "alt"
+  xyzwh 76 746 2000 705 294
+  separator 3367
+  separator 6598
+end
+fragment 133634 "sd Configurer le minuteur"
+  xyzwh 16.1 18.7 2020 828 1153
+end
+durationcanvas 129410 classinstance_ref 128002 // :Utilisateur
+  xyzwh 182 162.7 2010 11 41
+end
+durationcanvas 129538 classinstance_ref 128130 // :Pomodoro
+  xyzwh 663 152.1 2010 11 26
+end
+durationcanvas 130178 classinstance_ref 128002 // :Utilisateur
+  xyzwh 182 289 2010 11 40
+end
+durationcanvas 130306 classinstance_ref 128130 // :Pomodoro
+  xyzwh 663 288 2010 11 26
+end
+durationcanvas 130562 classinstance_ref 128002 // :Utilisateur
+  xyzwh 182 383 2010 11 41
+end
+durationcanvas 130690 classinstance_ref 128130 // :Pomodoro
+  xyzwh 663 381 2010 11 28
+end
+durationcanvas 130946 classinstance_ref 128002 // :Utilisateur
+  xyzwh 182 478 2010 11 40
+end
+durationcanvas 131074 classinstance_ref 128130 // :Pomodoro
+  xyzwh 663 477 2010 11 26
+end
+durationcanvas 131330 classinstance_ref 128002 // :Utilisateur
+  xyzwh 182 572 2010 11 41
+end
+durationcanvas 131458 classinstance_ref 128130 // :Pomodoro
+  xyzwh 663 572 2010 11 26
+end
+durationcanvas 131714 classinstance_ref 128002 // :Utilisateur
+  xyzwh 182 656 2010 11 40
+end
+durationcanvas 131842 classinstance_ref 128130 // :Pomodoro
+  xyzwh 663 657 2010 11 25
+end
+durationcanvas 132098 classinstance_ref 128002 // :Utilisateur
+  xyzwh 182 792 2010 11 41
+end
+durationcanvas 132226 classinstance_ref 128130 // :Pomodoro
+  xyzwh 663 793 2010 11 26
+end
+durationcanvas 132482 classinstance_ref 128002 // :Utilisateur
+  xyzwh 182 892 2010 11 41
+end
+durationcanvas 132610 classinstance_ref 128130 // :Pomodoro
+  xyzwh 663 890 2010 11 28
+end
+durationcanvas 132866 classinstance_ref 128002 // :Utilisateur
+  xyzwh 182 984 2010 11 41
+end
+durationcanvas 132994 classinstance_ref 128130 // :Pomodoro
+  xyzwh 663 984 2010 11 44
+end
+durationcanvas 133250 classinstance_ref 128002 // :Utilisateur
+  xyzwh 182 1083 2010 11 41
+end
+durationcanvas 133378 classinstance_ref 128130 // :Pomodoro
+  xyzwh 663 1083 2010 11 26
+end
+msg 129666 synchronous
+  from durationcanvas_ref 129410
+  to durationcanvas_ref 129538
+  yz 163.7 2015 explicitmsg "configurerMinuteur()"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 296 121
+msg 130434 synchronous
+  from durationcanvas_ref 130178
+  to durationcanvas_ref 130306
+  yz 289 2015 explicitmsg "reglerDureeTempsDeTravail()"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 237 259
+msg 130818 synchronous
+  from durationcanvas_ref 130562
+  to durationcanvas_ref 130690
+  yz 384 2015 explicitmsg "reglerDureeTempsDePauseCourte()"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 193 354
+msg 131202 synchronous
+  from durationcanvas_ref 130946
+  to durationcanvas_ref 131074
+  yz 478 2015 explicitmsg "reglerDureeTempsDePauseLongue()"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 189 448
+msg 131586 synchronous
+  from durationcanvas_ref 131330
+  to durationcanvas_ref 131458
+  yz 573 2015 explicitmsg "reglerNombreDeCyclesPomodoro()"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 199 543
+msg 131970 synchronous
+  from durationcanvas_ref 131714
+  to durationcanvas_ref 131842
+  yz 658 2015 explicitmsg "reglerNombreRepetitionSession()"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 211 628
+msg 132354 synchronous
+  from durationcanvas_ref 132098
+  to durationcanvas_ref 132226
+  yz 794 2015 explicitmsg "selectionnerModeMinuteur()"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 246 764
+msg 132738 synchronous
+  from durationcanvas_ref 132482
+  to durationcanvas_ref 132610
+  yz 893 2015 explicitmsg "selectionnerModeCompteARebours()"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 186 863
+msg 133122 synchronous
+  from durationcanvas_ref 132866
+  to durationcanvas_ref 132994
+  yz 986 2015 explicitmsg "selectionnerModeAlarme()"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 256 956
+msg 133506 synchronous
+  from durationcanvas_ref 133250
+  to durationcanvas_ref 133378
+  yz 1084 2015 explicitmsg "choisirCouleurTache()"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 281 1054
+end

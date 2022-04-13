@@ -1,0 +1,595 @@
+format 224
+"UML-POMO22"
+  revision 8
+  modified_by 23 "tv"
+
+
+  
+  // class settings
+  default_attribute_visibility private default_relation_visibility private default_operation_visibility public
+  
+  classdiagramsettings draw_all_relations yes hide_attributes no hide_operations no hide_getset_operations no hide_ports no show_members_full_definition no show_members_visibility no show_members_stereotype no show_members_context no show_members_multiplicity no show_members_initialization no show_attribute_modifiers no member_max_width 127 show_parameter_dir yes show_parameter_name yes package_name_in_tab no class_drawing_mode natural drawing_language uml show_context_mode no auto_label_position yes show_relation_modifiers no show_relation_visibility no show_infonote no shadow yes gradient none show_stereotype_properties no end
+  
+  classcompositediagramsettings auto_label_position yes draw_all_relations yes shadow yes gradient none end
+  
+  usecasediagramsettings package_name_in_tab no show_context_mode no auto_label_position yes draw_all_relations yes class_drawing_mode actor shadow yes gradient none show_stereotype_properties no end
+  
+  sequencediagramsettings show_full_operations_definition no show_class_of_operation no write_horizontally yes instances_drawing_mode natural drawing_language uml draw_all_relations yes shadow yes gradient none show_stereotype_properties no show_class_context_mode no show_msg_context_mode no end
+  
+  collaborationdiagramsettings show_full_operations_definition no show_class_of_operation no show_hierarchical_rank no write_horizontally yes instances_drawing_mode natural drawing_language uml package_name_in_tab no show_class_pack_context_mode no show_msg_context_mode no draw_all_relations yes shadow yes gradient none show_stereotype_properties no end
+  
+  objectdiagramsettings write_horizontally yes package_name_in_tab no show_class_pack_context_mode no auto_label_position yes draw_all_relations yes shadow yes gradient none show_stereotype_properties no end
+  
+  objectcompositediagramsettings auto_label_position yes draw_all_relations yes shadow yes gradient none end
+  
+  componentdiagramsettings package_name_in_tab no show_context_mode no auto_label_position yes draw_all_relations yes shadow yes gradient none
+   draw_component_as_icon no show_component_req_prov no show_component_rea no show_stereotype_properties no end
+  
+  deploymentdiagramsettings package_name_in_tab no show_context_mode no write_horizontally yes auto_label_position yes draw_all_relations yes shadow yes gradient none
+   draw_component_as_icon no show_component_req_prov no show_component_rea no show_stereotype_properties no end
+  
+  statediagramsettings package_name_in_tab no show_context_mode no auto_label_position yes write_label_horizontally yes show_trans_definition no draw_all_relations yes shadow yes gradient none
+   show_activities yes region_horizontally yes drawing_language uml show_stereotype_properties no end
+  
+  activitydiagramsettings package_name_in_tab no show_context_mode no show_opaque_action_definition no auto_label_position yes write_label_horizontally no draw_all_relations yes shadow yes gradient none
+   show_infonote yes drawing_language uml show_stereotype_properties no end
+  
+  class_color yellow duration_color transparent continuation_color gray note_color blue fragment_color transparent subject_color transparent usecase_color yellow package_color transparent component_color green artifact_color green deploymentnode_color gray state_color yellow stateaction_color transparent activity_color transparent activityregion_color transparent activitypartition_color transparent activityaction_color transparent parameterpin_color white generalization_color black 
+  dpi 96
+  font_size 11
+  diagram_format A4
+
+  image_root_dir ""
+
+
+  mark_for_import
+  
+  comment "Pomodoro-2022"
+  usecaseview 128002 "Vue de Séquence Système"
+    
+    usecasediagramsettings end
+    
+    sequencediagramsettings end
+    
+    collaborationdiagramsettings end
+    
+    classdiagramsettings member_max_width 0 end
+    
+    classcompositediagramsettings end
+    
+    objectdiagramsettings end
+    
+    objectcompositediagramsettings end
+    
+    statediagramsettings
+     end
+    
+    activitydiagramsettings
+     end
+    sequencediagram 128002 "Diagramme de Séquence Système"
+      sequencediagramsettings end
+      overlapping_bars size A0
+    end
+
+    class 128002 "Utilisateur"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+    end
+
+    classinstance 128002 ""
+      type class_ref 128002 // Utilisateur
+      attributes
+        end
+      relations
+        end
+    end
+
+    class 128130 "Pomodoro"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+    end
+
+    classinstance 128130 ""
+      type class_ref 128130 // Pomodoro
+      attributes
+        end
+      relations
+        end
+    end
+
+    state 128023 "pomodoro"
+      stereotype "machine"
+      statediagram 134551 "Diagramme d'états"
+	statediagramsettings
+	 end
+	size A0
+      end
+
+      state 128151 "En attente"
+	transition 128151 "Trame #T& ou Bouton START"
+	  on state_ref 128279 // En cours
+	  external 
+	end
+
+	transition 128663 "Trame #R;C"
+	  on state_ref 128407 // En courte pause
+	  external 
+	end
+
+	transition 129431 "Trame #R;L"
+	  on state_ref 128535 // En longue pause
+	  external 
+	end
+      end
+
+      state 128279 "En cours"
+	transition 128279 "Trame #S ou Bouton STOP ou fin durée pomodoro"
+	  on state_ref 128663 // Terminé
+	  external 
+	end
+      end
+
+      state 128407 "En courte pause"
+	transition 128791 "Trame #S ou Bouton STOP ou fin durée pause courte"
+	  on state_ref 128791 // Fin pause courte
+	  external 
+	end
+      end
+
+      state 128535 "En longue pause"
+	transition 129303 "Trame #S ou Bouton STOP ou fin durée pause longue"
+	  on state_ref 128919 // Fin pause longue
+	  external 
+	end
+      end
+
+      state 128663 "Terminé"
+	transition 128407 "<transition>"
+	  on pseudostate_ref 128151 // choice autoPause
+	  external 
+	end
+      end
+
+      state 128791 "Fin pause courte"
+	transition 128919 "<transition>"
+	  on pseudostate_ref 128279 // choice autoPomodoro
+	  external 
+	end
+      end
+
+      state 128919 "Fin pause longue"
+	transition 129559 "<transition>"
+	  on state_ref 128151 // En attente
+	  external 
+	end
+      end
+
+      pseudostate 128023 initial ""
+	transition 128023 "connexion"
+	  on state_ref 128151 // En attente
+	  external 
+	end
+      end
+
+      pseudostate 128151 choice "autoPause"
+	transition 128535 "<transition>"
+	  on state_ref 128407 // En courte pause
+	  external 
+	end
+
+	transition 129687 "<transition>"
+	  on state_ref 128151 // En attente
+	  external 
+	end
+
+	transition 129815 "<transition>"
+	  on state_ref 128535 // En longue pause
+	  external 
+	end
+      end
+
+      pseudostate 128279 choice "autoPomodoro"
+	transition 129047 "<transition>"
+	  on state_ref 128279 // En cours
+	  external 
+	end
+
+	transition 129175 "<transition>"
+	  on state_ref 128151 // En attente
+	  external 
+	end
+      end
+    end
+  end
+
+  classview 128002 "Vue de Classe"
+    
+    classdiagramsettings member_max_width 0 end
+    
+    classcompositediagramsettings end
+    
+    collaborationdiagramsettings end
+    
+    objectdiagramsettings end
+    
+    objectcompositediagramsettings end
+    
+    sequencediagramsettings end
+    
+    statediagramsettings
+     end
+    
+    
+    activitydiagramsettings
+     end
+    classdiagram 134530 "Diagramme de Classe"
+      classdiagramsettings member_max_width 0 end
+      size A4
+    end
+
+    class 134658 "Pomodoro"
+      visibility package 
+      cpp_decl ""
+      java_decl "${comment}${@}${visibility}${static}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+    end
+
+    class 134786 "Taches"
+      visibility package 
+      cpp_decl ""
+      java_decl "${comment}${@}${visibility}${static}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+    end
+
+    class 134914 "Temps"
+      visibility package 
+      cpp_decl ""
+      java_decl "${comment}${@}${visibility}${static}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+    end
+  end
+
+  usecaseview 134530 "Vue des Cas d'Utilisation"
+    
+    usecasediagramsettings end
+    
+    sequencediagramsettings end
+    
+    collaborationdiagramsettings end
+    
+    classdiagramsettings member_max_width 0 end
+    
+    classcompositediagramsettings end
+    
+    objectdiagramsettings end
+    
+    objectcompositediagramsettings end
+    
+    statediagramsettings
+     end
+    
+    activitydiagramsettings
+     end
+    usecasediagram 141058 "Diagramme de Cas d'Utilisation"
+      usecasediagramsettings draw_all_relations no end
+      size A0
+    end
+
+    usecase 128002 "Configurer le minuteur"
+      
+      usecasediagramsettings end
+      
+      sequencediagramsettings end
+      
+      collaborationdiagramsettings end
+      
+      classdiagramsettings member_max_width 0 end
+      
+      classcompositediagramsettings end
+      
+      objectdiagramsettings end
+      
+      objectcompositediagramsettings end
+      
+      statediagramsettings
+       end
+      
+      activitydiagramsettings
+       end
+      simplerelation 128770
+	-_->
+	  stereotype "include"
+	  on usecase_ref 129026 // Dialoguer avec le minuteur
+      end
+    end
+
+    usecase 128130 "Editer une tâche"
+      
+      usecasediagramsettings end
+      
+      sequencediagramsettings end
+      
+      collaborationdiagramsettings end
+      
+      classdiagramsettings member_max_width 0 end
+      
+      classcompositediagramsettings end
+      
+      objectdiagramsettings end
+      
+      objectcompositediagramsettings end
+      
+      statediagramsettings
+       end
+      
+      activitydiagramsettings
+       end
+    end
+
+    usecase 128258 "Sélectionner un mode"
+      
+      usecasediagramsettings end
+      
+      sequencediagramsettings end
+      
+      collaborationdiagramsettings end
+      
+      classdiagramsettings member_max_width 0 end
+      
+      classcompositediagramsettings end
+      
+      objectdiagramsettings end
+      
+      objectcompositediagramsettings end
+      
+      statediagramsettings
+       end
+      
+      activitydiagramsettings
+       end
+      simplerelation 128258
+	---|>
+	  on usecase_ref 128002 // Configurer le minuteur
+      end
+
+      simplerelation 128386
+	-_->
+	  stereotype "extend"
+	  on usecase_ref 128002 // Configurer le minuteur
+      end
+    end
+
+    usecase 128386 "Visualiser un évènement"
+      
+      usecasediagramsettings end
+      
+      sequencediagramsettings end
+      
+      collaborationdiagramsettings end
+      
+      classdiagramsettings member_max_width 0 end
+      
+      classcompositediagramsettings end
+      
+      objectdiagramsettings end
+      
+      objectcompositediagramsettings end
+      
+      statediagramsettings
+       end
+      
+      activitydiagramsettings
+       end
+      simplerelation 129154
+	-_->
+	  stereotype "include"
+	  on usecase_ref 129026 // Dialoguer avec le minuteur
+      end
+    end
+
+    usecase 128514 "Enregistrer le suivi"
+      
+      usecasediagramsettings end
+      
+      sequencediagramsettings end
+      
+      collaborationdiagramsettings end
+      
+      classdiagramsettings member_max_width 0 end
+      
+      classcompositediagramsettings end
+      
+      objectdiagramsettings end
+      
+      objectcompositediagramsettings end
+      
+      statediagramsettings
+       end
+      
+      activitydiagramsettings
+       end
+      simplerelation 134679
+	-_->
+	  stereotype "extend"
+	  on usecase_ref 128642 // Gérer un pomodoro
+      end
+    end
+
+    usecase 128642 "Gérer un pomodoro"
+      
+      usecasediagramsettings end
+      
+      sequencediagramsettings end
+      
+      collaborationdiagramsettings end
+      
+      classdiagramsettings member_max_width 0 end
+      
+      classcompositediagramsettings end
+      
+      objectdiagramsettings end
+      
+      objectcompositediagramsettings end
+      
+      statediagramsettings
+       end
+      
+      activitydiagramsettings
+       end
+      simplerelation 128898
+	-_->
+	  stereotype "include"
+	  on usecase_ref 129026 // Dialoguer avec le minuteur
+      end
+    end
+
+    usecase 128770 "Gérer l'alarme sonore"
+      
+      usecasediagramsettings end
+      
+      sequencediagramsettings end
+      
+      collaborationdiagramsettings end
+      
+      classdiagramsettings member_max_width 0 end
+      
+      classcompositediagramsettings end
+      
+      objectdiagramsettings end
+      
+      objectcompositediagramsettings end
+      
+      statediagramsettings
+       end
+      
+      activitydiagramsettings
+       end
+      simplerelation 128514
+	-_->
+	  stereotype "extend"
+	  on usecase_ref 128002 // Configurer le minuteur
+      end
+    end
+
+    usecase 128898 "Configurer les minuteries"
+      
+      usecasediagramsettings end
+      
+      sequencediagramsettings end
+      
+      collaborationdiagramsettings end
+      
+      classdiagramsettings member_max_width 0 end
+      
+      classcompositediagramsettings end
+      
+      objectdiagramsettings end
+      
+      objectcompositediagramsettings end
+      
+      statediagramsettings
+       end
+      
+      activitydiagramsettings
+       end
+      simplerelation 128642
+	-_->
+	  stereotype "extend"
+	  on usecase_ref 128002 // Configurer le minuteur
+      end
+    end
+
+    usecase 129026 "Dialoguer avec le minuteur"
+      
+      usecasediagramsettings end
+      
+      sequencediagramsettings end
+      
+      collaborationdiagramsettings end
+      
+      classdiagramsettings member_max_width 0 end
+      
+      classcompositediagramsettings end
+      
+      objectdiagramsettings end
+      
+      objectcompositediagramsettings end
+      
+      statediagramsettings
+       end
+      
+      activitydiagramsettings
+       end
+    end
+  end
+
+  deploymentview 128023 "Vue de déploiement"
+    //deployment diagram settings
+    deploymentdiagramsettings
+     end
+    deploymentdiagram 128023 "Diagramme de déploiement"
+      deploymentdiagramsettings
+       end
+      size A0
+    end
+
+    deploymentnode 128023 "Minuteur"
+    end
+
+    deploymentnode 128151 "Tablette"
+    end
+
+    artifact 128023 "Pomodoro"
+      stereotype "Application Android"
+      associated_artifacts
+      end
+      simplerelation 128023
+	-_->
+	  on artifact_ref 128151 // pomodoro.db
+      end
+    end
+
+    artifact 128151 "pomodoro.db"
+      stereotype "SQLite"
+      associated_artifacts
+      end
+    end
+  end
+preserve_bodies
+
+end

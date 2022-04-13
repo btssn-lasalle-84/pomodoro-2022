@@ -1,0 +1,12 @@
+window_sizes 3840 2032 900 2934 1721 224
+cleanlooks_style
+show_stereotypes
+open
+  state_ref 128023 // pomodoro
+  classview_ref 128002 // Vue de Classe
+  usecase_ref 128130 // Editer une tâche
+  usecase_ref 128514 // Enregistrer le suivi
+  usecase_ref 128642 // Gérer un pomodoro
+  deploymentview_ref 128023 // Vue de déploiement
+end
+end
