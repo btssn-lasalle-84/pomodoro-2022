@@ -1,0 +1,133 @@
+format 224
+
+statecanvas 128023 state_ref 128151 // En attente
+  
+  xyzwh 348 162 2000 163 65
+end
+statecanvas 128151 state_ref 128279 // En cours
+  
+  xyzwh 357 447 2000 145 65
+end
+statecanvas 128279 state_ref 128407 // En courte pause
+  
+  xyzwh 697 447 2000 249 65
+end
+statecanvas 128407 state_ref 128535 // En longue pause
+  
+  xyzwh 1120 447 2000 255 65
+end
+statecanvas 128535 state_ref 128663 // Terminé
+  
+  xyzwh 364 700 2000 133 65
+end
+statecanvas 128663 state_ref 128791 // Fin pause courte
+  
+  xyzwh 693 700 2005 257 65
+end
+statecanvas 128791 state_ref 128919 // Fin pause longue
+  
+  xyzwh 1117 700 2000 261 65
+end
+pseudostatecanvas 128919 pseudostate_ref 128023 // initial 
+   xyz 420 5 2000
+end
+pseudostatecanvas 129431 pseudostate_ref 128151 // choice autoPause
+   xyz 417 907 2000
+end
+pseudostatecanvas 130071 pseudostate_ref 128279 // choice autoPomodoro
+   xyz 809 907 2000
+end
+textcanvas 132631 "autoPause ?"
+  xyzwh 446 937 2000 164 30
+textcanvas 132759 "autoPomodoro ?"
+  xyzwh 723 945 2000 216 30
+transitioncanvas 129047 transition_ref 128023 // connexion
+  
+  from ref 128919 z 2001 label "connexion" xyz 363 77 3000 to ref 128023
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 129175 transition_ref 128151 // Trame #T& ou Bouton START
+  
+  from ref 128023 z 2001 label "Trame #T& ou Bouton START" xyz 236 321 3000 to ref 128151
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 129303 transition_ref 128279 // Trame #S ou Bouton STOP ou fin durée pomodoro
+  
+  from ref 128151 z 2001 label "Trame #S ou Bouton STOP ou fin durée pomodoro" xyz 101 590 3000 to ref 128535
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 129559 transition_ref 128407 // <transition>
+  
+  from ref 128535 z 2001 to ref 129431
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 129687 transition_ref 128535 // <transition>
+  
+  from ref 129431 z 2001 to point 477 920
+  line 130711 z 2001 to point 640 561
+  line 133399 z 2001 to ref 128279
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 129815 transition_ref 128663 // Trame #R;C
+  
+  from ref 128023 z 2001 label "Trame #R;C" xyz 735.5 393 3000 to point 818 336
+  line 130583 z 2001 to ref 128279
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 129943 transition_ref 128791 // Trame #S ou Bouton STOP ou fin durée pause courte
+  
+  from ref 128279 z 2006 label "Trame #S ou Bouton STOP ou fin durée pause courte" xyz 475 642 3000 to ref 128663
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 130199 transition_ref 128919 // <transition>
+  
+  from ref 128663 z 2006 to ref 130071
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 130327 transition_ref 129047 // <transition>
+  
+  from ref 130071 z 2001 to point 761 924
+  line 132119 z 2001 to ref 128151
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 130455 transition_ref 129175 // <transition>
+  
+  from ref 130071 z 2001 to point 992 924
+  line 131863 z 2001 to point 994 334
+  line 131991 z 2001 to ref 128023
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 130967 transition_ref 129303 // Trame #S ou Bouton STOP ou fin durée pause longue
+  
+  from ref 128407 z 2001 label "Trame #S ou Bouton STOP ou fin durée pause longue" xyz 897 590 3000 to ref 128791
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 131095 transition_ref 129431 // Trame #R;L
+  
+  from ref 128023 z 2001 label "Trame #R;L" xyz 1158.5 396.5 3000 to point 1243 328
+  line 131223 z 2001 to ref 128407
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 131479 transition_ref 129559 // <transition>
+  
+  from ref 128791 z 2001 to point 1607 730
+  line 131607 z 2001 to point 1606 194
+  line 131735 z 2001 to ref 128023
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 132247 transition_ref 129687 // <transition>
+  
+  from ref 129431 z 2001 to point 33 922
+  line 132375 z 2001 to point 36 190
+  line 132503 z 2001 to ref 128023
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 132887 transition_ref 129815 // <transition>
+  
+  from ref 129431 z 2001 to point 427 994
+  line 133015 z 2001 to point 1062 993
+  line 133143 z 2001 to point 1088 561
+  line 133271 z 2001 to ref 128407
+  write_horizontally default show_definition default drawing_language default
+end
+end
