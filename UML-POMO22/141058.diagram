@@ -2,73 +2,58 @@ format 224
 
 classcanvas 128002 class_ref 128002 // Utilisateur
   simpleclassdiagramsettings end
-  xyz 72.1 255.8 2000
+  xyz 17.9 280.5 2000
 end
 usecasecanvas 128130 usecase_ref 128002 // Configurer le minuteur
-  xyzwh 227 186 3005 64 32 label_xy 186 219
+  xyzwh 377.7 436.3 3005 64 32 label_xy 271 402
 end
 usecasecanvas 129026 usecase_ref 128130 // Editer une tâche
-  xyzwh 248 78 3013 64 32 label_xy 227 110
+  xyzwh 193.5 45 3013 64 32 label_xy 133 17
 end
 usecasecanvas 129154 usecase_ref 128258 // Sélectionner un mode
-  xyzwh 220 372 3005 64 32 label_xy 181 403
+  xyzwh 350.7 654.7 3005 64 32 label_xy 252 688
 end
-usecasecanvas 129282 usecase_ref 128386 // Visualiser un Evenement
-  xyzwh 271 483 3005 64 32 label_xy 222 514
+usecasecanvas 130306 usecase_ref 128514 // Enregistrer le suivi
+  xyzwh 591.9 91.5 3005 64 32 label_xy 516 57
 end
-usecasecanvas 130306 usecase_ref 128514 // Enregistrer le Suivi
-  xyzwh 524 72 3005 64 32 label_xy 495 103
-end
-usecasecanvas 130562 usecase_ref 128642 // Démarrer un Pomodoro
-  xyzwh 464 161 3005 64 32 label_xy 419 192
+usecasecanvas 130562 usecase_ref 128642 // Gérer un pomodoro
+  xyzwh 377.7 186.6 3005 64 32 label_xy 292 226
 end
 usecasecanvas 131074 usecase_ref 128770 // Gérer l'alarme sonore
-  xyzwh 354 350 3005 64 32 label_xy 317 381
+  xyzwh 602.3 600.2 3005 64 32 label_xy 507 634
 end
 usecasecanvas 131202 usecase_ref 128898 // Configurer les minuteries
-  xyzwh 456 297 3005 64 32 label_xy 407 329
+  xyzwh 757.6 514.3 3005 64 32 label_xy 662 552
 end
 usecasecanvas 132098 usecase_ref 129026 // Dialoguer avec le minuteur
-  xyzwh 650 288 3005 64 32 label_xy 595 320
+  xyzwh 913.1 338 3005 64 32 label_xy 794 376
 end
-line 129666 ----
-  from ref 128002 z 3014 to point 159 121
-  line 129794 z 3014 to ref 129026
-line 130050 ---- decenter_end 551
-  from ref 128002 z 3006 to point 157 434
-  line 130178 z 3006 to ref 129282
-simplerelationcanvas 130434 simplerelation_ref 128002
-  decenter_end 620
-  from ref 130306 z 3014 stereotype "<<extend>>" xyz 378 91 3014 to ref 129026
+line 128023 ----
+  from ref 128002 z 3006 to point 211 213.7
+  line 128791 z 3006 to ref 130562
+simplerelationcanvas 128279 simplerelation_ref 134679
+  from ref 130306 z 3006 stereotype "<<extend>>" xyz 446 136 3000 to ref 130562
 end
-simplerelationcanvas 130690 simplerelation_ref 128130
-  decenter_begin 293
-  from ref 130562 z 3014 stereotype "<<extend>>" xyz 370 150 3014 to point 356 130
-  line 130818 z 3014 to ref 129026
-end
+line 128407 ----
+  from ref 128002 z 3014 to ref 129026
 simplerelationcanvas 131586 simplerelation_ref 128386
-  from ref 129154 z 3006 stereotype "<<extend>>" xyz 214 293 3000 to ref 128130
+  from ref 129154 z 3006 stereotype "<<extend>>" xyz 355 559.5 3000 to ref 128130
 end
 simplerelationcanvas 131842 simplerelation_ref 128514
-  from ref 131074 z 3006 stereotype "<<extend>>" xyz 283 281 3000 to ref 128130
+  from ref 131074 z 3006 stereotype "<<extend>>" xyz 484.5 531 3000 to ref 128130
 end
 simplerelationcanvas 131970 simplerelation_ref 128642
-  from ref 131202 z 3006 stereotype "<<extend>>" xyz 332 254 3000 to ref 128130
+  from ref 131202 z 3006 stereotype "<<extend>>" xyz 558.5 488.5 3000 to ref 128130
 end
 simplerelationcanvas 132226 simplerelation_ref 128770
-  from ref 128130 z 3006 stereotype "<<include>>" xyz 429 251 3000 to ref 132098
+  from ref 128130 z 3006 to point 719 444
+  line 129431 z 3006 stereotype "<<include>>" xyz 644 434.5 3000 to ref 132098
 end
 simplerelationcanvas 132354 simplerelation_ref 128898
-  from ref 130562 z 3006 stereotype "<<include>>" xyz 547 237 3000 to ref 132098
-end
-simplerelationcanvas 132482 simplerelation_ref 129026
-  from ref 130306 z 3006 stereotype "<<extend>>" xyz 577 193 3000 to ref 132098
-end
-simplerelationcanvas 132738 simplerelation_ref 129154
-  from ref 129282 z 3006 stereotype "<<extend>>" xyz 399 438 3000 to point 540 393
-  line 133122 z 3006 to ref 132098
+  from ref 130562 z 3006 to point 693.5 229.3
+  line 129303 z 3006 stereotype "<<include>>" xyz 615.5 220 3000 to ref 132098
 end
 line 132866 ----
-  from ref 128002 z 3006 to point 196 198
-  line 132994 z 3006 to ref 128130
+  from ref 128002 z 3006 to point 192.5 428
+  line 128663 z 3006 to ref 128130
 end

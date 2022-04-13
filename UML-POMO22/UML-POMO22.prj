@@ -1,6 +1,6 @@
 format 224
 "UML-POMO22"
-  revision 7
+  revision 8
   modified_by 23 "tv"
 
 
@@ -307,7 +307,7 @@ ${members}}
      end
     usecasediagram 141058 "Diagramme de Cas d'Utilisation"
       usecasediagramsettings draw_all_relations no end
-      size A4
+      size A0
     end
 
     usecase 128002 "Configurer le minuteur"
@@ -394,7 +394,7 @@ ${members}}
       end
     end
 
-    usecase 128386 "Visualiser un Evenement"
+    usecase 128386 "Visualiser un évènement"
       
       usecasediagramsettings end
       
@@ -417,12 +417,12 @@ ${members}}
        end
       simplerelation 129154
 	-_->
-	  stereotype "extend"
+	  stereotype "include"
 	  on usecase_ref 129026 // Dialoguer avec le minuteur
       end
     end
 
-    usecase 128514 "Enregistrer le Suivi"
+    usecase 128514 "Enregistrer le suivi"
       
       usecasediagramsettings end
       
@@ -443,20 +443,14 @@ ${members}}
       
       activitydiagramsettings
        end
-      simplerelation 128002
+      simplerelation 134679
 	-_->
 	  stereotype "extend"
-	  on usecase_ref 128130 // Editer une tâche
-      end
-
-      simplerelation 129026
-	-_->
-	  stereotype "extend"
-	  on usecase_ref 129026 // Dialoguer avec le minuteur
+	  on usecase_ref 128642 // Gérer un pomodoro
       end
     end
 
-    usecase 128642 "Démarrer un Pomodoro"
+    usecase 128642 "Gérer un pomodoro"
       
       usecasediagramsettings end
       
@@ -477,12 +471,6 @@ ${members}}
       
       activitydiagramsettings
        end
-      simplerelation 128130
-	-_->
-	  stereotype "extend"
-	  on usecase_ref 128130 // Editer une tâche
-      end
-
       simplerelation 128898
 	-_->
 	  stereotype "include"
