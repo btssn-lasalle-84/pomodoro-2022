@@ -1,6 +1,6 @@
 format 224
 "UML-POMO22"
-  revision 6
+  revision 7
   modified_by 23 "tv"
 
 
@@ -109,6 +109,110 @@ format 224
         end
       relations
         end
+    end
+
+    state 128023 "pomodoro"
+      stereotype "machine"
+      statediagram 134551 "Diagramme d'états"
+	statediagramsettings
+	 end
+	size A0
+      end
+
+      state 128151 "En attente"
+	transition 128151 "Trame #T& ou Bouton START"
+	  on state_ref 128279 // En cours
+	  external 
+	end
+
+	transition 128663 "Trame #R;C"
+	  on state_ref 128407 // En courte pause
+	  external 
+	end
+
+	transition 129431 "Trame #R;L"
+	  on state_ref 128535 // En longue pause
+	  external 
+	end
+      end
+
+      state 128279 "En cours"
+	transition 128279 "Trame #S ou Bouton STOP ou fin durée pomodoro"
+	  on state_ref 128663 // Terminé
+	  external 
+	end
+      end
+
+      state 128407 "En courte pause"
+	transition 128791 "Trame #S ou Bouton STOP ou fin durée pause courte"
+	  on state_ref 128791 // Fin pause courte
+	  external 
+	end
+      end
+
+      state 128535 "En longue pause"
+	transition 129303 "Trame #S ou Bouton STOP ou fin durée pause longue"
+	  on state_ref 128919 // Fin pause longue
+	  external 
+	end
+      end
+
+      state 128663 "Terminé"
+	transition 128407 "<transition>"
+	  on pseudostate_ref 128151 // choice autoPause
+	  external 
+	end
+      end
+
+      state 128791 "Fin pause courte"
+	transition 128919 "<transition>"
+	  on pseudostate_ref 128279 // choice autoPomodoro
+	  external 
+	end
+      end
+
+      state 128919 "Fin pause longue"
+	transition 129559 "<transition>"
+	  on state_ref 128151 // En attente
+	  external 
+	end
+      end
+
+      pseudostate 128023 initial ""
+	transition 128023 "connexion"
+	  on state_ref 128151 // En attente
+	  external 
+	end
+      end
+
+      pseudostate 128151 choice "autoPause"
+	transition 128535 "<transition>"
+	  on state_ref 128407 // En courte pause
+	  external 
+	end
+
+	transition 129687 "<transition>"
+	  on state_ref 128151 // En attente
+	  external 
+	end
+
+	transition 129815 "<transition>"
+	  on state_ref 128535 // En longue pause
+	  external 
+	end
+      end
+
+      pseudostate 128279 choice "autoPomodoro"
+	transition 129047 "<transition>"
+	  on state_ref 128279 // En cours
+	  external 
+	end
+
+	transition 129175 "<transition>"
+	  on state_ref 128151 // En attente
+	  external 
+	end
+      end
     end
   end
 

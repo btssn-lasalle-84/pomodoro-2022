@@ -1,0 +1,15 @@
+window_sizes 3840 2032 900 2934 1721 224
+cleanlooks_style
+diagrams
+  active  statediagram_ref 134551 // Diagramme d'états
+    2934 1721 100 A0 0 0
+end
+show_stereotypes
+selected statediagram_ref 134551 // Diagramme d'états
+open
+  state_ref 128023 // pomodoro
+  classview_ref 128002 // Vue de Classe
+  usecaseview_ref 134530 // Vue des Cas d'Utilisation
+  deploymentview_ref 128023 // Vue de déploiement
+end
+end
