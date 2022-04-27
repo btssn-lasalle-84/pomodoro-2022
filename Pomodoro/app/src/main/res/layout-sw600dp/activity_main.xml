@@ -7,7 +7,6 @@
     android:screenOrientation="landscape"
     android:textAlignment="center"
     android:visibility="visible"
-
     tools:context=".PomodoroActivity">
 
     <ImageView
@@ -27,6 +26,9 @@
         android:layout_width="266dp"
         android:layout_height="374dp"
         android:clickable="false"
+        android:indeterminate="false"
+        android:indeterminateBehavior="cycle"
+        android:progressTint="@color/Rouge"
         app:layout_constraintBottom_toBottomOf="@+id/boutonDemarrer"
         app:layout_constraintEnd_toEndOf="@+id/boutonDemarrer"
         app:layout_constraintStart_toStartOf="@+id/boutonDemarrer"
@@ -42,8 +44,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/logoPomoConnect"
-        app:layout_constraintVertical_bias="0.487"
-        />
+        app:layout_constraintVertical_bias="0.487" />
 
     <Button
         android:id="@+id/boutonSupprimerTache"

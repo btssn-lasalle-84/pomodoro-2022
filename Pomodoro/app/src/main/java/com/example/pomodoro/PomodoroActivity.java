@@ -8,10 +8,18 @@ package com.example.pomodoro;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
+
+import com.google.android.gms.common.internal.Objects;
+
+import java.time.Instant;
 
 import java.util.Vector;
 
@@ -25,6 +33,7 @@ public class PomodoroActivity extends AppCompatActivity {
      * Constantes
      */
     private static final String TAG = "_PomodoroActivity";  //!< TAG pour les logs
+    private final static int REQUEST_CODE_ENABLE_BLUETOOTH = 0;
 
     /**
      * Attributs
@@ -59,6 +68,48 @@ public class PomodoroActivity extends AppCompatActivity {
         Vector<String> nomColonnes = baseDeDonnees.getNomColonnes();
 
         initialiserIHM();
+
+        /**
+         * @brief Vérification du fonctionnement du bluetooth
+         */
+        BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        if (bluetoothAdapter == null)
+        {
+            Toast.makeText(getApplicationContext(), "Bluetooth non activé", Toast.LENGTH_SHORT).show();
+        }
+        else
+        {
+            if(!bluetoothAdapter.isEnabled())
+            {
+                Toast.makeText(getApplicationContext(), "Bluetooth non activé", Toast.LENGTH_SHORT).show();
+                //Possibilité 1 :
+                //Intent activeBluetooth = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+                //startActivityForResult(activeBlueTooth, REQUEST_CODE_ENABLE_BLUETOOTH);
+                //Possibilité 2 :
+                bluetoothAdapter.enable();
+            }
+            else
+            {
+                Toast.makeText(getApplicationContext(), "Bluetooth activé", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    //Possibilité 1 :
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode != REQUEST_CODE_ENABLE_BLUETOOTH)
+            return;
+        if(resultCode == RESULT_OK)
+        {
+            Toast.makeText(getApplicationContext(), "Bluetooth activé", Toast.LENGTH_SHORT).show();
+        }
+        else
+        {
+            Toast.makeText(getApplicationContext(), "Bluetooth non activé", Toast.LENGTH_SHORT).show();
+        }
     }
 
     /**

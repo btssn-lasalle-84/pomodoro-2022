@@ -1,8 +1,8 @@
 package com.example.pomodoro;
 
 /**
- * @file PomodoroActivity.java
- * @brief Déclaration de la classe PomodoroActivity
+ * @file Tache.java
+ * @brief Déclaration de la classe Tache
  * @author Teddy ESTABLET
  */
 
@@ -25,7 +25,6 @@ public class Tache
     /**
      * Attributs
      */
-    //private String _idTache = "#Tache1"; //!< ???
     private String nom = "Tache"; //!< Le nom de la tâche
     private CouleurTache couleurTache = CouleurTache.Rouge; //!< La couleur par défaut
     private int tempsTache = 25; //!< Valeur exprimée en minutes | ne peux pas être plus grand que 50
