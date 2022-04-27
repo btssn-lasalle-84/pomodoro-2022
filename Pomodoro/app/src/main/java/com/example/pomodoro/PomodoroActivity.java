@@ -13,6 +13,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import java.util.Vector;
+
 /**
  * @class PomodoroActivity
  * @brief L'activité principale de l'application Pomodoro
@@ -23,6 +25,11 @@ public class PomodoroActivity extends AppCompatActivity {
      * Constantes
      */
     private static final String TAG = "_PomodoroActivity";  //!< TAG pour les logs
+
+    /**
+     * Attributs
+     */
+    private BaseDeDonnees baseDeDonnees = null;
 
     /**
      * Ressources IHM
@@ -46,6 +53,11 @@ public class PomodoroActivity extends AppCompatActivity {
         Log.d(TAG, "onCreate()");
 
         tache = new Tache();
+
+        baseDeDonnees = new BaseDeDonnees(this);
+        // Test BDD
+        Vector<String> nomColonnes = baseDeDonnees.getNomColonnes();
+
         initialiserIHM();
     }
 
