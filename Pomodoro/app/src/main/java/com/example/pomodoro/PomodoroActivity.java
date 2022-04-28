@@ -177,7 +177,7 @@ public class PomodoroActivity extends AppCompatActivity
         }
         else
         {
-            demanderPermissions(Manifest.permission.ACCESS_FINE_LOCATION, CODE_DEMANDE_ACCESS_FINE_LOCATION);
+            //demanderPermissions(Manifest.permission.ACCESS_FINE_LOCATION, CODE_DEMANDE_ACCESS_FINE_LOCATION);
             IntentFilter filter1 = new IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED);
             filter1.addAction(BluetoothDevice.ACTION_ACL_DISCONNECTED);
             filter1.addAction(BluetoothDevice.ACTION_BOND_STATE_CHANGED);
@@ -191,7 +191,7 @@ public class PomodoroActivity extends AppCompatActivity
             if(!bluetooth.isEnabled())
             {
                 Toast.makeText(getApplicationContext(), "Bluetooth non activé", Toast.LENGTH_SHORT).show();
-                demanderPermissions(Manifest.permission.BLUETOOTH_CONNECT, CODE_DEMANDE_BLUETOOTH_CONNECT);
+                //demanderPermissions(Manifest.permission.BLUETOOTH_CONNECT, CODE_DEMANDE_BLUETOOTH_CONNECT);
                 bluetooth.enable();
             }
             else
@@ -210,6 +210,7 @@ public class PomodoroActivity extends AppCompatActivity
     {
         Set<BluetoothDevice> devices;
 
+        Log.d(TAG,"[chercherMinuteur] liste des périphériques Bluetooth appairés");
         devices = bluetooth.getBondedDevices();
         for(BluetoothDevice device : devices)
         {
@@ -384,7 +385,7 @@ public class PomodoroActivity extends AppCompatActivity
                 else if(BluetoothDevice.ACTION_FOUND.equals(action))
                 {
                     BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-                    demanderPermissions(Manifest.permission.BLUETOOTH_CONNECT, CODE_DEMANDE_BLUETOOTH_CONNECT);
+                    //demanderPermissions(Manifest.permission.BLUETOOTH_CONNECT, CODE_DEMANDE_BLUETOOTH_CONNECT);
                     Log.d(TAG, "[detectionPeripherique] périphérique détecté : " + device.getName() + " [" + device.getAddress() + "]");
                 }
             }
