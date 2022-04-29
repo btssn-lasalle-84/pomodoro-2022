@@ -71,34 +71,36 @@
         app:layout_constraintTop_toBottomOf="@+id/logoPomoConnect" />
 
     <Button
-        android:id="@+id/menu"
+        android:id="@+id/boutonMenu"
         android:layout_width="195dp"
         android:layout_height="125dp"
         android:layout_marginStart="30dp"
-        android:text="@string/Menu"
+        android:text="@string/boutonMenu"
+        app:layout_constraintBottom_toBottomOf="@+id/boutonSynchroniser"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.012"
         app:layout_constraintStart_toEndOf="@+id/progressBar"
         app:layout_constraintTop_toTopOf="@+id/progressBar" />
 
     <Button
-        android:id="@+id/seConnecterAuModule"
+        android:id="@+id/boutonSeConnecterAuPomodoro"
         android:layout_width="194dp"
         android:layout_height="123dp"
         android:layout_marginStart="30dp"
-        android:text="@string/ConnexionMicroControleur"
+        android:text="@string/boutonSeConnecterAuPomodoro"
         android:textAlignment="center"
         app:layout_constraintBottom_toTopOf="@+id/synchroniser"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.012"
-        app:layout_constraintStart_toEndOf="@+id/progressBar" />
+        app:layout_constraintStart_toEndOf="@+id/progressBar"
+        app:layout_constraintTop_toTopOf="@+id/progressBar" />
 
     <Button
-        android:id="@+id/synchroniser"
+        android:id="@+id/boutonSynchroniser"
         android:layout_width="194dp"
         android:layout_height="123dp"
         android:layout_marginStart="30dp"
-        android:text="@string/SynchronisationMicroControleur"
+        android:text="@string/boutonSynchroniserPomodoro"
         app:layout_constraintBottom_toBottomOf="@+id/progressBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.012"

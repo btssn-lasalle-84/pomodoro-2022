@@ -3,7 +3,7 @@
     <string name="DemarrerPause">Démarrer / Pause</string>
     <string name="SupprimerTache">Supprimer</string>
     <string name="EditerTache">Editer</string>
-    <string name="Menu">Menu</string>
-    <string name="ConnexionMicroControleur">Se connecter au micro-controleur</string>
-    <string name="SynchronisationMicroControleur">Synchroniser le micro-controleur</string>
+    <string name="boutonMenu">Menu</string>
+    <string name="boutonSeConnecterAuPomodoro">Se connecter au pomodoro</string>
+    <string name="boutonSynchroniserPomodoro">Synchroniser le pomodoro</string>
 </resources>
