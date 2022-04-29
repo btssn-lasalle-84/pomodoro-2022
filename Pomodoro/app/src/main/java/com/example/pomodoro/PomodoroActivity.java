@@ -45,6 +45,7 @@ public class PomodoroActivity extends AppCompatActivity
     private final static int CODE_DEMANDE_ENABLE_BLUETOOTH = 0;
     private final static int CODE_DEMANDE_BLUETOOTH_CONNECT = 1;
     private final static int CODE_DEMANDE_ACCESS_FINE_LOCATION = 2;
+    private static final String NOM_MINUTEUR = "pomodoro-1";
 
     /**
      * Attributs
@@ -221,6 +222,7 @@ public class PomodoroActivity extends AppCompatActivity
             /**
              * @todo vérifier si le minuteur pomodoro est dans la liste
              */
+
         }
 
         // sinon :
