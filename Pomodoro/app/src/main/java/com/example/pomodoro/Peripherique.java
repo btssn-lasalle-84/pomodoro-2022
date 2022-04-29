@@ -66,6 +66,6 @@ public class Peripherique extends Thread
             socket = null;
         }
         if(socket != null)
-            tReception = new TReception(handler, receiveStream);
+            tReception = new TReception(handler, receiveStream, sendStreal);
     }
 }
