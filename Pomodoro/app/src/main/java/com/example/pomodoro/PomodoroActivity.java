@@ -6,6 +6,7 @@ package com.example.pomodoro;
  * @author Teddy ESTABLET
  */
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
@@ -19,6 +20,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -52,7 +55,9 @@ public class PomodoroActivity extends AppCompatActivity
      */
     private BluetoothAdapter bluetooth = null;  //!< L'adaptateur Bluetooth de la tablette
     private BaseDeDonnees baseDeDonnees = null;
-    Tache tache; //!< une tâche
+    private Tache tache; //!< une tâche
+    private Peripherique peripherique = null;
+    private Handler handler = null;
 
     /**
      * Ressources IHM
@@ -77,9 +82,10 @@ public class PomodoroActivity extends AppCompatActivity
         // Test BDD
         Vector<String> nomColonnes = baseDeDonnees.getNomColonnes();
 
+        initialiserHandler();
         initialiserBluetooth();
-
         initialiserIHM();
+        initialiserPeripherique();
     }
 
     /**
@@ -120,6 +126,7 @@ public class PomodoroActivity extends AppCompatActivity
     {
         super.onStop();
         Log.d(TAG, "onStop()");
+        peripherique.deconnecter();
     }
 
     /**
@@ -398,4 +405,48 @@ public class PomodoroActivity extends AppCompatActivity
 
         return receiverDetectionBluetooth;
     };
+
+    private void initialiserPeripherique()
+    {
+        Log.d(TAG,"initialiserPeripherique()");
+        peripherique = new Peripherique(handler);
+        if(peripherique.rechercherPomodoro("pomodoro-1"))
+        {
+            peripherique.connecter();
+        }
+    }
+
+    private void initialiserHandler()
+    {
+        this.handler = new Handler(this.getMainLooper())
+        {
+            @Override
+            public void handleMessage(@NonNull Message message)
+            {
+                Log.d(TAG, "[Handler] id du message = " + message.what);
+                Log.d(TAG, "[Handler] contenu du message = " + message.obj.toString());
+
+                switch (message.what)
+                {
+                    case Peripherique.CODE_CREATION:
+                        Log.d(TAG, "[Handler] CREATION = " + message.obj.toString());
+                        break;
+                    case Peripherique.CODE_CONNEXION:
+                        Log.d(TAG, "[Handler] CODE_CONNEXION = " + message.obj.toString());
+                        // Pour le test
+                        peripherique.envoyer("#P&25&5&15&4&0&0&0\r\n");
+                        break;
+                    case Peripherique.CODE_DECONNEXION:
+                        Log.d(TAG, "[Handler] DECONNEXION = " + message.obj.toString());
+                        break;
+                    case Peripherique.CODE_RECEPTION:
+                        Log.d(TAG, "[Handler] RECEPTION = " + message.obj.toString());
+                        /**
+                         * @todo Traiter les trames reçues
+                         */
+                        break;
+                }
+            }
+        };
+    }
 }

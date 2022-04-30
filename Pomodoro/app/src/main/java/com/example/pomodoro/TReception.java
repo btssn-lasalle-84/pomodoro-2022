@@ -32,11 +32,10 @@ public class TReception extends Thread
     Handler handler;
     Socket socket;
     InputStream receiveStream;
-    OutputStream sendStream;
     Thread tReception;
     private boolean fini;
 
-    TReception(Handler h, InputStream receiveStream, OutputStream sendStreal)
+    TReception(Handler h, InputStream receiveStream)
     {
         this.handlerUI = h;
         this.receiveStream = receiveStream;
@@ -95,93 +94,5 @@ public class TReception extends Thread
         {
             e.printStackTrace();
         }
-    }
-
-    public void connecter()
-    {
-        new Thread()
-        {
-            @Override
-            public void run()
-            {
-                try
-                {
-                    // @todo à modifier
-                    socket.connect();
-
-                    Message msg = Message.obtain();
-                    msg.arg1 = Peripherique.CODE_CONNEXION;
-                    handler.sendMessage(msg);
-
-                    tReception.start();
-
-                }
-                catch(IOException e)
-                {
-                    System.out.println("<Socket> erreur de connection");
-                    e.printStackTrace();
-                }
-            }
-        }.start();
-    }
-    public boolean deconnecter()
-    {
-        try
-        {
-            // @todo à modifier
-            tReception.arreter();
-            socket.close();
-            return true;
-        }
-        catch(IOException e)
-        {
-            System.out.println("<Socket> erreur de fermeture");
-            e.printStackTrace();
-            return false;
-        }
-    }
-    public void envoyer(String data)
-    {
-        if(socket == null)
-            return;
-        new Thread()
-        {
-            @Override
-            public void run()
-            {
-                try
-                {
-                    if(socket.isConnected())
-                    {
-                        sendStream.write(data.getBytes());
-                        sendStream.flush();
-                    }
-                }
-                catch(IOException e)
-                {
-                    System.out.println("<Socket> erreur d'envoi");
-                    e.printStackTrace();
-                }
-            }
-        }.start();
-    }
-    // @todo à retravailler
-    public void onClick(View v)
-    {
-        if(v.getId() == R.id.buttonConnecter)
-        {
-            peripherique.connecter();
-        }
-
-        if(v.getId() == R.id.buttonDeconnecter)
-        {
-            if(peripherique.deconnecter())
-            {
-                btnConnecter.setEnabled(true);
-                btnDeconnecter.setEnabled(false);
-            }
-        }
-
-        gererBoutons(v);
     }
 }
