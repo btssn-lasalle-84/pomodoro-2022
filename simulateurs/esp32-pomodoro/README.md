@@ -123,16 +123,14 @@ Pour l'instant, le simulateur ne fonctionne qu'en mode `Minuteur`.
 ## platform.ini
 
 ```ini
-[env:m5stack-core-esp32]
+[env:lolin32]
 platform = espressif32
-board = m5stack-core-esp32
-board_build.partitions = no_ota.csv
+board = lolin32
 framework = arduino
 lib_deps =
-  # M5Stack
-  1851
-build_flags=-std=gnu++11
+  thingpulse/ESP8266 and ESP32 OLED driver for SSD1306 displays @ ^4.2.0
 upload_port = /dev/ttyUSB0
+upload_speed = 115200
 monitor_port = /dev/ttyUSB0
 monitor_speed = 115200
 ```
