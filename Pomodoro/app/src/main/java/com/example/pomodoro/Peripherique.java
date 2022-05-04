@@ -6,17 +6,22 @@ package com.example.pomodoro;
  * @author Teddy ESTABLET
  */
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
+import android.content.pm.PackageManager;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
+import androidx.core.app.ActivityCompat;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.Socket;
 import java.util.Set;
 import java.util.UUID;
 
@@ -57,9 +62,9 @@ public class Peripherique extends Thread
     private void activerBluetooth()
     {
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-        if (!bluetoothAdapter.isEnabled())
+        if(!bluetoothAdapter.isEnabled())
         {
-            Log.d(TAG,"Activation bluetooth");
+            Log.d(TAG, "Activation bluetooth");
             bluetoothAdapter.enable();
         }
     }
@@ -69,17 +74,17 @@ public class Peripherique extends Thread
     {
         Set<BluetoothDevice> appareilsAppaires = bluetoothAdapter.getBondedDevices();
 
-        Log.d(TAG,"Recherche bluetooth : " + idPomodoro);
-        for (BluetoothDevice appareil : appareilsAppaires)
+        Log.d(TAG, "Recherche bluetooth : " + idPomodoro);
+        for(BluetoothDevice appareil : appareilsAppaires)
         {
-            Log.d(TAG,"Nom : " + appareil.getName() + " | Adresse : " + appareil.getAddress());
-            if (appareil.getName().equals(idPomodoro) || appareil.getAddress().equals(idPomodoro))
+            Log.d(TAG, "Nom : " + appareil.getName() + " | Adresse : " + appareil.getAddress());
+            if(appareil.getName().equals(idPomodoro) || appareil.getAddress().equals(idPomodoro))
             {
                 device = appareil;
                 this.nom = device.getName();
                 this.adresse = device.getAddress();
                 creerSocket();
-                return true; // trouvé !
+                return true; // Trouvé !
             }
         }
 
@@ -89,7 +94,7 @@ public class Peripherique extends Thread
     @SuppressLint("MissingPermission")
     private void creerSocket()
     {
-        if (device == null)
+        if(device == null)
             return;
         try
         {
@@ -98,14 +103,14 @@ public class Peripherique extends Thread
             receiveStream = socket.getInputStream();
             sendStream = socket.getOutputStream();
         }
-        catch (IOException e)
+        catch(IOException e)
         {
             e.printStackTrace();
             Log.d(TAG, "Erreur création socket !");
             socket = null;
         }
 
-        if (socket != null)
+        if(socket != null)
         {
             tReception = new TReception(handler, receiveStream);
             Message message = new Message();
@@ -137,7 +142,7 @@ public class Peripherique extends Thread
     }
 
     /**
-     * @brief Récuperer l'état de la connexion
+     * @brief Récupérer l'état de la connexion
      */
     public boolean estConnecte()
     {
@@ -152,12 +157,31 @@ public class Peripherique extends Thread
      */
     public void envoyer(String donnees)
     {
+        String data = null;
+
         if(socket == null)
             return;
 
-        /**
-         * @todo Créer le thread pour effectuer l'envoi des données
-         */
+        new Thread()
+        {
+            @Override
+            public void run()
+            {
+                try
+                {
+                    if(socket.isConnected())
+                    {
+                        sendStream.write(data.getBytes());
+                        sendStream.flush();
+                    }
+                }
+                catch(IOException e)
+                {
+                    System.out.println("<Socket> Erreur d'envoi");
+                    e.printStackTrace();
+                }
+            }
+        }.start();
 
     }
 
@@ -166,13 +190,34 @@ public class Peripherique extends Thread
      */
     public void connecter()
     {
-        if (socket == null)
+        if(socket == null)
             return;
 
-        Log.d(TAG,"Connexion du module " + this.nom + " | Adresse : " + this.adresse);
-        /**
-         * @todo Créer le thread pour se connecter
-         */
+        Log.d(TAG, "Connexion du module " + this.nom + " | Adresse : " + this.adresse);
+
+        new Thread()
+        {
+            @SuppressLint("MissingPermission")
+            @Override
+            public void run()
+            {
+                try
+                {
+                    socket.connect();
+
+                    Message msg = Message.obtain();
+                    msg.arg1 = CODE_CONNEXION;
+                    handler.sendMessage(msg);
+
+                    tReception.start();
+                }
+                catch(IOException e)
+                {
+                    System.out.println("<Socket> erreur de connexion");
+                    e.printStackTrace();
+                }
+            }
+        }.start();
 
     }
 
@@ -185,6 +230,5 @@ public class Peripherique extends Thread
             return;
 
         Log.d(TAG,"Déconnexion du module " + this.nom + " | Adresse : " + this.adresse);
-
     }
 }
