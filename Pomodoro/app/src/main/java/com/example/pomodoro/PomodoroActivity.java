@@ -12,6 +12,7 @@ import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.AutomaticZenRule;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
@@ -40,15 +41,16 @@ import java.util.Vector;
  */
 public class PomodoroActivity extends AppCompatActivity
 {
-
     /**
      * Constantes
      */
     private static final String TAG = "_PomodoroActivity";  //!< TAG pour les logs
+    private static final String NOM_MINUTEUR = "pomodoro-1";
+    private static final String ADRESSE_MINUTEUR = "A4:CF:12:6D:F3:6E";
+
     private final static int CODE_DEMANDE_ENABLE_BLUETOOTH = 0;
     private final static int CODE_DEMANDE_BLUETOOTH_CONNECT = 1;
     private final static int CODE_DEMANDE_ACCESS_FINE_LOCATION = 2;
-    private static final String NOM_MINUTEUR = "pomodoro-1";
 
     /**
      * Attributs
@@ -226,10 +228,14 @@ public class PomodoroActivity extends AppCompatActivity
         for(BluetoothDevice device : devices)
         {
             Log.d(TAG,"[chercherMinuteur] device : " + device.getName() + " [" + device.getAddress() + "]");
-            /**
-             * @todo vérifier si le minuteur pomodoro est dans la liste
-             */
 
+            /**
+             * @todo vérifier que pomodoro est dans la liste
+             */
+            if(device.getName() == NOM_MINUTEUR || device.getAddress() == ADRESSE_MINUTEUR)
+            {
+                Log.d(TAG,"[chercherMinuteur] minuteur trouvé !");
+            }
         }
 
         // sinon :
@@ -444,6 +450,7 @@ public class PomodoroActivity extends AppCompatActivity
                         /**
                          * @todo Traiter les trames reçues
                          */
+
                         break;
                 }
             }
