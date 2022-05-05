@@ -81,8 +81,8 @@ public class Peripherique extends Thread
             if(appareil.getName().equals(idPomodoro) || appareil.getAddress().equals(idPomodoro))
             {
                 device = appareil;
-                this.nom = device.getName();
-                this.adresse = device.getAddress();
+                this.nom = appareil.getName();
+                this.adresse = appareil.getAddress();
                 creerSocket();
                 return true; // Trouvé !
             }
@@ -171,7 +171,7 @@ public class Peripherique extends Thread
                 {
                     if(socket.isConnected())
                     {
-                        sendStream.write(data.getBytes());
+                        sendStream.write(donnees.getBytes());
                         sendStream.flush();
                     }
                 }
@@ -205,9 +205,10 @@ public class Peripherique extends Thread
                 {
                     socket.connect();
 
-                    Message msg = Message.obtain();
-                    msg.arg1 = CODE_CONNEXION;
-                    handler.sendMessage(msg);
+                    Message message = new Message();
+                    message.what = CODE_CONNEXION;
+                    message.obj = nom;
+                    handler.sendMessage(message);
 
                     tReception.start();
                 }
@@ -230,5 +231,8 @@ public class Peripherique extends Thread
             return;
 
         Log.d(TAG,"Déconnexion du module " + this.nom + " | Adresse : " + this.adresse);
+        /**
+         * @todo Faire la déconnexion
+         */
     }
 }

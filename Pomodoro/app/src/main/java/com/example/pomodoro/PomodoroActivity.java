@@ -87,7 +87,6 @@ public class PomodoroActivity extends AppCompatActivity
         initialiserHandler();
         initialiserBluetooth();
         initialiserIHM();
-        initialiserPeripherique();
     }
 
     /**
@@ -229,12 +228,11 @@ public class PomodoroActivity extends AppCompatActivity
         {
             Log.d(TAG,"[chercherMinuteur] device : " + device.getName() + " [" + device.getAddress() + "]");
 
-            /**
-             * @todo vérifier que pomodoro est dans la liste
-             */
-            if(device.getName() == NOM_MINUTEUR || device.getAddress() == ADRESSE_MINUTEUR)
+            if(device.getName().equals(NOM_MINUTEUR) || device.getAddress().equals(ADRESSE_MINUTEUR))
             {
                 Log.d(TAG,"[chercherMinuteur] minuteur trouvé !");
+                initialiserPeripherique();
+                return;
             }
         }
 
@@ -416,7 +414,7 @@ public class PomodoroActivity extends AppCompatActivity
     {
         Log.d(TAG,"initialiserPeripherique()");
         peripherique = new Peripherique(handler);
-        if(peripherique.rechercherPomodoro("pomodoro-1"))
+        if(peripherique.rechercherPomodoro(NOM_MINUTEUR))
         {
             peripherique.connecter();
         }
