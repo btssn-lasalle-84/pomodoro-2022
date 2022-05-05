@@ -6,22 +6,18 @@ package com.example.pomodoro;
  * @author Teddy ESTABLET
  */
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
-import android.content.pm.PackageManager;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
-import androidx.core.app.ActivityCompat;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.Socket;
 import java.util.Set;
 import java.util.UUID;
 
@@ -182,7 +178,27 @@ public class Peripherique extends Thread
                 }
             }
         }.start();
+    }
+    public void recevoir(String donnees)
+    {
+        String data = null;
 
+        if(socket == null)
+        {
+            return;
+        }
+
+        new Thread()
+        {
+            @Override
+            public void run()
+            {
+                if(socket.isConnected())
+                {
+
+                }
+            }
+        }.start();
     }
 
     /**
@@ -231,8 +247,27 @@ public class Peripherique extends Thread
             return;
 
         Log.d(TAG,"Déconnexion du module " + this.nom + " | Adresse : " + this.adresse);
-        /**
-         * @todo Faire la déconnexion
-         */
+
+        new Thread()
+        {
+            @Override public void run()
+            {
+                try
+                {
+                    tReception.arreter();
+
+                    Message message = new Message();
+                    message.what = CODE_DECONNEXION;
+                    message.obj = nom;
+                    handler.sendMessage(message);
+
+                    socket.close();
+                }
+                catch(IOException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
     }
 }
