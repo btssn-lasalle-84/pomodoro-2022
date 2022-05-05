@@ -179,6 +179,10 @@ public class Peripherique extends Thread
             }
         }.start();
     }
+
+    /**
+     * @todo Faire la méthode recevoir
+     */
     public void recevoir(String donnees)
     {
         String data = null;

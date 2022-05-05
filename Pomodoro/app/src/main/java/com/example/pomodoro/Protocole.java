@@ -12,6 +12,9 @@ package com.example.pomodoro;
  * @brief Défini le concept de protocole
  */
 
+/**
+ * @todo Faire la classe Protocole
+ */
 public class Protocole
 {
     /**
