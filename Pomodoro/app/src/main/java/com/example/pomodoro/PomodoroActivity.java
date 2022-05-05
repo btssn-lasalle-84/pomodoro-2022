@@ -445,6 +445,9 @@ public class PomodoroActivity extends AppCompatActivity
                         break;
                     case Peripherique.CODE_RECEPTION:
                         Log.d(TAG, "[Handler] RECEPTION = " + message.obj.toString());
+                        /**
+                         * @todo Finir la méthode recevoir
+                         */
                         //peripherique.recevoir();
                         break;
                 }
