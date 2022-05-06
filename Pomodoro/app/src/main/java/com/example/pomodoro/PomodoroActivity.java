@@ -64,6 +64,7 @@ public class PomodoroActivity extends AppCompatActivity
     private Button boutonDemarrer;//!< Le bouton permettant de démarrer un pomodoro
     private Button boutonEditerTache;//!< Le bouton permettant d'éditer une tâche
     private Button boutonSupprimerTache;//!< Le bouton permettant de supprimer une tâche
+    private Button boutonSeConnecterAuPomodoro;//!< Le bouton permettant de se connecter au pomodoro
 
     /**
      * Ressources IHM
@@ -147,6 +148,7 @@ public class PomodoroActivity extends AppCompatActivity
         boutonDemarrer = (Button) findViewById(R.id.boutonDemarrer);
         boutonEditerTache = (Button) findViewById(R.id.boutonEditerTache);
         boutonSupprimerTache = (Button) findViewById(R.id.boutonSupprimerTache);
+        boutonSeConnecterAuPomodoro = (Button) findViewById(R.id.boutonSeConnecterAuPomodoro);
 
         boutonDemarrer.setOnClickListener(new View.OnClickListener()
         {
@@ -164,6 +166,7 @@ public class PomodoroActivity extends AppCompatActivity
                 tache.editerTaches();
             }
         });
+
         boutonSupprimerTache.setOnClickListener(new View.OnClickListener()
         {
             public void onClick(View v)
@@ -172,6 +175,17 @@ public class PomodoroActivity extends AppCompatActivity
                 Log.d(TAG, "[Tache] nom = " + tache.getNom());
                 tache.supprimerTache();
                 Log.d(TAG, "[Tache] nom = " + tache.getNom());
+            }
+        });
+
+        boutonSeConnecterAuPomodoro.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
+                if(v.getId() == R.id.boutonSeConnecterAuPomodoro)
+                {
+                    peripherique.connecter();
+                }
             }
         });
     }

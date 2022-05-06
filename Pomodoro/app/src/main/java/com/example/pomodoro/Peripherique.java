@@ -39,6 +39,7 @@ public class Peripherique extends Thread
     private InputStream receiveStream = null;
     private OutputStream sendStream = null;
     private TReception tReception;
+
     public final static int CODE_CREATION = 1;
     public final static int CODE_CONNEXION = 2;
     public final static int CODE_RECEPTION = 3;
@@ -181,9 +182,9 @@ public class Peripherique extends Thread
     }
 
     /**
-     * @todo Faire la méthode recevoir
+     * @todo Terminer la méthode recevoir
      */
-    public void recevoir(String donnees)
+    public void recevoir()
     {
         String data = null;
 
@@ -197,7 +198,14 @@ public class Peripherique extends Thread
             @Override
             public void run()
             {
-                if(socket.isConnected())
+                try
+                {
+                    if(socket.isConnected())
+                    {
+                        receiveStream.read();
+                    }
+                }
+                catch(IOException e)
                 {
 
                 }
