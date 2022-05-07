@@ -1,7 +1,8 @@
 format 224
 "UML-POMO22"
-  revision 8
+  revision 10
   modified_by 23 "tv"
+  java_root_dir "../Pomodoro/app/src/main/java/com/example/pomodoro/"
 
 
   
@@ -44,6 +45,7 @@ format 224
 
   mark_for_import
   
+  java_package "com.example"
   comment "Pomodoro-2022"
   usecaseview 128002 "Vue de Séquence Système"
     
@@ -590,6 +592,10 @@ ${members}}
       end
     end
   end
+
+  package_ref 134551 // pomodoro
+
+  package_ref 134679 // unknown
 preserve_bodies
 
 end

@@ -1,0 +1,10 @@
+class Tache
+!!!138647.java!!!	getNom() : String
+        return this.nom;
+!!!138775.java!!!	setNom(in nom : String) : void
+        this.nom = nom;
+!!!138903.java!!!	editerTaches() : void
+        Log.d(TAG, "editerTaches()");
+!!!139031.java!!!	supprimerTache() : void
+        Log.d(TAG, "supprimerTache()");
+        this.nom = "";
