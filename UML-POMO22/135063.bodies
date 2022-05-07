@@ -1,0 +1,298 @@
+class PomodoroActivity
+!!!136471.java!!!	onCreate(inout savedInstanceState : Bundle) : void
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        Log.d(TAG, "onCreate()");
+
+        tache = new Tache();
+
+        initialiserHandler();
+        initialiserBluetooth();
+        initialiserIHM();
+!!!136599.java!!!	onStart() : void
+        super.onStart();
+        Log.d(TAG, "onStart()");
+!!!136727.java!!!	onResume() : void
+        super.onResume();
+        Log.d(TAG, "onResume()");
+!!!136855.java!!!	onPause() : void
+        super.onPause();
+        Log.d(TAG, "onPause()");
+!!!136983.java!!!	onStop() : void
+        super.onStop();
+        Log.d(TAG, "onStop()");
+        peripherique.deconnecter();
+!!!137111.java!!!	onDestroy() : void
+        super.onDestroy();
+        Log.d(TAG, "onDestroy()");
+!!!137239.java!!!	initialiserIHM() : void
+        Log.d(TAG, "initialiserIHM()");
+        boutonDemarrer = (Button) findViewById(R.id.boutonDemarrer);
+        boutonEditerTache = (Button) findViewById(R.id.boutonEditerTache);
+        boutonSupprimerTache = (Button) findViewById(R.id.boutonSupprimerTache);
+        boutonSeConnecterAuPomodoro = (Button) findViewById(R.id.boutonSeConnecterAuPomodoro);
+
+        boutonDemarrer.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
+                Log.d(TAG, "clic boutonDemarrer");
+            }
+        });
+        boutonEditerTache.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
+                Log.d(TAG, "clic boutonEditerTache");
+                Log.d(TAG, "[Tache] nom = " + tache.getNom());
+                tache.editerTaches();
+            }
+        });
+
+        boutonSupprimerTache.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
+                Log.d(TAG, "clic boutonSupprimerTache");
+                Log.d(TAG, "[Tache] nom = " + tache.getNom());
+                tache.supprimerTache();
+                Log.d(TAG, "[Tache] nom = " + tache.getNom());
+            }
+        });
+
+        boutonSeConnecterAuPomodoro.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
+                if(v.getId() == R.id.boutonSeConnecterAuPomodoro)
+                {
+                    peripherique.connecter();
+                }
+            }
+        });
+!!!137367.java!!!	initialiserBluetooth() : void
+        bluetooth = BluetoothAdapter.getDefaultAdapter();
+        if(bluetooth == null)
+        {
+            Log.d(TAG, "Bluetooth non disponible");
+            Toast.makeText(getApplicationContext(), "Bluetooth non disponible", Toast.LENGTH_SHORT).show();
+        }
+        else
+        {
+            //demanderPermissions(Manifest.permission.ACCESS_FINE_LOCATION, CODE_DEMANDE_ACCESS_FINE_LOCATION);
+            IntentFilter filter1 = new IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED);
+            filter1.addAction(BluetoothDevice.ACTION_ACL_DISCONNECTED);
+            filter1.addAction(BluetoothDevice.ACTION_BOND_STATE_CHANGED);
+            this.registerReceiver(changementEtatBluetooth(), filter1);
+
+            IntentFilter filter2 = new IntentFilter(BluetoothDevice.ACTION_FOUND);
+            filter2.addAction(BluetoothAdapter.ACTION_DISCOVERY_STARTED);
+            filter2.addAction(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
+            this.registerReceiver(detectionPeripherique(), filter2);
+
+            if(!bluetooth.isEnabled())
+            {
+                Toast.makeText(getApplicationContext(), "Bluetooth non activé", Toast.LENGTH_SHORT).show();
+                //demanderPermissions(Manifest.permission.BLUETOOTH_CONNECT, CODE_DEMANDE_BLUETOOTH_CONNECT);
+                bluetooth.enable();
+            }
+            else
+            {
+                //Toast.makeText(getApplicationContext(), "Bluetooth activé", Toast.LENGTH_SHORT).show();
+                chercherMinuteur();
+            }
+        }
+!!!137495.java!!!	chercherMinuteur() : void
+        Set<BluetoothDevice> devices;
+
+        Log.d(TAG,"[chercherMinuteur] liste des périphériques Bluetooth appairés");
+        devices = bluetooth.getBondedDevices();
+        for(BluetoothDevice device : devices)
+        {
+            Log.d(TAG,"[chercherMinuteur] device : " + device.getName() + " [" + device.getAddress() + "]");
+
+            if(device.getName().equals(NOM_MINUTEUR) || device.getAddress().equals(ADRESSE_MINUTEUR))
+            {
+                Log.d(TAG,"[chercherMinuteur] minuteur trouvé !");
+                initialiserPeripherique();
+                return;
+            }
+        }
+
+        // sinon :
+        Log.d(TAG,"[chercherMinuteur] minuteur non trouvé !");
+        demarrerRecherche();
+!!!137623.java!!!	demarrerRecherche() : void
+        if(bluetooth.isDiscovering())
+            bluetooth.cancelDiscovery();
+        bluetooth.startDiscovery();
+        Log.d(TAG,"[demarrerRecherche] démarrage découverte bluetooth");
+!!!137751.java!!!	demanderPermissions(in permission : String, in code : int) : void
+        Log.d(TAG, "demanderPermissions()");
+        if(ActivityCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED)
+        {
+            ActivityCompat.requestPermissions(this, new String[]{permission}, code);
+        }
+!!!137879.java!!!	onRequestPermissionsResult(in requestCode : int, inout permissions : String [[]], inout grantResults : int [[]]) : void
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        Log.d(TAG, "onRequestPermissionsResult() code : " + requestCode);
+        switch(requestCode)
+        {
+            case CODE_DEMANDE_ENABLE_BLUETOOTH:
+            {
+                if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                {
+                    Log.d(TAG, "onRequestPermissionsResult() permission ENABLE_BLUETOOTH accordée");
+                }
+                else
+                {
+                    onDestroy();
+                }
+                return;
+            }
+            case CODE_DEMANDE_BLUETOOTH_CONNECT:
+            {
+                if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                {
+                    Log.d(TAG, "onRequestPermissionsResult() permission BLUETOOTH_CONNECT accordée");
+                }
+                else
+                {
+                    onDestroy();
+                }
+                return;
+            }
+            case CODE_DEMANDE_ACCESS_FINE_LOCATION:
+            {
+                if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                {
+                    Log.d(TAG, "onRequestPermissionsResult() permission ACCESS_FINE_LOCATION accordée");
+                }
+                else
+                {
+                    onDestroy();
+                }
+                return;
+            }
+        }
+!!!138007.java!!!	changementEtatBluetooth() : BroadcastReceiver
+        BroadcastReceiver receiverEtatBluetooth = new BroadcastReceiver()
+        {
+            @Override
+            public void onReceive(Context context, Intent intent)
+            {
+                final String action = intent.getAction();
+                Log.d(TAG, "[changementEtatBluetooth] action : " + action);
+                if(action.equals(BluetoothAdapter.ACTION_STATE_CHANGED))
+                {
+                    final int state = intent.getIntExtra(BluetoothAdapter.EXTRA_STATE, BluetoothAdapter.ERROR);
+                    switch(state)
+                    {
+                        case BluetoothAdapter.STATE_OFF:
+                            Log.d(TAG, "[changementEtatBluetooth] bluetooth désactivé !");
+                            break;
+                        case BluetoothAdapter.STATE_TURNING_OFF:
+                            Log.d(TAG, "[changementEtatBluetooth] bluetooth en cours de désactivation !");
+                            break;
+                        case BluetoothAdapter.STATE_ON:
+                            Log.d(TAG, "[changementEtatBluetooth] bluetooth activé !");
+                            chercherMinuteur();
+                            break;
+                        case BluetoothAdapter.STATE_TURNING_ON:
+                            Log.d(TAG, "[changementEtatBluetooth] bluetooth en cours d'activation !");
+                            break;
+                        default:
+                            Log.d(TAG, "[changementEtatBluetooth] etat : " + state);
+                            break;
+                    }
+                }
+                else if(action.equals(BluetoothDevice.ACTION_ACL_DISCONNECTED))
+                {
+                    Log.d(TAG, "[changementEtatBluetooth] bluetooth déconnecté !");
+                }
+                else if(action.equals(BluetoothDevice.ACTION_BOND_STATE_CHANGED))
+                {
+                    final int state = intent.getIntExtra(BluetoothDevice.EXTRA_BOND_STATE, BluetoothDevice.ERROR);
+                    switch(state)
+                    {
+                        case BluetoothDevice.BOND_NONE:
+                            Log.d(TAG, "[changementEtatBluetooth] non appairé !");
+                            break;
+                        case BluetoothDevice.BOND_BONDING:
+                            Log.d(TAG, "[changementEtatBluetooth] en cours d'appairage !");
+                            break;
+                        case BluetoothDevice.BOND_BONDED:
+                            Log.d(TAG, "[changementEtatBluetooth] appairé !");
+                            break;
+                    }
+                }
+            }
+        };
+
+        return receiverEtatBluetooth;
+!!!138135.java!!!	detectionPeripherique() : BroadcastReceiver
+        BroadcastReceiver receiverDetectionBluetooth = new BroadcastReceiver()
+        {
+            @SuppressLint("MissingPermission")
+            public void onReceive(Context context, Intent intent)
+            {
+                String action = intent.getAction();
+                Log.d(TAG, "[detectionPeripherique] action : " + action);
+
+                if(BluetoothAdapter.ACTION_DISCOVERY_STARTED.equals(action))
+                {
+                    Log.d(TAG, "[detectionPeripherique] découverte démarrée");
+                }
+                else if(BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action))
+                {
+                    Log.d(TAG, "[detectionPeripherique] découverte terminée");
+                }
+                else if(BluetoothDevice.ACTION_FOUND.equals(action))
+                {
+                    BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+                    //demanderPermissions(Manifest.permission.BLUETOOTH_CONNECT, CODE_DEMANDE_BLUETOOTH_CONNECT);
+                    Log.d(TAG, "[detectionPeripherique] périphérique détecté : " + device.getName() + " [" + device.getAddress() + "]");
+                }
+            }
+        };
+
+        return receiverDetectionBluetooth;
+!!!138263.java!!!	initialiserPeripherique() : void
+        Log.d(TAG,"initialiserPeripherique()");
+        peripherique = new Peripherique(handler);
+        if(peripherique.rechercherPomodoro(NOM_MINUTEUR))
+        {
+            peripherique.connecter();
+        }
+!!!138391.java!!!	initialiserHandler() : void
+        this.handler = new Handler(this.getMainLooper())
+        {
+            @Override
+            public void handleMessage(@NonNull Message message)
+            {
+                Log.d(TAG, "[Handler] id du message = " + message.what);
+                Log.d(TAG, "[Handler] contenu du message = " + message.obj.toString());
+
+                switch (message.what)
+                {
+                    case Peripherique.CODE_CREATION:
+                        Log.d(TAG, "[Handler] CREATION = " + message.obj.toString());
+                        break;
+                    case Peripherique.CODE_CONNEXION:
+                        Log.d(TAG, "[Handler] CODE_CONNEXION = " + message.obj.toString());
+                        // Pour le test
+                        peripherique.envoyer("#P&25&5&15&4&0&0&0\r\n");
+                        break;
+                    case Peripherique.CODE_DECONNEXION:
+                        Log.d(TAG, "[Handler] DECONNEXION = " + message.obj.toString());
+                        break;
+                    case Peripherique.CODE_RECEPTION:
+                        Log.d(TAG, "[Handler] RECEPTION = " + message.obj.toString());
+                        /**
+                         * @todo Finir la méthode recevoir
+                         */
+                        //peripherique.recevoir();
+                        break;
+                }
+            }
+        };

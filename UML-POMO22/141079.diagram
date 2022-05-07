@@ -1,0 +1,42 @@
+format 224
+
+classcanvas 128023 class_ref 135063 // PomodoroActivity
+  classdiagramsettings member_max_width 0 end
+  xyz 148.7 26 2000
+end
+classcanvas 128151 class_ref 134551 // Minuteur
+  classdiagramsettings member_max_width 0 end
+  xyz 197.8 1114.6 2000
+end
+classcanvas 128279 class_ref 134679 // Peripherique
+  classdiagramsettings member_max_width 0 end
+  xyz 1862.8 729.8 3005
+end
+classcanvas 128535 class_ref 134935 // TReception
+  classdiagramsettings member_max_width 0 end
+  xyz 1797.8 1713.6 3011
+end
+classcanvas 128791 class_ref 135447 // Protocole
+  classdiagramsettings member_max_width 0 end
+  xyz 1945.8 111.6 3010
+end
+classcanvas 128919 class_ref 135319 // Tache
+  classdiagramsettings member_max_width 0 end
+  xyz 647.2 1116.6 3016
+end
+relationcanvas 128407 relation_ref 134935 // <unidirectional association>
+  from ref 128023 z 3006 to ref 128279
+  role_a_pos 1687 934 3000 no_role_b
+  no_multiplicity_a no_multiplicity_b
+end
+relationcanvas 128663 relation_ref 134679 // <unidirectional association>
+  from ref 128279 z 3012 to ref 128535
+  role_a_pos 2253 1670 3000 no_role_b
+  no_multiplicity_a no_multiplicity_b
+end
+relationcanvas 129047 relation_ref 135063 // <unidirectional association>
+  from ref 128023 z 3017 to ref 128919
+  role_a_pos 876 1072 3000 no_role_b
+  no_multiplicity_a no_multiplicity_b
+end
+end
