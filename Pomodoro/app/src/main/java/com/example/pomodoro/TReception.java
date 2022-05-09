@@ -29,10 +29,7 @@ public class TReception extends Thread
     private static final String TAG = "_TReception";  //!< TAG pour les logs
 
     Handler handlerUI;
-    Handler handler;
-    Socket socket;
     InputStream receiveStream;
-    Thread tReception;
     private boolean fini;
 
     TReception(Handler h, InputStream receiveStream)
@@ -66,7 +63,7 @@ public class TReception extends Thread
             }
             catch(IOException e)
             {
-                //System.out.println("<Socket> error read");
+                System.out.println("<Socket> error read");
                 e.printStackTrace();
             }
             try

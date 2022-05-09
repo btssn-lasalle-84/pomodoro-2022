@@ -71,10 +71,10 @@ public class Peripherique extends Thread
     {
         Set<BluetoothDevice> appareilsAppaires = bluetoothAdapter.getBondedDevices();
 
-        Log.d(TAG, "Recherche bluetooth : " + idPomodoro);
+        //Log.d(TAG, "Recherche bluetooth : " + idPomodoro);
         for(BluetoothDevice appareil : appareilsAppaires)
         {
-            Log.d(TAG, "Nom : " + appareil.getName() + " | Adresse : " + appareil.getAddress());
+            //Log.d(TAG, "Nom : " + appareil.getName() + " | Adresse : " + appareil.getAddress());
             if(appareil.getName().equals(idPomodoro) || appareil.getAddress().equals(idPomodoro))
             {
                 device = appareil;
@@ -103,7 +103,7 @@ public class Peripherique extends Thread
         catch(IOException e)
         {
             e.printStackTrace();
-            Log.d(TAG, "Erreur création socket !");
+            Log.d(TAG, "<Socket> Erreur création socket !");
             socket = null;
         }
 
@@ -174,40 +174,8 @@ public class Peripherique extends Thread
                 }
                 catch(IOException e)
                 {
-                    System.out.println("<Socket> Erreur d'envoi");
+                    System.out.println("<Socket> Erreur envoi");
                     e.printStackTrace();
-                }
-            }
-        }.start();
-    }
-
-    /**
-     * @todo Terminer la méthode recevoir
-     */
-    public void recevoir()
-    {
-        String data = null;
-
-        if(socket == null)
-        {
-            return;
-        }
-
-        new Thread()
-        {
-            @Override
-            public void run()
-            {
-                try
-                {
-                    if(socket.isConnected())
-                    {
-                        receiveStream.read();
-                    }
-                }
-                catch(IOException e)
-                {
-
                 }
             }
         }.start();
@@ -231,14 +199,17 @@ public class Peripherique extends Thread
             {
                 try
                 {
-                    socket.connect();
+                    if(!socket.isConnected())
+                    {
+                        socket.connect();
 
-                    Message message = new Message();
-                    message.what = CODE_CONNEXION;
-                    message.obj = nom;
-                    handler.sendMessage(message);
+                        Message message = new Message();
+                        message.what = CODE_CONNEXION;
+                        message.obj = nom;
+                        handler.sendMessage(message);
 
-                    tReception.start();
+                        tReception.start();
+                    }
                 }
                 catch(IOException e)
                 {
@@ -247,7 +218,6 @@ public class Peripherique extends Thread
                 }
             }
         }.start();
-
     }
 
     /**
@@ -277,6 +247,7 @@ public class Peripherique extends Thread
                 }
                 catch(IOException e)
                 {
+                    System.out.println("<Socket> erreur de déconnexion");
                     e.printStackTrace();
                 }
             }

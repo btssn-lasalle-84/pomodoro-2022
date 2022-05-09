@@ -11,39 +11,41 @@ package com.example.pomodoro;
  * @class Protocole
  * @brief Défini le concept de protocole
  */
-
-/**
- * @todo Faire la classe Protocole
- */
 public class Protocole
 {
     /**
-     * @brief Constantes
+     * Constantes
      */
 
     /**
-     * @brief sens : Application <-> Pomodoro
+     * @brief Sens : Application <-> Pomodoro
      */
-    private static String DEBUT_TRAME = "#";
-    private static String FIN_TRAME = "\r\n";
-    private static String DELIMITEUR_TRAME = "&";
+    public static final String DEBUT_TRAME = "#";
+    public static final String FIN_TRAME = "\r\n";
+    public static final String DELIMITEUR_TRAME = "&";
 
     /**
-     * @brief sens : Application -> Pomodoro
+     * @brief Sens : Application -> Pomodoro
      */
-    private static String CONFIGURATION_POMODORO= "P";
-    private static String CONFIGURATION_UTILISATEUR = "U";
-    private static String MODE_SONNERIE = "B";
-    private static String DEMARRER_TACHE = "T";
-    private static String DEMARRER_PAUSE = "R";
-    private static String ARRET_TACHE_PAUSE = "S";
-    private static String ANNULATION_TACHE_PAUSE = "X";
-    private static String MAINTIEN_CONNEXION = "H";
+    public static final String CONFIGURATION_POMODORO= "P";
+    public static final String CONFIGURATION_UTILISATEUR = "U";
+    public static final String MODE_SONNERIE = "B";
+    public static final String DEMARRER_TACHE = "T";
+    public static final String DEMARRER_PAUSE = "R";
+    public static final String ARRET_TACHE_PAUSE = "S";
+    public static final String ANNULATION_TACHE_PAUSE = "X";
+    public static final String MAINTIEN_CONNEXION = "H";
 
     /**
-     * @brief sens : Pomodoro -> Application
+     * @brief Sens : Pomodoro -> Application
      */
-    private static String CHANGEMENT_ETAT = "E";
-    private static String ERREUR = "F";
-    private static String ACQUITTEMENT = "A";
+    public static final String CHANGEMENT_ETAT = "E";
+    public static final String ERREUR = "F";
+    public static final String ACQUITTEMENT = "A";
+
+    /**
+     * @brief Position des champs dans une trame
+     */
+    public static final int TYPE_TRAME = 0;
+    public static final int CHAMP_ETAT = 1;
 }

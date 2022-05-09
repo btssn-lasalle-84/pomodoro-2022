@@ -12,7 +12,6 @@ import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.AutomaticZenRule;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
@@ -28,11 +27,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.google.android.gms.common.internal.Objects;
-
-import java.time.Instant;
 import java.util.Set;
-
 import java.util.Vector;
 
 /**
@@ -45,6 +40,7 @@ public class PomodoroActivity extends AppCompatActivity
      * Constantes
      */
     private static final String TAG = "_PomodoroActivity";  //!< TAG pour les logs
+    // Pour les tests
     private static final String NOM_MINUTEUR = "pomodoro-1";
     private static final String ADRESSE_MINUTEUR = "A4:CF:12:6D:F3:6E";
 
@@ -56,10 +52,10 @@ public class PomodoroActivity extends AppCompatActivity
      * Attributs
      */
     private BluetoothAdapter bluetooth = null;  //!< L'adaptateur Bluetooth de la tablette
-    private BaseDeDonnees baseDeDonnees = null;
-    private Tache tache; //!< une tâche
     private Peripherique peripherique = null;
     private Handler handler = null;
+    private BaseDeDonnees baseDeDonnees = null;
+    private Tache tache; //!< une tâche
 
     /**
      * Ressources IHM
@@ -168,7 +164,6 @@ public class PomodoroActivity extends AppCompatActivity
                 tache.editerTaches();
             }
         });
-
         boutonSupprimerTache.setOnClickListener(new View.OnClickListener()
         {
             public void onClick(View v)
@@ -186,7 +181,10 @@ public class PomodoroActivity extends AppCompatActivity
             {
                 if(v.getId() == R.id.boutonSeConnecterAuPomodoro)
                 {
-                    peripherique.connecter();
+                    if(!peripherique.estConnecte())
+                        chercherMinuteur();
+                    else
+                        peripherique.deconnecter();
                 }
             }
         });
@@ -240,11 +238,10 @@ public class PomodoroActivity extends AppCompatActivity
         devices = bluetooth.getBondedDevices();
         for(BluetoothDevice device : devices)
         {
-            Log.d(TAG,"[chercherMinuteur] device : " + device.getName() + " [" + device.getAddress() + "]");
-
+            //Log.d(TAG,"[chercherMinuteur] device : " + device.getName() + " [" + device.getAddress() + "]");
             if(device.getName().equals(NOM_MINUTEUR) || device.getAddress().equals(ADRESSE_MINUTEUR))
             {
-                Log.d(TAG,"[chercherMinuteur] minuteur trouvé !");
+                Log.d(TAG,"[chercherMinuteur] minuteur trouvé : " + device.getName() + " [" + device.getAddress() + "]");
                 initialiserPeripherique();
                 return;
             }
@@ -427,10 +424,12 @@ public class PomodoroActivity extends AppCompatActivity
     private void initialiserPeripherique()
     {
         Log.d(TAG,"initialiserPeripherique()");
-        peripherique = new Peripherique(handler);
+        if(peripherique == null)
+            peripherique = new Peripherique(handler);
         if(peripherique.rechercherPomodoro(NOM_MINUTEUR))
         {
-            peripherique.connecter();
+            if(!peripherique.estConnecte())
+                peripherique.connecter();
         }
     }
 
@@ -451,18 +450,43 @@ public class PomodoroActivity extends AppCompatActivity
                         break;
                     case Peripherique.CODE_CONNEXION:
                         Log.d(TAG, "[Handler] CODE_CONNEXION = " + message.obj.toString());
+                        boutonSeConnecterAuPomodoro.setText("Se déconnecter");
                         // Pour le test
                         peripherique.envoyer("#P&25&5&15&4&0&0&0\r\n");
                         break;
                     case Peripherique.CODE_DECONNEXION:
                         Log.d(TAG, "[Handler] DECONNEXION = " + message.obj.toString());
+                        boutonSeConnecterAuPomodoro.setText("Se connecter");
                         break;
                     case Peripherique.CODE_RECEPTION:
                         Log.d(TAG, "[Handler] RECEPTION = " + message.obj.toString());
+                        String trame = "";
+                        // Vérification
+                        if(message.obj.toString().startsWith(Protocole.DEBUT_TRAME))
+                        {
+                            Log.v(TAG, "[Handler] Trame valide");
+                            trame = message.obj.toString().replace(Protocole.DEBUT_TRAME, "");
+                        }
+                        else
+                        {
+                            return;
+                        }
+                        String[] champs = trame.split(Protocole.DELIMITEUR_TRAME);
+                        // Debug
+                        for(int i = 0; i < champs.length; i++)
+                        {
+                            Log.v(TAG, "[Handler] champs[" + i + "] = " + champs[i]);
+                        }
+
                         /**
-                         * @todo Finir la méthode recevoir
+                         * @todo Traiter et décoder les trames reçues
                          */
-                        //peripherique.recevoir();
+                        switch(champs[Protocole.TYPE_TRAME])
+                        {
+                            case Protocole.CHANGEMENT_ETAT:
+                                Log.v(TAG, "[Handler] Changement d’état : " + champs[Protocole.CHAMP_ETAT]);
+                                break;
+                        }
                         break;
                 }
             }
