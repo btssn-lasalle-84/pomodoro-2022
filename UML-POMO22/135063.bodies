@@ -1,76 +1,5 @@
-package com.example.pomodoro;
-
-/**
- * @file PomodoroActivity.java
- * @brief Déclaration de la classe PomodoroActivity
- * @author Teddy ESTABLET
- */
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-
-import android.Manifest;
-import android.annotation.SuppressLint;
-import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.content.pm.PackageManager;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.Toast;
-
-import java.util.Set;
-import java.util.Vector;
-
-/**
- * @class PomodoroActivity
- * @brief L'activité principale de l'application Pomodoro
- */
-public class PomodoroActivity extends AppCompatActivity
-{
-    /**
-     * Constantes
-     */
-    private static final String TAG = "_PomodoroActivity";  //!< TAG pour les logs
-    // Pour les tests
-    private static final String NOM_MINUTEUR = "pomodoro-1";
-    private static final String ADRESSE_MINUTEUR = "A4:CF:12:6D:F3:6E";
-
-    private final static int CODE_DEMANDE_ENABLE_BLUETOOTH = 0;
-    private final static int CODE_DEMANDE_BLUETOOTH_CONNECT = 1;
-    private final static int CODE_DEMANDE_ACCESS_FINE_LOCATION = 2;
-
-    /**
-     * Attributs
-     */
-    private BluetoothAdapter bluetooth = null;  //!< L'adaptateur Bluetooth de la tablette
-    private Peripherique peripherique = null;
-    private Handler handler = null;
-    private BaseDeDonnees baseDeDonnees = null;
-    private Tache tache; //!< une tâche
-
-    /**
-     * Ressources IHM
-     */
-    private Button boutonDemarrer;//!< Le bouton permettant de démarrer un pomodoro
-    private Button boutonEditerTache;//!< Le bouton permettant d'éditer une tâche
-    private Button boutonSupprimerTache;//!< Le bouton permettant de supprimer une tâche
-    private Button boutonSeConnecterAuPomodoro;//!< Le bouton permettant de se connecter au pomodoro
-
-    /**
-     * @brief Méthode appelée à la création de l'activité
-     */
-    @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+class PomodoroActivity
+!!!136471.java!!!	onCreate(inout savedInstanceState : Bundle) : void
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Log.d(TAG, "onCreate()");
@@ -84,64 +13,23 @@ public class PomodoroActivity extends AppCompatActivity
         initialiserHandler();
         initialiserBluetooth();
         initialiserIHM();
-    }
-
-    /**
-     * @brief Méthode appelée au démarrage après le onCreate() ou un restart après un onStop()
-     */
-    @Override
-    protected void onStart()
-    {
+!!!136599.java!!!	onStart() : void
         super.onStart();
         Log.d(TAG, "onStart()");
-    }
-
-    /**
-     * @brief Méthode appelée après onStart() ou après onPause()
-     */
-    @Override
-    protected void onResume()
-    {
+!!!136727.java!!!	onResume() : void
         super.onResume();
         Log.d(TAG, "onResume()");
-    }
-
-    /**
-     * @brief Méthode appelée après qu'une boîte de dialogue s'est affichée (on reprend sur un onResume()) ou avant onStop() (activité plus visible)
-     */
-    @Override
-    protected void onPause()
-    {
+!!!136855.java!!!	onPause() : void
         super.onPause();
         Log.d(TAG, "onPause()");
-    }
-
-    /**
-     * @brief Méthode appelée lorsque l'activité n'est plus visible
-     */
-    @Override
-    protected void onStop()
-    {
+!!!136983.java!!!	onStop() : void
         super.onStop();
         Log.d(TAG, "onStop()");
         peripherique.deconnecter();
-    }
-
-    /**
-     * @brief Méthode appelée à la destruction de l'application (après onStop() et détruite par le système Android)
-     */
-    @Override
-    protected void onDestroy()
-    {
+!!!137111.java!!!	onDestroy() : void
         super.onDestroy();
         Log.d(TAG, "onDestroy()");
-    }
-
-    /**
-     * @brief Initialise l'activité
-     */
-    private void initialiserIHM()
-    {
+!!!137239.java!!!	initialiserIHM() : void
         Log.d(TAG, "initialiserIHM()");
         boutonDemarrer = (Button) findViewById(R.id.boutonDemarrer);
         boutonEditerTache = (Button) findViewById(R.id.boutonEditerTache);
@@ -188,11 +76,7 @@ public class PomodoroActivity extends AppCompatActivity
                 }
             }
         });
-    }
-
-    @SuppressLint("MissingPermission")
-    private void initialiserBluetooth()
-    {
+!!!137367.java!!!	initialiserBluetooth() : void
         bluetooth = BluetoothAdapter.getDefaultAdapter();
         if(bluetooth == null)
         {
@@ -224,14 +108,7 @@ public class PomodoroActivity extends AppCompatActivity
                 chercherMinuteur();
             }
         }
-    }
-
-    /**
-     * @brief Méthode qui permet de chercher un périphérique bluetooth pomodoro déjà appairé
-     */
-    @SuppressLint("MissingPermission")
-    private void chercherMinuteur()
-    {
+!!!137495.java!!!	chercherMinuteur() : void
         Set<BluetoothDevice> devices;
 
         Log.d(TAG,"[chercherMinuteur] liste des périphériques Bluetooth appairés");
@@ -250,38 +127,18 @@ public class PomodoroActivity extends AppCompatActivity
         // sinon :
         Log.d(TAG,"[chercherMinuteur] minuteur non trouvé !");
         demarrerRecherche();
-    }
-
-    /**
-     * @brief Méthode qui permet de lancer la recherche de périphériques
-     */
-    @SuppressLint("MissingPermission")
-    private void demarrerRecherche()
-    {
+!!!137623.java!!!	demarrerRecherche() : void
         if(bluetooth.isDiscovering())
             bluetooth.cancelDiscovery();
         bluetooth.startDiscovery();
         Log.d(TAG,"[demarrerRecherche] démarrage découverte bluetooth");
-    }
-
-    /**
-     * @brief Méthode qui permet de demander le droit de permission location
-     */
-    private void demanderPermissions(String permission, int code)
-    {
+!!!137751.java!!!	demanderPermissions(in permission : String, in code : int) : void
         Log.d(TAG, "demanderPermissions()");
         if(ActivityCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED)
         {
             ActivityCompat.requestPermissions(this, new String[]{permission}, code);
         }
-    }
-
-    /**
-     * @brief Méthode qui permet de gérer la réponse à la demande de permission location
-     */
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults)
-    {
+!!!137879.java!!!	onRequestPermissionsResult(in requestCode : int, inout permissions : String [[]], inout grantResults : int [[]]) : void
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         Log.d(TAG, "onRequestPermissionsResult() code : " + requestCode);
         switch(requestCode)
@@ -323,14 +180,7 @@ public class PomodoroActivity extends AppCompatActivity
                 return;
             }
         }
-    }
-
-    /**
-     * @brief Détection de changement d'état du bluetooth
-     * @return BroadcastReceiver le receveur de Bluetooth
-     */
-    private final BroadcastReceiver changementEtatBluetooth()
-    {
+!!!138007.java!!!	changementEtatBluetooth() : BroadcastReceiver
         BroadcastReceiver receiverEtatBluetooth = new BroadcastReceiver()
         {
             @Override
@@ -385,14 +235,7 @@ public class PomodoroActivity extends AppCompatActivity
         };
 
         return receiverEtatBluetooth;
-    }
-
-    /**
-     * @brief Détection des périphériques Bluetooth
-     * @return BroadcastReceiver le receveur
-     */
-    private final BroadcastReceiver detectionPeripherique()
-    {
+!!!138135.java!!!	detectionPeripherique() : BroadcastReceiver
         BroadcastReceiver receiverDetectionBluetooth = new BroadcastReceiver()
         {
             @SuppressLint("MissingPermission")
@@ -419,10 +262,7 @@ public class PomodoroActivity extends AppCompatActivity
         };
 
         return receiverDetectionBluetooth;
-    };
-
-    private void initialiserPeripherique()
-    {
+!!!138263.java!!!	initialiserPeripherique() : void
         Log.d(TAG,"initialiserPeripherique()");
         if(peripherique == null)
             peripherique = new Peripherique(handler);
@@ -431,10 +271,7 @@ public class PomodoroActivity extends AppCompatActivity
             if(!peripherique.estConnecte())
                 peripherique.connecter();
         }
-    }
-
-    private void initialiserHandler()
-    {
+!!!138391.java!!!	initialiserHandler() : void
         this.handler = new Handler(this.getMainLooper())
         {
             @Override
@@ -491,5 +328,3 @@ public class PomodoroActivity extends AppCompatActivity
                 }
             }
         };
-    }
-}
