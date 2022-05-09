@@ -1,0 +1,51 @@
+class SQLite
+!!!146711.java!!!	SQLite(inout context : Context)
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+!!!146839.java!!!	onCreate(inout db : SQLiteDatabase) : void
+        Log.d(TAG, "onCreate() path = " + db.getPath());
+        creerTables(db);
+        insererDonneesInitiales(db);
+!!!146967.java!!!	onUpgrade(inout db : SQLiteDatabase, in oldVersion : int, in newVersion : int) : void
+        Log.d(TAG, "onUpgrade()");
+        db.execSQL("DROP TABLE IF EXISTS Pomodoro;");
+        db.execSQL("DROP TABLE IF EXISTS Etat;");
+        db.execSQL("DROP TABLE IF EXISTS Modele;");
+        db.execSQL("DROP TABLE IF EXISTS DonneeTache;");
+        db.execSQL("DROP TABLE IF EXISTS Tache;");
+        db.execSQL("DROP TABLE IF EXISTS Projet;");
+        db.execSQL("DROP TABLE IF EXISTS Mode;");
+        db.execSQL("DROP TABLE IF EXISTS Categorie;");
+        db.execSQL("DROP TABLE IF EXISTS Colonne;");
+        onCreate(db);
+!!!147095.java!!!	creerTables(inout db : SQLiteDatabase) : void
+        Log.d(TAG, "creerTables()");
+        db.execSQL(CREATE_TABLE_COLONNE);
+        db.execSQL(CREATE_TABLE_CATEGORIE);
+        db.execSQL(CREATE_TABLE_MODE);
+        db.execSQL(CREATE_TABLE_PROJET);
+        db.execSQL(CREATE_TABLE_TACHE);
+        db.execSQL(CREATE_TABLE_DONNEETACHE);
+        db.execSQL(CREATE_TABLE_MODELE);
+        db.execSQL(CREATE_TABLE_ETAT);
+        db.execSQL(CREATE_TABLE_POMODORO);
+        db.execSQL(CREATE_TABLE_PREFERENCES);
+!!!147223.java!!!	insererDonneesInitiales(inout db : SQLiteDatabase) : void
+        Log.d(TAG, "insererDonneesInitiales()");
+        db.execSQL(INSERT_TABLE_COLONNE);
+        db.execSQL(INSERT_TABLE_CATEGORIE);
+        db.execSQL(INSERT_TABLE_MODE);
+        db.execSQL(INSERT_TABLE_ETAT);
+        db.execSQL(INSERT_TABLE_MODELE_1);
+        db.execSQL(INSERT_TABLE_MODELE_2);
+        db.execSQL(INSERT_TABLE_MODELE_3);
+
+        // Tests
+        db.execSQL(INSERT_TABLE_PROJET);
+        db.execSQL(INSERT_TABLE_TACHE_1);
+        db.execSQL(INSERT_TABLE_TACHE_2);
+        db.execSQL(INSERT_TABLE_TACHE_3);
+        db.execSQL(INSERT_TABLE_TACHE_4);
+        db.execSQL(INSERT_TABLE_POMODORO_1);
+        db.execSQL(INSERT_TABLE_POMODORO_2);
+        db.execSQL(INSERT_TABLE_POMODORO_3);
+        db.execSQL(INSERT_TABLE_PREFERENCES_1);

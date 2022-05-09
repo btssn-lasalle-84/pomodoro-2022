@@ -6,6 +6,10 @@ class PomodoroActivity
 
         tache = new Tache();
 
+        baseDeDonnees = new BaseDeDonnees(this);
+        // Test BDD
+        Vector<String> nomColonnes = baseDeDonnees.getNomColonnes();
+
         initialiserHandler();
         initialiserBluetooth();
         initialiserIHM();
@@ -48,7 +52,6 @@ class PomodoroActivity
                 tache.editerTaches();
             }
         });
-
         boutonSupprimerTache.setOnClickListener(new View.OnClickListener()
         {
             public void onClick(View v)
@@ -66,7 +69,10 @@ class PomodoroActivity
             {
                 if(v.getId() == R.id.boutonSeConnecterAuPomodoro)
                 {
-                    peripherique.connecter();
+                    if(!peripherique.estConnecte())
+                        chercherMinuteur();
+                    else
+                        peripherique.deconnecter();
                 }
             }
         });
@@ -109,11 +115,10 @@ class PomodoroActivity
         devices = bluetooth.getBondedDevices();
         for(BluetoothDevice device : devices)
         {
-            Log.d(TAG,"[chercherMinuteur] device : " + device.getName() + " [" + device.getAddress() + "]");
-
+            //Log.d(TAG,"[chercherMinuteur] device : " + device.getName() + " [" + device.getAddress() + "]");
             if(device.getName().equals(NOM_MINUTEUR) || device.getAddress().equals(ADRESSE_MINUTEUR))
             {
-                Log.d(TAG,"[chercherMinuteur] minuteur trouvé !");
+                Log.d(TAG,"[chercherMinuteur] minuteur trouvé : " + device.getName() + " [" + device.getAddress() + "]");
                 initialiserPeripherique();
                 return;
             }
@@ -259,10 +264,12 @@ class PomodoroActivity
         return receiverDetectionBluetooth;
 !!!138263.java!!!	initialiserPeripherique() : void
         Log.d(TAG,"initialiserPeripherique()");
-        peripherique = new Peripherique(handler);
+        if(peripherique == null)
+            peripherique = new Peripherique(handler);
         if(peripherique.rechercherPomodoro(NOM_MINUTEUR))
         {
-            peripherique.connecter();
+            if(!peripherique.estConnecte())
+                peripherique.connecter();
         }
 !!!138391.java!!!	initialiserHandler() : void
         this.handler = new Handler(this.getMainLooper())
@@ -280,18 +287,43 @@ class PomodoroActivity
                         break;
                     case Peripherique.CODE_CONNEXION:
                         Log.d(TAG, "[Handler] CODE_CONNEXION = " + message.obj.toString());
+                        boutonSeConnecterAuPomodoro.setText("Se déconnecter");
                         // Pour le test
                         peripherique.envoyer("#P&25&5&15&4&0&0&0\r\n");
                         break;
                     case Peripherique.CODE_DECONNEXION:
                         Log.d(TAG, "[Handler] DECONNEXION = " + message.obj.toString());
+                        boutonSeConnecterAuPomodoro.setText("Se connecter");
                         break;
                     case Peripherique.CODE_RECEPTION:
                         Log.d(TAG, "[Handler] RECEPTION = " + message.obj.toString());
+                        String trame = "";
+                        // Vérification
+                        if(message.obj.toString().startsWith(Protocole.DEBUT_TRAME))
+                        {
+                            Log.v(TAG, "[Handler] Trame valide");
+                            trame = message.obj.toString().replace(Protocole.DEBUT_TRAME, "");
+                        }
+                        else
+                        {
+                            return;
+                        }
+                        String[] champs = trame.split(Protocole.DELIMITEUR_TRAME);
+                        // Debug
+                        for(int i = 0; i < champs.length; i++)
+                        {
+                            Log.v(TAG, "[Handler] champs[" + i + "] = " + champs[i]);
+                        }
+
                         /**
-                         * @todo Finir la méthode recevoir
+                         * @todo Traiter et décoder les trames reçues
                          */
-                        //peripherique.recevoir();
+                        switch(champs[Protocole.TYPE_TRAME])
+                        {
+                            case Protocole.CHANGEMENT_ETAT:
+                                Log.v(TAG, "[Handler] Changement d’état : " + champs[Protocole.CHAMP_ETAT]);
+                                break;
+                        }
                         break;
                 }
             }

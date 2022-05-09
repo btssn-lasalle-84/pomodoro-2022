@@ -25,7 +25,7 @@ class TReception
             }
             catch(IOException e)
             {
-                //System.out.println("<Socket> error read");
+                System.out.println("<Socket> error read");
                 e.printStackTrace();
             }
             try

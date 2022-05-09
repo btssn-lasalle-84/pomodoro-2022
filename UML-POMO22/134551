@@ -1,6 +1,6 @@
 format 224
 "pomodoro" // pomodoro
-  revision 2
+  revision 3
   modified_by 23 "tv"
   // class settings
   
@@ -438,65 +438,55 @@ ${members}}
       end
 
       operation 135959 "envoyer"
-	public explicit_return_type "void"
+	stereotype "thread"
+	preserve_cpp_body_indent public explicit_return_type "void"
 	nparams 1
 	  param in name "donnees" explicit_type "String"
 	
 	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}${)}${throws}${staticnl}{
   ${body}}
 "
-	
-	
+	preserve_php_body_indent 
+	preserve_python_body_indent 
 	
 	comment "@brief Envoie des données sur la connexion bluetooth
 "
       end
 
-      operation 136087 "recevoir"
-	public explicit_return_type "void"
-	nparams 0
-	
-	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
-  ${body}}
-"
-	
-	
-	
-	comment "@todo Terminer la méthode recevoir
-"
-      end
-
       operation 136215 "connecter"
-	public explicit_return_type "void"
+	stereotype "thread"
+	preserve_cpp_body_indent public explicit_return_type "void"
 	nparams 0
 	
 	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
   ${body}}
 "
-	
-	
+	preserve_php_body_indent 
+	preserve_python_body_indent 
 	
 	comment "@brief Débute la connexion bluetooth
 "
       end
 
       operation 136343 "deconnecter"
-	public explicit_return_type "void"
+	stereotype "thread"
+	preserve_cpp_body_indent public explicit_return_type "void"
 	nparams 0
 	
 	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
   ${body}}
 "
-	
-	
+	preserve_php_body_indent 
+	preserve_python_body_indent 
 	
 	comment "@brief Met fin à la connexion bluetooth
 "
       end
+
     end
 
     class 134935 "TReception"
-      visibility public 
+      active visibility public stereotype "thread"
       cpp_decl ""
       java_decl "${comment}${@}${visibility}${static}${final}${abstract}class ${name}${extends}${implements} {
 ${members}}
@@ -544,44 +534,8 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 141335 "handler"
-	package explicit_type "Handler"
-	cpp_decl ""
-	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
-"
-	php_decl ""
-	python_decl ""
-	idl_decl ""
-	mysql_decl ""
-	MysqlColumn
-      end
-
-      attribute 141463 "socket"
-	package explicit_type "Socket"
-	cpp_decl ""
-	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
-"
-	php_decl ""
-	python_decl ""
-	idl_decl ""
-	mysql_decl ""
-	MysqlColumn
-      end
-
       attribute 141591 "receiveStream"
 	package explicit_type "InputStream"
-	cpp_decl ""
-	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
-"
-	php_decl ""
-	python_decl ""
-	idl_decl ""
-	mysql_decl ""
-	MysqlColumn
-      end
-
-      attribute 141719 "tReception"
-	package explicit_type "Thread"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
 "
@@ -643,6 +597,7 @@ ${members}}
 	
 	
       end
+
     end
 
     class 135063 "PomodoroActivity"
@@ -695,6 +650,8 @@ ${members}}
 	idl_decl ""
 	mysql_decl ""
 	MysqlColumn
+	comment " Pour les tests
+"
       end
 
       attribute 136599 "ADRESSE_MINUTEUR"
@@ -765,6 +722,15 @@ ${members}}
 !< L'adaptateur Bluetooth de la tablette"
       end
 
+      classrelation 134935 // peripherique (<unidirectional association>)
+	relation 134935 --->
+	  a role_name "peripherique" init_value " null" private
+	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	    classrelation_ref 134935 // peripherique (<unidirectional association>)
+	  b parent class_ref 134679 // Peripherique
+      end
+
       attribute 137239 "handler"
 	private explicit_type "Handler"
 	init_value " null"
@@ -778,13 +744,23 @@ ${members}}
 	MysqlColumn
       end
 
-      classrelation 134935 // peripherique (<unidirectional association>)
-	relation 134935 --->
-	  a role_name "peripherique" init_value " null" package
+      classrelation 141975 // baseDeDonnees (<unidirectional association>)
+	relation 141975 --->
+	  a role_name "baseDeDonnees" init_value " null" private
 	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
 "
-	    classrelation_ref 134935 // peripherique (<unidirectional association>)
-	  b parent class_ref 134679 // Peripherique
+	    classrelation_ref 141975 // baseDeDonnees (<unidirectional association>)
+	  b parent class_ref 142103 // BaseDeDonnees
+      end
+
+      classrelation 135063 // tache (<unidirectional association>)
+	relation 135063 --->
+	  a role_name "tache" private
+	    comment "!< une tâche"
+	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	    classrelation_ref 135063 // tache (<unidirectional association>)
+	  b parent class_ref 135319 // Tache
       end
 
       attribute 137367 "boutonDemarrer"
@@ -839,19 +815,6 @@ ${members}}
 	mysql_decl ""
 	MysqlColumn
 	comment "!< Le bouton permettant de se connecter au pomodoro"
-      end
-
-      classrelation 135063 // tache (<unidirectional association>)
-	relation 135063 --->
-	  a role_name "tache" package
-	    comment "
-Ressources IHM
-
-!< une tâche"
-	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
-"
-	    classrelation_ref 135063 // tache (<unidirectional association>)
-	  b parent class_ref 135319 // Tache
       end
 
       operation 136471 "onCreate"
@@ -1100,6 +1063,13 @@ Ressources IHM
 	
 	
 	
+      end
+
+      classrelation 142231 // <dependency>
+	relation 142231 -_->
+	  a public
+	    classrelation_ref 142231 // <dependency>
+	  b parent class_ref 135447 // Protocole
       end
     end
 
@@ -1371,12 +1341,9 @@ ${members}}
 
 @class Protocole
 @brief Défini le concept de protocole
-
-
-@todo Faire la classe Protocole
 "
       attribute 137879 "DEBUT_TRAME"
-	class_attribute private explicit_type "String"
+	class_attribute const_attribute public explicit_type "String"
 	init_value " \"#\""
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -1386,16 +1353,16 @@ ${members}}
 	idl_decl ""
 	mysql_decl ""
 	MysqlColumn
-	comment "@brief Constantes
+	comment "Constantes
 
 
-@brief sens : Application <-> Pomodoro
+@brief Sens : Application <-> Pomodoro
 
 "
       end
 
       attribute 138007 "FIN_TRAME"
-	class_attribute private explicit_type "String"
+	class_attribute const_attribute public explicit_type "String"
 	init_value " \"\\r\\n\""
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -1408,7 +1375,7 @@ ${members}}
       end
 
       attribute 138135 "DELIMITEUR_TRAME"
-	class_attribute private explicit_type "String"
+	class_attribute const_attribute public explicit_type "String"
 	init_value " \"&\""
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -1421,7 +1388,7 @@ ${members}}
       end
 
       attribute 138263 "CONFIGURATION_POMODORO"
-	class_attribute private explicit_type "String"
+	class_attribute const_attribute public explicit_type "String"
 	init_value " \"P\""
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -1431,13 +1398,13 @@ ${members}}
 	idl_decl ""
 	mysql_decl ""
 	MysqlColumn
-	comment "@brief sens : Application -> Pomodoro
+	comment "@brief Sens : Application -> Pomodoro
 
 "
       end
 
       attribute 138391 "CONFIGURATION_UTILISATEUR"
-	class_attribute private explicit_type "String"
+	class_attribute const_attribute public explicit_type "String"
 	init_value " \"U\""
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -1450,7 +1417,7 @@ ${members}}
       end
 
       attribute 138519 "MODE_SONNERIE"
-	class_attribute private explicit_type "String"
+	class_attribute const_attribute public explicit_type "String"
 	init_value " \"B\""
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -1463,7 +1430,7 @@ ${members}}
       end
 
       attribute 138647 "DEMARRER_TACHE"
-	class_attribute private explicit_type "String"
+	class_attribute const_attribute public explicit_type "String"
 	init_value " \"T\""
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -1476,7 +1443,7 @@ ${members}}
       end
 
       attribute 138775 "DEMARRER_PAUSE"
-	class_attribute private explicit_type "String"
+	class_attribute const_attribute public explicit_type "String"
 	init_value " \"R\""
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -1489,7 +1456,7 @@ ${members}}
       end
 
       attribute 138903 "ARRET_TACHE_PAUSE"
-	class_attribute private explicit_type "String"
+	class_attribute const_attribute public explicit_type "String"
 	init_value " \"S\""
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -1502,7 +1469,7 @@ ${members}}
       end
 
       attribute 139031 "ANNULATION_TACHE_PAUSE"
-	class_attribute private explicit_type "String"
+	class_attribute const_attribute public explicit_type "String"
 	init_value " \"X\""
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -1515,7 +1482,7 @@ ${members}}
       end
 
       attribute 139159 "MAINTIEN_CONNEXION"
-	class_attribute private explicit_type "String"
+	class_attribute const_attribute public explicit_type "String"
 	init_value " \"H\""
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -1528,7 +1495,7 @@ ${members}}
       end
 
       attribute 139287 "CHANGEMENT_ETAT"
-	class_attribute private explicit_type "String"
+	class_attribute const_attribute public explicit_type "String"
 	init_value " \"E\""
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -1538,13 +1505,13 @@ ${members}}
 	idl_decl ""
 	mysql_decl ""
 	MysqlColumn
-	comment "@brief sens : Pomodoro -> Application
+	comment "@brief Sens : Pomodoro -> Application
 
 "
       end
 
       attribute 139415 "ERREUR"
-	class_attribute private explicit_type "String"
+	class_attribute const_attribute public explicit_type "String"
 	init_value " \"F\""
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -1557,8 +1524,37 @@ ${members}}
       end
 
       attribute 139543 "ACQUITTEMENT"
-	class_attribute private explicit_type "String"
+	class_attribute const_attribute public explicit_type "String"
 	init_value " \"A\""
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 149399 "TYPE_TRAME"
+	class_attribute const_attribute public explicit_type "int"
+	init_value " 0"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "@brief Position des champs dans une trame
+
+"
+      end
+
+      attribute 149527 "CHAMP_ETAT"
+	class_attribute const_attribute public explicit_type "int"
+	init_value " 1"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
 "
@@ -1571,8 +1567,742 @@ ${members}}
     end
 
     classdiagram 141079 "version 0.2"
-      classdiagramsettings show_members_full_definition yes show_members_visibility yes member_max_width 0 end
+      classdiagramsettings show_members_full_definition yes show_members_visibility yes show_members_stereotype yes member_max_width 0 end
       size A0
+    end
+
+    class 142103 "BaseDeDonnees"
+      visibility public 
+      cpp_decl ""
+      java_decl "${comment}${@}${visibility}${static}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "@file BaseDeDonnees.java
+@brief Déclaration de la classe BaseDeDonnees
+@author Thierry VAIRA
+@author Teddy ESTABLET
+
+
+@class BaseDeDonnees
+@brief Classe permettant de manipuler la base de données
+"
+      attribute 148375 "TAG"
+	class_attribute const_attribute private explicit_type "String"
+	init_value " \"_BaseDeDonnees\""
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "<! TAG pour les logs"
+      end
+
+      attribute 148503 "bdd"
+	private explicit_type "SQLiteDatabase"
+	init_value " null"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "<! L'accès à la base de données"
+      end
+
+      classrelation 141847 // sqlite (<unidirectional association>)
+	relation 141847 --->
+	  a role_name "sqlite" init_value " null" private
+	    comment "<! Permet l'initialisation de la base de données"
+	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	    classrelation_ref 141847 // sqlite (<unidirectional association>)
+	  b parent class_ref 142231 // SQLite
+      end
+
+      attribute 148631 "INDEX_COLONNE_ID_COLONNE"
+	class_attribute const_attribute private explicit_type "int"
+	init_value " 0"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "Constantes
+
+"
+      end
+
+      attribute 148759 "INDEX_COLONNE_LIBELLE"
+	class_attribute const_attribute private explicit_type "int"
+	init_value " 1"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 148887 "INDEX_CATEGORIE_ID_CATEGORIE"
+	class_attribute const_attribute private explicit_type "int"
+	init_value " 0"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 149015 "INDEX_CATEGORIE_LIBELLE"
+	class_attribute const_attribute private explicit_type "int"
+	init_value " 1"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 149143 "DEBUT_REQUETE_INSERTION_POMODORO"
+	class_attribute const_attribute private explicit_type "String"
+	init_value "  \"INSERT INTO Pomodoro(idTache,idModele,position,debut,idEtat) VALUES (\""
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 149271 "DEBUT_REQUETE_TERMINER_POMODORO"
+	class_attribute const_attribute private explicit_type "String"
+	init_value " \"UPDATE Pomodoro SET fin=DATETIME('now'), idEtat=3 WHERE idPomodoro=\""
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      operation 145943 "BaseDeDonnees"
+	public explicit_return_type ""
+	nparams 1
+	  param inout name "context" explicit_type "Context"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${synchronized}${name}${(}${t0} ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	comment "@brief Constructeur de la classe BaseDeDonnees
+@param context le contexte dans lequel l'objet est créé
+"
+      end
+
+      operation 146071 "ouvrir"
+	private explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	comment "@brief Ouvre un accés à la base de données
+"
+      end
+
+      operation 146199 "fermer"
+	private explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	comment "@brief Ferme l'accés à la base de données
+"
+      end
+
+      operation 146327 "effectuerRequete"
+	private explicit_return_type "Cursor"
+	nparams 1
+	  param in name "requete" explicit_type "String"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	comment "@brief Permet d'effectuer une requete sur la base de données
+@param requete la requete a éffectuer
+"
+      end
+
+      operation 146455 "getNomColonnes"
+	public explicit_return_type "Vector<String>"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	comment "@brief Permet d'effectuer une requete pour récupérer tous les libellés des colonnes
+@return Les objets libellés récupérés
+"
+      end
+
+      operation 146583 "executerRequete"
+	public explicit_return_type "void"
+	nparams 1
+	  param in name "requete" explicit_type "String"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	comment "@brief Permet d'effectuer une requete de type INSERT, UPDATE ou DELETE
+@param requete La requête SQL à exécuter
+"
+      end
+    end
+
+    class 142231 "SQLite"
+      visibility public 
+      cpp_decl ""
+      java_decl "${comment}${@}${visibility}${static}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "@file SQLite.java
+@brief Déclaration de la classe SQLite
+@author Thierry VAIRA
+
+
+@class SQLite
+@brief Classe qui permet la création de la base de données
+"
+      classrelation 142103 // <generalisation>
+	relation 142103 ---|>
+	  a public
+	    java "${type}"
+	    classrelation_ref 142103 // <generalisation>
+	  b parent class_ref 142359 // SQLiteOpenHelper
+      end
+
+      attribute 149655 "TAG"
+	class_attribute const_attribute private explicit_type "String"
+	init_value " \"_SQLite\""
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "!< TAG pour les logs"
+      end
+
+      attribute 149783 "DATABASE_NAME"
+	class_attribute const_attribute public explicit_type "String"
+	init_value " \"pomodoro.db\""
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "!< Le nom de la base de données"
+      end
+
+      attribute 149911 "DATABASE_VERSION"
+	class_attribute const_attribute public explicit_type "int"
+	init_value " 3"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "!< La version de la base de données"
+      end
+
+      attribute 150039 "CREATE_TABLE_COLONNE"
+	class_attribute const_attribute private explicit_type "String"
+	init_value " \"CREATE TABLE IF NOT EXISTS Colonne(idColonne INTEGER PRIMARY KEY, libelle VARCHAR);\""
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "Requêtes de création des tables
+
+"
+      end
+
+      attribute 150167 "CREATE_TABLE_CATEGORIE"
+	class_attribute const_attribute private explicit_type "String"
+	init_value " \"CREATE TABLE IF NOT EXISTS Categorie(idCategorie INTEGER PRIMARY KEY, libelle VARCHAR);\""
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 150295 "CREATE_TABLE_MODE"
+	class_attribute const_attribute private explicit_type "String"
+	init_value " \"CREATE TABLE IF NOT EXISTS Mode(idMode INTEGER PRIMARY KEY, libelle VARCHAR);\""
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 150423 "CREATE_TABLE_PROJET"
+	class_attribute const_attribute private explicit_type "String"
+	init_value " \"CREATE TABLE IF NOT EXISTS Projet(idProjet INTEGER PRIMARY KEY AUTOINCREMENT,titre VARCHAR NOT NULL,description VARCHAR,dateCreation DATETIME NOT NULL,dateDebut DATETIME,dateFin DATETIME,couleur VARCHAR,idCategorie INTEGER NOT NULL,actif INTEGER DEFAULT '1',tempsDepense FLOAT DEFAULT '0',tempsEstime FLOAT DEFAULT '0',priorite INTEGER DEFAULT '0',CONSTRAINT Projet_fk_3 FOREIGN KEY (idCategorie) REFERENCES Categorie(idCategorie) ON DELETE CASCADE);\""
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 150551 "CREATE_TABLE_TACHE"
+	class_attribute const_attribute private explicit_type "String"
+	init_value " \"CREATE TABLE IF NOT EXISTS Tache(idTache INTEGER PRIMARY KEY AUTOINCREMENT,titre VARCHAR NOT NULL,description VARCHAR,dateCreation DATETIME NOT NULL,dateDebut DATETIME,dateFin DATETIME,couleur VARCHAR,idProjet INTEGER NOT NULL,idColonne INTEGER NOT NULL,idCategorie INTEGER NOT NULL,position INTEGER DEFAULT '0',active INTEGER DEFAULT '0',tempsDepense INTEGER DEFAULT '0',tempsEstime INTEGER DEFAULT '0',priorite INTEGER DEFAULT '0',CONSTRAINT Tache_fk_1 FOREIGN KEY (idProjet) REFERENCES Projet(idProjet) ON DELETE CASCADE,CONSTRAINT Tache_fk_2 FOREIGN KEY (idColonne) REFERENCES Colonne(idColonne) ON DELETE CASCADE,CONSTRAINT Tache_fk_3 FOREIGN KEY (idCategorie) REFERENCES Categorie(idCategorie) ON DELETE CASCADE);\""
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 150679 "CREATE_TABLE_DONNEETACHE"
+	class_attribute const_attribute private explicit_type "String"
+	init_value " \"CREATE TABLE DonneeTache(idTache INTEGER NOT NULL,nom VARCHAR NOT NULL,valeur VARCHAR DEFAULT '',UNIQUE(idTache,nom),CONSTRAINT DonneeTache_fk_1 FOREIGN KEY (idTache) REFERENCES Tache(idTache) ON DELETE CASCADE);\""
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 150807 "CREATE_TABLE_MODELE"
+	class_attribute const_attribute private explicit_type "String"
+	init_value " \"CREATE TABLE IF NOT EXISTS Modele(idModele INTEGER PRIMARY KEY AUTOINCREMENT,nom VARCHAR NOT NULL,idMode INTEGER DEFAULT '1',dureePomodoro INTEGER DEFAULT '1500',pauseCourte INTEGER DEFAULT '300',pauseLongue INTEGER DEFAULT '1200',nbPomodori INTEGER DEFAULT '4',autoPomodoro INTEGER DEFAULT '0',autoPause INTEGER DEFAULT '1',UNIQUE(nom),CONSTRAINT Modele_fk_1 FOREIGN KEY (idMode) REFERENCES Mode(idMode) ON DELETE CASCADE);\""
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 150935 "CREATE_TABLE_ETAT"
+	class_attribute const_attribute private explicit_type "String"
+	init_value " \"CREATE TABLE IF NOT EXISTS Etat(idEtat INTEGER PRIMARY KEY, libelle VARCHAR);\""
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 151063 "CREATE_TABLE_POMODORO"
+	class_attribute const_attribute private explicit_type "String"
+	init_value " \"CREATE TABLE IF NOT EXISTS Pomodoro(idPomodoro INTEGER PRIMARY KEY AUTOINCREMENT,idTache INTEGER NOT NULL,idModele INTEGER NOT NULL,position INTEGER DEFAULT '0',debut DATETIME,fin DATETIME,idEtat INTEGER DEFAULT '0',duree INTEGER DEFAULT '0',CONSTRAINT Pomodoro_fk_1 FOREIGN KEY (idTache) REFERENCES Tache(idTache) ON DELETE CASCADE,CONSTRAINT Pomodoro_fk_2 FOREIGN KEY (idModele) REFERENCES Modele(idModele) ON DELETE CASCADE,CONSTRAINT Pomodoro_fk_3 FOREIGN KEY (idEtat) REFERENCES Etat(idEtat) ON DELETE CASCADE);\""
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 151191 "CREATE_TABLE_PREFERENCES"
+	class_attribute const_attribute private explicit_type "String"
+	init_value " \"CREATE TABLE IF NOT EXISTS Preferences(idPreferences INTEGER PRIMARY KEY AUTOINCREMENT,nom VARCHAR NOT NULL,prenom VARCHAR,idProjet INTEGER NOT NULL,idPomodoro INTEGER NOT NULL,idModele INTEGER NOT NULL,UNIQUE(nom,prenom),CONSTRAINT Preferences_fk_1 FOREIGN KEY (idProjet) REFERENCES Projet(idProjet) ON DELETE CASCADE,CONSTRAINT Preferences_fk_2 FOREIGN KEY (idPomodoro) REFERENCES Pomodoro(idPomodoro) ON DELETE CASCADE,CONSTRAINT Preferences_fk_3 FOREIGN KEY (idModele) REFERENCES Modele(idModele) ON DELETE CASCADE);\""
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 151319 "INSERT_TABLE_COLONNE"
+	class_attribute const_attribute private explicit_type "String"
+	init_value " \"INSERT INTO Colonne(idColonne,libelle) VALUES(1,'A faire'),(2,'En cours'),(3,'Terminées');\""
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "Requêtes d'insertion de initiales dans la base de données
+
+"
+      end
+
+      attribute 151447 "INSERT_TABLE_CATEGORIE"
+	class_attribute const_attribute private explicit_type "String"
+	init_value " \"INSERT INTO Categorie(idCategorie,libelle) VALUES(1,'Développement'),(2,'Gestion de projet'),(3,'Test');\""
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 151575 "INSERT_TABLE_MODE"
+	class_attribute const_attribute private explicit_type "String"
+	init_value " \"INSERT INTO Mode(idMode,libelle) VALUES(1,'Minuteur'),(2,'Chronomètre');\""
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 151703 "INSERT_TABLE_ETAT"
+	class_attribute const_attribute private explicit_type "String"
+	init_value " \"INSERT INTO Etat(idEtat,libelle) VALUES(0,'prêt'),(1,'démarré'),(2,'pause'),(3,'terminé');\""
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 151831 "INSERT_TABLE_MODELE_1"
+	class_attribute const_attribute private explicit_type "String"
+	init_value " \"INSERT INTO Modele (nom,dureePomodoro,pauseCourte,pauseLongue,nbPomodori,autoPomodoro,autoPause) VALUES ('Classique','1500','300','1200','4','0','1');\""
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 151959 "INSERT_TABLE_MODELE_2"
+	class_attribute const_attribute private explicit_type "String"
+	init_value " \"INSERT INTO Modele (nom,dureePomodoro,pauseCourte,pauseLongue,nbPomodori,autoPomodoro,autoPause) VALUES ('Personnel','1800','60','1500','4','0','1');\""
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 152087 "INSERT_TABLE_MODELE_3"
+	class_attribute const_attribute private explicit_type "String"
+	init_value " \"INSERT INTO Modele (nom,dureePomodoro,pauseCourte,pauseLongue,nbPomodori,autoPomodoro,autoPause) VALUES ('Travail','3000','600','1200','2','0','1');\""
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 152215 "INSERT_TABLE_PROJET"
+	class_attribute const_attribute private explicit_type "String"
+	init_value " \"INSERT INTO Projet (titre,description,dateCreation,idCategorie,actif) VALUES ('Pendu','Mini-projet',DATETIME('now'),1,1);\""
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "Requêtes de test
+
+"
+      end
+
+      attribute 152343 "INSERT_TABLE_TACHE_1"
+	class_attribute const_attribute private explicit_type "String"
+	init_value " \"INSERT INTO Tache (titre,description,dateCreation,dateDebut,dateFin,idProjet,idColonne,idCategorie,position) VALUES ('Planifier les tâches','Identifier et prioriser les tâches',DATETIME('now'),'2022-03-30 08:15:00','2022-03-30 08:40:00',1,3,1,1);\""
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 152471 "INSERT_TABLE_TACHE_2"
+	class_attribute const_attribute private explicit_type "String"
+	init_value " \"INSERT INTO Tache (titre,description,dateCreation,idProjet,idColonne,idCategorie,position) VALUES ('Maquette IHM','Définir une interface Homme-Machine',DATETIME('now'),1,2,1,1);\""
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 152599 "INSERT_TABLE_TACHE_3"
+	class_attribute const_attribute private explicit_type "String"
+	init_value " \"INSERT INTO Tache (titre,description,dateCreation,idProjet,idColonne,idCategorie,position) VALUES ('Classes du domaine','Réaliser le diagramme de classes du domaine',DATETIME('now'),1,1,1,1);\""
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 152727 "INSERT_TABLE_TACHE_4"
+	class_attribute const_attribute private explicit_type "String"
+	init_value " \"INSERT INTO Tache (titre,description,dateCreation,idProjet,idColonne,idCategorie,position) VALUES ('Implémenter squelettes','Coder les squelettes des classes',DATETIME('now'),1,1,1,2);\""
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 152855 "INSERT_TABLE_POMODORO_1"
+	class_attribute const_attribute private explicit_type "String"
+	init_value " \"INSERT INTO Pomodoro (idTache,idModele,position,debut,idEtat) VALUES (2,1,0,DATETIME('now'),1);\""
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 152983 "INSERT_TABLE_POMODORO_2"
+	class_attribute const_attribute private explicit_type "String"
+	init_value " \"INSERT INTO Pomodoro (idTache,idModele,position) VALUES (3,1,1);\""
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 153111 "INSERT_TABLE_POMODORO_3"
+	class_attribute const_attribute private explicit_type "String"
+	init_value " \"INSERT INTO Pomodoro (idTache,idModele,position) VALUES (4,1,2);\""
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 153239 "INSERT_TABLE_PREFERENCES_1"
+	class_attribute const_attribute private explicit_type "String"
+	init_value " \"INSERT INTO Preferences (nom,prenom,idProjet,idPomodoro,idModele) VALUES ('ESTABLET','Teddy',1,2,1);\""
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      operation 146711 "SQLite"
+	public explicit_return_type ""
+	nparams 1
+	  param inout name "context" explicit_type "Context"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${synchronized}${name}${(}${t0} ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	comment "@brief Constructeur de la classe SQLite
+"
+      end
+
+      operation 146839 "onCreate"
+	public explicit_return_type "void"
+	nparams 1
+	  param inout name "db" explicit_type "SQLiteDatabase"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Override
+"
+	
+	
+	
+	comment "@brief Méthode appelée à la création de la base de données
+@param db La base de données créée
+"
+      end
+
+      operation 146967 "onUpgrade"
+	public explicit_return_type "void"
+	nparams 3
+	  param inout name "db" explicit_type "SQLiteDatabase"
+	  param in name "oldVersion" explicit_type "int"
+	  param in name "newVersion" explicit_type "int"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}, ${t1} ${p1}, ${t2} ${p2}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Override
+"
+	
+	
+	
+	comment "@brief Méthode appelée lors de la mise à jour de la base de données
+"
+      end
+
+      operation 147095 "creerTables"
+	private explicit_return_type "void"
+	nparams 1
+	  param inout name "db" explicit_type "SQLiteDatabase"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	comment "@brief Méthode permettant d'éxecuter les requêtes de création des tables
+@param db La base de données sur laquelle éxecuter les requêtes
+"
+      end
+
+      operation 147223 "insererDonneesInitiales"
+	private explicit_return_type "void"
+	nparams 1
+	  param inout name "db" explicit_type "SQLiteDatabase"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	comment "@brief Méthode permettant d'éxecuter les requêtes d'insertion de données initiales
+@param db La base de données sur laquelle éxecuter les requêtes
+"
+      end
     end
   end
 
@@ -1625,7 +2355,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.AutomaticZenRule;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
@@ -1640,9 +2369,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
-import com.google.android.gms.common.internal.Objects;
-import java.time.Instant;
 import java.util.Set;
+import java.util.Vector;
 ${definition}"
       associated_elems
 	class_ref 135063 // PomodoroActivity
@@ -1692,6 +2420,38 @@ import java.nio.charset.StandardCharsets;
 ${definition}"
       associated_elems
 	class_ref 134935 // TReception
+      end
+    end
+
+    artifact 141847 "BaseDeDonnees"
+      stereotype "source"
+      java_src "${comment}
+${package}
+${imports}
+import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
+import java.util.ListIterator;
+import java.util.Vector;
+${definition}"
+      associated_elems
+	class_ref 142103 // BaseDeDonnees
+      end
+    end
+
+    artifact 141975 "SQLite"
+      stereotype "source"
+      java_src "${comment}
+${package}
+${imports}
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+${definition}"
+      associated_elems
+	class_ref 142231 // SQLite
       end
     end
   end
