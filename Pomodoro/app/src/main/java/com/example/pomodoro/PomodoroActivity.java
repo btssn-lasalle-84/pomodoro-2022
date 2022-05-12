@@ -167,6 +167,8 @@ public class PomodoroActivity extends AppCompatActivity
                 Log.d(TAG, "clic boutonEditerTache");
                 Log.d(TAG, "[Tache] nom = " + tache.getNom());
                 tache.editerTaches();
+                Intent EditerTacheActivity= new Intent(PomodoroActivity.this,EditerTacheActivity.class);
+                startActivity(EditerTacheActivity);
             }
         });
         boutonSupprimerTache.setOnClickListener(new View.OnClickListener()
@@ -494,8 +496,8 @@ public class PomodoroActivity extends AppCompatActivity
                                 Log.v(TAG, "[Handler] Changement d’état : " + champs[Protocole.CHAMP_ETAT]);
                                 if(champs[Protocole.CHAMP_ETAT].equals(Protocole.ETAT_ATTENTE))
                                 {
-                                    boutonDemarrer.setText("Démarrer");
-                                    Log.v(TAG,"[Handler] Changement d'état : Bouton = Démarrer");
+                                    boutonDemarrer.setText("Choisir une tâche");
+                                    Log.v(TAG,"[Handler] Changement d'état : Bouton = Choisir une tâche");
                                 }
                                 else if(champs[Protocole.CHAMP_ETAT].equals(Protocole.ETAT_TACHE_EN_COURS))
                                 {

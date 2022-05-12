@@ -6,4 +6,9 @@
     <string name="boutonMenu">Menu</string>
     <string name="boutonSeConnecterAuPomodoro">Se connecter</string>
     <string name="boutonSynchroniserPomodoro">Synchroniser</string>
+    <string name="copyrightText">© Projet Pomodoro / Développé par ESTABLET Teddy</string>
+    <string name="copyrightText2">Ensemble scolaire Saint Jean Baptiste de LaSalle Avignon</string>
+    <string name="tacheExistanteText">Si vous souhaitez éditer une tache déjà existante, veuillez la sélectionner.</string>
+    <string name="boutonCreerTache">Créer une nouvelle Tâche</string>
+    <string name="boutonAccueil">Accueil</string>
 </resources>
