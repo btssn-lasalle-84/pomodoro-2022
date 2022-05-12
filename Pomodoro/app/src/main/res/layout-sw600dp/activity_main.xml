@@ -191,19 +191,19 @@
     </ScrollView>
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/copyrightText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="© Projet Pomodoro"
-        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        android:text="@string/copyrightText"
+        app:layout_constraintBottom_toTopOf="@+id/copyrightText2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/copyrightText2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Ensemble scolaire Saint Jean Baptiste de LaSalle Avignon"
+        android:text="@string/copyrightText2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

@@ -177,6 +177,8 @@ public class PomodoroActivity extends AppCompatActivity
                 Log.d(TAG, "clic boutonEditerTache");
                 Log.d(TAG, "[Tache] nom = " + tache.getNom());
                 tache.editerTaches();
+                Intent EditerTacheActivity= new Intent(PomodoroActivity.this,EditerTacheActivity.class);
+                startActivity(EditerTacheActivity);
             }
         });
         boutonSupprimerTache.setOnClickListener(new View.OnClickListener()
