@@ -11,8 +11,11 @@ package com.example.pomodoro;
         import android.util.Log;
         import android.view.View;
         import android.widget.Button;
+        import android.widget.Spinner;
 
         import androidx.appcompat.app.AppCompatActivity;
+
+        import java.lang.reflect.Array;
 
 
 /**
@@ -31,6 +34,7 @@ public class IHM_EditerTache extends AppCompatActivity
      */
     private Button boutonAccueil;//!< Le bouton permettant de retourner à l'accueil
     private Button boutonCreerTache;//!< Le bouton permettant de créer une tache
+    //private Spinner spinnerTacheExistante;
 
     /**
      * @brief Méthode appelée à la création de l'activité
@@ -102,6 +106,7 @@ public class IHM_EditerTache extends AppCompatActivity
         Log.d(TAG, "initialiserIHM()");
         boutonAccueil = (Button) findViewById(R.id.boutonAccueil);
         boutonCreerTache = (Button) findViewById(R.id.boutonCreerTache);
+        //spinnerTacheExistante = (Spinner) findViewById(R.id.spinnerTache);
 
         boutonCreerTache.setOnClickListener(new View.OnClickListener()
         {
@@ -116,6 +121,7 @@ public class IHM_EditerTache extends AppCompatActivity
 
         boutonAccueil.setOnClickListener(new View.OnClickListener()
         {
+            @Override
             public void onClick(View v)
             {
                 Log.d(TAG, "clic boutonEditerTache");
@@ -123,6 +129,15 @@ public class IHM_EditerTache extends AppCompatActivity
                 startActivity(RetourAccueil);
             }
         });
+
+        /**spinnerTacheExistante.setOnClickListener(new View.OnClickListener()
+        {
+           @Override
+           public void onClick(View v)
+           {
+               Log.d(TAG, "spinner appuyé");
+           }
+        });**/
 
     }
 }
