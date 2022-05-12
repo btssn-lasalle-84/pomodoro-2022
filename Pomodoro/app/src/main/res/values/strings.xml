@@ -11,4 +11,10 @@
     <string name="tacheExistanteText">Si vous souhaitez éditer une tache déjà existante, veuillez la sélectionner.</string>
     <string name="boutonCreerTache">Créer une nouvelle Tâche</string>
     <string name="boutonAccueil">Accueil</string>
+
+    <string name="CreationTache_NomTache">Nom de la tache</string>
+    <string name="CreationTache_DureeTache">Durée de la tache</string>
+    <string name="CreationTache_DureePause_Courte">Durée de(s) pause(s) courte</string>
+
+    <string name="TitreCreerTache">Créer une nouvelle Tâche</string>
 </resources>

@@ -25,8 +25,34 @@
         android:text="@string/boutonAccueil"
         app:layout_constraintBottom_toBottomOf="@+id/logoPomoConnect"
         app:layout_constraintEnd_toStartOf="@+id/logoPomoConnect"
+        app:layout_constraintHorizontal_bias="0.318"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/boutonEditerTache"
+        android:layout_width="108dp"
+        android:layout_height="61dp"
+        android:layout_marginStart="32dp"
+        android:text="@string/EditerTache"
+        app:layout_constraintBottom_toBottomOf="@+id/logoPomoConnect"
+        app:layout_constraintEnd_toStartOf="@+id/logoPomoConnect"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/boutonAccueil"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/TitreCreationTache"
+        android:layout_width="177dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/TitreCreerTache"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logoPomoConnect" />
 
     <TextView
         android:id="@+id/copyrightText2"
@@ -46,6 +72,34 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <FrameLayout
+        android:layout_width="952dp"
+        android:layout_height="480dp"
+        app:layout_constraintBottom_toTopOf="@+id/copyrightText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/TitreCreationTache">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/nomTache"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:text="@string/CreationTache_NomTache" />
+
+            </LinearLayout>
+        </ScrollView>
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

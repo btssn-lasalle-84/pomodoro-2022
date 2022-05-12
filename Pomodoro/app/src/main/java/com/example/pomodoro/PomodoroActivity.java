@@ -39,7 +39,8 @@ import java.util.Vector;
  * @class PomodoroActivity
  * @brief L'activité principale de l'application Pomodoro
  */
-public class PomodoroActivity extends AppCompatActivity
+public class
+PomodoroActivity extends AppCompatActivity
 {
     /**
      * Constantes
@@ -177,8 +178,8 @@ public class PomodoroActivity extends AppCompatActivity
                 Log.d(TAG, "clic boutonEditerTache");
                 Log.d(TAG, "[Tache] nom = " + tache.getNom());
                 tache.editerTaches();
-                Intent EditerTacheActivity= new Intent(PomodoroActivity.this,EditerTacheActivity.class);
-                startActivity(EditerTacheActivity);
+                Intent IHM_EditerTache = new Intent(PomodoroActivity.this,IHM_EditerTache.class);
+                startActivity(IHM_EditerTache);
             }
         });
         boutonSupprimerTache.setOnClickListener(new View.OnClickListener()
