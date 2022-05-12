@@ -15,7 +15,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Pomodoro">
-
         <activity
             android:name=".PomodoroActivity"
             android:exported="true">
@@ -26,7 +25,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".EditerTacheActivity"
+            android:name=".IHM_EditerTache"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -36,7 +35,7 @@
         </activity>
         <activity
             android:name=".CreerTacheActivity"
-            android:exported="false">
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

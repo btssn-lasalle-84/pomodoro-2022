@@ -18,7 +18,8 @@ public class CreerTacheActivity extends AppCompatActivity
     /**
      * @brief Ressources IHM
      */
-    private Button boutonAccueil;//!< Le bouton permettant de démarrer un pomodoro
+    private Button boutonAccueil;//!< Le bouton permettant de retourner à l'accueil
+    private Button boutonEditer;//!< Le bouton permettant de retourner au menu Editer
 
 
     @Override
@@ -87,6 +88,7 @@ public class CreerTacheActivity extends AppCompatActivity
     {
         Log.d(TAG, "initialiserIHM()");
         boutonAccueil = (Button) findViewById(R.id.boutonAccueil);
+        boutonEditer = (Button) findViewById(R.id.boutonEditerTache);
 
         boutonAccueil.setOnClickListener(new View.OnClickListener()
         {
@@ -96,6 +98,17 @@ public class CreerTacheActivity extends AppCompatActivity
                 Log.v(TAG, "clic boutonAccueil");
                 Intent RetourAccueil = new Intent(CreerTacheActivity.this,PomodoroActivity.class);
                 startActivity(RetourAccueil);
+            }
+        });
+
+        boutonEditer.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                Log.v(TAG, "clic boutonCreerTache");
+                Intent RetourEditer = new Intent(CreerTacheActivity.this,IHM_EditerTache.class);
+                startActivity(RetourEditer);
             }
         });
     }

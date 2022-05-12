@@ -6,31 +6,31 @@ package com.example.pomodoro;
  * @author Teddy ESTABLET
  */
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
+        import android.content.Intent;
+        import android.os.Bundle;
+        import android.util.Log;
+        import android.view.View;
+        import android.widget.Button;
 
-import androidx.appcompat.app.AppCompatActivity;
+        import androidx.appcompat.app.AppCompatActivity;
 
 
 /**
  * @class EditerTacheActivity
  * @brief L'activité d'edition d'une tache de l'application Pomodoro
  */
-public class EditerTacheActivity extends AppCompatActivity
+public class IHM_EditerTache extends AppCompatActivity
 {
     /**
      * @brief Constantes
      */
-    private static final String TAG = "_EditerTacheActivity";  //!< TAG pour les logs
+    private static final String TAG = "_IHM_EditerTache";  //!< TAG pour les logs
 
     /**
      * @brief Ressources IHM
      */
-    private Button boutonAccueil;//!< Le bouton permettant de démarrer un pomodoro
-    private Button boutonCreerTache;//!< Le bouton permettant de creer un pomodoro
+    private Button boutonAccueil;//!< Le bouton permettant de retourner à l'accueil
+    private Button boutonCreerTache;//!< Le bouton permettant de créer une tache
 
     /**
      * @brief Méthode appelée à la création de l'activité
@@ -39,7 +39,7 @@ public class EditerTacheActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_editer_tache);
+        setContentView(R.layout.activity_ihm_editer_tache);
         Log.d(TAG, "onCreate()");
 
         initialiserIHM();
@@ -103,24 +103,24 @@ public class EditerTacheActivity extends AppCompatActivity
         boutonAccueil = (Button) findViewById(R.id.boutonAccueil);
         boutonCreerTache = (Button) findViewById(R.id.boutonCreerTache);
 
-        boutonAccueil.setOnClickListener(new View.OnClickListener()
-        {
-            public void onClick(View v)
-            {
-                Log.d(TAG, "clic boutonEditerTache");
-                Intent RetourAccueil = new Intent(EditerTacheActivity.this,PomodoroActivity.class);
-                startActivity(RetourAccueil);
-            }
-        });
-
         boutonCreerTache.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View view)
             {
                 Log.v(TAG, "clic boutonCreerTache");
-                Intent CreerTache = new Intent(EditerTacheActivity.this,CreerTacheActivity.class);
+                Intent CreerTache = new Intent(IHM_EditerTache.this,CreerTacheActivity.class);
                 startActivity(CreerTache);
+            }
+        });
+
+        boutonAccueil.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
+                Log.d(TAG, "clic boutonEditerTache");
+                Intent RetourAccueil = new Intent(IHM_EditerTache.this,PomodoroActivity.class);
+                startActivity(RetourAccueil);
             }
         });
 
