@@ -20,13 +20,16 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Locale;
 import java.util.Set;
 import java.util.Vector;
 
@@ -64,6 +67,7 @@ public class PomodoroActivity extends AppCompatActivity
     private Button boutonEditerTache;//!< Le bouton permettant d'éditer une tâche
     private Button boutonSupprimerTache;//!< Le bouton permettant de supprimer une tâche
     private Button boutonSeConnecterAuPomodoro;//!< Le bouton permettant de se connecter au pomodoro
+    private TextView horloge;
 
     /**
      * @brief Méthode appelée à la création de l'activité
@@ -147,6 +151,7 @@ public class PomodoroActivity extends AppCompatActivity
         boutonEditerTache = (Button) findViewById(R.id.boutonEditerTache);
         boutonSupprimerTache = (Button) findViewById(R.id.boutonSupprimerTache);
         boutonSeConnecterAuPomodoro = (Button) findViewById(R.id.boutonSeConnecterAuPomodoro);
+        horloge = (TextView) findViewById(R.id.horloge);
 
         boutonDemarrer.setOnClickListener(new View.OnClickListener()
         {
@@ -452,7 +457,8 @@ public class PomodoroActivity extends AppCompatActivity
                         Log.d(TAG, "[Handler] CODE_CONNEXION = " + message.obj.toString());
                         boutonSeConnecterAuPomodoro.setText("Se déconnecter");
                         // Pour le test
-                        peripherique.envoyer("#P&25&5&15&4&0&0&0\r\n");
+                        peripherique.envoyer(Protocole.CONFIGURER_UN_POMODORO);
+                        Log.v(TAG, "Trame = #P&25&05&15&04&00&00&00\n");
                         break;
                     case Peripherique.CODE_DECONNEXION:
                         Log.d(TAG, "[Handler] DECONNEXION = " + message.obj.toString());
@@ -466,8 +472,7 @@ public class PomodoroActivity extends AppCompatActivity
                         {
                             Log.v(TAG, "[Handler] Trame valide");
                             trame = message.obj.toString().replace(Protocole.DEBUT_TRAME, "");
-                        }
-                        else
+                        } else
                         {
                             return;
                         }
@@ -481,10 +486,47 @@ public class PomodoroActivity extends AppCompatActivity
                         /**
                          * @todo Traiter et décoder les trames reçues
                          */
+
+
                         switch(champs[Protocole.TYPE_TRAME])
                         {
                             case Protocole.CHANGEMENT_ETAT:
                                 Log.v(TAG, "[Handler] Changement d’état : " + champs[Protocole.CHAMP_ETAT]);
+                                if(champs[Protocole.CHAMP_ETAT].equals(Protocole.ETAT_ATTENTE))
+                                {
+                                    boutonDemarrer.setText("Démarrer");
+                                    Log.v(TAG,"[Handler] Changement d'état : Bouton = Démarrer");
+                                }
+                                else if(champs[Protocole.CHAMP_ETAT].equals(Protocole.ETAT_TACHE_EN_COURS))
+                                {
+                                    boutonDemarrer.setText("Pause");
+                                    Log.v(TAG,"[Handler] Changement d'état : Bouton = Pause");
+                                }
+                                else if(champs[Protocole.CHAMP_ETAT].equals(Protocole.ETAT_TACHE_TERMINEE))
+                                {
+                                    boutonDemarrer.setText("Tache terminée");
+                                    Log.v(TAG,"[Handler] Changement d'état : Bouton = Tache Terminée");
+                                }
+                                else if(champs[Protocole.CHAMP_ETAT].equals(Protocole.ETAT_PAUSE_COURTE_EN_COURS))
+                                {
+                                    boutonDemarrer.setText("Pause courte");
+                                    Log.v(TAG, "[Handler] Changement d'état : Bouton = Pause Courte");
+                                }
+                                else if(champs[Protocole.CHAMP_ETAT].equals(Protocole.ETAT_PAUSE_COURTE_TERMINEE))
+                                {
+                                    boutonDemarrer.setText("Pause courte terminée");
+                                    Log.v(TAG, "[Handler] Changement d'état : Bouton = Pause Courte terminée");
+                                }
+                                else if(champs[Protocole.CHAMP_ETAT].equals(Protocole.ETAT_PAUSE_LONGUE_EN_COURS))
+                                {
+                                    boutonDemarrer.setText("Pause longue");
+                                    Log.v(TAG, "[Handler] Changement d'état : Bouton = Pause Longue");
+                                }
+                                else if(champs[Protocole.CHAMP_ETAT].equals(Protocole.ETAT_PAUSE_LONGUE_TERMINEE))
+                                {
+                                    boutonDemarrer.setText("Pause longue terminée");
+                                    Log.v(TAG, "[Handler] Changement d'état : Bouton = Pause Longue Terminée");
+                                }
                                 break;
                         }
                         break;

@@ -6,6 +6,7 @@ package com.example.pomodoro;
  * @author Teddy ESTABLET
  */
 
+import android.os.Bundle;
 import android.util.Log;
 
 /**
@@ -19,23 +20,6 @@ public class Minuteur
      * Constantes
      */
     private static final String TAG = "_Minuteur";  //!< TAG pour les logs
-
-    /**
-     * Attributs
-     */
-
-
-
-    /**
-     * @brief Constructeur
-     */
-    public void Minuteur()
-    {
-    }
-
-    public void Timer()
-    {
-    }
 
     public void demarrerMinuteur()
     {
