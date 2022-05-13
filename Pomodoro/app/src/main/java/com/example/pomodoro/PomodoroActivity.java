@@ -624,7 +624,7 @@ public class PomodoroActivity extends AppCompatActivity
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("mm:ss");
                 //final String strDate = simpleDateFormat.format(Calendar.getInstance().getTime());
                 // Mode chronomètre
-                long enCours = Calendar.getInstance().getTime().getTime() - debutMinuteur;
+                long enCours = Calendar.getInstance().getTime().getTime() - debutMinuteur;;
                 //Log.v(TAG, "[minuter] maintenant = " + Calendar.getInstance().getTime().getTime());
                 //Log.v(TAG, "[minuter] debutMinuteur = " + debutMinuteur);
                 //Log.v(TAG, "[minuter] enCours = " + enCours);
