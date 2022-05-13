@@ -10,7 +10,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -20,7 +19,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -29,8 +27,12 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.Locale;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Set;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.Vector;
 
 /**
@@ -58,7 +60,11 @@ public class PomodoroActivity extends AppCompatActivity
     private Peripherique peripherique = null;
     private Handler handler = null;
     private BaseDeDonnees baseDeDonnees = null;
+    private Minuteur minuteur; //!< le minuteur
     private Tache tache; //!< une tâche
+    private Timer timerMinuteur = null;;
+    private TimerTask tacheMinuteur;
+    private long debutMinuteur;
 
     /**
      * Ressources IHM
@@ -79,6 +85,7 @@ public class PomodoroActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Log.d(TAG, "onCreate()");
 
+        minuteur = new Minuteur();
         tache = new Tache();
 
         baseDeDonnees = new BaseDeDonnees(this);
@@ -158,6 +165,9 @@ public class PomodoroActivity extends AppCompatActivity
             public void onClick(View v)
             {
                 Log.d(TAG, "clic boutonDemarrer");
+                /**
+                 * @todo Gérer le minuteur connecté
+                 */
             }
         });
         boutonEditerTache.setOnClickListener(new View.OnClickListener()
@@ -456,9 +466,11 @@ public class PomodoroActivity extends AppCompatActivity
                     case Peripherique.CODE_CONNEXION:
                         Log.d(TAG, "[Handler] CODE_CONNEXION = " + message.obj.toString());
                         boutonSeConnecterAuPomodoro.setText("Se déconnecter");
-                        // Pour le test
-                        peripherique.envoyer(Protocole.CONFIGURER_UN_POMODORO);
-                        Log.v(TAG, "Trame = #P&25&05&15&04&00&00&00\n");
+                        String trameConfiguration = "#P&"+Integer.toString(minuteur.getLongueur())+"&"+Integer.toString(minuteur.getDureePauseCourte())+"&"+Integer.toString(minuteur.getDureePauseLongue())+"&"+Integer.toString(minuteur.getNbCycles())+"&"+(minuteur.estModeAutomatique() ? "1" : "0")+"&"+(minuteur.estModeAutomatiquePause() ? "1" : "0")+"&0\n";
+                        //peripherique.envoyer(Protocole.CONFIGURER_UN_POMODORO);
+                        //Log.v(TAG, "Trame = " + Protocole.CONFIGURER_UN_POMODORO);
+                        peripherique.envoyer(trameConfiguration);
+                        Log.v(TAG, "Trame = " + trameConfiguration);
                         break;
                     case Peripherique.CODE_DECONNEXION:
                         Log.d(TAG, "[Handler] DECONNEXION = " + message.obj.toString());
@@ -486,45 +498,54 @@ public class PomodoroActivity extends AppCompatActivity
                         /**
                          * @todo Traiter et décoder les trames reçues
                          */
-
-
                         switch(champs[Protocole.TYPE_TRAME])
                         {
                             case Protocole.CHANGEMENT_ETAT:
                                 Log.v(TAG, "[Handler] Changement d’état : " + champs[Protocole.CHAMP_ETAT]);
+                                /**
+                                 * @todo Gérer l'affichage du minuteur
+                                 */
+                                minuteur.setEtat(Integer.parseInt(champs[Protocole.CHAMP_ETAT]));
                                 if(champs[Protocole.CHAMP_ETAT].equals(Protocole.ETAT_ATTENTE))
                                 {
                                     boutonDemarrer.setText("Démarrer");
+                                    arreterMinuteur();
                                     Log.v(TAG,"[Handler] Changement d'état : Bouton = Démarrer");
                                 }
                                 else if(champs[Protocole.CHAMP_ETAT].equals(Protocole.ETAT_TACHE_EN_COURS))
                                 {
                                     boutonDemarrer.setText("Pause");
+                                    demarrerMinuteur();
                                     Log.v(TAG,"[Handler] Changement d'état : Bouton = Pause");
                                 }
                                 else if(champs[Protocole.CHAMP_ETAT].equals(Protocole.ETAT_TACHE_TERMINEE))
                                 {
                                     boutonDemarrer.setText("Tache terminée");
+                                    arreterMinuteur();
                                     Log.v(TAG,"[Handler] Changement d'état : Bouton = Tache Terminée");
                                 }
                                 else if(champs[Protocole.CHAMP_ETAT].equals(Protocole.ETAT_PAUSE_COURTE_EN_COURS))
                                 {
                                     boutonDemarrer.setText("Pause courte");
+                                    demarrerMinuteur();
                                     Log.v(TAG, "[Handler] Changement d'état : Bouton = Pause Courte");
                                 }
                                 else if(champs[Protocole.CHAMP_ETAT].equals(Protocole.ETAT_PAUSE_COURTE_TERMINEE))
                                 {
                                     boutonDemarrer.setText("Pause courte terminée");
+                                    arreterMinuteur();
                                     Log.v(TAG, "[Handler] Changement d'état : Bouton = Pause Courte terminée");
                                 }
                                 else if(champs[Protocole.CHAMP_ETAT].equals(Protocole.ETAT_PAUSE_LONGUE_EN_COURS))
                                 {
                                     boutonDemarrer.setText("Pause longue");
+                                    demarrerMinuteur();
                                     Log.v(TAG, "[Handler] Changement d'état : Bouton = Pause Longue");
                                 }
                                 else if(champs[Protocole.CHAMP_ETAT].equals(Protocole.ETAT_PAUSE_LONGUE_TERMINEE))
                                 {
                                     boutonDemarrer.setText("Pause longue terminée");
+                                    arreterMinuteur();
                                     Log.v(TAG, "[Handler] Changement d'état : Bouton = Pause Longue Terminée");
                                 }
                                 break;
@@ -533,5 +554,94 @@ public class PomodoroActivity extends AppCompatActivity
                 }
             }
         };
+    }
+
+    private void demarrerMinuteur()
+    {
+        if(timerMinuteur != null){
+            timerMinuteur.cancel();
+        }
+
+        timerMinuteur = new Timer();
+        debutMinuteur = Calendar.getInstance().getTime().getTime();
+
+        /**
+         * @todo Initialiser l'affichage de l'horloge
+         */
+        switch(minuteur.getEtat())
+        {
+            case Minuteur.ETAT_MINUTEUR_ATTENTE:
+                horloge.setText("25:00");
+                break;
+            case Minuteur.ETAT_MINUTEUR_TACHE_TERMINEE:
+                horloge.setText("00:00");
+                break;
+            case Minuteur.ETAT_MINUTEUR_TACHE_EN_COURS:
+                break;
+            case Minuteur.ETAT_MINUTEUR_PAUSE_COURTE_EN_COURS:
+                break;
+            case Minuteur.ETAT_MINUTEUR_PAUSE_COURTE_TERMINEE:
+                break;
+            case Minuteur.ETAT_MINUTEUR_PAUSE_LONGUE_EN_COURS:
+                break;
+            case Minuteur.ETAT_MINUTEUR_PAUSE_LONGUE_TERMINEE:
+                break;
+        }
+
+        minuter();
+    }
+
+    private void arreterMinuteur()
+    {
+        if (timerMinuteur != null)
+        {
+            timerMinuteur.cancel();
+            timerMinuteur = null;
+
+            /**
+             * @todo Reinitialiser l'affichage de l'horloge
+             */
+            switch(minuteur.getEtat())
+            {
+                case Minuteur.ETAT_MINUTEUR_ATTENTE:
+                    horloge.setText("25:00");
+                    break;
+                case Minuteur.ETAT_MINUTEUR_TACHE_TERMINEE:
+                    horloge.setText("00:00");
+                    break;
+                case Minuteur.ETAT_MINUTEUR_PAUSE_COURTE_TERMINEE:
+                    break;
+                case Minuteur.ETAT_MINUTEUR_PAUSE_LONGUE_TERMINEE:
+                    break;
+            }
+        }
+    }
+
+    public void minuter()
+    {
+        tacheMinuteur = new TimerTask() {
+            public void run() {
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("mm:ss");
+                //final String strDate = simpleDateFormat.format(Calendar.getInstance().getTime());
+                // Mode chronomètre
+                long enCours = Calendar.getInstance().getTime().getTime() - debutMinuteur;
+                //Log.v(TAG, "[minuter] maintenant = " + Calendar.getInstance().getTime().getTime());
+                //Log.v(TAG, "[minuter] debutMinuteur = " + debutMinuteur);
+                //Log.v(TAG, "[minuter] enCours = " + enCours);
+                /**
+                 * @todo Afficher en mode Minuteur
+                 */
+                Date affichageMinuteur = new Date(enCours);
+                final String strDate = simpleDateFormat.format(affichageMinuteur);
+
+                runOnUiThread(new Runnable() {
+                    public void run() {
+                        horloge.setText(strDate);
+                    }
+                });
+            }
+        };
+
+        timerMinuteur.schedule(tacheMinuteur, 1000, 1000);
     }
 }
