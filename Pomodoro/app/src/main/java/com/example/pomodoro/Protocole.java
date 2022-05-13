@@ -14,10 +14,6 @@ package com.example.pomodoro;
 public class Protocole
 {
     /**
-     * Constantes
-     */
-
-    /**
      * @brief Sens : Application <-> Pomodoro
      */
     public static final String DEBUT_TRAME = "#";
@@ -48,4 +44,20 @@ public class Protocole
      */
     public static final int TYPE_TRAME = 0;
     public static final int CHAMP_ETAT = 1;
+
+    /**
+     * @brief Différent état du type de trame : CHANGEMENT_ETAT
+     */
+    public static final String ETAT_ATTENTE = "-1";
+    public static final String ETAT_TACHE_TERMINEE = "0";
+    public static final String ETAT_TACHE_EN_COURS = "1";
+    public static final String ETAT_PAUSE_COURTE_EN_COURS = "2";
+    public static final String ETAT_PAUSE_COURTE_TERMINEE = "3";
+    public static final String ETAT_PAUSE_LONGUE_EN_COURS = "4";
+    public static final String ETAT_PAUSE_LONGUE_TERMINEE = "5";
+
+    /**
+     * @brief Trame envoyer par défaut
+     */
+    public static final String CONFIGURER_UN_POMODORO = "#P&25&5&15&4&0&0&0\n";
 }
