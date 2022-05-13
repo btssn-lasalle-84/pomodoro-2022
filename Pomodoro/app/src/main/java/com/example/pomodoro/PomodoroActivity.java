@@ -64,7 +64,7 @@ public class PomodoroActivity extends AppCompatActivity
     private Tache tache; //!< une tâche
     private Timer timerMinuteur = null;;
     private TimerTask tacheMinuteur;
-    private long debutMinuteur;
+    private long dureeEnCours;
 
     /**
      * Ressources IHM
@@ -514,20 +514,20 @@ public class PomodoroActivity extends AppCompatActivity
                                 }
                                 else if(champs[Protocole.CHAMP_ETAT].equals(Protocole.ETAT_TACHE_EN_COURS))
                                 {
-                                    boutonDemarrer.setText("Pause");
-                                    demarrerMinuteur();
+                                    boutonDemarrer.setText("Tâche");
+                                    demarrerMinuteur(minuteur.getLongueur());
                                     Log.v(TAG,"[Handler] Changement d'état : Bouton = Pause");
                                 }
                                 else if(champs[Protocole.CHAMP_ETAT].equals(Protocole.ETAT_TACHE_TERMINEE))
                                 {
-                                    boutonDemarrer.setText("Tache terminée");
+                                    boutonDemarrer.setText("Tâche terminée");
                                     arreterMinuteur();
                                     Log.v(TAG,"[Handler] Changement d'état : Bouton = Tache Terminée");
                                 }
                                 else if(champs[Protocole.CHAMP_ETAT].equals(Protocole.ETAT_PAUSE_COURTE_EN_COURS))
                                 {
                                     boutonDemarrer.setText("Pause courte");
-                                    demarrerMinuteur();
+                                    demarrerMinuteur(minuteur.getDureePauseCourte());
                                     Log.v(TAG, "[Handler] Changement d'état : Bouton = Pause Courte");
                                 }
                                 else if(champs[Protocole.CHAMP_ETAT].equals(Protocole.ETAT_PAUSE_COURTE_TERMINEE))
@@ -539,7 +539,7 @@ public class PomodoroActivity extends AppCompatActivity
                                 else if(champs[Protocole.CHAMP_ETAT].equals(Protocole.ETAT_PAUSE_LONGUE_EN_COURS))
                                 {
                                     boutonDemarrer.setText("Pause longue");
-                                    demarrerMinuteur();
+                                    demarrerMinuteur(minuteur.getDureePauseLongue());
                                     Log.v(TAG, "[Handler] Changement d'état : Bouton = Pause Longue");
                                 }
                                 else if(champs[Protocole.CHAMP_ETAT].equals(Protocole.ETAT_PAUSE_LONGUE_TERMINEE))
@@ -556,37 +556,15 @@ public class PomodoroActivity extends AppCompatActivity
         };
     }
 
-    private void demarrerMinuteur()
+    private void demarrerMinuteur(int duree)
     {
         if(timerMinuteur != null){
             timerMinuteur.cancel();
         }
 
         timerMinuteur = new Timer();
-        debutMinuteur = Calendar.getInstance().getTime().getTime();
-
-        /**
-         * @todo Initialiser l'affichage de l'horloge
-         */
-        switch(minuteur.getEtat())
-        {
-            case Minuteur.ETAT_MINUTEUR_ATTENTE:
-                horloge.setText("25:00");
-                break;
-            case Minuteur.ETAT_MINUTEUR_TACHE_TERMINEE:
-                horloge.setText("00:00");
-                break;
-            case Minuteur.ETAT_MINUTEUR_TACHE_EN_COURS:
-                break;
-            case Minuteur.ETAT_MINUTEUR_PAUSE_COURTE_EN_COURS:
-                break;
-            case Minuteur.ETAT_MINUTEUR_PAUSE_COURTE_TERMINEE:
-                break;
-            case Minuteur.ETAT_MINUTEUR_PAUSE_LONGUE_EN_COURS:
-                break;
-            case Minuteur.ETAT_MINUTEUR_PAUSE_LONGUE_TERMINEE:
-                break;
-        }
+        dureeEnCours = duree;
+        horloge.setText(getMMSS(duree));
 
         minuter();
     }
@@ -597,23 +575,7 @@ public class PomodoroActivity extends AppCompatActivity
         {
             timerMinuteur.cancel();
             timerMinuteur = null;
-
-            /**
-             * @todo Reinitialiser l'affichage de l'horloge
-             */
-            switch(minuteur.getEtat())
-            {
-                case Minuteur.ETAT_MINUTEUR_ATTENTE:
-                    horloge.setText("25:00");
-                    break;
-                case Minuteur.ETAT_MINUTEUR_TACHE_TERMINEE:
-                    horloge.setText("00:00");
-                    break;
-                case Minuteur.ETAT_MINUTEUR_PAUSE_COURTE_TERMINEE:
-                    break;
-                case Minuteur.ETAT_MINUTEUR_PAUSE_LONGUE_TERMINEE:
-                    break;
-            }
+            horloge.setText("00:00");
         }
     }
 
@@ -621,27 +583,26 @@ public class PomodoroActivity extends AppCompatActivity
     {
         tacheMinuteur = new TimerTask() {
             public void run() {
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("mm:ss");
-                //final String strDate = simpleDateFormat.format(Calendar.getInstance().getTime());
-                // Mode chronomètre
-                long enCours = Calendar.getInstance().getTime().getTime() - debutMinuteur;;
-                //Log.v(TAG, "[minuter] maintenant = " + Calendar.getInstance().getTime().getTime());
-                //Log.v(TAG, "[minuter] debutMinuteur = " + debutMinuteur);
-                //Log.v(TAG, "[minuter] enCours = " + enCours);
-                /**
-                 * @todo Afficher en mode Minuteur
-                 */
-                Date affichageMinuteur = new Date(enCours);
-                final String strDate = simpleDateFormat.format(affichageMinuteur);
-
+                dureeEnCours--;
                 runOnUiThread(new Runnable() {
                     public void run() {
-                        horloge.setText(strDate);
+                        horloge.setText(getMMSS(dureeEnCours));
                     }
                 });
             }
         };
 
         timerMinuteur.schedule(tacheMinuteur, 1000, 1000);
+    }
+
+    private String getMMSS(long valeur)
+    {
+        long minutes = (valeur % 3600) / 60;
+        String minuteStr = minutes < 10 ? "0" + Integer.toString((int) minutes) : Integer.toString((int)minutes);
+
+        long secondes = valeur % 60;
+        String secondesStr = secondes < 10 ? "0" + Integer.toString((int)secondes) : Integer.toString((int)secondes);
+
+        return minuteStr + ":" + secondesStr;
     }
 }
