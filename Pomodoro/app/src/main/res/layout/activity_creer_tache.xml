@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     tools:context=".CreerTacheActivity">
 
     <ImageView
@@ -45,11 +46,12 @@
 
     <TextView
         android:id="@+id/TitreCreationTache"
-        android:layout_width="177dp"
-        android:layout_height="42dp"
+        android:layout_width="338dp"
+        android:layout_height="33dp"
         android:layout_marginTop="32dp"
         android:text="@string/TitreCreerTache"
         android:textAlignment="center"
+        android:textSize="25dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/logoPomoConnect" />
@@ -77,8 +79,7 @@
         android:layout_height="480dp"
         app:layout_constraintBottom_toTopOf="@+id/copyrightText"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/TitreCreationTache">
+        app:layout_constraintStart_toStartOf="parent">
 
         <ScrollView
             android:layout_width="match_parent"
@@ -89,13 +90,86 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
+                <TextView
+                    android:id="@+id/nomTacheT"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/CreationTache_NomTache">
+
+                </TextView>
+
                 <EditText
                     android:id="@+id/nomTache"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text="@string/CreationTache_NomTache" />
+                    android:inputType="textPersonName" />
+
+                <TextView
+                    android:id="@+id/dureeTacheT"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/CreationTache_DureeTache">
+
+                </TextView>
+
+                <EditText
+                    android:id="@+id/dureeTache"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="time" />
+
+                <TextView
+                    android:id="@+id/dureePauseCourteT"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/CreationTache_DureePause_Courte">
+
+                </TextView>
+
+                <EditText
+                    android:id="@+id/dureePauseCourte"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="time" />
+
+                <TextView
+                    android:id="@+id/dureePauseLongueT"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/CreationTache_DureePause_Longue">
+
+                </TextView>
+
+                <EditText
+                    android:id="@+id/dureePauseLongue"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="time" />
+
+                <TextView
+                    android:id="@+id/nombreDeCyclesT"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/CreationTache_NombreDeCycles">
+
+                </TextView>
+
+                <EditText
+                    android:id="@+id/nombreDeCycles"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="time" />
+
+                <Button
+                    android:id="@+id/boutonCreerLaTache"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/CreationTache_CreerLaTache" />
 
             </LinearLayout>
         </ScrollView>

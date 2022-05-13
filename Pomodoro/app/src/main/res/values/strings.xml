@@ -12,9 +12,13 @@
     <string name="boutonCreerTache">Créer une nouvelle Tâche</string>
     <string name="boutonAccueil">Accueil</string>
 
-    <string name="CreationTache_NomTache">Nom de la tache</string>
-    <string name="CreationTache_DureeTache">Durée de la tache</string>
-    <string name="CreationTache_DureePause_Courte">Durée de(s) pause(s) courte</string>
+    <string name="CreationTache_NomTache">Nom de la tâche</string>
+    <string name="CreationTache_DureeTache">Durée de la tâche (Minutes)</string>
+    <string name="CreationTache_DureePause_Courte">Durée de(s) pause(s) courte (Minutes)</string>
+    <string name="CreationTache_DureePause_Longue">Durée de(s) pause(s) longue (Minutes)</string>
+    <string name="CreationTache_NombreDeCycles">Nombre de cycles</string>
+    <string name="CreationTache_ModeHorloge">Mode minuteur / horloge</string>
+    <string name="CreationTache_CreerLaTache">Créer la tâche</string>
 
     <string name="TitreCreerTache">Créer une nouvelle Tâche</string>
 </resources>
