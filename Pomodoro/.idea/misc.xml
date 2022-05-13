@@ -4,10 +4,10 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.2505" />
-        <entry key="app/src/main/res/layout-land/activity_editer_tache.xml" value="0.30070546737213405" />
+        <entry key="app/src/main/res/layout-land/activity_editer_tache.xml" value="0.22" />
         <entry key="app/src/main/res/layout-sw600dp/activity_main.xml" value="0.16" />
-        <entry key="app/src/main/res/layout/activity_creer_tache.xml" value="0.18" />
-        <entry key="app/src/main/res/layout/activity_ihm_editer_tache.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_creer_tache.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_ihm_editer_tache.xml" value="0.16432291666666668" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.19" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.19" />

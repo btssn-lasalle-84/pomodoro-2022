@@ -21,7 +21,7 @@ public class CreerTacheActivity extends AppCompatActivity
      */
     private Button boutonAccueil;//!< Le bouton permettant de retourner à l'accueil
     private Button boutonEditer;//!< Le bouton permettant de retourner au menu Editer
-    private TextView a;
+    private Button boutonCreerLaTache;
 
 
     @Override
@@ -91,6 +91,7 @@ public class CreerTacheActivity extends AppCompatActivity
         Log.d(TAG, "initialiserIHM()");
         boutonAccueil = (Button) findViewById(R.id.boutonAccueil);
         boutonEditer = (Button) findViewById(R.id.boutonEditerTache);
+        boutonCreerLaTache = (Button) findViewById(R.id.boutonCreerLaTache);
 
         boutonAccueil.setOnClickListener(new View.OnClickListener()
         {
@@ -108,9 +109,19 @@ public class CreerTacheActivity extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
-                Log.v(TAG, "clic boutonCreerTache");
+                Log.v(TAG, "clic boutonEditer");
                 Intent RetourEditer = new Intent(CreerTacheActivity.this,IHM_EditerTache.class);
                 startActivity(RetourEditer);
+            }
+        });
+
+        boutonCreerLaTache.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                Log.v(TAG, "clic boutonCreerLaTache");
+
             }
         });
     }
