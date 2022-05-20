@@ -498,9 +498,6 @@ PomodoroActivity extends AppCompatActivity
                             Log.v(TAG, "[Handler] champs[" + i + "] = " + champs[i]);
                         }
 
-                        /**
-                         * @todo Traiter et décoder les trames reçues
-                         */
                         switch(champs[Protocole.TYPE_TRAME])
                         {
                             case Protocole.CHANGEMENT_ETAT:

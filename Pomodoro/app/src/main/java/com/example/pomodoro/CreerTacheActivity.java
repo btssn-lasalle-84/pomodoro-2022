@@ -14,7 +14,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import java.util.Vector;
 
@@ -36,12 +35,12 @@ public class CreerTacheActivity extends AppCompatActivity
     private Button boutonEditer;//!< Le bouton permettant de retourner au menu Editer
     private Button boutonCreerLaTache;
 
-    private EditText remplirNomTache;
-    private EditText remplirDureeTache;
-    private EditText remplirDureePauseCourte;
-    private EditText remplirDureePauseLongue;
-    private EditText remplirNombreCycles;
-    Vector<Tache> taches;
+    private EditText retourneNomTache;
+    private EditText retourneDureeTache;
+    private EditText retourneDureePauseCourte;
+    private EditText retourneDureePauseLongue;
+    private EditText retourneNombreCycles;
+    private Vector<Tache> taches;
 
 
     @Override
@@ -114,11 +113,11 @@ public class CreerTacheActivity extends AppCompatActivity
         boutonEditer = (Button) findViewById(R.id.boutonEditerTache);
         boutonCreerLaTache = (Button) findViewById(R.id.boutonCreerLaTache);
 
-        remplirNomTache = (EditText) findViewById(R.id.nomTache);
-        remplirDureeTache = (EditText) findViewById(R.id.dureeTache);
-        remplirDureePauseCourte = (EditText) findViewById(R.id.dureePauseCourte);
-        remplirDureePauseLongue = (EditText) findViewById(R.id.dureePauseLongue);
-        remplirNombreCycles = (EditText) findViewById(R.id.nombreDeCycles);
+        retourneNomTache = (EditText) findViewById(R.id.nomTache);
+        retourneDureeTache = (EditText) findViewById(R.id.dureeTache);
+        retourneDureePauseCourte = (EditText) findViewById(R.id.dureePauseCourte);
+        retourneDureePauseLongue = (EditText) findViewById(R.id.dureePauseLongue);
+        retourneNombreCycles = (EditText) findViewById(R.id.nombreDeCycles);
 
         taches = new Vector<>();
 
@@ -128,8 +127,8 @@ public class CreerTacheActivity extends AppCompatActivity
             public void onClick(View view)
             {
                 Log.v(TAG, "clic boutonAccueil");
-                Intent RetourAccueil = new Intent(CreerTacheActivity.this,PomodoroActivity.class);
-                startActivity(RetourAccueil);
+                Intent retourAccueil = new Intent(CreerTacheActivity.this,PomodoroActivity.class);
+                startActivity(retourAccueil);
             }
         });
 
@@ -139,8 +138,8 @@ public class CreerTacheActivity extends AppCompatActivity
             public void onClick(View view)
             {
                 Log.v(TAG, "clic boutonEditer");
-                Intent RetourEditer = new Intent(CreerTacheActivity.this,IHM_EditerTache.class);
-                startActivity(RetourEditer);
+                Intent retourEditer = new Intent(CreerTacheActivity.this,IHM_EditerTache.class);
+                startActivity(retourEditer);
             }
         });
 
@@ -151,8 +150,8 @@ public class CreerTacheActivity extends AppCompatActivity
             {
                 Log.v(TAG, "clic boutonCreerLaTache");
                 creerUneNouvelleTache();
-                Intent RetourEditer = new Intent(CreerTacheActivity.this,PomodoroActivity.class);
-                startActivity(RetourEditer);
+                Intent retourAccueil = new Intent(CreerTacheActivity.this,PomodoroActivity.class);
+                startActivity(retourAccueil);
             }
         });
 
@@ -160,18 +159,18 @@ public class CreerTacheActivity extends AppCompatActivity
     private void creerUneNouvelleTache()
     {
         Log.d(TAG, "creerUneNouvelleTache()");
-        remplirNomTache.getText().toString();
-        remplirDureeTache.getText().toString();
-        remplirDureePauseCourte.getText().toString();
-        remplirDureePauseLongue.getText().toString();
-        remplirNombreCycles.getText().toString();
-        Log.d(TAG, "[RemplirNomTache] : " + remplirNomTache);
-        Log.d(TAG, "[remplirDureeTache] : " + remplirDureeTache);
-        Log.d(TAG, "[remplirDureePauseCourte] : " + remplirDureePauseCourte);
-        Log.d(TAG, "[remplirDureePauseLongue] : " + remplirDureePauseLongue);
-        Log.d(TAG, "[remplirNombreCycles] : " + remplirNombreCycles);
+        String NomTache = retourneNomTache.getText().toString();
+        String DureeTache = retourneDureeTache.getText().toString();
+        String DureePauseCourte = retourneDureePauseCourte.getText().toString();
+        String DureePauseLongue = retourneDureePauseLongue.getText().toString();
+        String NombreCycle = retourneNombreCycles.getText().toString();
+        Log.d(TAG, "[RemplirNomTache] : " + NomTache);
+        Log.d(TAG, "[remplirDureeTache] : " + DureeTache);
+        Log.d(TAG, "[remplirDureePauseCourte] : " + DureePauseCourte);
+        Log.d(TAG, "[remplirDureePauseLongue] : " + DureePauseLongue);
+        Log.d(TAG, "[remplirNombreCycles] : " + NombreCycle);
 
-        //taches.add(new Tache(remplirNomTache, remplirDureeTache, remplirDureePauseCourte, remplirDureePauseLongue, remplirNombreCycles));
+        taches.add(new Tache());
 
     }
 }

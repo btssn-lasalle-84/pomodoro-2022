@@ -39,9 +39,9 @@ public class IHM_EditerTache extends AppCompatActivity
     private Button boutonSupprimerTache;
 
 
-    Spinner spinnerTachesExistante;
-    List<String> nomTaches;
-    ArrayAdapter<String> adapter;
+    private Spinner spinnerTachesExistante;
+    private List<String> nomTaches;
+    private ArrayAdapter<String> adapter;
 
     /**
      * @brief Méthode appelée à la création de l'activité
@@ -122,8 +122,8 @@ public class IHM_EditerTache extends AppCompatActivity
             public void onClick(View view)
             {
                 Log.v(TAG, "clic boutonCreerTache");
-                Intent CreerTache = new Intent(IHM_EditerTache.this,CreerTacheActivity.class);
-                startActivity(CreerTache);
+                Intent creerTache = new Intent(IHM_EditerTache.this,CreerTacheActivity.class);
+                startActivity(creerTache);
             }
         });
 
@@ -133,8 +133,8 @@ public class IHM_EditerTache extends AppCompatActivity
             public void onClick(View v)
             {
                 Log.d(TAG, "clic boutonEditerTache");
-                Intent RetourAccueil = new Intent(IHM_EditerTache.this,PomodoroActivity.class);
-                startActivity(RetourAccueil);
+                Intent retourAccueil = new Intent(IHM_EditerTache.this,PomodoroActivity.class);
+                startActivity(retourAccueil);
             }
         });
 
@@ -152,6 +152,7 @@ public class IHM_EditerTache extends AppCompatActivity
          */
         nomTaches = new ArrayList<>();
         nomTaches.add("Coder le projet");
+        //nomTaches.add(taches);
 
 
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, nomTaches);

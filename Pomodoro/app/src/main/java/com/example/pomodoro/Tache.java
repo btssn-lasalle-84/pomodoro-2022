@@ -8,7 +8,6 @@ package com.example.pomodoro;
 
 
 import android.util.Log;
-import android.widget.EditText;
 
 
 /**
@@ -40,8 +39,9 @@ public class Tache
     /**
      * @brief Constructeur
      */
-    public void Tache(EditText remplirNomTache, EditText remplirDureeTache, EditText remplirDureePauseCourte, EditText remplirDureePauseLongue, EditText remplirNombreCycles)
+    public Tache()
     {
+
     }
 
     public String getNom()
