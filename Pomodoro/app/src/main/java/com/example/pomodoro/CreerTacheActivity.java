@@ -138,7 +138,7 @@ public class CreerTacheActivity extends AppCompatActivity
             public void onClick(View view)
             {
                 Log.v(TAG, "clic boutonEditer");
-                Intent retourEditer = new Intent(CreerTacheActivity.this,IHM_EditerTache.class);
+                Intent retourEditer = new Intent(CreerTacheActivity.this, EditerTacheActivity.class);
                 startActivity(retourEditer);
             }
         });

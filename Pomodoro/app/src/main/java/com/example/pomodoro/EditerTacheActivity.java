@@ -24,7 +24,7 @@ import java.util.List;
  * @class EditerTacheActivity
  * @brief L'activité d'edition d'une tache de l'application Pomodoro
  */
-public class IHM_EditerTache extends AppCompatActivity
+public class EditerTacheActivity extends AppCompatActivity
 {
     /**
      * @brief Constantes
@@ -50,7 +50,7 @@ public class IHM_EditerTache extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ihm_editer_tache);
+        setContentView(R.layout.activity_editer_tache);
         Log.d(TAG, "onCreate()");
 
         initialiserIHM();
@@ -122,7 +122,7 @@ public class IHM_EditerTache extends AppCompatActivity
             public void onClick(View view)
             {
                 Log.v(TAG, "clic boutonCreerTache");
-                Intent creerTache = new Intent(IHM_EditerTache.this,CreerTacheActivity.class);
+                Intent creerTache = new Intent(EditerTacheActivity.this,CreerTacheActivity.class);
                 startActivity(creerTache);
             }
         });
@@ -133,7 +133,7 @@ public class IHM_EditerTache extends AppCompatActivity
             public void onClick(View v)
             {
                 Log.d(TAG, "clic boutonEditerTache");
-                Intent retourAccueil = new Intent(IHM_EditerTache.this,PomodoroActivity.class);
+                Intent retourAccueil = new Intent(EditerTacheActivity.this,PomodoroActivity.class);
                 startActivity(retourAccueil);
             }
         });
