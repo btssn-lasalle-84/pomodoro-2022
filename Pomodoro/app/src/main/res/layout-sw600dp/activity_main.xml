@@ -23,6 +23,7 @@
     <ProgressBar
         android:id="@+id/progressBar"
         style="?android:attr/progressBarStyle"
+        android:visibility="invisible"
         android:layout_width="266dp"
         android:layout_height="374dp"
         android:clickable="false"
@@ -108,7 +109,7 @@
         android:layout_height="63dp"
         android:background="#6200EE"
         android:paddingVertical="@dimen/cardview_default_radius"
-        android:text="00 : 00"
+        android:text="@string/horlogeParDefault"
         android:textAlignment="center"
         android:textAllCaps="false"
         android:textColor="@color/white"
@@ -139,50 +140,9 @@
                 android:id="@+id/tache1"
                 android:layout_width="210dp"
                 android:layout_height="125dp"
-                android:text="Tache 1"
+                android:text="Coder le Projet"
                 android:textAlignment="center" />
 
-            <Button
-                android:id="@+id/tache2"
-                android:layout_width="210dp"
-                android:layout_height="125dp"
-                android:text="Tache 2"
-                android:textAlignment="center" />
-
-            <Button
-                android:id="@+id/tache3"
-                android:layout_width="210dp"
-                android:layout_height="125dp"
-                android:text="Tache 3"
-                android:textAlignment="center" />
-
-            <Button
-                android:id="@+id/tache4"
-                android:layout_width="210dp"
-                android:layout_height="125dp"
-                android:text="Tache 4"
-                android:textAlignment="center" />
-
-            <Button
-                android:id="@+id/tache5"
-                android:layout_width="210dp"
-                android:layout_height="125dp"
-                android:text="Tache 5"
-                android:textAlignment="center" />
-
-            <Button
-                android:id="@+id/tache6"
-                android:layout_width="210dp"
-                android:layout_height="125dp"
-                android:text="Tache 6"
-                android:textAlignment="center" />
-
-            <Button
-                android:id="@+id/tache7"
-                android:layout_width="210dp"
-                android:layout_height="125dp"
-                android:text="Tache 7"
-                android:textAlignment="center" />
         </LinearLayout>
     </ScrollView>
 

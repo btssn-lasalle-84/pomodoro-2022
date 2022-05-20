@@ -159,18 +159,37 @@ public class CreerTacheActivity extends AppCompatActivity
     private void creerUneNouvelleTache()
     {
         Log.d(TAG, "creerUneNouvelleTache()");
-        String NomTache = retourneNomTache.getText().toString();
-        String DureeTache = retourneDureeTache.getText().toString();
-        String DureePauseCourte = retourneDureePauseCourte.getText().toString();
-        String DureePauseLongue = retourneDureePauseLongue.getText().toString();
-        String NombreCycle = retourneNombreCycles.getText().toString();
-        Log.d(TAG, "[RemplirNomTache] : " + NomTache);
-        Log.d(TAG, "[remplirDureeTache] : " + DureeTache);
-        Log.d(TAG, "[remplirDureePauseCourte] : " + DureePauseCourte);
-        Log.d(TAG, "[remplirDureePauseLongue] : " + DureePauseLongue);
-        Log.d(TAG, "[remplirNombreCycles] : " + NombreCycle);
 
-        taches.add(new Tache());
+        /**
+         * @brief Récupère la saisie de l'utilisateur
+         */
+        String nomTache = retourneNomTache.getText().toString();
+        //String dureeTache = retourneDureeTache.getText().toString();
+        //String dureePauseCourte = retourneDureePauseCourte.getText().toString();
+        //String dureePauseLongue = retourneDureePauseLongue.getText().toString();
+        //String nombreCycle = retourneNombreCycles.getText().toString();
+
+        /**
+         * @brief Convertie les saisies en entier pour les durées et le nombre de cycle
+         */
+        int dureeTacheEntier = Integer.parseInt(retourneDureeTache.getText().toString());
+        int dureePauseCourteEntier = Integer.parseInt(retourneDureePauseCourte.getText().toString());
+        int dureePauseLongueEntier = Integer.parseInt(retourneDureePauseLongue.getText().toString());
+        int nombreCycleEntier = Integer.parseInt(retourneNombreCycles.getText().toString());
+
+         /**
+         * @brief Log pour récupérer les valeurs saisies par l'utilisateur
+         */
+        Log.d(TAG, "[retourneNomTache] : " + nomTache);
+        Log.d(TAG, "[retourneDureeTache] : " + dureeTacheEntier);
+        Log.d(TAG, "[retourneDureePauseCourte] : " + dureePauseCourteEntier);
+        Log.d(TAG, "[retourneDureePauseLongue] : " + dureePauseLongueEntier);
+        Log.d(TAG, "[retourneNombreCycles] : " + nombreCycleEntier);
+
+        /**
+         * @brief Ajout des valeurs saisies dans le vector taches
+         */
+        //taches.add(new Tache(nomTache, dureeTacheEntier, dureePauseCourteEntier, dureePauseLongueEntier, nombreCycleEntier));
 
     }
 }

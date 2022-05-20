@@ -30,16 +30,20 @@ public class Tache
      */
     private String nom = "Tache"; //!< Le nom de la tâche
     private CouleurTache couleurTache = CouleurTache.Rouge; //!< La couleur par défaut
-    private int tempsTache = 25; //!< Valeur exprimée en minutes | ne peux pas être plus grand que 50
-    private int tempsPauseCourte = 5; //!< Valeur exprimée en minutes | ne peux pas être plus grand que 20
-    private int tempsPauseLongue = 10; //!< Valeur exprimée en minutes | ne peux pas être plus grand que 30
-    private int nombreDeCycles = 4; //!<
-    private int nombreDeSessions = 4; //!<
+    public int tempsTache = 25; //!< Valeur exprimée en minutes | ne peux pas être plus grand que 50
+    public int tempsPauseCourte = 5; //!< Valeur exprimée en minutes | ne peux pas être plus grand que 20
+    public int tempsPauseLongue = 10; //!< Valeur exprimée en minutes | ne peux pas être plus grand que 30
+    public int nombreDeCycles = 4; //!<
 
     /**
      * @brief Constructeur
+     * @param nomTache
+     * @param dureeTache
+     * @param dureePauseCourte
+     * @param dureePauseLongue
+     * @param nombreCycle
      */
-    public Tache()
+    public Tache(String nomTache, int dureeTache, int dureePauseCourte, int dureePauseLongue, int nombreCycle)
     {
 
     }

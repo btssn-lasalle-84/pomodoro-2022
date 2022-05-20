@@ -69,7 +69,6 @@ PomodoroActivity extends AppCompatActivity
      */
     private Button boutonDemarrer;//!< Le bouton permettant de démarrer un pomodoro
     private Button boutonEditerTache;//!< Le bouton permettant d'éditer une tâche
-    //private Button boutonSupprimerTache;//!< Le bouton permettant de supprimer une tâche
     private Button boutonSeConnecterAuPomodoro;//!< Le bouton permettant de se connecter au pomodoro
     private TextView horloge;
 
@@ -84,7 +83,9 @@ PomodoroActivity extends AppCompatActivity
         Log.d(TAG, "onCreate()");
 
         minuteur = new Minuteur();
-        tache = new Tache();
+        tache = new Tache("Coder le projet", 25,5,20,4);
+
+        Log.d(TAG, "[Tache] : " + tache);
 
         baseDeDonnees = new BaseDeDonnees(this);
         // Test BDD
@@ -154,7 +155,6 @@ PomodoroActivity extends AppCompatActivity
         Log.d(TAG, "initialiserIHM()");
         boutonDemarrer = (Button) findViewById(R.id.boutonDemarrer);
         boutonEditerTache = (Button) findViewById(R.id.boutonEditerTache);
-        //boutonSupprimerTache = (Button) findViewById(R.id.boutonSupprimerTache);
         boutonSeConnecterAuPomodoro = (Button) findViewById(R.id.boutonSeConnecterAuPomodoro);
         horloge = (TextView) findViewById(R.id.horloge);
 
@@ -179,16 +179,6 @@ PomodoroActivity extends AppCompatActivity
                 startActivity(IHM_EditerTache);
             }
         });
-        /**boutonSupprimerTache.setOnClickListener(new View.OnClickListener()
-        {
-            public void onClick(View v)
-            {
-                Log.d(TAG, "clic boutonSupprimerTache");
-                Log.d(TAG, "[Tache] nom = " + tache.getNom());
-                tache.supprimerTache();
-                Log.d(TAG, "[Tache] nom = " + tache.getNom());
-            }
-        });*/
 
         boutonSeConnecterAuPomodoro.setOnClickListener(new View.OnClickListener()
         {
@@ -513,7 +503,7 @@ PomodoroActivity extends AppCompatActivity
                                 {
                                     boutonDemarrer.setText("Tâche");
                                     demarrerMinuteur(minuteur.getLongueur());
-                                    Log.v(TAG,"[Handler] Changement d'état : Bouton = Pause");
+                                    Log.v(TAG,"[Handler] Changement d'état : Bouton = Tâche");
                                 }
                                 else if(champs[Protocole.CHAMP_ETAT].equals(Protocole.ETAT_TACHE_TERMINEE))
                                 {

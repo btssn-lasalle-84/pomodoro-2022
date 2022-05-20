@@ -43,6 +43,8 @@ public class EditerTacheActivity extends AppCompatActivity
     private List<String> nomTaches;
     private ArrayAdapter<String> adapter;
 
+    private Tache tache;
+
     /**
      * @brief Méthode appelée à la création de l'activité
      */
@@ -144,6 +146,7 @@ public class EditerTacheActivity extends AppCompatActivity
             public void onClick(View view)
             {
                 Log.d(TAG, "clic boutonSupprimerTache");
+                tache.supprimerTache();
             }
         });
 
@@ -152,7 +155,6 @@ public class EditerTacheActivity extends AppCompatActivity
          */
         nomTaches = new ArrayList<>();
         nomTaches.add("Coder le projet");
-        //nomTaches.add(taches);
 
 
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, nomTaches);
