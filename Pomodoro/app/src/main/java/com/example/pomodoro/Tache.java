@@ -8,6 +8,7 @@ package com.example.pomodoro;
 
 
 import android.util.Log;
+import android.widget.EditText;
 
 
 /**
@@ -20,6 +21,7 @@ public class Tache
      * Constantes
      */
     private static final String TAG = "_Tache";  //!< TAG pour les logs
+
     public enum CouleurTache {
         Bleue, Noire, Rouge, Verte;
     }
@@ -38,7 +40,7 @@ public class Tache
     /**
      * @brief Constructeur
      */
-    public void Tache()
+    public void Tache(EditText remplirNomTache, EditText remplirDureeTache, EditText remplirDureePauseCourte, EditText remplirDureePauseLongue, EditText remplirNombreCycles)
     {
     }
 

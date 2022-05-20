@@ -46,29 +46,26 @@
         app:layout_constraintTop_toBottomOf="@+id/logoPomoConnect"
         app:layout_constraintVertical_bias="0.487" />
 
-    <Button
-        android:id="@+id/boutonSupprimerTache"
-        android:layout_width="125dp"
-        android:layout_height="50dp"
-        android:layout_marginEnd="28dp"
-        android:layout_weight="1"
-        android:text="@string/SupprimerTache"
-        app:layout_constraintBottom_toTopOf="@+id/organisationTaches"
-        app:layout_constraintEnd_toEndOf="@+id/organisationTaches"
-        app:layout_constraintStart_toEndOf="@+id/boutonEditerTache"
-        app:layout_constraintTop_toBottomOf="@+id/logoPomoConnect" />
 
     <Button
         android:id="@+id/boutonEditerTache"
-        android:layout_width="90dp"
+        android:layout_width="210dp"
         android:layout_height="50dp"
         android:layout_weight="1"
         android:text="@string/EditerTache"
         app:layout_constraintBottom_toTopOf="@+id/organisationTaches"
-        app:layout_constraintEnd_toStartOf="@+id/boutonSupprimerTache"
+        app:layout_constraintEnd_toEndOf="@+id/organisationTaches"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/organisationTaches"
         app:layout_constraintTop_toBottomOf="@+id/logoPomoConnect" />
+
+    <Space
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/organisationTaches"
+        app:layout_constraintEnd_toEndOf="@+id/organisationTaches"
+        app:layout_constraintStart_toStartOf="@+id/organisationTaches"
+        app:layout_constraintTop_toBottomOf="@+id/boutonEditerTache" />
 
     <Button
         android:id="@+id/boutonMenu"
@@ -89,7 +86,6 @@
         android:layout_marginStart="30dp"
         android:text="@string/boutonSeConnecterAuPomodoro"
         android:textAlignment="center"
-        app:layout_constraintBottom_toTopOf="@+id/synchroniser"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.012"
         app:layout_constraintStart_toEndOf="@+id/progressBar"

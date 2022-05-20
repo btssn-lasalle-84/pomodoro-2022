@@ -6,20 +6,18 @@ package com.example.pomodoro;
  * @author Teddy ESTABLET
  */
 
-        import android.content.Intent;
-        import android.os.Bundle;
-        import android.util.Log;
-        import android.view.View;
-        import android.widget.AdapterView;
-        import android.widget.ArrayAdapter;
-        import android.widget.Button;
-        import android.widget.Spinner;
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.Spinner;
 
-        import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 
-        import java.lang.reflect.Array;
-        import java.util.ArrayList;
-        import java.util.List;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -38,6 +36,7 @@ public class IHM_EditerTache extends AppCompatActivity
      */
     private Button boutonAccueil;//!< Le bouton permettant de retourner à l'accueil
     private Button boutonCreerTache;//!< Le bouton permettant de créer une tache
+    private Button boutonSupprimerTache;
 
 
     Spinner spinnerTachesExistante;
@@ -114,6 +113,7 @@ public class IHM_EditerTache extends AppCompatActivity
         Log.d(TAG, "initialiserIHM()");
         boutonAccueil = (Button) findViewById(R.id.boutonAccueil);
         boutonCreerTache = (Button) findViewById(R.id.boutonCreerTache);
+        boutonSupprimerTache = (Button) findViewById(R.id.boutonSupprimerTache);
         spinnerTachesExistante =(Spinner) findViewById(R.id.spinnerTache);
 
         boutonCreerTache.setOnClickListener(new View.OnClickListener()
@@ -138,18 +138,20 @@ public class IHM_EditerTache extends AppCompatActivity
             }
         });
 
+        boutonSupprimerTache.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                Log.d(TAG, "clic boutonSupprimerTache");
+            }
+        });
+
         /**
          * @brief Spinner affichant les tâches crées
          */
         nomTaches = new ArrayList<>();
         nomTaches.add("Coder le projet");
-        nomTaches.add("Obtenir le diplome");
-        nomTaches.add("Coder le projet");
-        nomTaches.add("Obtenir le diplome");
-        nomTaches.add("Coder le projet");
-        nomTaches.add("Obtenir le diplome");
-        nomTaches.add("Coder le projet");
-        nomTaches.add("Obtenir le diplome");
 
 
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, nomTaches);

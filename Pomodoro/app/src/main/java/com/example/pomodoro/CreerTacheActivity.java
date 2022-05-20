@@ -1,5 +1,11 @@
 package com.example.pomodoro;
 
+/**
+ * @file CreerTacheActivity.java
+ * @brief Déclaration de la classe CreerTacheActivity
+ * @author Teddy ESTABLET
+ */
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -7,8 +13,15 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.Vector;
+
+/**
+ * @class CreerTacheActivity
+ * @brief L'activité creer une tache de l'application Pomodoro
+ */
 public class CreerTacheActivity extends AppCompatActivity
 {
     /**
@@ -23,6 +36,13 @@ public class CreerTacheActivity extends AppCompatActivity
     private Button boutonEditer;//!< Le bouton permettant de retourner au menu Editer
     private Button boutonCreerLaTache;
 
+    private EditText remplirNomTache;
+    private EditText remplirDureeTache;
+    private EditText remplirDureePauseCourte;
+    private EditText remplirDureePauseLongue;
+    private EditText remplirNombreCycles;
+    Vector<Tache> taches;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -31,6 +51,7 @@ public class CreerTacheActivity extends AppCompatActivity
         setContentView(R.layout.activity_creer_tache);
 
         initialiserIHM();
+        creerUneNouvelleTache();
     }
 
     /**
@@ -93,6 +114,14 @@ public class CreerTacheActivity extends AppCompatActivity
         boutonEditer = (Button) findViewById(R.id.boutonEditerTache);
         boutonCreerLaTache = (Button) findViewById(R.id.boutonCreerLaTache);
 
+        remplirNomTache = (EditText) findViewById(R.id.nomTache);
+        remplirDureeTache = (EditText) findViewById(R.id.dureeTache);
+        remplirDureePauseCourte = (EditText) findViewById(R.id.dureePauseCourte);
+        remplirDureePauseLongue = (EditText) findViewById(R.id.dureePauseLongue);
+        remplirNombreCycles = (EditText) findViewById(R.id.nombreDeCycles);
+
+        taches = new Vector<>();
+
         boutonAccueil.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -121,8 +150,28 @@ public class CreerTacheActivity extends AppCompatActivity
             public void onClick(View view)
             {
                 Log.v(TAG, "clic boutonCreerLaTache");
-
+                creerUneNouvelleTache();
+                Intent RetourEditer = new Intent(CreerTacheActivity.this,PomodoroActivity.class);
+                startActivity(RetourEditer);
             }
         });
+
+    }
+    private void creerUneNouvelleTache()
+    {
+        Log.d(TAG, "creerUneNouvelleTache()");
+        remplirNomTache.getText().toString();
+        remplirDureeTache.getText().toString();
+        remplirDureePauseCourte.getText().toString();
+        remplirDureePauseLongue.getText().toString();
+        remplirNombreCycles.getText().toString();
+        Log.d(TAG, "[RemplirNomTache] : " + remplirNomTache);
+        Log.d(TAG, "[remplirDureeTache] : " + remplirDureeTache);
+        Log.d(TAG, "[remplirDureePauseCourte] : " + remplirDureePauseCourte);
+        Log.d(TAG, "[remplirDureePauseLongue] : " + remplirDureePauseLongue);
+        Log.d(TAG, "[remplirNombreCycles] : " + remplirNombreCycles);
+
+        //taches.add(new Tache(remplirNomTache, remplirDureeTache, remplirDureePauseCourte, remplirDureePauseLongue, remplirNombreCycles));
+
     }
 }
