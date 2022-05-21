@@ -1,6 +1,6 @@
 format 224
 "unknown" // unknown
-  revision 2
+  revision 3
   modified_by 23 "tv"
   // class settings
   
@@ -80,6 +80,20 @@ ${members}}
     end
 
     class 142359 "SQLiteOpenHelper"
+      visibility package 
+      cpp_decl ""
+      java_decl "${comment}${@}${visibility}${static}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+    end
+
+    class 149143 "Serializable"
       visibility package 
       cpp_decl ""
       java_decl "${comment}${@}${visibility}${static}${final}${abstract}class ${name}${extends}${implements} {

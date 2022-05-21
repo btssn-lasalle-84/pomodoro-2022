@@ -454,7 +454,7 @@ PomodoroActivity extends AppCompatActivity
                         break;
                     case Peripherique.CODE_CONNEXION:
                         Log.d(TAG, "[Handler] CODE_CONNEXION = " + message.obj.toString());
-                        boutonSeConnecterAuPomodoro.setText("Se déconnecter");
+                        mettreAJourBoutonConnexion(true);
                         String trameConfiguration = "#P&"+Integer.toString(minuteur.getLongueur())+"&"+Integer.toString(minuteur.getDureePauseCourte())+"&"+Integer.toString(minuteur.getDureePauseLongue())+"&"+Integer.toString(minuteur.getNbCycles())+"&"+(minuteur.estModeAutomatique() ? "1" : "0")+"&"+(minuteur.estModeAutomatiquePause() ? "1" : "0")+"&0\n";
                         //peripherique.envoyer(Protocole.CONFIGURER_UN_POMODORO);
                         //Log.v(TAG, "Trame = " + Protocole.CONFIGURER_UN_POMODORO);
@@ -463,7 +463,7 @@ PomodoroActivity extends AppCompatActivity
                         break;
                     case Peripherique.CODE_DECONNEXION:
                         Log.d(TAG, "[Handler] DECONNEXION = " + message.obj.toString());
-                        boutonSeConnecterAuPomodoro.setText("Se connecter");
+                        mettreAJourBoutonConnexion(false);
                         break;
                     case Peripherique.CODE_RECEPTION:
                         Log.d(TAG, "[Handler] RECEPTION = " + message.obj.toString());
@@ -540,6 +540,14 @@ PomodoroActivity extends AppCompatActivity
                 }
             }
         };
+    }
+
+    private void mettreAJourBoutonConnexion(boolean etatConnexion)
+    {
+        if(etatConnexion)
+            boutonSeConnecterAuPomodoro.setText("Se déconnecter");
+        else
+            boutonSeConnecterAuPomodoro.setText("Se connecter");
     }
 
     private void demarrerMinuteur(int duree)

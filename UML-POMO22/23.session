@@ -1,12 +1,18 @@
 window_sizes 3840 2032 900 2934 1721 224
 cleanlooks_style
 diagrams
-  active  classdiagram_ref 141079 // version 0.2
+  classdiagram_ref 141079 // version 0.2
     2934 1721 80 A0 0 0
+  usecasediagram_ref 141058 // Diagramme de Cas d'Utilisation
+    2347 1376 100 A0 0 0
+  active  sequencediagram_ref 147607 // ds connecter le minuteur
+    2934 1721 120 A0 0 0
 end
 show_stereotypes
-selected operation_ref 136343 // deconnecter
+selected 
+  package_ref 134551 // pomodoro
 open
-  class_ref 134679 // Peripherique
+  usecaseview_ref 134530 // Vue des Cas d'Utilisation
+  classview_ref 134551 // pomodoro
 end
 end
