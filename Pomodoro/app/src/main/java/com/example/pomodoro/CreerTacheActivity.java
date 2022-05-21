@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
 public class CreerTacheActivity extends AppCompatActivity
 {
@@ -22,7 +21,6 @@ public class CreerTacheActivity extends AppCompatActivity
     private Button boutonAccueil;//!< Le bouton permettant de retourner à l'accueil
     private Button boutonEditer;//!< Le bouton permettant de retourner au menu Editer
     private Button boutonCreerLaTache;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -110,7 +108,7 @@ public class CreerTacheActivity extends AppCompatActivity
             public void onClick(View view)
             {
                 Log.v(TAG, "clic boutonEditer");
-                Intent RetourEditer = new Intent(CreerTacheActivity.this,IHM_EditerTache.class);
+                Intent RetourEditer = new Intent(CreerTacheActivity.this, EditerTacheActivity.class);
                 startActivity(RetourEditer);
             }
         });

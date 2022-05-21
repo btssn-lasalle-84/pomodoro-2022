@@ -6,27 +6,24 @@ package com.example.pomodoro;
  * @author Teddy ESTABLET
  */
 
-        import android.content.Intent;
-        import android.os.Bundle;
-        import android.util.Log;
-        import android.view.View;
-        import android.widget.AdapterView;
-        import android.widget.ArrayAdapter;
-        import android.widget.Button;
-        import android.widget.Spinner;
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.Spinner;
 
-        import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 
-        import java.lang.reflect.Array;
-        import java.util.ArrayList;
-        import java.util.List;
-
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @class EditerTacheActivity
  * @brief L'activité d'edition d'une tache de l'application Pomodoro
  */
-public class IHM_EditerTache extends AppCompatActivity
+public class EditerTacheActivity extends AppCompatActivity
 {
     /**
      * @brief Constantes
@@ -39,10 +36,12 @@ public class IHM_EditerTache extends AppCompatActivity
     private Button boutonAccueil;//!< Le bouton permettant de retourner à l'accueil
     private Button boutonCreerTache;//!< Le bouton permettant de créer une tache
 
-
-    Spinner spinnerTachesExistante;
-    List<String> nomTaches;
-    ArrayAdapter<String> adapter;
+    /**
+     * @brief Attributs
+     */
+    private Spinner spinnerTachesExistante;
+    private List<String> nomTaches;
+    private ArrayAdapter<String> adapter;
 
     /**
      * @brief Méthode appelée à la création de l'activité
@@ -122,7 +121,7 @@ public class IHM_EditerTache extends AppCompatActivity
             public void onClick(View view)
             {
                 Log.v(TAG, "clic boutonCreerTache");
-                Intent CreerTache = new Intent(IHM_EditerTache.this,CreerTacheActivity.class);
+                Intent CreerTache = new Intent(EditerTacheActivity.this,CreerTacheActivity.class);
                 startActivity(CreerTache);
             }
         });
@@ -133,7 +132,7 @@ public class IHM_EditerTache extends AppCompatActivity
             public void onClick(View v)
             {
                 Log.d(TAG, "clic boutonEditerTache");
-                Intent RetourAccueil = new Intent(IHM_EditerTache.this,PomodoroActivity.class);
+                Intent RetourAccueil = new Intent(EditerTacheActivity.this,PomodoroActivity.class);
                 startActivity(RetourAccueil);
             }
         });
@@ -151,11 +150,9 @@ public class IHM_EditerTache extends AppCompatActivity
         nomTaches.add("Coder le projet");
         nomTaches.add("Obtenir le diplome");
 
-
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, nomTaches);
         adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
 
         spinnerTachesExistante.setAdapter(adapter);
-
     }
 }

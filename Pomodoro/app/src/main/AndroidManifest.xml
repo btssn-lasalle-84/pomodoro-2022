@@ -25,7 +25,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".IHM_EditerTache"
+            android:name=".EditerTacheActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

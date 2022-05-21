@@ -27,9 +27,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -178,7 +175,7 @@ PomodoroActivity extends AppCompatActivity
                 Log.d(TAG, "clic boutonEditerTache");
                 Log.d(TAG, "[Tache] nom = " + tache.getNom());
                 tache.editerTaches();
-                Intent IHM_EditerTache = new Intent(PomodoroActivity.this,IHM_EditerTache.class);
+                Intent IHM_EditerTache = new Intent(PomodoroActivity.this, EditerTacheActivity.class);
                 startActivity(IHM_EditerTache);
             }
         });
