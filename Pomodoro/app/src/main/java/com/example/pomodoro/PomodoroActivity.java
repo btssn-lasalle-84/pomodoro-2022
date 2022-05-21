@@ -84,12 +84,9 @@ PomodoroActivity extends AppCompatActivity
 
         minuteur = new Minuteur();
         tache = new Tache("Coder le projet", 25,5,20,4);
-
-        Log.d(TAG, "[Tache] : " + tache);
+        Log.d(TAG, "[Tache] nom = " + tache.getNom());
 
         baseDeDonnees = new BaseDeDonnees(this);
-        // Test BDD
-        Vector<String> nomColonnes = baseDeDonnees.getNomColonnes();
 
         initialiserHandler();
         initialiserBluetooth();
@@ -174,9 +171,11 @@ PomodoroActivity extends AppCompatActivity
             {
                 Log.d(TAG, "clic boutonEditerTache");
                 Log.d(TAG, "[Tache] nom = " + tache.getNom());
-                tache.editerTaches();
-                Intent IHM_EditerTache = new Intent(PomodoroActivity.this, EditerTacheActivity.class);
-                startActivity(IHM_EditerTache);
+
+                Intent editerTache = new Intent(PomodoroActivity.this, EditerTacheActivity.class);
+                // passe la tache à l'activité
+                editerTache.putExtra("tache", tache);
+                startActivity(editerTache);
             }
         });
 

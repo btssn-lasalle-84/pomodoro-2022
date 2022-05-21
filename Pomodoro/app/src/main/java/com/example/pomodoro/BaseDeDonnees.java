@@ -33,6 +33,21 @@ public class BaseDeDonnees
     private static final int INDEX_COLONNE_LIBELLE = 1;
     private static final int INDEX_CATEGORIE_ID_CATEGORIE = 0;
     private static final int INDEX_CATEGORIE_LIBELLE = 1;
+    private static final int INDEX_COLONNE_TACHE_ID_TACHE = 0;
+    private static final int INDEX_COLONNE_TACHE_TITRE = 1;
+    private static final int INDEX_COLONNE_TACHE_DESCRIPTION = 2;
+    private static final int INDEX_COLONNE_TACHE_DATE_CREATION = 3;
+    private static final int INDEX_COLONNE_TACHE_DATE_DEBUT = 4;
+    private static final int INDEX_COLONNE_TACHE_DATE_FIN = 5;
+    private static final int INDEX_COLONNE_TACHE_COULEUR = 6;
+    private static final int INDEX_COLONNE_TACHE_ID_PROJET = 7;
+    private static final int INDEX_COLONNE_TACHE_ID_COLONNE = 8;
+    private static final int INDEX_COLONNE_TACHE_ID_CATEGRIE = 9;
+    private static final int INDEX_COLONNE_TACHE_POSITION = 10;
+    private static final int INDEX_COLONNE_TACHE_ACTIVE = 11;
+    private static final int INDEX_COLONNE_TACHE_TEMPS_DEPENSE = 12;
+    private static final int INDEX_COLONNE_TACHE_TEMPS_ESTIME = 13;
+    private static final int INDEX_COLONNE_TACHE_PRIORITE = 14;
 
     private static final String DEBUT_REQUETE_INSERTION_POMODORO =  "INSERT INTO Pomodoro(idTache,idModele,position,debut,idEtat) VALUES (";
     private static final String DEBUT_REQUETE_TERMINER_POMODORO = "UPDATE Pomodoro SET fin=DATETIME('now'), idEtat=3 WHERE idPomodoro=";
@@ -103,6 +118,26 @@ public class BaseDeDonnees
         return colonnes;
     }
 
+    /**
+     * @brief Permet d'effectuer une requete pour récupérer touts les noms de tâche
+     * @return Les objets libellés récupérés
+     */
+    public Vector<String> getNomTaches()
+    {
+        Vector<String> nomsTache = new Vector<String>();
+        String requete = "SELECT * FROM Tache";
+
+        Cursor curseurResultat = effectuerRequete(requete);
+
+        for (int i = 0; i < curseurResultat.getCount(); i++)
+        {
+            curseurResultat.moveToNext();
+            Log.d(TAG, "nom tâche = " + curseurResultat.getString(INDEX_COLONNE_TACHE_TITRE));
+            nomsTache.add(new String(curseurResultat.getString(INDEX_COLONNE_TACHE_TITRE)));
+        }
+
+        return nomsTache;
+    }
 
     /**
      * @brief Permet d'effectuer une requete de type INSERT, UPDATE ou DELETE

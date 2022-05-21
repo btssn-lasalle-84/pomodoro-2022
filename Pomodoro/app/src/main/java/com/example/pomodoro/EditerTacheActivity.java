@@ -10,12 +10,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 /**
  * @class EditerTacheActivity
@@ -26,7 +28,7 @@ public class EditerTacheActivity extends AppCompatActivity
     /**
      * @brief Constantes
      */
-    private static final String TAG = "_IHM_EditerTache";  //!< TAG pour les logs
+    private static final String TAG = "_EditerTacheActivity";  //!< TAG pour les logs
 
     /**
      * @brief Ressources IHM
@@ -41,7 +43,8 @@ public class EditerTacheActivity extends AppCompatActivity
     private Spinner spinnerTachesExistante;
     private List<String> nomTaches;
     private ArrayAdapter<String> adapter;
-    private Tache tache;
+    private Tache tache = null;
+    private BaseDeDonnees baseDeDonnees = null;
 
     /**
      * @brief Méthode appelée à la création de l'activité
@@ -53,6 +56,11 @@ public class EditerTacheActivity extends AppCompatActivity
         setContentView(R.layout.activity_editer_tache);
         Log.d(TAG, "onCreate()");
 
+        // récupère la tâche
+        tache = (Tache) getIntent().getSerializableExtra("tache");
+        Log.d(TAG, "[Tache] nom = " + tache.getNom());
+
+        baseDeDonnees = new BaseDeDonnees(this);
         initialiserIHM();
     }
 
@@ -115,7 +123,7 @@ public class EditerTacheActivity extends AppCompatActivity
         boutonAccueil = (Button) findViewById(R.id.boutonAccueil);
         boutonCreerTache = (Button) findViewById(R.id.boutonCreerTache);
         boutonSupprimerTache = (Button) findViewById(R.id.boutonSupprimerTache);
-        spinnerTachesExistante =(Spinner) findViewById(R.id.spinnerTache);
+        spinnerTachesExistante = (Spinner) findViewById(R.id.spinnerTache);
 
         boutonCreerTache.setOnClickListener(new View.OnClickListener()
         {
@@ -125,6 +133,8 @@ public class EditerTacheActivity extends AppCompatActivity
                 Log.v(TAG, "clic boutonCreerTache");
 
                 Intent creerTache = new Intent(EditerTacheActivity.this,CreerTacheActivity.class);
+                // passe la tache à l'activité
+                creerTache.putExtra("tache", tache);
                 startActivity(creerTache);
             }
         });
@@ -146,7 +156,9 @@ public class EditerTacheActivity extends AppCompatActivity
             public void onClick(View view)
             {
                 Log.d(TAG, "clic boutonSupprimerTache");
-                tache.supprimerTache();
+                tache.supprimer();
+                //String requete = "DELETE FROM Tache WHERE idTache = '" + + "'";
+                //baseDeDonnees.executerRequete(requete);
             }
         });
 
@@ -154,11 +166,32 @@ public class EditerTacheActivity extends AppCompatActivity
          * @brief Spinner affichant les tâches crées
          */
         nomTaches = new ArrayList<>();
-        nomTaches.add("Coder le projet");
+        Vector<String> nomsTache = baseDeDonnees.getNomTaches();
+        if(tache != null && !tache.getNom().isEmpty())
+            nomTaches.add(tache.getNom());
+        for (int i = 0; i < nomsTache.size(); i++)
+        {
+            nomTaches.add(nomsTache.get(i));
+        }
 
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, nomTaches);
         adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
 
         spinnerTachesExistante.setAdapter(adapter);
+
+        spinnerTachesExistante.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
+            @Override
+            public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long id)
+            {
+                Log.d(TAG, "sélection = " + position + " -> " + nomTaches.get(position));
+                tache.setNom(nomTaches.get(position));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0)
+            {
+            }
+        });
     }
 }
