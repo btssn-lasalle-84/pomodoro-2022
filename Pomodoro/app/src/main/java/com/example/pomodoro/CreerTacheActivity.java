@@ -1,5 +1,11 @@
 package com.example.pomodoro;
 
+/**
+ * @file CreerTacheActivity.java
+ * @brief Déclaration de la classe CreerTacheActivity
+ * @author Teddy ESTABLET
+ */
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -7,7 +13,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import java.util.Vector;
 
+/**
+ * @class CreerTacheActivity
+ * @brief L'activité creer une tache de l'application Pomodoro
+ */
 public class CreerTacheActivity extends AppCompatActivity
 {
     /**
@@ -22,6 +34,13 @@ public class CreerTacheActivity extends AppCompatActivity
     private Button boutonEditer;//!< Le bouton permettant de retourner au menu Editer
     private Button boutonCreerLaTache;
 
+    private EditText retourneNomTache;
+    private EditText retourneDureeTache;
+    private EditText retourneDureePauseCourte;
+    private EditText retourneDureePauseLongue;
+    private EditText retourneNombreCycles;
+    private Vector<Tache> taches;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -29,6 +48,7 @@ public class CreerTacheActivity extends AppCompatActivity
         setContentView(R.layout.activity_creer_tache);
 
         initialiserIHM();
+        creerUneNouvelleTache();
     }
 
     /**
@@ -91,14 +111,22 @@ public class CreerTacheActivity extends AppCompatActivity
         boutonEditer = (Button) findViewById(R.id.boutonEditerTache);
         boutonCreerLaTache = (Button) findViewById(R.id.boutonCreerLaTache);
 
+        retourneNomTache = (EditText) findViewById(R.id.nomTache);
+        retourneDureeTache = (EditText) findViewById(R.id.dureeTache);
+        retourneDureePauseCourte = (EditText) findViewById(R.id.dureePauseCourte);
+        retourneDureePauseLongue = (EditText) findViewById(R.id.dureePauseLongue);
+        retourneNombreCycles = (EditText) findViewById(R.id.nombreDeCycles);
+
+        taches = new Vector<>();
+
         boutonAccueil.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View view)
             {
                 Log.v(TAG, "clic boutonAccueil");
-                Intent RetourAccueil = new Intent(CreerTacheActivity.this,PomodoroActivity.class);
-                startActivity(RetourAccueil);
+                Intent retourAccueil = new Intent(CreerTacheActivity.this,PomodoroActivity.class);
+                startActivity(retourAccueil);
             }
         });
 
@@ -108,8 +136,8 @@ public class CreerTacheActivity extends AppCompatActivity
             public void onClick(View view)
             {
                 Log.v(TAG, "clic boutonEditer");
-                Intent RetourEditer = new Intent(CreerTacheActivity.this, EditerTacheActivity.class);
-                startActivity(RetourEditer);
+                Intent retourEditer = new Intent(CreerTacheActivity.this, EditerTacheActivity.class);
+                startActivity(retourEditer);
             }
         });
 
@@ -119,8 +147,39 @@ public class CreerTacheActivity extends AppCompatActivity
             public void onClick(View view)
             {
                 Log.v(TAG, "clic boutonCreerLaTache");
-
+                creerUneNouvelleTache();
+                Intent retourAccueil = new Intent(CreerTacheActivity.this,PomodoroActivity.class);
+                startActivity(retourAccueil);
             }
         });
+
+    }
+    private void creerUneNouvelleTache()
+    {
+        Log.d(TAG, "creerUneNouvelleTache()");
+
+        /**
+         * @brief Récupère la saisie de l'utilisateur
+         */
+        String nomTache = retourneNomTache.getText().toString();
+
+        /**
+         * @brief Convertit les saisies en entier pour les durées et le nombre de cycle
+         */
+        int dureeTacheEntier = Integer.parseInt(retourneDureeTache.getText().toString());
+        int dureePauseCourteEntier = Integer.parseInt(retourneDureePauseCourte.getText().toString());
+        int dureePauseLongueEntier = Integer.parseInt(retourneDureePauseLongue.getText().toString());
+        int nombreCycleEntier = Integer.parseInt(retourneNombreCycles.getText().toString());
+
+        Log.d(TAG, "[retourneNomTache] : " + nomTache);
+        Log.d(TAG, "[retourneDureeTache] : " + dureeTacheEntier);
+        Log.d(TAG, "[retourneDureePauseCourte] : " + dureePauseCourteEntier);
+        Log.d(TAG, "[retourneDureePauseLongue] : " + dureePauseLongueEntier);
+        Log.d(TAG, "[retourneNombreCycles] : " + nombreCycleEntier);
+
+        /**
+         * @brief Ajout des valeurs saisies dans le vector taches
+         */
+        //taches.add(new Tache(nomTache, dureeTacheEntier, dureePauseCourteEntier, dureePauseLongueEntier, nombreCycleEntier));
     }
 }

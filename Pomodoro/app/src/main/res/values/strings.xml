@@ -2,6 +2,7 @@
     <string name="app_name">Pomodoro</string>
     <string name="DemarrerPause">Choisir une tâche</string>
     <string name="SupprimerTache">Supprimer</string>
+    <string name="SupprimerLaTache">Supprimer la tâche</string>
     <string name="EditerTache">Editer</string>
     <string name="boutonMenu">Menu</string>
     <string name="boutonSeConnecterAuPomodoro">Se connecter</string>
@@ -11,6 +12,7 @@
     <string name="tacheExistanteText">Si vous souhaitez éditer une tache déjà existante, veuillez la sélectionner.</string>
     <string name="boutonCreerTache">Créer une nouvelle Tâche</string>
     <string name="boutonAccueil">Accueil</string>
+    <string name="horlogeParDefault">00 : 00</string>
 
     <string name="CreationTache_NomTache">Nom de la tâche</string>
     <string name="CreationTache_DureeTache">Durée de la tâche (Minutes)</string>

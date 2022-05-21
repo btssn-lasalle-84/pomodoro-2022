@@ -13,9 +13,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,6 +33,7 @@ public class EditerTacheActivity extends AppCompatActivity
      */
     private Button boutonAccueil;//!< Le bouton permettant de retourner à l'accueil
     private Button boutonCreerTache;//!< Le bouton permettant de créer une tache
+    private Button boutonSupprimerTache;
 
     /**
      * @brief Attributs
@@ -42,6 +41,7 @@ public class EditerTacheActivity extends AppCompatActivity
     private Spinner spinnerTachesExistante;
     private List<String> nomTaches;
     private ArrayAdapter<String> adapter;
+    private Tache tache;
 
     /**
      * @brief Méthode appelée à la création de l'activité
@@ -50,11 +50,12 @@ public class EditerTacheActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ihm_editer_tache);
+        setContentView(R.layout.activity_editer_tache);
         Log.d(TAG, "onCreate()");
 
         initialiserIHM();
     }
+
     /**
      * @brief Méthode appelée au démarrage après le onCreate() ou un restart après un onStop()
      */
@@ -113,6 +114,7 @@ public class EditerTacheActivity extends AppCompatActivity
         Log.d(TAG, "initialiserIHM()");
         boutonAccueil = (Button) findViewById(R.id.boutonAccueil);
         boutonCreerTache = (Button) findViewById(R.id.boutonCreerTache);
+        boutonSupprimerTache = (Button) findViewById(R.id.boutonSupprimerTache);
         spinnerTachesExistante =(Spinner) findViewById(R.id.spinnerTache);
 
         boutonCreerTache.setOnClickListener(new View.OnClickListener()
@@ -121,8 +123,9 @@ public class EditerTacheActivity extends AppCompatActivity
             public void onClick(View view)
             {
                 Log.v(TAG, "clic boutonCreerTache");
-                Intent CreerTache = new Intent(EditerTacheActivity.this,CreerTacheActivity.class);
-                startActivity(CreerTache);
+
+                Intent creerTache = new Intent(EditerTacheActivity.this,CreerTacheActivity.class);
+                startActivity(creerTache);
             }
         });
 
@@ -132,8 +135,18 @@ public class EditerTacheActivity extends AppCompatActivity
             public void onClick(View v)
             {
                 Log.d(TAG, "clic boutonEditerTache");
-                Intent RetourAccueil = new Intent(EditerTacheActivity.this,PomodoroActivity.class);
-                startActivity(RetourAccueil);
+                Intent retourAccueil = new Intent(EditerTacheActivity.this,PomodoroActivity.class);
+                startActivity(retourAccueil);
+            }
+        });
+
+        boutonSupprimerTache.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                Log.d(TAG, "clic boutonSupprimerTache");
+                tache.supprimerTache();
             }
         });
 
@@ -142,13 +155,6 @@ public class EditerTacheActivity extends AppCompatActivity
          */
         nomTaches = new ArrayList<>();
         nomTaches.add("Coder le projet");
-        nomTaches.add("Obtenir le diplome");
-        nomTaches.add("Coder le projet");
-        nomTaches.add("Obtenir le diplome");
-        nomTaches.add("Coder le projet");
-        nomTaches.add("Obtenir le diplome");
-        nomTaches.add("Coder le projet");
-        nomTaches.add("Obtenir le diplome");
 
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, nomTaches);
         adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
