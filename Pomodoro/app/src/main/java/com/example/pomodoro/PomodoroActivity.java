@@ -6,6 +6,7 @@ package com.example.pomodoro;
  * @author Teddy ESTABLET
  */
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -50,6 +51,13 @@ PomodoroActivity extends AppCompatActivity
     private final static int CODE_DEMANDE_ENABLE_BLUETOOTH = 0;
     private final static int CODE_DEMANDE_BLUETOOTH_CONNECT = 1;
     private final static int CODE_DEMANDE_ACCESS_FINE_LOCATION = 2;
+
+    public final static String afficheTacheTerminé = "Tâche terminé";
+    public final static String afficheTacheDemarrer = "Démarrer";
+    public final static String affichePauseCourte = "Pause courte";
+    public final static String affichePauseCourteTerminee = "Pause courte terminée";
+    public final static String affichePauseLongue = "Pause longue";
+    public final static String affichePauseLongueTerminee = "Pause longue terminée";
 
     /**
      * Attributs
@@ -494,43 +502,43 @@ PomodoroActivity extends AppCompatActivity
                                 minuteur.setEtat(Integer.parseInt(champs[Protocole.CHAMP_ETAT]));
                                 if(champs[Protocole.CHAMP_ETAT].equals(Protocole.ETAT_ATTENTE))
                                 {
-                                    boutonDemarrer.setText("Démarrer");
+                                    boutonDemarrer.setText(afficheTacheDemarrer);
                                     arreterMinuteur();
                                     Log.v(TAG,"[Handler] Changement d'état : Bouton = Démarrer");
                                 }
                                 else if(champs[Protocole.CHAMP_ETAT].equals(Protocole.ETAT_TACHE_EN_COURS))
                                 {
-                                    boutonDemarrer.setText("Tâche");
+                                    boutonDemarrer.setText(tache.getNom());
                                     demarrerMinuteur(minuteur.getLongueur());
                                     Log.v(TAG,"[Handler] Changement d'état : Bouton = Tâche");
                                 }
                                 else if(champs[Protocole.CHAMP_ETAT].equals(Protocole.ETAT_TACHE_TERMINEE))
                                 {
-                                    boutonDemarrer.setText("Tâche terminée");
+                                    boutonDemarrer.setText(afficheTacheDemarrer);
                                     arreterMinuteur();
                                     Log.v(TAG,"[Handler] Changement d'état : Bouton = Tache Terminée");
                                 }
                                 else if(champs[Protocole.CHAMP_ETAT].equals(Protocole.ETAT_PAUSE_COURTE_EN_COURS))
                                 {
-                                    boutonDemarrer.setText("Pause courte");
+                                    boutonDemarrer.setText(affichePauseCourte);;
                                     demarrerMinuteur(minuteur.getDureePauseCourte());
                                     Log.v(TAG, "[Handler] Changement d'état : Bouton = Pause Courte");
                                 }
                                 else if(champs[Protocole.CHAMP_ETAT].equals(Protocole.ETAT_PAUSE_COURTE_TERMINEE))
                                 {
-                                    boutonDemarrer.setText("Pause courte terminée");
+                                    boutonDemarrer.setText(affichePauseCourteTerminee);
                                     arreterMinuteur();
                                     Log.v(TAG, "[Handler] Changement d'état : Bouton = Pause Courte terminée");
                                 }
                                 else if(champs[Protocole.CHAMP_ETAT].equals(Protocole.ETAT_PAUSE_LONGUE_EN_COURS))
                                 {
-                                    boutonDemarrer.setText("Pause longue");
+                                    boutonDemarrer.setText(affichePauseLongue);
                                     demarrerMinuteur(minuteur.getDureePauseLongue());
                                     Log.v(TAG, "[Handler] Changement d'état : Bouton = Pause Longue");
                                 }
                                 else if(champs[Protocole.CHAMP_ETAT].equals(Protocole.ETAT_PAUSE_LONGUE_TERMINEE))
                                 {
-                                    boutonDemarrer.setText("Pause longue terminée");
+                                    boutonDemarrer.setText(affichePauseLongueTerminee);
                                     arreterMinuteur();
                                     Log.v(TAG, "[Handler] Changement d'état : Bouton = Pause Longue Terminée");
                                 }

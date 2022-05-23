@@ -33,7 +33,7 @@ public class Tache implements Serializable
     private String nom = ""; //!< Le nom de la tâche
     private CouleurTache couleurTache = CouleurTache.Rouge; //!< La couleur par défaut
     public int duree = 25; //!< Valeur exprimée en minutes | ne peux pas être plus grand que 50
-    public int dureePauseCourte = 5; //!< Valeur exprimée en minutes | ne peux pas être plus grand que 20
+    public int dureePauseCourte = 5; // !< Valeur exprimée en minutes | ne peux pas être plus grand que 20
     public int dureePauseLongue = 10; //!< Valeur exprimée en minutes | ne peux pas être plus grand que 30
     public int nombreDeCycles = 4; //!< Nombre de pomodoros successifs
     public boolean automatique = false; //!< Pomodoro automatique

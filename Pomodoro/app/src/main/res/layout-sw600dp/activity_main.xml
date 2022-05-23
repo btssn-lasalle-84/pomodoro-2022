@@ -50,64 +50,36 @@
 
     <Button
         android:id="@+id/boutonEditerTache"
-        android:layout_width="210dp"
-        android:layout_height="50dp"
+        android:layout_width="194dp"
+        android:layout_height="123dp"
         android:layout_weight="1"
         android:text="@string/EditerTache"
-        app:layout_constraintBottom_toTopOf="@+id/organisationTaches"
-        app:layout_constraintEnd_toEndOf="@+id/organisationTaches"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/organisationTaches"
-        app:layout_constraintTop_toBottomOf="@+id/logoPomoConnect" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/progressBar"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logoPomoConnect"
+        app:layout_constraintVertical_bias="0.475" />
 
-    <Space
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/organisationTaches"
-        app:layout_constraintEnd_toEndOf="@+id/organisationTaches"
-        app:layout_constraintStart_toStartOf="@+id/organisationTaches"
-        app:layout_constraintTop_toBottomOf="@+id/boutonEditerTache" />
-
-    <Button
-        android:id="@+id/boutonMenu"
-        android:layout_width="195dp"
-        android:layout_height="125dp"
-        android:layout_marginStart="30dp"
-        android:text="@string/boutonMenu"
-        app:layout_constraintBottom_toBottomOf="@+id/boutonSynchroniser"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.012"
-        app:layout_constraintStart_toEndOf="@+id/progressBar"
-        app:layout_constraintTop_toTopOf="@+id/progressBar" />
 
     <Button
         android:id="@+id/boutonSeConnecterAuPomodoro"
         android:layout_width="194dp"
         android:layout_height="123dp"
-        android:layout_marginStart="30dp"
         android:text="@string/boutonSeConnecterAuPomodoro"
         android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.012"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/progressBar"
-        app:layout_constraintTop_toTopOf="@+id/progressBar" />
-
-    <Button
-        android:id="@+id/boutonSynchroniser"
-        android:layout_width="194dp"
-        android:layout_height="123dp"
-        android:layout_marginStart="30dp"
-        android:text="@string/boutonSynchroniserPomodoro"
-        app:layout_constraintBottom_toBottomOf="@+id/progressBar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.012"
-        app:layout_constraintStart_toEndOf="@+id/progressBar" />
+        app:layout_constraintTop_toBottomOf="@+id/logoPomoConnect"
+        app:layout_constraintVertical_bias="0.475" />
 
     <TextView
         android:id="@+id/horloge"
         android:layout_width="193dp"
         android:layout_height="63dp"
-        android:background="#6200EE"
+        android:background="@color/Rouge"
         android:paddingVertical="@dimen/cardview_default_radius"
         android:text="@string/horlogeParDefault"
         android:textAlignment="center"
@@ -119,32 +91,6 @@
         app:layout_constraintEnd_toEndOf="@+id/progressBar"
         app:layout_constraintStart_toStartOf="@+id/progressBar"
         app:layout_constraintTop_toBottomOf="@+id/logoPomoConnect" />
-
-    <ScrollView
-        android:id="@+id/organisationTaches"
-        android:layout_width="239dp"
-        android:layout_height="544dp"
-        android:layout_marginStart="80dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/progressBar"
-        app:layout_constraintHorizontal_bias="0.493"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/logoPomoConnect">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <Button
-                android:id="@+id/tache1"
-                android:layout_width="210dp"
-                android:layout_height="125dp"
-                android:text="Coder le Projet"
-                android:textAlignment="center" />
-
-        </LinearLayout>
-    </ScrollView>
 
     <TextView
         android:id="@+id/copyrightText"

@@ -157,7 +157,7 @@ public class EditerTacheActivity extends AppCompatActivity
             {
                 Log.d(TAG, "clic boutonSupprimerTache");
                 tache.supprimer();
-                //String requete = "DELETE FROM Tache WHERE idTache = '" + + "'";
+                //String requete = "DELETE FROM Tache WHERE idTache = '" +  "'";
                 //baseDeDonnees.executerRequete(requete);
             }
         });

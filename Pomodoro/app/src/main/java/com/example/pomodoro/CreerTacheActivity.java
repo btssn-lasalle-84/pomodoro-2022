@@ -165,8 +165,9 @@ public class CreerTacheActivity extends AppCompatActivity
             {
                 Log.v(TAG, "clic boutonCreerLaTache");
                 creerUneNouvelleTache();
-                Intent retourAccueil = new Intent(CreerTacheActivity.this,PomodoroActivity.class);
-                startActivity(retourAccueil);
+                Intent retourEditer = new Intent(CreerTacheActivity.this,EditerTacheActivity.class);
+                retourEditer.putExtra("tache", tache);
+                startActivity(retourEditer);
             }
         });
 
@@ -183,7 +184,7 @@ public class CreerTacheActivity extends AppCompatActivity
         int dureePauseCourteEntier = Integer.parseInt(dureePauseCourte.getText().toString());
         int dureePauseLongueEntier = Integer.parseInt(dureePauseLongue.getText().toString());
         int nombreCycleEntier = Integer.parseInt(nombreCycles.getText().toString());
-        Log.d(TAG, "[creerUneNouvelleTache] " + nomTache + " - " + dureeTacheEntier + " - " + dureePauseCourteEntier + " - "  + dureePauseLongueEntier + nombreCycleEntier);
+        Log.d(TAG, "[creerUneNouvelleTache] " + nomTache + " - " + dureeTacheEntier + " - " + dureePauseCourteEntier + " - "  + dureePauseLongueEntier + " - "  + nombreCycleEntier);
 
         // Ajout des valeurs saisies dans la tache
         if(tache != null)
