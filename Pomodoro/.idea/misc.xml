@@ -5,8 +5,14 @@
       <map>
         <entry key="../../../../../layout/custom_preview.xml" value="0.19322916666666667" />
         <entry key="app/src/main/res/drawable/bouton_demarrer.xml" value="0.339" />
+        <entry key="app/src/main/res/drawable/bouton_demarrer_jaune.xml" value="0.339" />
+        <entry key="app/src/main/res/drawable/bouton_editer.xml" value="0.339" />
+        <entry key="app/src/main/res/drawable/bouton_se_connecter.xml" value="0.339" />
         <entry key="app/src/main/res/drawable/boutondemarrer.xml" value="0.339" />
         <entry key="app/src/main/res/drawable/boutondemarrertache.xml" value="0.339" />
+        <entry key="app/src/main/res/drawable/horloge.xml" value="0.339" />
+        <entry key="app/src/main/res/drawable/horloge_jaune.xml" value="0.339" />
+        <entry key="app/src/main/res/drawable/horloge_verte.xml" value="0.339" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.2505" />
         <entry key="app/src/main/res/layout-sw600dp/activity_main.xml" value="0.16" />
         <entry key="app/src/main/res/layout/activity_creer_tache.xml" value="0.16979166666666667" />

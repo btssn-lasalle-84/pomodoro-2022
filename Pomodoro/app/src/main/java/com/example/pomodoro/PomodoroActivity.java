@@ -9,6 +9,7 @@ package com.example.pomodoro;
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.app.ActivityCompat;
 
 import android.annotation.SuppressLint;
@@ -75,9 +76,9 @@ PomodoroActivity extends AppCompatActivity
     /**
      * Ressources IHM
      */
-    private Button boutonDemarrer;//!< Le bouton permettant de démarrer un pomodoro
-    private Button boutonEditerTache;//!< Le bouton permettant d'éditer une tâche
-    private Button boutonSeConnecterAuPomodoro;//!< Le bouton permettant de se connecter au pomodoro
+    private AppCompatButton boutonDemarrer;//!< Le bouton permettant de démarrer un pomodoro
+    private AppCompatButton boutonEditerTache;//!< Le bouton permettant d'éditer une tâche
+    private AppCompatButton boutonSeConnecterAuPomodoro;//!< Le bouton permettant de se connecter au pomodoro
     private TextView horloge;
 
     /**
@@ -158,10 +159,15 @@ PomodoroActivity extends AppCompatActivity
     private void initialiserIHM()
     {
         Log.d(TAG, "initialiserIHM()");
-        boutonDemarrer = (Button) findViewById(R.id.boutonDemarrer);
-        boutonEditerTache = (Button) findViewById(R.id.boutonEditerTache);
-        boutonSeConnecterAuPomodoro = (Button) findViewById(R.id.boutonSeConnecterAuPomodoro);
+        boutonDemarrer = (AppCompatButton) findViewById(R.id.boutonDemarrer);
+        boutonEditerTache = (AppCompatButton) findViewById(R.id.boutonEditerTache);
+        boutonSeConnecterAuPomodoro = (AppCompatButton) findViewById(R.id.boutonSeConnecterAuPomodoro);
         horloge = (TextView) findViewById(R.id.horloge);
+
+        boutonDemarrer.setBackgroundResource(R.drawable.bouton_demarrer);
+        boutonEditerTache.setBackgroundResource(R.drawable.bouton_editer);
+        boutonSeConnecterAuPomodoro.setBackgroundResource(R.drawable.bouton_se_connecter);
+        horloge.setBackgroundResource(R.drawable.horloge);
 
         boutonDemarrer.setOnClickListener(new View.OnClickListener()
         {
@@ -171,6 +177,8 @@ PomodoroActivity extends AppCompatActivity
                 /**
                  * @todo Gérer le minuteur connecté
                  */
+                peripherique.envoyer(Protocole.DEBUT_TRAME+Protocole.DEMARRER_TACHE+Protocole.DELIMITEUR_TRAME+tache.getNom()+Protocole.FIN_TRAME);
+
             }
         });
         boutonEditerTache.setOnClickListener(new View.OnClickListener()
@@ -509,36 +517,42 @@ PomodoroActivity extends AppCompatActivity
                                 else if(champs[Protocole.CHAMP_ETAT].equals(Protocole.ETAT_TACHE_EN_COURS))
                                 {
                                     boutonDemarrer.setText(tache.getNom());
+                                    horloge.setBackgroundResource(R.drawable.horloge);
                                     demarrerMinuteur(minuteur.getLongueur());
                                     Log.v(TAG,"[Handler] Changement d'état : Bouton = Tâche");
                                 }
                                 else if(champs[Protocole.CHAMP_ETAT].equals(Protocole.ETAT_TACHE_TERMINEE))
                                 {
                                     boutonDemarrer.setText(afficheTacheDemarrer);
+                                    horloge.setBackgroundResource(R.drawable.horloge);
                                     arreterMinuteur();
                                     Log.v(TAG,"[Handler] Changement d'état : Bouton = Tache Terminée");
                                 }
                                 else if(champs[Protocole.CHAMP_ETAT].equals(Protocole.ETAT_PAUSE_COURTE_EN_COURS))
                                 {
-                                    boutonDemarrer.setText(affichePauseCourte);;
+                                    boutonDemarrer.setText(affichePauseCourte);
+                                    horloge.setBackgroundResource(R.drawable.horloge_jaune);
                                     demarrerMinuteur(minuteur.getDureePauseCourte());
                                     Log.v(TAG, "[Handler] Changement d'état : Bouton = Pause Courte");
                                 }
                                 else if(champs[Protocole.CHAMP_ETAT].equals(Protocole.ETAT_PAUSE_COURTE_TERMINEE))
                                 {
                                     boutonDemarrer.setText(affichePauseCourteTerminee);
+                                    horloge.setBackgroundResource(R.drawable.horloge_jaune);
                                     arreterMinuteur();
                                     Log.v(TAG, "[Handler] Changement d'état : Bouton = Pause Courte terminée");
                                 }
                                 else if(champs[Protocole.CHAMP_ETAT].equals(Protocole.ETAT_PAUSE_LONGUE_EN_COURS))
                                 {
                                     boutonDemarrer.setText(affichePauseLongue);
+                                    horloge.setBackgroundResource(R.drawable.horloge_verte);
                                     demarrerMinuteur(minuteur.getDureePauseLongue());
                                     Log.v(TAG, "[Handler] Changement d'état : Bouton = Pause Longue");
                                 }
                                 else if(champs[Protocole.CHAMP_ETAT].equals(Protocole.ETAT_PAUSE_LONGUE_TERMINEE))
                                 {
                                     boutonDemarrer.setText(affichePauseLongueTerminee);
+                                    horloge.setBackgroundResource(R.drawable.horloge_verte);
                                     arreterMinuteur();
                                     Log.v(TAG, "[Handler] Changement d'état : Bouton = Pause Longue Terminée");
                                 }

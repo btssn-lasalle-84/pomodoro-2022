@@ -8,7 +8,8 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="Rouge">#d91414</color>
-    <color name="Verte">#FF05B018</color>
+    <color name="Jaune">#e8d300</color>
+    <color name="Verte">#00DC18</color>
     <color name="black">#000000</color>
     <color name="Noire">#FF000000</color>
 </resources>

@@ -21,7 +21,7 @@
 
     <string name="tacheTerminé">Tâche Terminé</string>
 
-    <string name="TitreCreerTache">Créer une nouvelle Tâche</string>
+    <string name="TitreCreerTache">Modification de la tâche</string>
     <string name="tacheExistanteText">Si vous souhaitez éditer une tache, veuillez la sélectionner.</string>
     <string name="horlogeParDefault">00 : 00</string>
 
