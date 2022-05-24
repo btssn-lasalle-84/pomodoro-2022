@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context=".CreerTacheActivity">
+
+    <ImageView
+        android:id="@+id/logoPomoConnect"
+        android:layout_width="425dp"
+        android:layout_height="65dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.021"
+        app:srcCompat="@drawable/pomo_connect" />
+
+
+    <Button
+        android:id="@+id/boutonAccueil"
+        android:layout_width="108dp"
+        android:layout_height="61dp"
+        android:text="@string/boutonAccueil"
+        app:layout_constraintBottom_toBottomOf="@+id/logoPomoConnect"
+        app:layout_constraintEnd_toStartOf="@+id/logoPomoConnect"
+        app:layout_constraintHorizontal_bias="0.318"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/boutonEditerTache"
+        android:layout_width="108dp"
+        android:layout_height="61dp"
+        android:layout_marginStart="32dp"
+        android:text="@string/EditerTache"
+        app:layout_constraintBottom_toBottomOf="@+id/logoPomoConnect"
+        app:layout_constraintEnd_toStartOf="@+id/logoPomoConnect"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/boutonAccueil"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/TitreCreationTache"
+        android:layout_width="338dp"
+        android:layout_height="33dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/TitreCreerTache"
+        android:textAlignment="center"
+        android:textSize="25dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logoPomoConnect" />
+
+    <TextView
+        android:id="@+id/copyrightText2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/copyrightText2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/copyrightText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/copyrightText"
+        app:layout_constraintBottom_toTopOf="@+id/copyrightText2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <FrameLayout
+        android:layout_width="952dp"
+        android:layout_height="480dp"
+        app:layout_constraintBottom_toTopOf="@+id/copyrightText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/nomTacheT"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/CreationTache_NomTache">
+
+                </TextView>
+
+                <EditText
+                    android:id="@+id/nomTache"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="textPersonName" />
+
+                <TextView
+                    android:id="@+id/dureeTacheT"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/CreationTache_DureeTache">
+
+                </TextView>
+
+                <EditText
+                    android:id="@+id/dureeTache"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="time" />
+
+                <TextView
+                    android:id="@+id/dureePauseCourteT"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/CreationTache_DureePause_Courte">
+
+                </TextView>
+
+                <EditText
+                    android:id="@+id/dureePauseCourte"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="time" />
+
+                <TextView
+                    android:id="@+id/dureePauseLongueT"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/CreationTache_DureePause_Longue">
+
+                </TextView>
+
+                <EditText
+                    android:id="@+id/dureePauseLongue"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="time" />
+
+                <TextView
+                    android:id="@+id/nombreDeCyclesT"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/CreationTache_NombreDeCycles">
+
+                </TextView>
+
+                <EditText
+                    android:id="@+id/nombreDeCycles"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="time" />
+
+                <Button
+                    android:id="@+id/boutonCreerLaTache"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/CreationTache_CreerLaTache" />
+
+            </LinearLayout>
+        </ScrollView>
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+

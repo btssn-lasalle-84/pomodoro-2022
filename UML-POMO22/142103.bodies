@@ -1,0 +1,51 @@
+class BaseDeDonnees
+!!!145943.java!!!	BaseDeDonnees(inout context : Context)
+        this.sqlite = new SQLite(context);
+!!!146071.java!!!	ouvrir() : void
+        Log.d(TAG, "ouvrir()");
+        if (bdd == null)
+            bdd = sqlite.getWritableDatabase();
+!!!146199.java!!!	fermer() : void
+        Log.d(TAG, "fermer()");
+        if (bdd != null)
+            if (bdd.isOpen())
+                bdd.close();
+!!!146327.java!!!	effectuerRequete(in requete : String) : Cursor
+        ouvrir();
+
+        Cursor curseurResultat = bdd.rawQuery(requete,null);
+        Log.d(TAG,"effectuerRequete() : Exécution de la requete : " + requete);
+        Log.d(TAG,"effectuerRequete() : Nombre de résultats : " + Integer.toString(curseurResultat.getCount()));
+
+        return curseurResultat;
+!!!146455.java!!!	getNomColonnes() : Vector<String>
+        Vector<String> colonnes = new Vector<String>();
+        String requete = "SELECT * FROM Colonne";
+
+        Cursor curseurResultat = effectuerRequete(requete);
+
+        for (int i = 0; i < curseurResultat.getCount(); i++)
+        {
+            curseurResultat.moveToNext();
+            Log.d(TAG, "libelle = " + curseurResultat.getString(INDEX_COLONNE_LIBELLE));
+            colonnes.add(new String(curseurResultat.getString(INDEX_COLONNE_LIBELLE)));
+        }
+
+        return colonnes;
+!!!153751.java!!!	getNomTaches() : Vector<String>
+        Vector<String> nomsTache = new Vector<String>();
+        String requete = "SELECT * FROM Tache";
+
+        Cursor curseurResultat = effectuerRequete(requete);
+
+        for (int i = 0; i < curseurResultat.getCount(); i++)
+        {
+            curseurResultat.moveToNext();
+            Log.d(TAG, "nom tâche = " + curseurResultat.getString(INDEX_COLONNE_TACHE_TITRE));
+            nomsTache.add(new String(curseurResultat.getString(INDEX_COLONNE_TACHE_TITRE)));
+        }
+
+        return nomsTache;
+!!!146583.java!!!	executerRequete(in requete : String) : void
+        ouvrir();
+        bdd.execSQL(requete);

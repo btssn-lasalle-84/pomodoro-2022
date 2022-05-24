@@ -1,101 +1,5 @@
-package com.example.pomodoro;
-
-/**
- * @file PomodoroActivity.java
- * @brief Déclaration de la classe PomodoroActivity
- * @author Teddy ESTABLET
- */
-
-import androidx.annotation.ColorInt;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatButton;
-import androidx.appcompat.widget.AppCompatSpinner;
-import androidx.core.app.ActivityCompat;
-
-import android.annotation.SuppressLint;
-import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.content.pm.PackageManager;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.Vector;
-
-/**
- * @class PomodoroActivity
- * @brief L'activité principale de l'application Pomodoro
- */
-public class
-PomodoroActivity extends AppCompatActivity
-{
-    /**
-     * Constantes
-     */
-    private static final String TAG = "_PomodoroActivity";  //!< TAG pour les logs
-    // Pour les tests
-    private static final String NOM_MINUTEUR = "pomodoro-1";
-    private static final String ADRESSE_MINUTEUR = "A4:CF:12:6D:F3:6E";
-
-    private final static int CODE_DEMANDE_ENABLE_BLUETOOTH = 0;
-    private final static int CODE_DEMANDE_BLUETOOTH_CONNECT = 1;
-    private final static int CODE_DEMANDE_ACCESS_FINE_LOCATION = 2;
-
-    public final static String afficheTacheTerminé = "Tâche terminé";
-    public final static String afficheTacheDemarrer = "Démarrer";
-    public final static String affichePauseCourte = "Pause courte";
-    public final static String affichePauseCourteTerminee = "Pause courte terminée";
-    public final static String affichePauseLongue = "Pause longue";
-    public final static String affichePauseLongueTerminee = "Pause longue terminée";
-
-    /**
-     * Attributs
-     */
-    private BluetoothAdapter bluetooth = null;  //!< L'adaptateur Bluetooth de la tablette
-    private Peripherique peripherique = null;
-    private Handler handler = null;
-    private BaseDeDonnees baseDeDonnees = null;
-    private Minuteur minuteur; //!< le minuteur
-    private Tache tache; //!< une tâche
-    private Timer timerMinuteur = null;;
-    private TimerTask tacheMinuteur;
-    private long dureeEnCours;
-
-    /**
-     * Ressources IHM
-     */
-    private AppCompatButton boutonDemarrer;//!< Le bouton permettant de démarrer un pomodoro
-    private AppCompatButton boutonEditerTache;//!< Le bouton permettant d'éditer une tâche
-    private AppCompatButton boutonSeConnecterAuPomodoro;//!< Le bouton permettant de se connecter au pomodoro
-    private AppCompatSpinner spinner;
-    private List<String> nomTaches;
-    private ArrayAdapter<String> adapter;
-    private TextView horloge;
-
-    /**
-     * @brief Méthode appelée à la création de l'activité
-     */
-    @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+class PomodoroActivity
+!!!136471.java!!!	onCreate(inout savedInstanceState : Bundle) : void
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Log.d(TAG, "onCreate()");
@@ -109,83 +13,37 @@ PomodoroActivity extends AppCompatActivity
         initialiserHandler();
         initialiserBluetooth();
         initialiserIHM();
-    }
-
-    /**
-     * @brief Méthode appelée au démarrage après le onCreate() ou un restart après un onStop()
-     */
-    @Override
-    protected void onStart()
-    {
+!!!136599.java!!!	onStart() : void
         super.onStart();
         Log.d(TAG, "onStart()");
-    }
-
-    /**
-     * @brief Méthode appelée après onStart() ou après onPause()
-     */
-    @Override
-    protected void onResume()
-    {
+!!!136727.java!!!	onResume() : void
         super.onResume();
         Log.d(TAG, "onResume()");
-    }
-
-    /**
-     * @brief Méthode appelée après qu'une boîte de dialogue s'est affichée (on reprend sur un onResume()) ou avant onStop() (activité plus visible)
-     */
-    @Override
-    protected void onPause()
-    {
+!!!136855.java!!!	onPause() : void
         super.onPause();
         Log.d(TAG, "onPause()");
-    }
-
-    /**
-     * @brief Méthode appelée lorsque l'activité n'est plus visible
-     */
-    @Override
-    protected void onStop()
-    {
+!!!136983.java!!!	onStop() : void
         super.onStop();
         Log.d(TAG, "onStop()");
         peripherique.deconnecter();
-    }
-
-    /**
-     * @brief Méthode appelée à la destruction de l'application (après onStop() et détruite par le système Android)
-     */
-    @Override
-    protected void onDestroy()
-    {
+!!!137111.java!!!	onDestroy() : void
         super.onDestroy();
         Log.d(TAG, "onDestroy()");
-    }
-
-    /**
-     * @brief Initialise l'activité
-     */
-    private void initialiserIHM()
-    {
+!!!137239.java!!!	initialiserIHM() : void
         Log.d(TAG, "initialiserIHM()");
-        boutonDemarrer = (AppCompatButton) findViewById(R.id.boutonDemarrer);
-        boutonEditerTache = (AppCompatButton) findViewById(R.id.boutonEditerTache);
-        boutonSeConnecterAuPomodoro = (AppCompatButton) findViewById(R.id.boutonSeConnecterAuPomodoro);
+        boutonDemarrer = (Button) findViewById(R.id.boutonDemarrer);
+        boutonEditerTache = (Button) findViewById(R.id.boutonEditerTache);
+        boutonSeConnecterAuPomodoro = (Button) findViewById(R.id.boutonSeConnecterAuPomodoro);
         horloge = (TextView) findViewById(R.id.horloge);
-        spinner = (AppCompatSpinner) findViewById(R.id.spinner);
-
-        boutonDemarrer.setBackgroundResource(R.drawable.bouton_demarrer);
-        boutonEditerTache.setBackgroundResource(R.drawable.bouton_editer);
-        boutonSeConnecterAuPomodoro.setBackgroundResource(R.drawable.bouton_se_connecter);
-        horloge.setBackgroundResource(R.drawable.horloge);
-        //spinner.setBackgroundResource(R.drawable.spinner);
 
         boutonDemarrer.setOnClickListener(new View.OnClickListener()
         {
             public void onClick(View v)
             {
                 Log.d(TAG, "clic boutonDemarrer");
-                peripherique.envoyer(Protocole.DEBUT_TRAME+Protocole.DEMARRER_TACHE+Protocole.DELIMITEUR_TRAME+tache.getNom()+Protocole.FIN_TRAME);
+                /**
+                 * @todo Gérer le minuteur connecté
+                 */
             }
         });
         boutonEditerTache.setOnClickListener(new View.OnClickListener()
@@ -215,42 +73,7 @@ PomodoroActivity extends AppCompatActivity
                 }
             }
         });
-        /**
-         * @brief Spinner affichant les tâches crées
-         */
-        nomTaches = new ArrayList<>();
-        Vector<String> nomsTache = baseDeDonnees.getNomTaches();
-        if(tache != null && !tache.getNom().isEmpty())
-            nomTaches.add(tache.getNom());
-        for (int i = 0; i < nomsTache.size(); i++)
-        {
-            nomTaches.add(nomsTache.get(i));
-        }
-
-        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, nomTaches);
-        adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-
-        spinner.setAdapter(adapter);
-
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
-        {
-            @Override
-            public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long id)
-            {
-                Log.d(TAG, "sélection = " + position + " -> " + nomTaches.get(position));
-                tache.setNom(nomTaches.get(position));
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> arg0)
-            {
-            }
-        });
-    }
-
-    @SuppressLint("MissingPermission")
-    private void initialiserBluetooth()
-    {
+!!!137367.java!!!	initialiserBluetooth() : void
         bluetooth = BluetoothAdapter.getDefaultAdapter();
         if(bluetooth == null)
         {
@@ -282,14 +105,7 @@ PomodoroActivity extends AppCompatActivity
                 chercherMinuteur();
             }
         }
-    }
-
-    /**
-     * @brief Méthode qui permet de chercher un périphérique bluetooth pomodoro déjà appairé
-     */
-    @SuppressLint("MissingPermission")
-    private void chercherMinuteur()
-    {
+!!!137495.java!!!	chercherMinuteur() : void
         Set<BluetoothDevice> devices;
 
         Log.d(TAG,"[chercherMinuteur] liste des périphériques Bluetooth appairés");
@@ -308,38 +124,18 @@ PomodoroActivity extends AppCompatActivity
         // sinon :
         Log.d(TAG,"[chercherMinuteur] minuteur non trouvé !");
         demarrerRecherche();
-    }
-
-    /**
-     * @brief Méthode qui permet de lancer la recherche de périphériques
-     */
-    @SuppressLint("MissingPermission")
-    private void demarrerRecherche()
-    {
+!!!137623.java!!!	demarrerRecherche() : void
         if(bluetooth.isDiscovering())
             bluetooth.cancelDiscovery();
         bluetooth.startDiscovery();
         Log.d(TAG,"[demarrerRecherche] démarrage découverte bluetooth");
-    }
-
-    /**
-     * @brief Méthode qui permet de demander le droit de permission location
-     */
-    private void demanderPermissions(String permission, int code)
-    {
+!!!137751.java!!!	demanderPermissions(in permission : String, in code : int) : void
         Log.d(TAG, "demanderPermissions()");
         if(ActivityCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED)
         {
             ActivityCompat.requestPermissions(this, new String[]{permission}, code);
         }
-    }
-
-    /**
-     * @brief Méthode qui permet de gérer la réponse à la demande de permission location
-     */
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults)
-    {
+!!!137879.java!!!	onRequestPermissionsResult(in requestCode : int, inout permissions : String [[]], inout grantResults : int [[]]) : void
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         Log.d(TAG, "onRequestPermissionsResult() code : " + requestCode);
         switch(requestCode)
@@ -381,14 +177,7 @@ PomodoroActivity extends AppCompatActivity
                 return;
             }
         }
-    }
-
-    /**
-     * @brief Détection de changement d'état du bluetooth
-     * @return BroadcastReceiver le receveur de Bluetooth
-     */
-    private final BroadcastReceiver changementEtatBluetooth()
-    {
+!!!138007.java!!!	changementEtatBluetooth() : BroadcastReceiver
         BroadcastReceiver receiverEtatBluetooth = new BroadcastReceiver()
         {
             @Override
@@ -443,14 +232,7 @@ PomodoroActivity extends AppCompatActivity
         };
 
         return receiverEtatBluetooth;
-    }
-
-    /**
-     * @brief Détection des périphériques Bluetooth
-     * @return BroadcastReceiver le receveur
-     */
-    private final BroadcastReceiver detectionPeripherique()
-    {
+!!!138135.java!!!	detectionPeripherique() : BroadcastReceiver
         BroadcastReceiver receiverDetectionBluetooth = new BroadcastReceiver()
         {
             @SuppressLint("MissingPermission")
@@ -477,10 +259,7 @@ PomodoroActivity extends AppCompatActivity
         };
 
         return receiverDetectionBluetooth;
-    };
-
-    private void initialiserPeripherique()
-    {
+!!!138263.java!!!	initialiserPeripherique() : void
         Log.d(TAG,"initialiserPeripherique()");
         if(peripherique == null)
             peripherique = new Peripherique(handler);
@@ -489,10 +268,7 @@ PomodoroActivity extends AppCompatActivity
             if(!peripherique.estConnecte())
                 peripherique.connecter();
         }
-    }
-
-    private void initialiserHandler()
-    {
+!!!138391.java!!!	initialiserHandler() : void
         this.handler = new Handler(this.getMainLooper())
         {
             @Override
@@ -542,52 +318,49 @@ PomodoroActivity extends AppCompatActivity
                         {
                             case Protocole.CHANGEMENT_ETAT:
                                 Log.v(TAG, "[Handler] Changement d’état : " + champs[Protocole.CHAMP_ETAT]);
+                                /**
+                                 * @todo Gérer l'affichage du minuteur
+                                 */
                                 minuteur.setEtat(Integer.parseInt(champs[Protocole.CHAMP_ETAT]));
                                 if(champs[Protocole.CHAMP_ETAT].equals(Protocole.ETAT_ATTENTE))
                                 {
-                                    boutonDemarrer.setText(afficheTacheDemarrer);
+                                    boutonDemarrer.setText("Démarrer");
                                     arreterMinuteur();
                                     Log.v(TAG,"[Handler] Changement d'état : Bouton = Démarrer");
                                 }
                                 else if(champs[Protocole.CHAMP_ETAT].equals(Protocole.ETAT_TACHE_EN_COURS))
                                 {
-                                    boutonDemarrer.setText(tache.getNom());
-                                    horloge.setBackgroundResource(R.drawable.horloge);
+                                    boutonDemarrer.setText("Tâche");
                                     demarrerMinuteur(minuteur.getLongueur());
                                     Log.v(TAG,"[Handler] Changement d'état : Bouton = Tâche");
                                 }
                                 else if(champs[Protocole.CHAMP_ETAT].equals(Protocole.ETAT_TACHE_TERMINEE))
                                 {
-                                    boutonDemarrer.setText(afficheTacheDemarrer);
-                                    horloge.setBackgroundResource(R.drawable.horloge);
+                                    boutonDemarrer.setText("Tâche terminée");
                                     arreterMinuteur();
                                     Log.v(TAG,"[Handler] Changement d'état : Bouton = Tache Terminée");
                                 }
                                 else if(champs[Protocole.CHAMP_ETAT].equals(Protocole.ETAT_PAUSE_COURTE_EN_COURS))
                                 {
-                                    boutonDemarrer.setText(affichePauseCourte);
-                                    horloge.setBackgroundResource(R.drawable.horloge_jaune);
+                                    boutonDemarrer.setText("Pause courte");
                                     demarrerMinuteur(minuteur.getDureePauseCourte());
                                     Log.v(TAG, "[Handler] Changement d'état : Bouton = Pause Courte");
                                 }
                                 else if(champs[Protocole.CHAMP_ETAT].equals(Protocole.ETAT_PAUSE_COURTE_TERMINEE))
                                 {
-                                    boutonDemarrer.setText(affichePauseCourteTerminee);
-                                    horloge.setBackgroundResource(R.drawable.horloge_jaune);
+                                    boutonDemarrer.setText("Pause courte terminée");
                                     arreterMinuteur();
                                     Log.v(TAG, "[Handler] Changement d'état : Bouton = Pause Courte terminée");
                                 }
                                 else if(champs[Protocole.CHAMP_ETAT].equals(Protocole.ETAT_PAUSE_LONGUE_EN_COURS))
                                 {
-                                    boutonDemarrer.setText(affichePauseLongue);
-                                    horloge.setBackgroundResource(R.drawable.horloge_verte);
+                                    boutonDemarrer.setText("Pause longue");
                                     demarrerMinuteur(minuteur.getDureePauseLongue());
                                     Log.v(TAG, "[Handler] Changement d'état : Bouton = Pause Longue");
                                 }
                                 else if(champs[Protocole.CHAMP_ETAT].equals(Protocole.ETAT_PAUSE_LONGUE_TERMINEE))
                                 {
-                                    boutonDemarrer.setText(affichePauseLongueTerminee);
-                                    horloge.setBackgroundResource(R.drawable.horloge_verte);
+                                    boutonDemarrer.setText("Pause longue terminée");
                                     arreterMinuteur();
                                     Log.v(TAG, "[Handler] Changement d'état : Bouton = Pause Longue Terminée");
                                 }
@@ -597,18 +370,12 @@ PomodoroActivity extends AppCompatActivity
                 }
             }
         };
-    }
-
-    private void mettreAJourBoutonConnexion(boolean etatConnexion)
-    {
+!!!158487.java!!!	mettreAJourBoutonConnexion(inout etatConnexion : boolean) : void
         if(etatConnexion)
             boutonSeConnecterAuPomodoro.setText("Se déconnecter");
         else
             boutonSeConnecterAuPomodoro.setText("Se connecter");
-    }
-
-    private void demarrerMinuteur(int duree)
-    {
+!!!157207.java!!!	demarrerMinuteur(in duree : int) : void
         if(timerMinuteur != null){
             timerMinuteur.cancel();
         }
@@ -618,20 +385,14 @@ PomodoroActivity extends AppCompatActivity
         horloge.setText(getMMSS(duree));
 
         minuter();
-    }
-
-    private void arreterMinuteur()
-    {
+!!!157335.java!!!	arreterMinuteur() : void
         if (timerMinuteur != null)
         {
             timerMinuteur.cancel();
             timerMinuteur = null;
             horloge.setText("00:00");
         }
-    }
-
-    public void minuter()
-    {
+!!!157463.java!!!	minuter() : void
         tacheMinuteur = new TimerTask() {
             public void run() {
                 dureeEnCours--;
@@ -644,10 +405,7 @@ PomodoroActivity extends AppCompatActivity
         };
 
         timerMinuteur.schedule(tacheMinuteur, 1000, 1000);
-    }
-
-    private String getMMSS(long valeur)
-    {
+!!!157591.java!!!	getMMSS(in valeur : long) : String
         long minutes = (valeur % 3600) / 60;
         String minuteStr = minutes < 10 ? "0" + Integer.toString((int) minutes) : Integer.toString((int)minutes);
 
@@ -655,5 +413,3 @@ PomodoroActivity extends AppCompatActivity
         String secondesStr = secondes < 10 ? "0" + Integer.toString((int)secondes) : Integer.toString((int)secondes);
 
         return minuteStr + ":" + secondesStr;
-    }
-}

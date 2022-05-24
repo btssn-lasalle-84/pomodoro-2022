@@ -1,0 +1,28 @@
+class Tache
+!!!138519.java!!!	Tache(in nomTache : String, in dureeTache : int, in dureePauseCourte : int, in dureePauseLongue : int, in nombreCycle : int)
+        this.nom = nomTache;
+        this.couleurTache = CouleurTache.Rouge;
+        this.duree = dureeTache;
+        this.dureePauseCourte = dureePauseCourte;
+        this.dureePauseLongue = dureePauseLongue;
+        this.nombreDeCycles = nombreCycle;
+!!!138647.java!!!	getNom() : String
+        return this.nom;
+!!!138775.java!!!	setNom(in nom : String) : void
+        this.nom = nom;
+!!!157719.java!!!	getDuree() : int
+        return duree;
+!!!157847.java!!!	getDureePauseCourte() : int
+        return dureePauseCourte;
+!!!157975.java!!!	getDureePauseLongue() : int
+        return dureePauseLongue;
+!!!158103.java!!!	getNombreDeCycles() : int
+        return nombreDeCycles;
+!!!158231.java!!!	configurer(in dureeTache : int, in dureePauseCourte : int, in dureePauseLongue : int, in nombreCycle : int) : void
+        this.duree = dureeTache;
+        this.dureePauseCourte = dureePauseCourte;
+        this.dureePauseLongue = dureePauseLongue;
+        this.nombreDeCycles = nombreCycle;
+!!!158359.java!!!	supprimer() : void
+        Log.d(TAG, "supprimer()");
+        this.nom = "";

@@ -1,0 +1,39 @@
+class Minuteur
+!!!134551.java!!!	Minuteur()
+        this.longueur = 25; // 25 minutes
+        this.dureePauseCourte = 5; // 5 minutes
+        this.dureePauseLongue = 20; // 20 minutes
+        this.nbCycles = 4;
+        this.modeAutomatique = false;
+        this.modeAutomatiquePause = true;
+!!!155799.java!!!	Minuteur(in longueur : int, in dureePauseCourte : int, in dureePauseLongue : int, in nbCycles : int, inout modeAutomatique : boolean, inout modeAutomatiquePause : boolean)
+        this.longueur = longueur;
+        this.dureePauseCourte = dureePauseCourte;
+        this.dureePauseLongue = dureePauseLongue;
+        this.nbCycles = nbCycles;
+        this.modeAutomatique = modeAutomatique;
+        this.modeAutomatiquePause = modeAutomatiquePause;
+!!!155927.java!!!	getLongueur() : int
+        return longueur;
+!!!156055.java!!!	getDureePauseCourte() : int
+        return dureePauseCourte;
+!!!156183.java!!!	getDureePauseLongue() : int
+        return dureePauseLongue;
+!!!156311.java!!!	getNbCycles() : int
+        return nbCycles;
+!!!156439.java!!!	estModeAutomatique() : boolean
+        return modeAutomatique;
+!!!156567.java!!!	estModeAutomatiquePause() : boolean
+        return modeAutomatiquePause;
+!!!156695.java!!!	getMode() : int
+        return mode;
+!!!156823.java!!!	getEtat() : int
+        return etat;
+!!!156951.java!!!	setEtat(in etat : int) : void
+        this.etat = etat;
+!!!157079.java!!!	preparerRequete(in nom : String) : String
+        Log.d(TAG, "preparerRequete() " + nom);
+        String requete = "";
+        String requeteUpdate = "UPDATE Modele SET dureePomodoro='"+Integer.toString(this.longueur)+"',pauseCourte='"+Integer.toString(this.dureePauseCourte)+"',pauseLongue='"+Integer.toString(this.dureePauseLongue)+"',nbPomodori='"+Integer.toString(this.nbCycles)+"',autoPomodoro='"+Boolean.toString(this.modeAutomatique)+"',autoPause='"+Boolean.toString(this.modeAutomatiquePause)+"' WHERE nom='"+nom+"';";
+        String requeteInsert = "INSERT INTO Modele (nom,dureePomodoro,pauseCourte,pauseLongue,nbPomodori,autoPomodoro,autoPause) VALUES ('"+nom+"','"+Integer.toString(this.longueur)+"','"+Integer.toString(this.dureePauseCourte)+"','"+Integer.toString(this.dureePauseLongue)+"','"+Integer.toString(this.nbCycles)+"','"+Boolean.toString(this.modeAutomatique)+"','"+Boolean.toString(this.modeAutomatiquePause)+"');";
+        return requete;

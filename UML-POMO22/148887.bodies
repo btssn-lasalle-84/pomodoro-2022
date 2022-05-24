@@ -1,0 +1,102 @@
+class CreerTacheActivity
+!!!153879.java!!!	onCreate(inout savedInstanceState : Bundle) : void
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_creer_tache);
+
+        // récupère la tâche
+        tache = (Tache) getIntent().getSerializableExtra("tache");
+        Log.d(TAG, "[Tache] nom = " + tache.getNom());
+
+        initialiserIHM();
+!!!154007.java!!!	onStart() : void
+        super.onStart();
+        Log.d(TAG, "onStart()");
+!!!154135.java!!!	onResume() : void
+        super.onResume();
+        Log.d(TAG, "onResume()");
+!!!154263.java!!!	onPause() : void
+        super.onPause();
+        Log.d(TAG, "onPause()");
+!!!154391.java!!!	onStop() : void
+        super.onStop();
+        Log.d(TAG, "onStop()");
+!!!154519.java!!!	onDestroy() : void
+        super.onDestroy();
+        Log.d(TAG, "onDestroy()");
+!!!154647.java!!!	initialiserIHM() : void
+        Log.d(TAG, "initialiserIHM()");
+        boutonAccueil = (Button) findViewById(R.id.boutonAccueil);
+        boutonEditer = (Button) findViewById(R.id.boutonEditerTache);
+        boutonCreerLaTache = (Button) findViewById(R.id.boutonCreerLaTache);
+
+        nomTache = (EditText) findViewById(R.id.nomTache);
+        dureeTache = (EditText) findViewById(R.id.dureeTache);
+        dureePauseCourte = (EditText) findViewById(R.id.dureePauseCourte);
+        dureePauseLongue = (EditText) findViewById(R.id.dureePauseLongue);
+        nombreCycles = (EditText) findViewById(R.id.nombreDeCycles);
+
+        if(tache != null)
+        {
+            nomTache.setText(tache.getNom());
+            dureeTache.setText(Integer.toString(tache.getDuree()));
+            dureePauseCourte.setText(Integer.toString(tache.getDureePauseCourte()));
+            dureePauseLongue.setText(Integer.toString(tache.getDureePauseLongue()));
+            nombreCycles.setText(Integer.toString(tache.getNombreDeCycles()));
+        }
+
+        boutonAccueil.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                Log.v(TAG, "clic boutonAccueil");
+                Intent retourAccueil = new Intent(CreerTacheActivity.this,PomodoroActivity.class);
+                startActivity(retourAccueil);
+            }
+        });
+
+        boutonEditer.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                Log.v(TAG, "clic boutonEditer");
+                creerUneNouvelleTache();
+                Intent retourEditer = new Intent(CreerTacheActivity.this, EditerTacheActivity.class);
+                // passe la tache à l'activité
+                retourEditer.putExtra("tache", tache);
+                startActivity(retourEditer);
+            }
+        });
+
+        boutonCreerLaTache.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                Log.v(TAG, "clic boutonCreerLaTache");
+                creerUneNouvelleTache();
+                Intent retourAccueil = new Intent(CreerTacheActivity.this,PomodoroActivity.class);
+                startActivity(retourAccueil);
+            }
+        });
+
+!!!154775.java!!!	creerUneNouvelleTache() : void
+        Log.d(TAG, "creerUneNouvelleTache()");
+
+        // Récupère la saisie de l'utilisateur
+        String nomTache = this.nomTache.getText().toString();
+
+        // Convertit les saisies en entier pour les durées et le nombre de cycle
+        int dureeTacheEntier = Integer.parseInt(dureeTache.getText().toString());
+        int dureePauseCourteEntier = Integer.parseInt(dureePauseCourte.getText().toString());
+        int dureePauseLongueEntier = Integer.parseInt(dureePauseLongue.getText().toString());
+        int nombreCycleEntier = Integer.parseInt(nombreCycles.getText().toString());
+        Log.d(TAG, "[creerUneNouvelleTache] " + nomTache + " - " + dureeTacheEntier + " - " + dureePauseCourteEntier + " - "  + dureePauseLongueEntier + nombreCycleEntier);
+
+        // Ajout des valeurs saisies dans la tache
+        if(tache != null)
+        {
+            tache.setNom(nomTache);
+            tache.configurer(dureeTacheEntier, dureePauseCourteEntier, dureePauseLongueEntier, nombreCycleEntier);
+        }

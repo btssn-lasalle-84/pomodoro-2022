@@ -1,0 +1,155 @@
+class Peripherique
+!!!134935.java!!!	Peripherique(inout handler : Handler)
+        this.nom = "";
+        this.adresse = "";
+        this.handler = handler;
+
+        activerBluetooth();
+!!!135063.java!!!	activerBluetooth() : void
+        bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        if(!bluetoothAdapter.isEnabled())
+        {
+            Log.d(TAG, "Activation bluetooth");
+            bluetoothAdapter.enable();
+        }
+!!!135191.java!!!	rechercherPomodoro(in idPomodoro : String) : boolean
+        Set<BluetoothDevice> appareilsAppaires = bluetoothAdapter.getBondedDevices();
+
+        //Log.d(TAG, "Recherche bluetooth : " + idPomodoro);
+        for(BluetoothDevice appareil : appareilsAppaires)
+        {
+            //Log.d(TAG, "Nom : " + appareil.getName() + " | Adresse : " + appareil.getAddress());
+            if(appareil.getName().equals(idPomodoro) || appareil.getAddress().equals(idPomodoro))
+            {
+                device = appareil;
+                this.nom = appareil.getName();
+                this.adresse = appareil.getAddress();
+                creerSocket();
+                return true; // Trouvé !
+            }
+        }
+
+        return false;
+!!!135319.java!!!	creerSocket() : void
+        if(device == null)
+            return;
+        try
+        {
+            Log.d(TAG, "Création socket");
+            socket = device.createRfcommSocketToServiceRecord(UUID.fromString("00001101-0000-1000-8000-00805F9B34FB"));
+            receiveStream = socket.getInputStream();
+            sendStream = socket.getOutputStream();
+        }
+        catch(IOException e)
+        {
+            e.printStackTrace();
+            Log.d(TAG, "<Socket> Erreur création socket !");
+            socket = null;
+        }
+
+        if(socket != null)
+        {
+            tReception = new TReception(handler, receiveStream);
+            Message message = new Message();
+            message.what = CODE_CREATION;
+            message.obj = this.nom;
+            handler.sendMessage(message);
+        }
+!!!135447.java!!!	getNom() : String
+        return nom;
+!!!135575.java!!!	getAdresse() : String
+        return adresse;
+!!!135703.java!!!	setNom(in nom : String) : void
+        this.nom = nom;
+!!!135831.java!!!	estConnecte() : boolean
+        if(socket == null)
+            return false;
+        else
+            return socket.isConnected();
+!!!135959.java!!!	envoyer(in donnees : String) : void
+        String data = null;
+
+        if(socket == null)
+            return;
+
+        new Thread()
+        {
+            @Override
+            public void run()
+            {
+                try
+                {
+                    if(socket.isConnected())
+                    {
+                        sendStream.write(donnees.getBytes());
+                        sendStream.flush();
+                    }
+                }
+                catch(IOException e)
+                {
+                    System.out.println("<Socket> Erreur envoi");
+                    e.printStackTrace();
+                }
+            }
+        }.start();
+!!!136215.java!!!	connecter() : void
+        if(socket == null)
+            return;
+
+        Log.d(TAG, "Connexion du module " + this.nom + " | Adresse : " + this.adresse);
+
+        new Thread()
+        {
+            @SuppressLint("MissingPermission")
+            @Override
+            public void run()
+            {
+                try
+                {
+                    if(!socket.isConnected())
+                    {
+                        socket.connect();
+
+                        Message message = new Message();
+                        message.what = CODE_CONNEXION;
+                        message.obj = nom;
+                        handler.sendMessage(message);
+
+                        tReception.start();
+                    }
+                }
+                catch(IOException e)
+                {
+                    System.out.println("<Socket> erreur de connexion");
+                    e.printStackTrace();
+                }
+            }
+        }.start();
+!!!136343.java!!!	deconnecter() : void
+        if (device == null || socket == null)
+            return;
+
+        Log.d(TAG,"Déconnexion du module " + this.nom + " | Adresse : " + this.adresse);
+
+        new Thread()
+        {
+            @Override public void run()
+            {
+                try
+                {
+                    tReception.arreter();
+
+                    Message message = new Message();
+                    message.what = CODE_DECONNEXION;
+                    message.obj = nom;
+                    handler.sendMessage(message);
+
+                    socket.close();
+                }
+                catch(IOException e)
+                {
+                    System.out.println("<Socket> erreur de déconnexion");
+                    e.printStackTrace();
+                }
+            }
+        }.start();

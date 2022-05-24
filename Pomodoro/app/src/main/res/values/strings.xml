@@ -1,9 +1,30 @@
 <resources>
     <string name="app_name">Pomodoro</string>
-    <string name="DemarrerPause">Démarrer / Pause</string>
+
+    <string name="DemarrerPause">Démarrer un Pomodoro</string>
     <string name="SupprimerTache">Supprimer</string>
+    <string name="SupprimerLaTache">Supprimer la tâche</string>
     <string name="EditerTache">Editer</string>
-    <string name="Menu">Menu</string>
-    <string name="ConnexionMicroControleur">Se connecter au micro-controleur</string>
-    <string name="SynchronisationMicroControleur">Synchroniser le micro-controleur</string>
+    <string name="boutonMenu">Menu</string>
+    <string name="boutonSeConnecterAuPomodoro">Se connecter</string>
+    <string name="boutonSynchroniserPomodoro">Synchroniser</string>
+    <string name="boutonCreerTache">Editer la tache</string>
+    <string name="boutonAccueil">Accueil</string>
+
+    <string name="CreationTache_NomTache">Nom de la tâche</string>
+    <string name="CreationTache_DureeTache">Durée de la tâche (Minutes)</string>
+    <string name="CreationTache_DureePause_Courte">Durée de(s) pause(s) courte (Minutes)</string>
+    <string name="CreationTache_DureePause_Longue">Durée de(s) pause(s) longue (Minutes)</string>
+    <string name="CreationTache_NombreDeCycles">Nombre de cycles</string>
+    <string name="CreationTache_ModeHorloge">Mode minuteur / horloge</string>
+    <string name="CreationTache_CreerLaTache">Modifier la tâche</string>
+
+    <string name="tacheTerminé">Tâche Terminé</string>
+
+    <string name="TitreCreerTache">Modification de la tâche</string>
+    <string name="tacheExistanteText">Si vous souhaitez éditer une tache, veuillez la sélectionner.</string>
+    <string name="horlogeParDefault">00 : 00</string>
+
+    <string name="copyrightText">© Projet Pomodoro / Développé par ESTABLET Teddy</string>
+    <string name="copyrightText2">Ensemble scolaire Saint Jean Baptiste de LaSalle Avignon</string>
 </resources>
