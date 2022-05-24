@@ -20,20 +20,22 @@
         app:layout_constraintVertical_bias="0.021"
         app:srcCompat="@drawable/pomo_connect" />
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyle"
-        android:visibility="invisible"
-        android:layout_width="266dp"
-        android:layout_height="374dp"
-        android:clickable="false"
-        android:indeterminate="false"
-        android:indeterminateBehavior="cycle"
-        android:progressTint="@color/Rouge"
-        app:layout_constraintBottom_toBottomOf="@+id/boutonDemarrer"
+    <TextView
+        android:id="@+id/horloge"
+        android:layout_width="193dp"
+        android:layout_height="63dp"
+        android:background="@color/Rouge"
+        android:paddingVertical="@dimen/cardview_default_radius"
+        android:text="@string/horlogeParDefault"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textIsSelectable="false"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toTopOf="@+id/boutonDemarrer"
         app:layout_constraintEnd_toEndOf="@+id/boutonDemarrer"
         app:layout_constraintStart_toStartOf="@+id/boutonDemarrer"
-        app:layout_constraintTop_toTopOf="@+id/boutonDemarrer" />
+        app:layout_constraintTop_toBottomOf="@+id/logoPomoConnect" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/boutonDemarrer"
@@ -57,43 +59,40 @@
         android:text="@string/EditerTache"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/progressBar"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintEnd_toStartOf="@+id/boutonDemarrer"
+        app:layout_constraintHorizontal_bias="0.852"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/logoPomoConnect"
         app:layout_constraintVertical_bias="0.475" />
-
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/boutonSeConnecterAuPomodoro"
         android:layout_width="194dp"
         android:layout_height="123dp"
         android:text="@string/boutonSeConnecterAuPomodoro"
-        android:textColor="@color/white"
         android:textAlignment="center"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/progressBar"
+        app:layout_constraintHorizontal_bias="0.15"
+        app:layout_constraintStart_toEndOf="@+id/boutonDemarrer"
         app:layout_constraintTop_toBottomOf="@+id/logoPomoConnect"
         app:layout_constraintVertical_bias="0.475" />
 
-    <TextView
-        android:id="@+id/horloge"
-        android:layout_width="193dp"
-        android:layout_height="63dp"
-        android:background="@color/Rouge"
-        android:paddingVertical="@dimen/cardview_default_radius"
-        android:text="@string/horlogeParDefault"
+    <androidx.appcompat.widget.AppCompatSpinner
+        android:id="@+id/spinner"
+        android:layout_width="203dp"
+        android:layout_height="56dp"
+        android:gravity="right"
+        android:outlineAmbientShadowColor="@color/white"
+        android:spinnerMode="dialog"
         android:textAlignment="center"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textIsSelectable="false"
-        android:textSize="34sp"
         app:layout_constraintBottom_toTopOf="@+id/boutonDemarrer"
-        app:layout_constraintEnd_toEndOf="@+id/progressBar"
-        app:layout_constraintStart_toStartOf="@+id/progressBar"
-        app:layout_constraintTop_toBottomOf="@+id/logoPomoConnect" />
+        app:layout_constraintEnd_toEndOf="@+id/boutonDemarrer"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="@+id/boutonDemarrer"
+        app:layout_constraintTop_toBottomOf="@+id/horloge"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/copyrightText"

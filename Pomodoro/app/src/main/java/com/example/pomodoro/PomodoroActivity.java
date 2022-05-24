@@ -10,6 +10,7 @@ import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.core.app.ActivityCompat;
 
 import android.annotation.SuppressLint;
@@ -25,10 +26,15 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -79,6 +85,9 @@ PomodoroActivity extends AppCompatActivity
     private AppCompatButton boutonDemarrer;//!< Le bouton permettant de démarrer un pomodoro
     private AppCompatButton boutonEditerTache;//!< Le bouton permettant d'éditer une tâche
     private AppCompatButton boutonSeConnecterAuPomodoro;//!< Le bouton permettant de se connecter au pomodoro
+    private AppCompatSpinner spinner;
+    private List<String> nomTaches;
+    private ArrayAdapter<String> adapter;
     private TextView horloge;
 
     /**
@@ -163,22 +172,20 @@ PomodoroActivity extends AppCompatActivity
         boutonEditerTache = (AppCompatButton) findViewById(R.id.boutonEditerTache);
         boutonSeConnecterAuPomodoro = (AppCompatButton) findViewById(R.id.boutonSeConnecterAuPomodoro);
         horloge = (TextView) findViewById(R.id.horloge);
+        spinner = (AppCompatSpinner) findViewById(R.id.spinner);
 
         boutonDemarrer.setBackgroundResource(R.drawable.bouton_demarrer);
         boutonEditerTache.setBackgroundResource(R.drawable.bouton_editer);
         boutonSeConnecterAuPomodoro.setBackgroundResource(R.drawable.bouton_se_connecter);
         horloge.setBackgroundResource(R.drawable.horloge);
+        //spinner.setBackgroundResource(R.drawable.spinner);
 
         boutonDemarrer.setOnClickListener(new View.OnClickListener()
         {
             public void onClick(View v)
             {
                 Log.d(TAG, "clic boutonDemarrer");
-                /**
-                 * @todo Gérer le minuteur connecté
-                 */
                 peripherique.envoyer(Protocole.DEBUT_TRAME+Protocole.DEMARRER_TACHE+Protocole.DELIMITEUR_TRAME+tache.getNom()+Protocole.FIN_TRAME);
-
             }
         });
         boutonEditerTache.setOnClickListener(new View.OnClickListener()
@@ -206,6 +213,37 @@ PomodoroActivity extends AppCompatActivity
                     else
                         peripherique.deconnecter();
                 }
+            }
+        });
+        /**
+         * @brief Spinner affichant les tâches crées
+         */
+        nomTaches = new ArrayList<>();
+        Vector<String> nomsTache = baseDeDonnees.getNomTaches();
+        if(tache != null && !tache.getNom().isEmpty())
+            nomTaches.add(tache.getNom());
+        for (int i = 0; i < nomsTache.size(); i++)
+        {
+            nomTaches.add(nomsTache.get(i));
+        }
+
+        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, nomTaches);
+        adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+
+        spinner.setAdapter(adapter);
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
+            @Override
+            public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long id)
+            {
+                Log.d(TAG, "sélection = " + position + " -> " + nomTaches.get(position));
+                tache.setNom(nomTaches.get(position));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0)
+            {
             }
         });
     }
@@ -504,9 +542,6 @@ PomodoroActivity extends AppCompatActivity
                         {
                             case Protocole.CHANGEMENT_ETAT:
                                 Log.v(TAG, "[Handler] Changement d’état : " + champs[Protocole.CHAMP_ETAT]);
-                                /**
-                                 * @todo Gérer l'affichage du minuteur
-                                 */
                                 minuteur.setEtat(Integer.parseInt(champs[Protocole.CHAMP_ETAT]));
                                 if(champs[Protocole.CHAMP_ETAT].equals(Protocole.ETAT_ATTENTE))
                                 {
