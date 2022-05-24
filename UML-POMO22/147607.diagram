@@ -1,0 +1,180 @@
+format 224
+
+classinstance 128023 class_ref 135063 // PomodoroActivity
+  name ""   xyz 12.2 3.8 2000 life_line_z 2000
+classinstance 128151 class_ref 134679 // Peripherique
+  name ""   xyz 766.4 392.5 2000 life_line_z 2000
+classinstance 128279 class_ref 134935 // TReception
+  name ""   xyz 1188.1 715.4 2000 life_line_z 2000
+classinstance 128407 class_ref 149271 // Handler
+ color verylightgray  name ""   xyz 563.7 84.8 2000 life_line_z 2000
+textcanvas 129559 "[pour chaque périphérique Bluetooth appairé]"
+  xyzwh 799.5 582.3 2015 749 32
+fragment 129687 "alt"
+  xyzwh 16 259.9 1980 1567 701
+end
+textcanvas 129815 "[bluetooth activé]"
+  xyzwh 160.4 270.1 2000 222 30
+fragment 129943 "loop"
+  xyzwh 692.2 571.2 1985 881 310
+end
+fragment 130071 "alt"
+  xyzwh 708.3 658.8 1990 855 201
+end
+textcanvas 130199 "[minuteur pomodoro trouvé]"
+  xyzwh 802.8 672.7 2015 541 33
+fragment 135447 "loop"
+  xyzwh 1161 1038 2000 303 131
+end
+textcanvas 135575 "[pas fini]"
+  xyzwh 1303 1045 2000 112 30
+note 135703 "envoie un message CODE_CONNEXION"
+  xyzwh 228 995 2000 314 88
+durationcanvas 128535 classinstance_ref 128023 // :PomodoroActivity
+  xyzwh 141 107.5 2010 11 48
+end
+durationcanvas 128791 classinstance_ref 128407 // :Handler
+  color red
+  xyzwh 619 146.4 2010 11 25
+end
+durationcanvas 129047 classinstance_ref 128023 // :PomodoroActivity
+  xyzwh 141 227.2 2010 11 693
+  overlappingdurationcanvas 129303
+    xyzwh 147 355.7 2020 11 559
+    overlappingdurationcanvas 130583
+      xyzwh 153 409.7 2030 11 499
+    end
+  end
+end
+durationcanvas 130839 classinstance_ref 128151 // :Peripherique
+  color red
+  xyzwh 862 451.5 2010 11 25
+end
+durationcanvas 131095 classinstance_ref 128151 // :Peripherique
+  xyzwh 862 531.3 2010 11 305
+  overlappingdurationcanvas 131351
+    xyzwh 868 744.5 2025 11 86
+  end
+end
+durationcanvas 131607 classinstance_ref 128279 // :TReception
+  color red
+  xyzwh 1277 814.6 2010 11 33
+end
+durationcanvas 131863 classinstance_ref 128151 // :Peripherique
+  xyzwh 863 895.3 2010 11 48
+end
+durationcanvas 133271 classinstance_ref 128151 // :Peripherique
+  xyzwh 863 1069 2010 11 40
+end
+durationcanvas 133399 classinstance_ref 128407 // :Handler
+  xyzwh 619 1070.6 2010 11 117
+  overlappingdurationcanvas 133655
+    xyzwh 625 1143.2 2020 11 38
+  end
+end
+durationcanvas 133911 classinstance_ref 128023 // :PomodoroActivity
+  xyzwh 141 1165.2 2010 11 26
+end
+durationcanvas 134167 classinstance_ref 128279 // :TReception
+  xyzwh 1277 926 2010 11 26
+end
+durationcanvas 134935 classinstance_ref 128279 // :TReception
+  xyzwh 1277 1010 2010 11 176
+  overlappingdurationcanvas 135191
+    xyzwh 1283 1126 2020 11 25
+  end
+end
+reflexivemsg 128663 synchronous
+  to durationcanvas_ref 128535
+  yz 107 2015 msg operation_ref 138391 // "initialiserHandler() : void"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 150 79
+msg 128919 synchronous
+  from durationcanvas_ref 128535
+  to durationcanvas_ref 128791
+  yz 146 2015 explicitmsg "Handler()"
+  stereotype "<<new>>" xyz 323 159 3000
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 323 117
+reflexivemsg 129175 synchronous
+  to durationcanvas_ref 129047
+  yz 227 2015 msg operation_ref 137367 // "initialiserBluetooth() : void"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 152 201
+reflexivemsg 129431 synchronous
+  to durationcanvas_ref 129303
+  yz 355 2025 msg operation_ref 137495 // "chercherMinuteur() : void"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 158 324
+reflexivemsg 130711 synchronous
+  to durationcanvas_ref 130583
+  yz 409 2035 msg operation_ref 138263 // "initialiserPeripherique() : void"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 164 378
+msg 130967 synchronous
+  from durationcanvas_ref 130583
+  to durationcanvas_ref 130839
+  yz 453 2040 explicitmsg "Peripherique(handler)"
+  stereotype "<<new>>" xyz 429 466 3000
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 349 423
+msg 131223 synchronous
+  from durationcanvas_ref 130583
+  to durationcanvas_ref 131095
+  yz 541 2035 msg operation_ref 135191 // "rechercherPomodoro(in idPomodoro : String) : boolean"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 343 511
+reflexivemsg 131479 synchronous
+  to durationcanvas_ref 131351
+  yz 744 2030 msg operation_ref 135319 // "creerSocket() : void"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 878 716
+msg 131735 synchronous
+  from durationcanvas_ref 131351
+  to durationcanvas_ref 131607
+  yz 820 2035 msg operation_ref 139159 // "TReception(inout h : Handler, inout receiveStream : InputStream)"
+  stereotype "<<new>>" xyz 1007 830 3000
+  show_full_operations_definition yes show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 718 789
+msg 131991 asynchronous
+  from durationcanvas_ref 130583
+  to durationcanvas_ref 131863
+  yz 894 3005 msg operation_ref 136215 // "connecter() : void"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 416 864
+msg 133527 asynchronous
+  from durationcanvas_ref 133271
+  to durationcanvas_ref 133399
+  yz 1069 2015 explicitmsg "sendMessage()"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 646 1040
+reflexivemsg 133783 synchronous
+  to durationcanvas_ref 133655
+  yz 1143 2025 explicitmsg "handleMessage()"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 634 1116
+msg 134039 synchronous
+  from durationcanvas_ref 133655
+  to durationcanvas_ref 133911
+  yz 1163 2025 msg operation_ref 158487 // "mettreAJourBoutonConnexion(inout etatConnexion : boolean) : void"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 182 1134
+msg 134295 asynchronous
+  from durationcanvas_ref 131863
+  to durationcanvas_ref 134167
+  yz 924 2015 explicitmsg "start()"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 1040 895
+reflexivemsg 135063 synchronous
+  to durationcanvas_ref 134935
+  yz 1010 2015 msg operation_ref 139287 // "run() : void"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 1289 978
+reflexivemsg 135319 synchronous
+  to durationcanvas_ref 135191
+  yz 1126 2025 msg operation_ref 158615 // "recevoir(inout reception : BufferedReader) : void"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 1292 1096
+line 135831 -_-_
+  from ref 135703 z 2016 to ref 133527
+end

@@ -45,35 +45,40 @@ public class TReception extends Thread
         BufferedReader reception = new BufferedReader(new InputStreamReader(receiveStream));
         while(!fini)
         {
-            try
+            recevoir(reception);
+        }
+    }
+
+    private void recevoir(BufferedReader reception)
+    {
+        try
+        {
+            String trame = "";
+            if(reception.ready())
             {
-                String trame = "";
-                if(reception.ready())
-                {
-                    trame = reception.readLine();
-                }
-                if(trame.length() > 0)
-                {
-                    Log.d(TAG, "run() trame : " + trame);
-                    Message msg = Message.obtain();
-                    msg.what = Peripherique.CODE_RECEPTION;
-                    msg.obj = trame;
-                    handlerUI.sendMessage(msg);
-                }
+                trame = reception.readLine();
             }
-            catch(IOException e)
+            if(trame.length() > 0)
             {
-                System.out.println("<Socket> error read");
-                e.printStackTrace();
+                Log.d(TAG, "run() trame : " + trame);
+                Message msg = Message.obtain();
+                msg.what = Peripherique.CODE_RECEPTION;
+                msg.obj = trame;
+                handlerUI.sendMessage(msg);
             }
-            try
-            {
-                Thread.sleep(250);
-            }
-            catch(InterruptedException e)
-            {
-                e.printStackTrace();
-            }
+        }
+        catch(IOException e)
+        {
+            System.out.println("<Socket> error read");
+            e.printStackTrace();
+        }
+        try
+        {
+            Thread.sleep(250);
+        }
+        catch(InterruptedException e)
+        {
+            e.printStackTrace();
         }
     }
 

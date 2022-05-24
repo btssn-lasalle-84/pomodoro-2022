@@ -1,6 +1,6 @@
 format 224
 "UML-POMO22"
-  revision 11
+  revision 12
   modified_by 23 "tv"
   java_root_dir "../Pomodoro/app/src/main/java/com/example/pomodoro/"
 
@@ -557,6 +557,11 @@ ${members}}
       
       activitydiagramsettings
        end
+    end
+
+    sequencediagram 147607 "ds connecter le minuteur"
+      sequencediagramsettings end
+      overlapping_bars size A0
     end
   end
 

@@ -6,18 +6,23 @@ package com.example.pomodoro;
  * @author Teddy ESTABLET
  */
 
+
 import android.util.Log;
+
+import java.io.Serializable;
+
 
 /**
  * @class Tache
  * @brief Définit le concept de tâche
  */
-public class Tache
+public class Tache implements Serializable
 {
     /**
      * Constantes
      */
     private static final String TAG = "_Tache";  //!< TAG pour les logs
+
     public enum CouleurTache {
         Bleue, Noire, Rouge, Verte;
     }
@@ -25,19 +30,30 @@ public class Tache
     /**
      * Attributs
      */
-    private String nom = "Tache"; //!< Le nom de la tâche
+    private String nom = ""; //!< Le nom de la tâche
     private CouleurTache couleurTache = CouleurTache.Rouge; //!< La couleur par défaut
-    private int tempsTache = 25; //!< Valeur exprimée en minutes | ne peux pas être plus grand que 50
-    private int tempsPauseCourte = 5; //!< Valeur exprimée en minutes | ne peux pas être plus grand que 20
-    private int tempsPauseLongue = 10; //!< Valeur exprimée en minutes | ne peux pas être plus grand que 30
-    private int nombreDeCycles = 4; //!<
-    private int nombreDeSessions = 4; //!<
+    public int duree = 25; //!< Valeur exprimée en minutes | ne peux pas être plus grand que 50
+    public int dureePauseCourte = 5; // !< Valeur exprimée en minutes | ne peux pas être plus grand que 20
+    public int dureePauseLongue = 10; //!< Valeur exprimée en minutes | ne peux pas être plus grand que 30
+    public int nombreDeCycles = 4; //!< Nombre de pomodoros successifs
+    public boolean automatique = false; //!< Pomodoro automatique
 
     /**
      * @brief Constructeur
+     * @param nomTache
+     * @param dureeTache
+     * @param dureePauseCourte
+     * @param dureePauseLongue
+     * @param nombreCycle
      */
-    public void Tache()
+    public Tache(String nomTache, int dureeTache, int dureePauseCourte, int dureePauseLongue, int nombreCycle)
     {
+        this.nom = nomTache;
+        this.couleurTache = CouleurTache.Rouge;
+        this.duree = dureeTache;
+        this.dureePauseCourte = dureePauseCourte;
+        this.dureePauseLongue = dureePauseLongue;
+        this.nombreDeCycles = nombreCycle;
     }
 
     public String getNom()
@@ -50,14 +66,37 @@ public class Tache
         this.nom = nom;
     }
 
-    public void editerTaches()
+    public int getDuree()
     {
-        Log.d(TAG, "editerTaches()");
+        return duree;
     }
 
-    public void supprimerTache()
+    public int getDureePauseCourte()
     {
-        Log.d(TAG, "supprimerTache()");
+        return dureePauseCourte;
+    }
+
+    public int getDureePauseLongue()
+    {
+        return dureePauseLongue;
+    }
+
+    public int getNombreDeCycles()
+    {
+        return nombreDeCycles;
+    }
+
+    public void configurer(int dureeTache, int dureePauseCourte, int dureePauseLongue, int nombreCycle)
+    {
+        this.duree = dureeTache;
+        this.dureePauseCourte = dureePauseCourte;
+        this.dureePauseLongue = dureePauseLongue;
+        this.nombreDeCycles = nombreCycle;
+    }
+
+    public void supprimer()
+    {
+        Log.d(TAG, "supprimer()");
         this.nom = "";
     }
 }

@@ -4,11 +4,11 @@ class PomodoroActivity
         setContentView(R.layout.activity_main);
         Log.d(TAG, "onCreate()");
 
-        tache = new Tache();
+        minuteur = new Minuteur();
+        tache = new Tache("Coder le projet", 25,5,20,4);
+        Log.d(TAG, "[Tache] nom = " + tache.getNom());
 
         baseDeDonnees = new BaseDeDonnees(this);
-        // Test BDD
-        Vector<String> nomColonnes = baseDeDonnees.getNomColonnes();
 
         initialiserHandler();
         initialiserBluetooth();
@@ -33,14 +33,17 @@ class PomodoroActivity
         Log.d(TAG, "initialiserIHM()");
         boutonDemarrer = (Button) findViewById(R.id.boutonDemarrer);
         boutonEditerTache = (Button) findViewById(R.id.boutonEditerTache);
-        boutonSupprimerTache = (Button) findViewById(R.id.boutonSupprimerTache);
         boutonSeConnecterAuPomodoro = (Button) findViewById(R.id.boutonSeConnecterAuPomodoro);
+        horloge = (TextView) findViewById(R.id.horloge);
 
         boutonDemarrer.setOnClickListener(new View.OnClickListener()
         {
             public void onClick(View v)
             {
                 Log.d(TAG, "clic boutonDemarrer");
+                /**
+                 * @todo Gérer le minuteur connecté
+                 */
             }
         });
         boutonEditerTache.setOnClickListener(new View.OnClickListener()
@@ -49,17 +52,11 @@ class PomodoroActivity
             {
                 Log.d(TAG, "clic boutonEditerTache");
                 Log.d(TAG, "[Tache] nom = " + tache.getNom());
-                tache.editerTaches();
-            }
-        });
-        boutonSupprimerTache.setOnClickListener(new View.OnClickListener()
-        {
-            public void onClick(View v)
-            {
-                Log.d(TAG, "clic boutonSupprimerTache");
-                Log.d(TAG, "[Tache] nom = " + tache.getNom());
-                tache.supprimerTache();
-                Log.d(TAG, "[Tache] nom = " + tache.getNom());
+
+                Intent editerTache = new Intent(PomodoroActivity.this, EditerTacheActivity.class);
+                // passe la tache à l'activité
+                editerTache.putExtra("tache", tache);
+                startActivity(editerTache);
             }
         });
 
@@ -287,13 +284,16 @@ class PomodoroActivity
                         break;
                     case Peripherique.CODE_CONNEXION:
                         Log.d(TAG, "[Handler] CODE_CONNEXION = " + message.obj.toString());
-                        boutonSeConnecterAuPomodoro.setText("Se déconnecter");
-                        // Pour le test
-                        peripherique.envoyer("#P&25&5&15&4&0&0&0\r\n");
+                        mettreAJourBoutonConnexion(true);
+                        String trameConfiguration = "#P&"+Integer.toString(minuteur.getLongueur())+"&"+Integer.toString(minuteur.getDureePauseCourte())+"&"+Integer.toString(minuteur.getDureePauseLongue())+"&"+Integer.toString(minuteur.getNbCycles())+"&"+(minuteur.estModeAutomatique() ? "1" : "0")+"&"+(minuteur.estModeAutomatiquePause() ? "1" : "0")+"&0\n";
+                        //peripherique.envoyer(Protocole.CONFIGURER_UN_POMODORO);
+                        //Log.v(TAG, "Trame = " + Protocole.CONFIGURER_UN_POMODORO);
+                        peripherique.envoyer(trameConfiguration);
+                        Log.v(TAG, "Trame = " + trameConfiguration);
                         break;
                     case Peripherique.CODE_DECONNEXION:
                         Log.d(TAG, "[Handler] DECONNEXION = " + message.obj.toString());
-                        boutonSeConnecterAuPomodoro.setText("Se connecter");
+                        mettreAJourBoutonConnexion(false);
                         break;
                     case Peripherique.CODE_RECEPTION:
                         Log.d(TAG, "[Handler] RECEPTION = " + message.obj.toString());
@@ -303,8 +303,7 @@ class PomodoroActivity
                         {
                             Log.v(TAG, "[Handler] Trame valide");
                             trame = message.obj.toString().replace(Protocole.DEBUT_TRAME, "");
-                        }
-                        else
+                        } else
                         {
                             return;
                         }
@@ -315,16 +314,102 @@ class PomodoroActivity
                             Log.v(TAG, "[Handler] champs[" + i + "] = " + champs[i]);
                         }
 
-                        /**
-                         * @todo Traiter et décoder les trames reçues
-                         */
                         switch(champs[Protocole.TYPE_TRAME])
                         {
                             case Protocole.CHANGEMENT_ETAT:
                                 Log.v(TAG, "[Handler] Changement d’état : " + champs[Protocole.CHAMP_ETAT]);
+                                /**
+                                 * @todo Gérer l'affichage du minuteur
+                                 */
+                                minuteur.setEtat(Integer.parseInt(champs[Protocole.CHAMP_ETAT]));
+                                if(champs[Protocole.CHAMP_ETAT].equals(Protocole.ETAT_ATTENTE))
+                                {
+                                    boutonDemarrer.setText("Démarrer");
+                                    arreterMinuteur();
+                                    Log.v(TAG,"[Handler] Changement d'état : Bouton = Démarrer");
+                                }
+                                else if(champs[Protocole.CHAMP_ETAT].equals(Protocole.ETAT_TACHE_EN_COURS))
+                                {
+                                    boutonDemarrer.setText("Tâche");
+                                    demarrerMinuteur(minuteur.getLongueur());
+                                    Log.v(TAG,"[Handler] Changement d'état : Bouton = Tâche");
+                                }
+                                else if(champs[Protocole.CHAMP_ETAT].equals(Protocole.ETAT_TACHE_TERMINEE))
+                                {
+                                    boutonDemarrer.setText("Tâche terminée");
+                                    arreterMinuteur();
+                                    Log.v(TAG,"[Handler] Changement d'état : Bouton = Tache Terminée");
+                                }
+                                else if(champs[Protocole.CHAMP_ETAT].equals(Protocole.ETAT_PAUSE_COURTE_EN_COURS))
+                                {
+                                    boutonDemarrer.setText("Pause courte");
+                                    demarrerMinuteur(minuteur.getDureePauseCourte());
+                                    Log.v(TAG, "[Handler] Changement d'état : Bouton = Pause Courte");
+                                }
+                                else if(champs[Protocole.CHAMP_ETAT].equals(Protocole.ETAT_PAUSE_COURTE_TERMINEE))
+                                {
+                                    boutonDemarrer.setText("Pause courte terminée");
+                                    arreterMinuteur();
+                                    Log.v(TAG, "[Handler] Changement d'état : Bouton = Pause Courte terminée");
+                                }
+                                else if(champs[Protocole.CHAMP_ETAT].equals(Protocole.ETAT_PAUSE_LONGUE_EN_COURS))
+                                {
+                                    boutonDemarrer.setText("Pause longue");
+                                    demarrerMinuteur(minuteur.getDureePauseLongue());
+                                    Log.v(TAG, "[Handler] Changement d'état : Bouton = Pause Longue");
+                                }
+                                else if(champs[Protocole.CHAMP_ETAT].equals(Protocole.ETAT_PAUSE_LONGUE_TERMINEE))
+                                {
+                                    boutonDemarrer.setText("Pause longue terminée");
+                                    arreterMinuteur();
+                                    Log.v(TAG, "[Handler] Changement d'état : Bouton = Pause Longue Terminée");
+                                }
                                 break;
                         }
                         break;
                 }
             }
         };
+!!!158487.java!!!	mettreAJourBoutonConnexion(inout etatConnexion : boolean) : void
+        if(etatConnexion)
+            boutonSeConnecterAuPomodoro.setText("Se déconnecter");
+        else
+            boutonSeConnecterAuPomodoro.setText("Se connecter");
+!!!157207.java!!!	demarrerMinuteur(in duree : int) : void
+        if(timerMinuteur != null){
+            timerMinuteur.cancel();
+        }
+
+        timerMinuteur = new Timer();
+        dureeEnCours = duree;
+        horloge.setText(getMMSS(duree));
+
+        minuter();
+!!!157335.java!!!	arreterMinuteur() : void
+        if (timerMinuteur != null)
+        {
+            timerMinuteur.cancel();
+            timerMinuteur = null;
+            horloge.setText("00:00");
+        }
+!!!157463.java!!!	minuter() : void
+        tacheMinuteur = new TimerTask() {
+            public void run() {
+                dureeEnCours--;
+                runOnUiThread(new Runnable() {
+                    public void run() {
+                        horloge.setText(getMMSS(dureeEnCours));
+                    }
+                });
+            }
+        };
+
+        timerMinuteur.schedule(tacheMinuteur, 1000, 1000);
+!!!157591.java!!!	getMMSS(in valeur : long) : String
+        long minutes = (valeur % 3600) / 60;
+        String minuteStr = minutes < 10 ? "0" + Integer.toString((int) minutes) : Integer.toString((int)minutes);
+
+        long secondes = valeur % 60;
+        String secondesStr = secondes < 10 ? "0" + Integer.toString((int)secondes) : Integer.toString((int)secondes);
+
+        return minuteStr + ":" + secondesStr;

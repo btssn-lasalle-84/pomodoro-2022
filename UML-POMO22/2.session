@@ -1,19 +1,21 @@
 window_sizes 1864 1016 319 1539 963 0
 cleanlooks_style
 diagrams
-  active  usecasediagram_ref 141058 // Diagramme de Cas d'Utilisation
-    1689 939 100 A4 0 0
+  usecasediagram_ref 141058 // Diagramme de Cas d'Utilisation
+    1689 939 100 A0 0 0
   classdiagram_ref 134530 // Diagramme de Classe
     1533 935 100 A4 0 0
-  sequencediagram_ref 128002 // Diagramme de Séquence Système
-    1533 941 100 A4 36 0
+  active  sequencediagram_ref 128002 // Diagramme de Séquence Système
+    1533 941 100 A0 348 0
 end
 show_stereotypes
-selected usecasediagram_ref 141058 // Diagramme de Cas d'Utilisation
+selected class_ref 134807 // Thread
 open
   class_ref 128130 // Pomodoro
   classview_ref 128002 // Vue de Classe
   usecaseview_ref 134530 // Vue des Cas d'Utilisation
+  deploymentview_ref 134551 // pomodoro
+  classview_ref 134679 // unknown
 end
 end
 verbose

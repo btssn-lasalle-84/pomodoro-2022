@@ -59,5 +59,5 @@ public class Protocole
     /**
      * @brief Trame envoyer par défaut
      */
-    public static final String CONFIGURER_UN_POMODORO = "#P&25&5&15&4&0&0&0\n";
+    public static final String CONFIGURER_UN_POMODORO = "#P&25&5&15&4&1&1&1\n";
 }

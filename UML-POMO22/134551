@@ -1,6 +1,6 @@
 format 224
 "pomodoro" // pomodoro
-  revision 3
+  revision 4
   modified_by 23 "tv"
   // class settings
   
@@ -83,8 +83,276 @@ ${members}}
 !< TAG pour les logs"
       end
 
+      attribute 163735 "Classique"
+	class_attribute const_attribute private explicit_type "String"
+	init_value " \"Classique\""
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "!< Mode classique"
+      end
+
+      attribute 163863 "Personnel"
+	class_attribute const_attribute private explicit_type "String"
+	init_value " \"Personnel\""
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "!< Mode personnel"
+      end
+
+      attribute 163991 "Travail"
+	class_attribute const_attribute private explicit_type "String"
+	init_value " \"Travail\""
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "!< Mode travail"
+      end
+
+      attribute 164119 "MINUTEUR"
+	class_attribute const_attribute private explicit_type "int"
+	init_value " 0"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "!< Mode par défaut"
+      end
+
+      attribute 164247 "CHRONOMETRE"
+	class_attribute const_attribute private explicit_type "int"
+	init_value " 1"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "!< non utilisé"
+      end
+
+      attribute 164375 "ETAT_MINUTEUR_ATTENTE"
+	class_attribute const_attribute public explicit_type "int"
+	init_value " -1"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 164503 "ETAT_MINUTEUR_TACHE_TERMINEE"
+	class_attribute const_attribute public explicit_type "int"
+	init_value " 0"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 164631 "ETAT_MINUTEUR_TACHE_EN_COURS"
+	class_attribute const_attribute public explicit_type "int"
+	init_value " 1"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 164759 "ETAT_MINUTEUR_PAUSE_COURTE_EN_COURS"
+	class_attribute const_attribute public explicit_type "int"
+	init_value " 2"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 164887 "ETAT_MINUTEUR_PAUSE_COURTE_TERMINEE"
+	class_attribute const_attribute public explicit_type "int"
+	init_value " 3"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 165015 "ETAT_MINUTEUR_PAUSE_LONGUE_EN_COURS"
+	class_attribute const_attribute public explicit_type "int"
+	init_value " 4"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 165143 "ETAT_MINUTEUR_PAUSE_LONGUE_TERMINEE"
+	class_attribute const_attribute public explicit_type "int"
+	init_value " 5"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 165271 "longueur"
+	private explicit_type "int"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "Attributs
+
+!< La longueur du POMODORO : de 01 à 59"
+      end
+
+      attribute 165399 "dureePauseCourte"
+	private explicit_type "int"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "!< Durée des pauses courtes : de 01 à 59"
+      end
+
+      attribute 165527 "dureePauseLongue"
+	private explicit_type "int"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "!< Durée des pauses longues : de 01 à 59"
+      end
+
+      attribute 165655 "nbCycles"
+	private explicit_type "int"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "!< Nombre de cycles : de 01 à 10"
+      end
+
+      attribute 165783 "modeAutomatique"
+	private explicit_type "boolean"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "!< Mode automatique POMODORO : booléen 0 ou 1"
+      end
+
+      attribute 165911 "modeAutomatiquePause"
+	private explicit_type "boolean"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "!< Mode automatique PAUSE : booléen 0 ou 1"
+      end
+
+      attribute 166039 "mode"
+	private explicit_type "int"
+	init_value " MINUTEUR"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "!< Mode : 0 pour Minuteur ou 1 pour Chronomètre"
+      end
+
+      attribute 166167 "etat"
+	private explicit_type "int"
+	init_value " ETAT_MINUTEUR_ATTENTE"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
       operation 134551 "Minuteur"
-	public explicit_return_type "void"
+	public explicit_return_type ""
 	nparams 0
 	
 	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${synchronized}${name}${(}${)}${throws}${staticnl}{
@@ -93,15 +361,28 @@ ${members}}
 	
 	
 	
-	comment "Attributs
-
-
-@brief Constructeur
-"
       end
 
-      operation 134679 "Timer"
-	public explicit_return_type "void"
+      operation 155799 "Minuteur"
+	public explicit_return_type ""
+	nparams 6
+	  param in name "longueur" explicit_type "int"
+	  param in name "dureePauseCourte" explicit_type "int"
+	  param in name "dureePauseLongue" explicit_type "int"
+	  param in name "nbCycles" explicit_type "int"
+	  param inout name "modeAutomatique" explicit_type "boolean"
+	  param inout name "modeAutomatiquePause" explicit_type "boolean"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${synchronized}${name}${(}${t0} ${p0}, ${t1} ${p1}, ${t2} ${p2}, ${t3} ${p3}, ${t4} ${p4}, ${t5} ${p5}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+
+      operation 155927 "getLongueur"
+	public explicit_return_type "int"
 	nparams 0
 	
 	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
@@ -112,8 +393,8 @@ ${members}}
 	
       end
 
-      operation 134807 "demarrerMinuteur"
-	public explicit_return_type "void"
+      operation 156055 "getDureePauseCourte"
+	public explicit_return_type "int"
 	nparams 0
 	
 	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
@@ -123,10 +404,109 @@ ${members}}
 	
 	
       end
+
+      operation 156183 "getDureePauseLongue"
+	public explicit_return_type "int"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+
+      operation 156311 "getNbCycles"
+	public explicit_return_type "int"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+
+      operation 156439 "estModeAutomatique"
+	public explicit_return_type "boolean"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+
+      operation 156567 "estModeAutomatiquePause"
+	public explicit_return_type "boolean"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+
+      operation 156695 "getMode"
+	public explicit_return_type "int"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+
+      operation 156823 "getEtat"
+	public explicit_return_type "int"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+
+      operation 156951 "setEtat"
+	public explicit_return_type "void"
+	nparams 1
+	  param in name "etat" explicit_type "int"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+
+      operation 157079 "preparerRequete"
+	public explicit_return_type "String"
+	nparams 1
+	  param in name "nom" explicit_type "String"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+
     end
 
     class 134679 "Peripherique"
-      visibility public 
+      active visibility public 
       cpp_decl ""
       java_decl "${comment}${@}${visibility}${static}${final}${abstract}class ${name}${extends}${implements} {
 ${members}}
@@ -186,16 +566,13 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 135063 "handler"
-	const_attribute private explicit_type "Handler"
-	cpp_decl ""
-	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+      classrelation 149783 // handler (<unidirectional association>)
+	relation 149783 --->
+	  a role_name "handler" const_relation private
+	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
 "
-	php_decl ""
-	python_decl ""
-	idl_decl ""
-	mysql_decl ""
-	MysqlColumn
+	    classrelation_ref 149783 // handler (<unidirectional association>)
+	  b parent class_ref 149271 // Handler
       end
 
       attribute 135191 "bluetoothAdapter"
@@ -522,16 +899,13 @@ ${members}}
 	comment "!< TAG pour les logs"
       end
 
-      attribute 141207 "handlerUI"
-	package explicit_type "Handler"
-	cpp_decl ""
-	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+      classrelation 150039 // handlerUI (<unidirectional association>)
+	relation 150039 --->
+	  a role_name "handlerUI" package
+	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
 "
-	php_decl ""
-	python_decl ""
-	idl_decl ""
-	mysql_decl ""
-	MysqlColumn
+	    classrelation_ref 150039 // handlerUI (<unidirectional association>)
+	  b parent class_ref 149271 // Handler
       end
 
       attribute 141591 "receiveStream"
@@ -586,6 +960,19 @@ ${members}}
 	
       end
 
+      operation 158615 "recevoir"
+	private explicit_return_type "void"
+	nparams 1
+	  param inout name "reception" explicit_type "BufferedReader"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+
       operation 139415 "arreter"
 	public explicit_return_type "void"
 	nparams 0
@@ -601,7 +988,7 @@ ${members}}
     end
 
     class 135063 "PomodoroActivity"
-      visibility public 
+      active visibility public 
       cpp_decl ""
       java_decl "${comment}${@}${visibility}${static}${final}${abstract}class ${name}${extends}${implements} {
 ${members}}
@@ -731,17 +1118,13 @@ ${members}}
 	  b parent class_ref 134679 // Peripherique
       end
 
-      attribute 137239 "handler"
-	private explicit_type "Handler"
-	init_value " null"
-	cpp_decl ""
-	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+      classrelation 149911 // handler (<unidirectional association>)
+	relation 149911 --->
+	  a role_name "handler" init_value " null" private
+	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
 "
-	php_decl ""
-	python_decl ""
-	idl_decl ""
-	mysql_decl ""
-	MysqlColumn
+	    classrelation_ref 149911 // handler (<unidirectional association>)
+	  b parent class_ref 149271 // Handler
       end
 
       classrelation 141975 // baseDeDonnees (<unidirectional association>)
@@ -753,6 +1136,16 @@ ${members}}
 	  b parent class_ref 142103 // BaseDeDonnees
       end
 
+      classrelation 149527 // minuteur (<unidirectional association>)
+	relation 149527 --->
+	  a role_name "minuteur" private
+	    comment "!< le minuteur"
+	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	    classrelation_ref 149527 // minuteur (<unidirectional association>)
+	  b parent class_ref 134551 // Minuteur
+      end
+
       classrelation 135063 // tache (<unidirectional association>)
 	relation 135063 --->
 	  a role_name "tache" private
@@ -761,6 +1154,43 @@ ${members}}
 "
 	    classrelation_ref 135063 // tache (<unidirectional association>)
 	  b parent class_ref 135319 // Tache
+      end
+
+      attribute 166295 "timerMinuteur"
+	private explicit_type "Timer"
+	init_value " null"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 166423 "tacheMinuteur"
+	private explicit_type "TimerTask"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 166551 "dureeEnCours"
+	private explicit_type "long"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
       end
 
       attribute 137367 "boutonDemarrer"
@@ -791,19 +1221,6 @@ ${members}}
 	comment "!< Le bouton permettant d'éditer une tâche"
       end
 
-      attribute 137623 "boutonSupprimerTache"
-	private explicit_type "Button"
-	cpp_decl ""
-	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
-"
-	php_decl ""
-	python_decl ""
-	idl_decl ""
-	mysql_decl ""
-	MysqlColumn
-	comment "!< Le bouton permettant de supprimer une tâche"
-      end
-
       attribute 137751 "boutonSeConnecterAuPomodoro"
 	private explicit_type "Button"
 	cpp_decl ""
@@ -815,6 +1232,18 @@ ${members}}
 	mysql_decl ""
 	MysqlColumn
 	comment "!< Le bouton permettant de se connecter au pomodoro"
+      end
+
+      attribute 166679 "horloge"
+	private explicit_type "TextView"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
       end
 
       operation 136471 "onCreate"
@@ -1065,6 +1494,69 @@ ${members}}
 	
       end
 
+      operation 158487 "mettreAJourBoutonConnexion"
+	private explicit_return_type "void"
+	nparams 1
+	  param inout name "etatConnexion" explicit_type "boolean"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+
+      operation 157207 "demarrerMinuteur"
+	private explicit_return_type "void"
+	nparams 1
+	  param in name "duree" explicit_type "int"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+
+      operation 157335 "arreterMinuteur"
+	private explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+
+      operation 157463 "minuter"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+
+      operation 157591 "getMMSS"
+	private explicit_return_type "String"
+	nparams 1
+	  param in name "valeur" explicit_type "long"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+
       classrelation 142231 // <dependency>
 	relation 142231 -_->
 	  a public
@@ -1088,6 +1580,14 @@ ${members}}
       comment "@class Tache
 @brief Définit le concept de tâche
 "
+      classrelation 149655 // <realization>
+	relation 149655 -_-|>
+	  a public
+	    java "${type}"
+	    classrelation_ref 149655 // <realization>
+	  b parent class_ref 149143 // Serializable
+      end
+
       attribute 139671 "TAG"
 	class_attribute const_attribute private explicit_type "String"
 	init_value " \"_Tache\""
@@ -1164,7 +1664,7 @@ ${members}}
 
       attribute 140311 "nom"
 	private explicit_type "String"
-	init_value " \"Tache\""
+	init_value " \"\""
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
 "
@@ -1188,8 +1688,8 @@ ${members}}
 	  b parent class_ref 135575 // CouleurTache
       end
 
-      attribute 140439 "tempsTache"
-	private explicit_type "int"
+      attribute 167831 "duree"
+	public explicit_type "int"
 	init_value " 25"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -1202,8 +1702,8 @@ ${members}}
 	comment "!< Valeur exprimée en minutes | ne peux pas être plus grand que 50"
       end
 
-      attribute 140567 "tempsPauseCourte"
-	private explicit_type "int"
+      attribute 167959 "dureePauseCourte"
+	public explicit_type "int"
 	init_value " 5"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -1216,8 +1716,8 @@ ${members}}
 	comment "!< Valeur exprimée en minutes | ne peux pas être plus grand que 20"
       end
 
-      attribute 140695 "tempsPauseLongue"
-	private explicit_type "int"
+      attribute 168087 "dureePauseLongue"
+	public explicit_type "int"
 	init_value " 10"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -1231,7 +1731,7 @@ ${members}}
       end
 
       attribute 140823 "nombreDeCycles"
-	private explicit_type "int"
+	public explicit_type "int"
 	init_value " 4"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -1241,12 +1741,12 @@ ${members}}
 	idl_decl ""
 	mysql_decl ""
 	MysqlColumn
-	comment "!<"
+	comment "!< Nombre de pomodoros successifs"
       end
 
-      attribute 140951 "nombreDeSessions"
-	private explicit_type "int"
-	init_value " 4"
+      attribute 168215 "automatique"
+	public explicit_type "boolean"
+	init_value " false"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
 "
@@ -1255,20 +1755,30 @@ ${members}}
 	idl_decl ""
 	mysql_decl ""
 	MysqlColumn
-	comment "!<"
+	comment "!< Pomodoro automatique"
       end
 
       operation 138519 "Tache"
-	public explicit_return_type "void"
-	nparams 0
+	public explicit_return_type ""
+	nparams 5
+	  param in name "nomTache" explicit_type "String"
+	  param in name "dureeTache" explicit_type "int"
+	  param in name "dureePauseCourte" explicit_type "int"
+	  param in name "dureePauseLongue" explicit_type "int"
+	  param in name "nombreCycle" explicit_type "int"
 	
-	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${synchronized}${name}${(}${)}${throws}${staticnl}{
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${synchronized}${name}${(}${t0} ${p0}, ${t1} ${p1}, ${t2} ${p2}, ${t3} ${p3}, ${t4} ${p4}${)}${throws}${staticnl}{
   ${body}}
 "
 	
 	
 	
 	comment "@brief Constructeur
+@param nomTache
+@param dureeTache
+@param dureePauseCourte
+@param dureePauseLongue
+@param nombreCycle
 "
       end
 
@@ -1297,7 +1807,71 @@ ${members}}
 	
       end
 
-      operation 138903 "editerTaches"
+      operation 157719 "getDuree"
+	public explicit_return_type "int"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+
+      operation 157847 "getDureePauseCourte"
+	public explicit_return_type "int"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+
+      operation 157975 "getDureePauseLongue"
+	public explicit_return_type "int"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+
+      operation 158103 "getNombreDeCycles"
+	public explicit_return_type "int"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+
+      operation 158231 "configurer"
+	public explicit_return_type "void"
+	nparams 4
+	  param in name "dureeTache" explicit_type "int"
+	  param in name "dureePauseCourte" explicit_type "int"
+	  param in name "dureePauseLongue" explicit_type "int"
+	  param in name "nombreCycle" explicit_type "int"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}, ${t1} ${p1}, ${t2} ${p2}, ${t3} ${p3}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+
+      operation 158359 "supprimer"
 	public explicit_return_type "void"
 	nparams 0
 	
@@ -1309,17 +1883,6 @@ ${members}}
 	
       end
 
-      operation 139031 "supprimerTache"
-	public explicit_return_type "void"
-	nparams 0
-	
-	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
-  ${body}}
-"
-	
-	
-	
-      end
     end
 
     class 135447 "Protocole"
@@ -1353,10 +1916,7 @@ ${members}}
 	idl_decl ""
 	mysql_decl ""
 	MysqlColumn
-	comment "Constantes
-
-
-@brief Sens : Application <-> Pomodoro
+	comment "@brief Sens : Application <-> Pomodoro
 
 "
       end
@@ -1564,6 +2124,116 @@ ${members}}
 	mysql_decl ""
 	MysqlColumn
       end
+
+      attribute 166807 "ETAT_ATTENTE"
+	class_attribute const_attribute public explicit_type "String"
+	init_value " \"-1\""
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "@brief Différent état du type de trame : CHANGEMENT_ETAT
+
+"
+      end
+
+      attribute 166935 "ETAT_TACHE_TERMINEE"
+	class_attribute const_attribute public explicit_type "String"
+	init_value " \"0\""
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 167063 "ETAT_TACHE_EN_COURS"
+	class_attribute const_attribute public explicit_type "String"
+	init_value " \"1\""
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 167191 "ETAT_PAUSE_COURTE_EN_COURS"
+	class_attribute const_attribute public explicit_type "String"
+	init_value " \"2\""
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 167319 "ETAT_PAUSE_COURTE_TERMINEE"
+	class_attribute const_attribute public explicit_type "String"
+	init_value " \"3\""
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 167447 "ETAT_PAUSE_LONGUE_EN_COURS"
+	class_attribute const_attribute public explicit_type "String"
+	init_value " \"4\""
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 167575 "ETAT_PAUSE_LONGUE_TERMINEE"
+	class_attribute const_attribute public explicit_type "String"
+	init_value " \"5\""
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 167703 "CONFIGURER_UN_POMODORO"
+	class_attribute const_attribute public explicit_type "String"
+	init_value " \"#P&25&5&15&4&0&0&0\\n\""
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "@brief Trame envoyer par défaut
+
+"
+      end
     end
 
     classdiagram 141079 "version 0.2"
@@ -1685,6 +2355,201 @@ ${members}}
 	MysqlColumn
       end
 
+      attribute 159767 "INDEX_COLONNE_TACHE_ID_TACHE"
+	class_attribute const_attribute private explicit_type "int"
+	init_value " 0"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 159895 "INDEX_COLONNE_TACHE_TITRE"
+	class_attribute const_attribute private explicit_type "int"
+	init_value " 1"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 160023 "INDEX_COLONNE_TACHE_DESCRIPTION"
+	class_attribute const_attribute private explicit_type "int"
+	init_value " 2"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 160151 "INDEX_COLONNE_TACHE_DATE_CREATION"
+	class_attribute const_attribute private explicit_type "int"
+	init_value " 3"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 160279 "INDEX_COLONNE_TACHE_DATE_DEBUT"
+	class_attribute const_attribute private explicit_type "int"
+	init_value " 4"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 160407 "INDEX_COLONNE_TACHE_DATE_FIN"
+	class_attribute const_attribute private explicit_type "int"
+	init_value " 5"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 160535 "INDEX_COLONNE_TACHE_COULEUR"
+	class_attribute const_attribute private explicit_type "int"
+	init_value " 6"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 160663 "INDEX_COLONNE_TACHE_ID_PROJET"
+	class_attribute const_attribute private explicit_type "int"
+	init_value " 7"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 160791 "INDEX_COLONNE_TACHE_ID_COLONNE"
+	class_attribute const_attribute private explicit_type "int"
+	init_value " 8"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 160919 "INDEX_COLONNE_TACHE_ID_CATEGRIE"
+	class_attribute const_attribute private explicit_type "int"
+	init_value " 9"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 161047 "INDEX_COLONNE_TACHE_POSITION"
+	class_attribute const_attribute private explicit_type "int"
+	init_value " 10"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 161175 "INDEX_COLONNE_TACHE_ACTIVE"
+	class_attribute const_attribute private explicit_type "int"
+	init_value " 11"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 161303 "INDEX_COLONNE_TACHE_TEMPS_DEPENSE"
+	class_attribute const_attribute private explicit_type "int"
+	init_value " 12"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 161431 "INDEX_COLONNE_TACHE_TEMPS_ESTIME"
+	class_attribute const_attribute private explicit_type "int"
+	init_value " 13"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 161559 "INDEX_COLONNE_TACHE_PRIORITE"
+	class_attribute const_attribute private explicit_type "int"
+	init_value " 14"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
       attribute 149143 "DEBUT_REQUETE_INSERTION_POMODORO"
 	class_attribute const_attribute private explicit_type "String"
 	init_value "  \"INSERT INTO Pomodoro(idTache,idModele,position,debut,idEtat) VALUES (\""
@@ -1782,6 +2647,21 @@ ${members}}
 	
 	
 	comment "@brief Permet d'effectuer une requete pour récupérer tous les libellés des colonnes
+@return Les objets libellés récupérés
+"
+      end
+
+      operation 153751 "getNomTaches"
+	public explicit_return_type "Vector<String>"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	comment "@brief Permet d'effectuer une requete pour récupérer touts les noms de tâche
 @return Les objets libellés récupérés
 "
       end
@@ -2304,6 +3184,552 @@ ${members}}
 "
       end
     end
+
+    class 148887 "CreerTacheActivity"
+      visibility public 
+      cpp_decl ""
+      java_decl "${comment}${@}${visibility}${static}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "@class CreerTacheActivity
+@brief L'activité creer une tache de l'application Pomodoro
+"
+      classrelation 148759 // <generalisation>
+	relation 148759 ---|>
+	  a public
+	    java "${type}"
+	    classrelation_ref 148759 // <generalisation>
+	  b parent class_ref 135191 // AppCompatActivity
+      end
+
+      attribute 161687 "TAG"
+	class_attribute const_attribute private explicit_type "String"
+	init_value " \"_CreerTacheActivity\""
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "@brief Constantes
+
+!< TAG pour les logs"
+      end
+
+      attribute 161815 "boutonAccueil"
+	private explicit_type "Button"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "@brief Ressources IHM
+
+!< Le bouton permettant de retourner à l'accueil"
+      end
+
+      attribute 161943 "boutonEditer"
+	private explicit_type "Button"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "!< Le bouton permettant de retourner au menu Editer"
+      end
+
+      attribute 162071 "boutonCreerLaTache"
+	private explicit_type "Button"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 162199 "nomTache"
+	private explicit_type "EditText"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "@brief Attributs
+
+"
+      end
+
+      attribute 162327 "dureeTache"
+	private explicit_type "EditText"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 162455 "dureePauseCourte"
+	private explicit_type "EditText"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 162583 "dureePauseLongue"
+	private explicit_type "EditText"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 162711 "nombreCycles"
+	private explicit_type "EditText"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      classrelation 148887 // tache (<unidirectional association>)
+	relation 148887 --->
+	  a role_name "tache" init_value " null" private
+	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	    classrelation_ref 148887 // tache (<unidirectional association>)
+	  b parent class_ref 135319 // Tache
+      end
+
+      classrelation 149015 // baseDeDonnees (<unidirectional association>)
+	relation 149015 --->
+	  a role_name "baseDeDonnees" init_value " null" private
+	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	    classrelation_ref 149015 // baseDeDonnees (<unidirectional association>)
+	  b parent class_ref 142103 // BaseDeDonnees
+      end
+
+      operation 153879 "onCreate"
+	protected explicit_return_type "void"
+	nparams 1
+	  param inout name "savedInstanceState" explicit_type "Bundle"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Override
+"
+	
+	
+	
+      end
+
+      operation 154007 "onStart"
+	protected explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Override
+"
+	
+	
+	
+	comment "@brief Méthode appelée au démarrage après le onCreate() ou un restart après un onStop()
+"
+      end
+
+      operation 154135 "onResume"
+	protected explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Override
+"
+	
+	
+	
+	comment "@brief Méthode appelée après onStart() ou après onPause()
+"
+      end
+
+      operation 154263 "onPause"
+	protected explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Override
+"
+	
+	
+	
+	comment "@brief Méthode appelée après qu'une boîte de dialogue s'est affichée (on reprend sur un onResume()) ou avant onStop() (activité plus visible)
+"
+      end
+
+      operation 154391 "onStop"
+	protected explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Override
+"
+	
+	
+	
+	comment "@brief Méthode appelée lorsque l'activité n'est plus visible
+"
+      end
+
+      operation 154519 "onDestroy"
+	protected explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Override
+"
+	
+	
+	
+	comment "@brief Méthode appelée à la destruction de l'application (après onStop() et détruite par le système Android)
+"
+      end
+
+      operation 154647 "initialiserIHM"
+	private explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	comment "@brief Initialise l'activité
+"
+      end
+
+      operation 154775 "creerUneNouvelleTache"
+	private explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+    end
+
+    class 149015 "EditerTacheActivity"
+      visibility public 
+      cpp_decl ""
+      java_decl "${comment}${@}${visibility}${static}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "@class EditerTacheActivity
+@brief L'activité d'edition d'une tache de l'application Pomodoro
+"
+      classrelation 149143 // <generalisation>
+	relation 149143 ---|>
+	  a public
+	    java "${type}"
+	    classrelation_ref 149143 // <generalisation>
+	  b parent class_ref 135191 // AppCompatActivity
+      end
+
+      attribute 162839 "TAG"
+	class_attribute const_attribute private explicit_type "String"
+	init_value " \"_EditerTacheActivity\""
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "@brief Constantes
+
+!< TAG pour les logs"
+      end
+
+      attribute 162967 "boutonAccueil"
+	private explicit_type "Button"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "@brief Ressources IHM
+
+!< Le bouton permettant de retourner à l'accueil"
+      end
+
+      attribute 163095 "boutonCreerTache"
+	private explicit_type "Button"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "!< Le bouton permettant de créer une tache"
+      end
+
+      attribute 163223 "boutonSupprimerTache"
+	private explicit_type "Button"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 163351 "spinnerTachesExistante"
+	private explicit_type "Spinner"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "@brief Attributs
+
+"
+      end
+
+      attribute 163479 "nomTaches"
+	private explicit_type "String"
+	stereotype "List"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${stereotype}<${type}> ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 163607 "adapter"
+	private explicit_type "String"
+	stereotype "ArrayAdapter"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${stereotype}<${type}> ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      classrelation 149271 // tache (<unidirectional association>)
+	relation 149271 --->
+	  a role_name "tache" init_value " null" private
+	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	    classrelation_ref 149271 // tache (<unidirectional association>)
+	  b parent class_ref 135319 // Tache
+      end
+
+      classrelation 149399 // baseDeDonnees (<unidirectional association>)
+	relation 149399 --->
+	  a role_name "baseDeDonnees" init_value " null" private
+	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	    classrelation_ref 149399 // baseDeDonnees (<unidirectional association>)
+	  b parent class_ref 142103 // BaseDeDonnees
+      end
+
+      operation 154903 "onCreate"
+	protected explicit_return_type "void"
+	nparams 1
+	  param inout name "savedInstanceState" explicit_type "Bundle"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Override
+"
+	
+	
+	
+	comment "@brief Méthode appelée à la création de l'activité
+"
+      end
+
+      operation 155031 "onStart"
+	protected explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Override
+"
+	
+	
+	
+	comment "@brief Méthode appelée au démarrage après le onCreate() ou un restart après un onStop()
+"
+      end
+
+      operation 155159 "onResume"
+	protected explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Override
+"
+	
+	
+	
+	comment "@brief Méthode appelée après onStart() ou après onPause()
+"
+      end
+
+      operation 155287 "onPause"
+	protected explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Override
+"
+	
+	
+	
+	comment "@brief Méthode appelée après qu'une boîte de dialogue s'est affichée (on reprend sur un onResume()) ou avant onStop() (activité plus visible)
+"
+      end
+
+      operation 155415 "onStop"
+	protected explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Override
+"
+	
+	
+	
+	comment "@brief Méthode appelée lorsque l'activité n'est plus visible
+"
+      end
+
+      operation 155543 "onDestroy"
+	protected explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Override
+"
+	
+	
+	
+	comment "@brief Méthode appelée à la destruction de l'application (après onStop() et détruite par le système Android)
+"
+      end
+
+      operation 155671 "initialiserIHM"
+	private explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	comment "@brief Initialise l'activité
+"
+      end
+    end
+
+    class 149271 "Handler"
+      visibility package 
+      cpp_decl ""
+      java_decl "${comment}${@}${visibility}${static}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+    end
   end
 
   deploymentview 134551 "pomodoro"
@@ -2315,6 +3741,7 @@ ${members}}
       java_src "${comment}
 ${package}
 ${imports}
+import android.os.Bundle;
 import android.util.Log;
 ${definition}"
       associated_elems
@@ -2353,7 +3780,6 @@ ${imports}
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -2368,8 +3794,11 @@ import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 import java.util.Set;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.Vector;
 ${definition}"
       associated_elems
@@ -2394,6 +3823,7 @@ ${definition}"
 ${package}
 ${imports}
 import android.util.Log;
+import java.io.Serializable;
 ${definition}"
       associated_elems
 	class_ref 135319 // Tache
@@ -2452,6 +3882,48 @@ import android.util.Log;
 ${definition}"
       associated_elems
 	class_ref 142231 // SQLite
+      end
+    end
+
+    artifact 148503 "CreerTacheActivity"
+      stereotype "source"
+      java_src "${comment}
+${package}
+${imports}
+import androidx.appcompat.app.AppCompatActivity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import java.util.Vector;
+${definition}"
+      associated_elems
+	class_ref 148887 // CreerTacheActivity
+      end
+    end
+
+    artifact 148631 "EditerTacheActivity"
+      stereotype "source"
+      java_src "${comment}
+${package}
+${imports}
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.Spinner;
+import androidx.appcompat.app.AppCompatActivity;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Vector;
+${definition}"
+      associated_elems
+	class_ref 149015 // EditerTacheActivity
       end
     end
   end

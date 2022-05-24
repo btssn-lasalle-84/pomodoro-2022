@@ -32,6 +32,20 @@ class BaseDeDonnees
         }
 
         return colonnes;
+!!!153751.java!!!	getNomTaches() : Vector<String>
+        Vector<String> nomsTache = new Vector<String>();
+        String requete = "SELECT * FROM Tache";
+
+        Cursor curseurResultat = effectuerRequete(requete);
+
+        for (int i = 0; i < curseurResultat.getCount(); i++)
+        {
+            curseurResultat.moveToNext();
+            Log.d(TAG, "nom tâche = " + curseurResultat.getString(INDEX_COLONNE_TACHE_TITRE));
+            nomsTache.add(new String(curseurResultat.getString(INDEX_COLONNE_TACHE_TITRE)));
+        }
+
+        return nomsTache;
 !!!146583.java!!!	executerRequete(in requete : String) : void
         ouvrir();
         bdd.execSQL(requete);

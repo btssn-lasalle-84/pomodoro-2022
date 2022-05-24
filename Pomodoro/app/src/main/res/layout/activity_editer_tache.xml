@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EditerTacheActivity">
+
+    <ImageView
+        android:id="@+id/logoPomoConnect"
+        android:layout_width="425dp"
+        android:layout_height="65dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.021"
+        app:srcCompat="@drawable/pomo_connect" />
+
+
+    <Button
+        android:id="@+id/boutonAccueil"
+        android:layout_width="108dp"
+        android:layout_height="61dp"
+        android:text="@string/boutonAccueil"
+        app:layout_constraintBottom_toBottomOf="@+id/logoPomoConnect"
+        app:layout_constraintEnd_toStartOf="@+id/logoPomoConnect"
+        app:layout_constraintHorizontal_bias="0.29"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+
+    <Button
+        android:id="@+id/boutonCreerTache"
+        android:layout_width="174dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="276dp"
+        android:text="@string/boutonCreerTache"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerTache" />
+
+    <TextView
+        android:id="@+id/copyrightText2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/copyrightText2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/copyrightText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/copyrightText"
+        app:layout_constraintBottom_toTopOf="@+id/copyrightText2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="419dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="120dp"
+        android:text="@string/tacheExistanteText"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logoPomoConnect" />
+
+    <Spinner
+        android:id="@+id/spinnerTache"
+        android:layout_width="378dp"
+        android:layout_height="113dp"
+        android:layout_marginBottom="304dp"
+        app:layout_constraintBottom_toTopOf="@+id/copyrightText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+
+    <Button
+        android:id="@+id/boutonSupprimerTache"
+        android:layout_width="174dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="276dp"
+        android:layout_marginTop="64dp"
+        android:layout_weight="1"
+        android:text="@string/SupprimerLaTache"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerTache" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+

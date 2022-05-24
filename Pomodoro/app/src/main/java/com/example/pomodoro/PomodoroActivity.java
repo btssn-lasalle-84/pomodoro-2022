@@ -6,8 +6,11 @@ package com.example.pomodoro;
  * @author Teddy ESTABLET
  */
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.core.app.ActivityCompat;
 
 import android.annotation.SuppressLint;
@@ -23,13 +26,15 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -39,7 +44,8 @@ import java.util.Vector;
  * @class PomodoroActivity
  * @brief L'activité principale de l'application Pomodoro
  */
-public class PomodoroActivity extends AppCompatActivity
+public class
+PomodoroActivity extends AppCompatActivity
 {
     /**
      * Constantes
@@ -52,6 +58,13 @@ public class PomodoroActivity extends AppCompatActivity
     private final static int CODE_DEMANDE_ENABLE_BLUETOOTH = 0;
     private final static int CODE_DEMANDE_BLUETOOTH_CONNECT = 1;
     private final static int CODE_DEMANDE_ACCESS_FINE_LOCATION = 2;
+
+    public final static String afficheTacheTerminé = "Tâche terminé";
+    public final static String afficheTacheDemarrer = "Démarrer";
+    public final static String affichePauseCourte = "Pause courte";
+    public final static String affichePauseCourteTerminee = "Pause courte terminée";
+    public final static String affichePauseLongue = "Pause longue";
+    public final static String affichePauseLongueTerminee = "Pause longue terminée";
 
     /**
      * Attributs
@@ -69,10 +82,12 @@ public class PomodoroActivity extends AppCompatActivity
     /**
      * Ressources IHM
      */
-    private Button boutonDemarrer;//!< Le bouton permettant de démarrer un pomodoro
-    private Button boutonEditerTache;//!< Le bouton permettant d'éditer une tâche
-    private Button boutonSupprimerTache;//!< Le bouton permettant de supprimer une tâche
-    private Button boutonSeConnecterAuPomodoro;//!< Le bouton permettant de se connecter au pomodoro
+    private AppCompatButton boutonDemarrer;//!< Le bouton permettant de démarrer un pomodoro
+    private AppCompatButton boutonEditerTache;//!< Le bouton permettant d'éditer une tâche
+    private AppCompatButton boutonSeConnecterAuPomodoro;//!< Le bouton permettant de se connecter au pomodoro
+    private AppCompatSpinner spinner;
+    private List<String> nomTaches;
+    private ArrayAdapter<String> adapter;
     private TextView horloge;
 
     /**
@@ -86,11 +101,10 @@ public class PomodoroActivity extends AppCompatActivity
         Log.d(TAG, "onCreate()");
 
         minuteur = new Minuteur();
-        tache = new Tache();
+        tache = new Tache("Coder le projet", 25,5,20,4);
+        Log.d(TAG, "[Tache] nom = " + tache.getNom());
 
         baseDeDonnees = new BaseDeDonnees(this);
-        // Test BDD
-        Vector<String> nomColonnes = baseDeDonnees.getNomColonnes();
 
         initialiserHandler();
         initialiserBluetooth();
@@ -154,20 +168,24 @@ public class PomodoroActivity extends AppCompatActivity
     private void initialiserIHM()
     {
         Log.d(TAG, "initialiserIHM()");
-        boutonDemarrer = (Button) findViewById(R.id.boutonDemarrer);
-        boutonEditerTache = (Button) findViewById(R.id.boutonEditerTache);
-        boutonSupprimerTache = (Button) findViewById(R.id.boutonSupprimerTache);
-        boutonSeConnecterAuPomodoro = (Button) findViewById(R.id.boutonSeConnecterAuPomodoro);
+        boutonDemarrer = (AppCompatButton) findViewById(R.id.boutonDemarrer);
+        boutonEditerTache = (AppCompatButton) findViewById(R.id.boutonEditerTache);
+        boutonSeConnecterAuPomodoro = (AppCompatButton) findViewById(R.id.boutonSeConnecterAuPomodoro);
         horloge = (TextView) findViewById(R.id.horloge);
+        spinner = (AppCompatSpinner) findViewById(R.id.spinner);
+
+        boutonDemarrer.setBackgroundResource(R.drawable.bouton_demarrer);
+        boutonEditerTache.setBackgroundResource(R.drawable.bouton_editer);
+        boutonSeConnecterAuPomodoro.setBackgroundResource(R.drawable.bouton_se_connecter);
+        horloge.setBackgroundResource(R.drawable.horloge);
+        //spinner.setBackgroundResource(R.drawable.spinner);
 
         boutonDemarrer.setOnClickListener(new View.OnClickListener()
         {
             public void onClick(View v)
             {
                 Log.d(TAG, "clic boutonDemarrer");
-                /**
-                 * @todo Gérer le minuteur connecté
-                 */
+                peripherique.envoyer(Protocole.DEBUT_TRAME+Protocole.DEMARRER_TACHE+Protocole.DELIMITEUR_TRAME+tache.getNom()+Protocole.FIN_TRAME);
             }
         });
         boutonEditerTache.setOnClickListener(new View.OnClickListener()
@@ -176,17 +194,11 @@ public class PomodoroActivity extends AppCompatActivity
             {
                 Log.d(TAG, "clic boutonEditerTache");
                 Log.d(TAG, "[Tache] nom = " + tache.getNom());
-                tache.editerTaches();
-            }
-        });
-        boutonSupprimerTache.setOnClickListener(new View.OnClickListener()
-        {
-            public void onClick(View v)
-            {
-                Log.d(TAG, "clic boutonSupprimerTache");
-                Log.d(TAG, "[Tache] nom = " + tache.getNom());
-                tache.supprimerTache();
-                Log.d(TAG, "[Tache] nom = " + tache.getNom());
+
+                Intent editerTache = new Intent(PomodoroActivity.this, EditerTacheActivity.class);
+                // passe la tache à l'activité
+                editerTache.putExtra("tache", tache);
+                startActivity(editerTache);
             }
         });
 
@@ -201,6 +213,37 @@ public class PomodoroActivity extends AppCompatActivity
                     else
                         peripherique.deconnecter();
                 }
+            }
+        });
+        /**
+         * @brief Spinner affichant les tâches crées
+         */
+        nomTaches = new ArrayList<>();
+        Vector<String> nomsTache = baseDeDonnees.getNomTaches();
+        if(tache != null && !tache.getNom().isEmpty())
+            nomTaches.add(tache.getNom());
+        for (int i = 0; i < nomsTache.size(); i++)
+        {
+            nomTaches.add(nomsTache.get(i));
+        }
+
+        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, nomTaches);
+        adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+
+        spinner.setAdapter(adapter);
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
+            @Override
+            public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long id)
+            {
+                Log.d(TAG, "sélection = " + position + " -> " + nomTaches.get(position));
+                tache.setNom(nomTaches.get(position));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0)
+            {
             }
         });
     }
@@ -465,7 +508,7 @@ public class PomodoroActivity extends AppCompatActivity
                         break;
                     case Peripherique.CODE_CONNEXION:
                         Log.d(TAG, "[Handler] CODE_CONNEXION = " + message.obj.toString());
-                        boutonSeConnecterAuPomodoro.setText("Se déconnecter");
+                        mettreAJourBoutonConnexion(true);
                         String trameConfiguration = "#P&"+Integer.toString(minuteur.getLongueur())+"&"+Integer.toString(minuteur.getDureePauseCourte())+"&"+Integer.toString(minuteur.getDureePauseLongue())+"&"+Integer.toString(minuteur.getNbCycles())+"&"+(minuteur.estModeAutomatique() ? "1" : "0")+"&"+(minuteur.estModeAutomatiquePause() ? "1" : "0")+"&0\n";
                         //peripherique.envoyer(Protocole.CONFIGURER_UN_POMODORO);
                         //Log.v(TAG, "Trame = " + Protocole.CONFIGURER_UN_POMODORO);
@@ -474,7 +517,7 @@ public class PomodoroActivity extends AppCompatActivity
                         break;
                     case Peripherique.CODE_DECONNEXION:
                         Log.d(TAG, "[Handler] DECONNEXION = " + message.obj.toString());
-                        boutonSeConnecterAuPomodoro.setText("Se connecter");
+                        mettreAJourBoutonConnexion(false);
                         break;
                     case Peripherique.CODE_RECEPTION:
                         Log.d(TAG, "[Handler] RECEPTION = " + message.obj.toString());
@@ -495,56 +538,56 @@ public class PomodoroActivity extends AppCompatActivity
                             Log.v(TAG, "[Handler] champs[" + i + "] = " + champs[i]);
                         }
 
-                        /**
-                         * @todo Traiter et décoder les trames reçues
-                         */
                         switch(champs[Protocole.TYPE_TRAME])
                         {
                             case Protocole.CHANGEMENT_ETAT:
                                 Log.v(TAG, "[Handler] Changement d’état : " + champs[Protocole.CHAMP_ETAT]);
-                                /**
-                                 * @todo Gérer l'affichage du minuteur
-                                 */
                                 minuteur.setEtat(Integer.parseInt(champs[Protocole.CHAMP_ETAT]));
                                 if(champs[Protocole.CHAMP_ETAT].equals(Protocole.ETAT_ATTENTE))
                                 {
-                                    boutonDemarrer.setText("Démarrer");
+                                    boutonDemarrer.setText(afficheTacheDemarrer);
                                     arreterMinuteur();
                                     Log.v(TAG,"[Handler] Changement d'état : Bouton = Démarrer");
                                 }
                                 else if(champs[Protocole.CHAMP_ETAT].equals(Protocole.ETAT_TACHE_EN_COURS))
                                 {
-                                    boutonDemarrer.setText("Tâche");
+                                    boutonDemarrer.setText(tache.getNom());
+                                    horloge.setBackgroundResource(R.drawable.horloge);
                                     demarrerMinuteur(minuteur.getLongueur());
-                                    Log.v(TAG,"[Handler] Changement d'état : Bouton = Pause");
+                                    Log.v(TAG,"[Handler] Changement d'état : Bouton = Tâche");
                                 }
                                 else if(champs[Protocole.CHAMP_ETAT].equals(Protocole.ETAT_TACHE_TERMINEE))
                                 {
-                                    boutonDemarrer.setText("Tâche terminée");
+                                    boutonDemarrer.setText(afficheTacheDemarrer);
+                                    horloge.setBackgroundResource(R.drawable.horloge);
                                     arreterMinuteur();
                                     Log.v(TAG,"[Handler] Changement d'état : Bouton = Tache Terminée");
                                 }
                                 else if(champs[Protocole.CHAMP_ETAT].equals(Protocole.ETAT_PAUSE_COURTE_EN_COURS))
                                 {
-                                    boutonDemarrer.setText("Pause courte");
+                                    boutonDemarrer.setText(affichePauseCourte);
+                                    horloge.setBackgroundResource(R.drawable.horloge_jaune);
                                     demarrerMinuteur(minuteur.getDureePauseCourte());
                                     Log.v(TAG, "[Handler] Changement d'état : Bouton = Pause Courte");
                                 }
                                 else if(champs[Protocole.CHAMP_ETAT].equals(Protocole.ETAT_PAUSE_COURTE_TERMINEE))
                                 {
-                                    boutonDemarrer.setText("Pause courte terminée");
+                                    boutonDemarrer.setText(affichePauseCourteTerminee);
+                                    horloge.setBackgroundResource(R.drawable.horloge_jaune);
                                     arreterMinuteur();
                                     Log.v(TAG, "[Handler] Changement d'état : Bouton = Pause Courte terminée");
                                 }
                                 else if(champs[Protocole.CHAMP_ETAT].equals(Protocole.ETAT_PAUSE_LONGUE_EN_COURS))
                                 {
-                                    boutonDemarrer.setText("Pause longue");
+                                    boutonDemarrer.setText(affichePauseLongue);
+                                    horloge.setBackgroundResource(R.drawable.horloge_verte);
                                     demarrerMinuteur(minuteur.getDureePauseLongue());
                                     Log.v(TAG, "[Handler] Changement d'état : Bouton = Pause Longue");
                                 }
                                 else if(champs[Protocole.CHAMP_ETAT].equals(Protocole.ETAT_PAUSE_LONGUE_TERMINEE))
                                 {
-                                    boutonDemarrer.setText("Pause longue terminée");
+                                    boutonDemarrer.setText(affichePauseLongueTerminee);
+                                    horloge.setBackgroundResource(R.drawable.horloge_verte);
                                     arreterMinuteur();
                                     Log.v(TAG, "[Handler] Changement d'état : Bouton = Pause Longue Terminée");
                                 }
@@ -554,6 +597,14 @@ public class PomodoroActivity extends AppCompatActivity
                 }
             }
         };
+    }
+
+    private void mettreAJourBoutonConnexion(boolean etatConnexion)
+    {
+        if(etatConnexion)
+            boutonSeConnecterAuPomodoro.setText("Se déconnecter");
+        else
+            boutonSeConnecterAuPomodoro.setText("Se connecter");
     }
 
     private void demarrerMinuteur(int duree)
