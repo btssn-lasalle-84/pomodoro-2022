@@ -29,28 +29,28 @@ public class BaseDeDonnees
     /**
      * Constantes
      */
-    private static final int INDEX_COLONNE_ID_COLONNE = 0;
-    private static final int INDEX_COLONNE_LIBELLE = 1;
-    private static final int INDEX_CATEGORIE_ID_CATEGORIE = 0;
-    private static final int INDEX_CATEGORIE_LIBELLE = 1;
-    private static final int INDEX_COLONNE_TACHE_ID_TACHE = 0;
-    private static final int INDEX_COLONNE_TACHE_TITRE = 1;
-    private static final int INDEX_COLONNE_TACHE_DESCRIPTION = 2;
-    private static final int INDEX_COLONNE_TACHE_DATE_CREATION = 3;
-    private static final int INDEX_COLONNE_TACHE_DATE_DEBUT = 4;
-    private static final int INDEX_COLONNE_TACHE_DATE_FIN = 5;
-    private static final int INDEX_COLONNE_TACHE_COULEUR = 6;
-    private static final int INDEX_COLONNE_TACHE_ID_PROJET = 7;
-    private static final int INDEX_COLONNE_TACHE_ID_COLONNE = 8;
-    private static final int INDEX_COLONNE_TACHE_ID_CATEGRIE = 9;
-    private static final int INDEX_COLONNE_TACHE_POSITION = 10;
-    private static final int INDEX_COLONNE_TACHE_ACTIVE = 11;
-    private static final int INDEX_COLONNE_TACHE_TEMPS_DEPENSE = 12;
-    private static final int INDEX_COLONNE_TACHE_TEMPS_ESTIME = 13;
-    private static final int INDEX_COLONNE_TACHE_PRIORITE = 14;
-
-    private static final String DEBUT_REQUETE_INSERTION_POMODORO =  "INSERT INTO Pomodoro(idTache,idModele,position,debut,idEtat) VALUES (";
-    private static final String DEBUT_REQUETE_TERMINER_POMODORO = "UPDATE Pomodoro SET fin=DATETIME('now'), idEtat=3 WHERE idPomodoro=";
+    public static final int INDEX_COLONNE_ID_COLONNE = 0;
+    public static final int INDEX_COLONNE_LIBELLE = 1;
+    public static final int INDEX_COLONNE_TACHE_ID_TACHE = 0;
+    public static final int INDEX_COLONNE_TACHE_NOM = 1;
+    public static final int INDEX_COLONNE_TACHE_DESCRIPTION = 2;
+    public static final int INDEX_COLONNE_TACHE_DATE_CREATION = 3;
+    public static final int INDEX_COLONNE_TACHE_DATE_DEBUT = 4;
+    public static final int INDEX_COLONNE_TACHE_DATE_FIN = 5;
+    public static final int INDEX_COLONNE_TACHE_COULEUR = 6;
+    public static final int INDEX_COLONNE_TACHE_ID_COLONNE = 7;
+    public static final int INDEX_COLONNE_TACHE_ACTIVE = 8;
+    public static final int INDEX_COLONNE_POMODORO_ID_POMODORO = 0;
+    public static final int INDEX_COLONNE_POMODORO_NOM = 1;
+    public static final int INDEX_COLONNE_POMODORO_DUREE_POMODORO = 2;
+    public static final int INDEX_COLONNE_POMODORO_PAUSE_COURTE = 3;
+    public static final int INDEX_COLONNE_POMODORO_PAUSE_LONGUE = 4;
+    public static final int INDEX_COLONNE_POMODORO_NB_POMODORI = 5;
+    public static final int INDEX_COLONNE_POMODORO_AUTO_POMODORO = 6;
+    public static final int INDEX_COLONNE_POMODORO_AUTO_PAUSE = 7;
+    /**
+     * @todo Définir les colonnes de la table Preferences
+     */
 
     /**
      * @brief Constructeur de la classe BaseDeDonnees
@@ -132,8 +132,8 @@ public class BaseDeDonnees
         for (int i = 0; i < curseurResultat.getCount(); i++)
         {
             curseurResultat.moveToNext();
-            Log.d(TAG, "nom tâche = " + curseurResultat.getString(INDEX_COLONNE_TACHE_TITRE));
-            nomsTache.add(new String(curseurResultat.getString(INDEX_COLONNE_TACHE_TITRE)));
+            Log.d(TAG, "nom tâche = " + curseurResultat.getString(INDEX_COLONNE_TACHE_NOM));
+            nomsTache.add(new String(curseurResultat.getString(INDEX_COLONNE_TACHE_NOM)));
         }
 
         return nomsTache;
