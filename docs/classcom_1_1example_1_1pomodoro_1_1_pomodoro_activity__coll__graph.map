@@ -1,0 +1,10 @@
+<map id="com.example.pomodoro.PomodoroActivity" name="com.example.pomodoro.PomodoroActivity">
+<area shape="rect" id="node1" title="L&#39;activité principale de l&#39;application Pomodoro." alt="" coords="428,1043,660,1809"/>
+<area shape="rect" id="node2" href="$classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html" title="Classe permettant de manipuler la base de données." alt="" coords="5,433,280,907"/>
+<area shape="rect" id="node3" href="$classcom_1_1example_1_1pomodoro_1_1_peripherique.html" title="Définit le concept de périphérique bluetooth." alt="" coords="304,470,541,870"/>
+<area shape="rect" id="node4" href="$class_thread.html" title=" " alt="" coords="254,5,317,83"/>
+<area shape="rect" id="node5" href="$classcom_1_1example_1_1pomodoro_1_1_t_reception.html" title="Définit le concept de TReception." alt="" coords="307,132,539,297"/>
+<area shape="rect" id="node6" href="$classcom_1_1example_1_1pomodoro_1_1_tache.html" title="Définit le concept de tâche." alt="" coords="565,529,765,811"/>
+<area shape="rect" id="node7" href="$enumcom_1_1example_1_1pomodoro_1_1_tache_1_1_couleur_tache.html" title=" " alt="" coords="563,147,767,283"/>
+<area shape="rect" id="node8" href="$classcom_1_1example_1_1pomodoro_1_1_minuteur.html" title="Définit le concept de minuteur." alt="" coords="790,360,1005,980"/>
+</map>

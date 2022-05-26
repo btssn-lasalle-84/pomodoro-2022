@@ -1,0 +1,238 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.17"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>pomodoro:  Fichier source de BaseDeDonnees.java</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="customdoxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="pomodoro.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">pomodoro
+   &#160;<span id="projectnumber">1.0</span>
+   </div>
+   <div id="projectbrief">BTS SNIR LaSalle Avignon 2022</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.8.17 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Recherche');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('_base_de_donnees_8java_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">BaseDeDonnees.java</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="_base_de_donnees_8java.html">Aller à la documentation de ce fichier.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno"><a class="line" href="namespacecom_1_1example_1_1pomodoro.html">    1</a></span>&#160;<span class="keyword">package </span>com.example.pomodoro;</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">import</span> android.content.Context;</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">import</span> android.database.Cursor;</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">import</span> android.database.sqlite.SQLiteDatabase;</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">import</span> android.util.Log;</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">import</span> java.util.ListIterator;</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">import</span> java.util.Vector;</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html">   23</a></span>&#160;<span class="keyword">public</span> <span class="keyword">class </span><a class="code" href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html">BaseDeDonnees</a></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;{</div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#a4c529dbeae215500cc430bbe998ab228">   25</a></span>&#160;    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#a4c529dbeae215500cc430bbe998ab228">TAG</a> = <span class="stringliteral">&quot;_BaseDeDonnees&quot;</span>;<span class="comment">//&lt;! TAG pour les logs</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#aff9bdd36cac046e77a490275433840dd">   26</a></span>&#160;    <span class="keyword">private</span> SQLiteDatabase <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#aff9bdd36cac046e77a490275433840dd">bdd</a> = <span class="keyword">null</span>;<span class="comment">//&lt;! L&#39;accès à la base de données</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#a368ec86fdb7c9884434fbfafe39d79dd">   27</a></span>&#160;    <span class="keyword">private</span> SQLite <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#a368ec86fdb7c9884434fbfafe39d79dd">sqlite</a> = <span class="keyword">null</span>;<span class="comment">//&lt;! Permet l&#39;initialisation de la base de données</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#a7a574d9765425f3eef749c04ad7a60dc">   32</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keywordtype">int</span> <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#a7a574d9765425f3eef749c04ad7a60dc">INDEX_COLONNE_ID_COLONNE</a> = 0;</div>
+<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#a87215b9a451be5476aa889ae4463135b">   33</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keywordtype">int</span> <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#a87215b9a451be5476aa889ae4463135b">INDEX_COLONNE_LIBELLE</a> = 1;</div>
+<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#ad3d310ee4a67e7b65c41153481e54da4">   34</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keywordtype">int</span> <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#ad3d310ee4a67e7b65c41153481e54da4">INDEX_COLONNE_TACHE_ID_TACHE</a> = 0;</div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#a0df6235b5767b315b6dba60516311c73">   35</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keywordtype">int</span> <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#a0df6235b5767b315b6dba60516311c73">INDEX_COLONNE_TACHE_NOM</a> = 1;</div>
+<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#a464f4a9b0226012baf3292708fb75961">   36</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keywordtype">int</span> <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#a464f4a9b0226012baf3292708fb75961">INDEX_COLONNE_TACHE_DESCRIPTION</a> = 2;</div>
+<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#ad08de46e4219c49a13b643f56f04aa8b">   37</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keywordtype">int</span> <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#ad08de46e4219c49a13b643f56f04aa8b">INDEX_COLONNE_TACHE_DATE_CREATION</a> = 3;</div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#a30b62b1c03c1dafd1e52168c708ebb24">   38</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keywordtype">int</span> <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#a30b62b1c03c1dafd1e52168c708ebb24">INDEX_COLONNE_TACHE_DATE_DEBUT</a> = 4;</div>
+<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#a67e1e946f0d04e97e6ed464057c4a01d">   39</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keywordtype">int</span> <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#a67e1e946f0d04e97e6ed464057c4a01d">INDEX_COLONNE_TACHE_DATE_FIN</a> = 5;</div>
+<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#a7df8b1176072ce89d80fa17d233bd31d">   40</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keywordtype">int</span> <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#a7df8b1176072ce89d80fa17d233bd31d">INDEX_COLONNE_TACHE_COULEUR</a> = 6;</div>
+<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#a24f0840d60fe59152152389aa21f270b">   41</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keywordtype">int</span> <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#a24f0840d60fe59152152389aa21f270b">INDEX_COLONNE_TACHE_ID_COLONNE</a> = 7;</div>
+<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#a9a8015ce22ece7942f1ca74fd1d60aa0">   42</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keywordtype">int</span> <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#a9a8015ce22ece7942f1ca74fd1d60aa0">INDEX_COLONNE_TACHE_ACTIVE</a> = 8;</div>
+<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#a5a7cff63ab2ced909339a6772b7e5ea0">   43</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keywordtype">int</span> <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#a5a7cff63ab2ced909339a6772b7e5ea0">INDEX_COLONNE_POMODORO_ID_POMODORO</a> = 0;</div>
+<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#a7c21a83d793050ad9fae2a17a2165bb8">   44</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keywordtype">int</span> <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#a7c21a83d793050ad9fae2a17a2165bb8">INDEX_COLONNE_POMODORO_NOM</a> = 1;</div>
+<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#ab68f6c36a7762cf9d440644ded0de539">   45</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keywordtype">int</span> <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#ab68f6c36a7762cf9d440644ded0de539">INDEX_COLONNE_POMODORO_DUREE_POMODORO</a> = 2;</div>
+<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#a738730656c413815e9244186f53712d1">   46</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keywordtype">int</span> <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#a738730656c413815e9244186f53712d1">INDEX_COLONNE_POMODORO_PAUSE_COURTE</a> = 3;</div>
+<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#a86da1f1ac91114c25f6fcb3534d7ccd1">   47</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keywordtype">int</span> <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#a86da1f1ac91114c25f6fcb3534d7ccd1">INDEX_COLONNE_POMODORO_PAUSE_LONGUE</a> = 4;</div>
+<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#ab4c2bddbe26ea748a81eecd69beb44e3">   48</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keywordtype">int</span> <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#ab4c2bddbe26ea748a81eecd69beb44e3">INDEX_COLONNE_POMODORO_NB_POMODORI</a> = 5;</div>
+<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#a0e9258443abb5dfaaca0cea5bb2d05f7">   49</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keywordtype">int</span> <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#a0e9258443abb5dfaaca0cea5bb2d05f7">INDEX_COLONNE_POMODORO_AUTO_POMODORO</a> = 6;</div>
+<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#a34a9bd865720348161c36145d255eba2">   50</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keywordtype">int</span> <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#a34a9bd865720348161c36145d255eba2">INDEX_COLONNE_POMODORO_AUTO_PAUSE</a> = 7;</div>
+<div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#a68b68d872e58d842c4f3f3722088e527">   59</a></span>&#160;    <span class="keyword">public</span> <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#a68b68d872e58d842c4f3f3722088e527">BaseDeDonnees</a>(Context context)</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    {</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        this.sqlite = <span class="keyword">new</span> SQLite(context);</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    }</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
+<div class="line"><a name="l00067"></a><span class="lineno"><a class="line" href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#a1106c517d755e87c0f897a5396200194">   67</a></span>&#160;    <span class="keyword">private</span> <span class="keywordtype">void</span> <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#a1106c517d755e87c0f897a5396200194">ouvrir</a>()</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    {</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        Log.d(<a class="code" href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#a4c529dbeae215500cc430bbe998ab228">TAG</a>, <span class="stringliteral">&quot;ouvrir()&quot;</span>);</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        <span class="keywordflow">if</span> (<a class="code" href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#aff9bdd36cac046e77a490275433840dd">bdd</a> == <span class="keyword">null</span>)</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;            <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#aff9bdd36cac046e77a490275433840dd">bdd</a> = <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#a368ec86fdb7c9884434fbfafe39d79dd">sqlite</a>.getWritableDatabase();</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    }</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
+<div class="line"><a name="l00077"></a><span class="lineno"><a class="line" href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#a52f13559363feba94becf89ecbd395f2">   77</a></span>&#160;    <span class="keyword">private</span> <span class="keywordtype">void</span> <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#a52f13559363feba94becf89ecbd395f2">fermer</a>()</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    {</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        Log.d(<a class="code" href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#a4c529dbeae215500cc430bbe998ab228">TAG</a>, <span class="stringliteral">&quot;fermer()&quot;</span>);</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        <span class="keywordflow">if</span> (<a class="code" href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#aff9bdd36cac046e77a490275433840dd">bdd</a> != <span class="keyword">null</span>)</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;            <span class="keywordflow">if</span> (<a class="code" href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#aff9bdd36cac046e77a490275433840dd">bdd</a>.isOpen())</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;                <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#aff9bdd36cac046e77a490275433840dd">bdd</a>.close();</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    }</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
+<div class="line"><a name="l00089"></a><span class="lineno"><a class="line" href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#abd048930de98f12389b08eb9160e0d7a">   89</a></span>&#160;    <span class="keyword">private</span> Cursor <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#abd048930de98f12389b08eb9160e0d7a">effectuerRequete</a>(String requete)</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    {</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#a1106c517d755e87c0f897a5396200194">ouvrir</a>();</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160; </div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        Cursor curseurResultat = <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#aff9bdd36cac046e77a490275433840dd">bdd</a>.rawQuery(requete,<span class="keyword">null</span>);</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        Log.d(<a class="code" href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#a4c529dbeae215500cc430bbe998ab228">TAG</a>,<span class="stringliteral">&quot;effectuerRequete() : Exécution de la requete : &quot;</span> + requete);</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        Log.d(<a class="code" href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#a4c529dbeae215500cc430bbe998ab228">TAG</a>,<span class="stringliteral">&quot;effectuerRequete() : Nombre de résultats : &quot;</span> + Integer.toString(curseurResultat.getCount()));</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        <span class="keywordflow">return</span> curseurResultat;</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    }</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
+<div class="line"><a name="l00104"></a><span class="lineno"><a class="line" href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#a739265d0f84a44ca861c690236979dcd">  104</a></span>&#160;    <span class="keyword">public</span> Vector&lt;String&gt; <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#a739265d0f84a44ca861c690236979dcd">getNomColonnes</a>()</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    {</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        Vector&lt;String&gt; colonnes = <span class="keyword">new</span> Vector&lt;String&gt;();</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        String requete = <span class="stringliteral">&quot;SELECT * FROM Colonne&quot;</span>;</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160; </div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;        Cursor curseurResultat = <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#abd048930de98f12389b08eb9160e0d7a">effectuerRequete</a>(requete);</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160; </div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; curseurResultat.getCount(); i++)</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;        {</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;            curseurResultat.moveToNext();</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;            Log.d(<a class="code" href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#a4c529dbeae215500cc430bbe998ab228">TAG</a>, <span class="stringliteral">&quot;libelle = &quot;</span> + curseurResultat.getString(<a class="code" href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#a87215b9a451be5476aa889ae4463135b">INDEX_COLONNE_LIBELLE</a>));</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;            colonnes.add(<span class="keyword">new</span> String(curseurResultat.getString(<a class="code" href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#a87215b9a451be5476aa889ae4463135b">INDEX_COLONNE_LIBELLE</a>)));</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;        }</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160; </div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;        <span class="keywordflow">return</span> colonnes;</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    }</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160; </div>
+<div class="line"><a name="l00125"></a><span class="lineno"><a class="line" href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#ae7f3b15bed7768536dc1e54a57932898">  125</a></span>&#160;    <span class="keyword">public</span> Vector&lt;String&gt; <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#ae7f3b15bed7768536dc1e54a57932898">getNomTaches</a>()</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    {</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;        Vector&lt;String&gt; nomsTache = <span class="keyword">new</span> Vector&lt;String&gt;();</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;        String requete = <span class="stringliteral">&quot;SELECT * FROM Tache&quot;</span>;</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160; </div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;        Cursor curseurResultat = <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#abd048930de98f12389b08eb9160e0d7a">effectuerRequete</a>(requete);</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160; </div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; curseurResultat.getCount(); i++)</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;        {</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;            curseurResultat.moveToNext();</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;            Log.d(<a class="code" href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#a4c529dbeae215500cc430bbe998ab228">TAG</a>, <span class="stringliteral">&quot;nom tâche = &quot;</span> + curseurResultat.getString(<a class="code" href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#a0df6235b5767b315b6dba60516311c73">INDEX_COLONNE_TACHE_NOM</a>));</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;            nomsTache.add(<span class="keyword">new</span> String(curseurResultat.getString(<a class="code" href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#a0df6235b5767b315b6dba60516311c73">INDEX_COLONNE_TACHE_NOM</a>)));</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;        }</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160; </div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;        <span class="keywordflow">return</span> nomsTache;</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;    }</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160; </div>
+<div class="line"><a name="l00146"></a><span class="lineno"><a class="line" href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#ab81dda599c0d2b91192c8404945b02f3">  146</a></span>&#160;    <span class="keyword">public</span> <span class="keywordtype">void</span> <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#ab81dda599c0d2b91192c8404945b02f3">executerRequete</a>(String requete)</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;    {</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;        <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#a1106c517d755e87c0f897a5396200194">ouvrir</a>();</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;        <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#aff9bdd36cac046e77a490275433840dd">bdd</a>.execSQL(requete);</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;    }</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;}</div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<div class="ttc" id="aclasscom_1_1example_1_1pomodoro_1_1_base_de_donnees_html_a739265d0f84a44ca861c690236979dcd"><div class="ttname"><a href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#a739265d0f84a44ca861c690236979dcd">com.example.pomodoro.BaseDeDonnees.getNomColonnes</a></div><div class="ttdeci">Vector&lt; String &gt; getNomColonnes()</div><div class="ttdoc">Permet d'effectuer une requete pour récupérer tous les libellés des colonnes.</div><div class="ttdef"><b>Definition:</b> <a href="_base_de_donnees_8java_source.html#l00104">BaseDeDonnees.java:104</a></div></div>
+<div class="ttc" id="aclasscom_1_1example_1_1pomodoro_1_1_base_de_donnees_html_a7a574d9765425f3eef749c04ad7a60dc"><div class="ttname"><a href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#a7a574d9765425f3eef749c04ad7a60dc">com.example.pomodoro.BaseDeDonnees.INDEX_COLONNE_ID_COLONNE</a></div><div class="ttdeci">static final int INDEX_COLONNE_ID_COLONNE</div><div class="ttdef"><b>Definition:</b> <a href="_base_de_donnees_8java_source.html#l00032">BaseDeDonnees.java:32</a></div></div>
+<div class="ttc" id="aclasscom_1_1example_1_1pomodoro_1_1_base_de_donnees_html_a1106c517d755e87c0f897a5396200194"><div class="ttname"><a href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#a1106c517d755e87c0f897a5396200194">com.example.pomodoro.BaseDeDonnees.ouvrir</a></div><div class="ttdeci">void ouvrir()</div><div class="ttdoc">Ouvre un accés à la base de données.</div><div class="ttdef"><b>Definition:</b> <a href="_base_de_donnees_8java_source.html#l00067">BaseDeDonnees.java:67</a></div></div>
+<div class="ttc" id="aclasscom_1_1example_1_1pomodoro_1_1_base_de_donnees_html_ad08de46e4219c49a13b643f56f04aa8b"><div class="ttname"><a href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#ad08de46e4219c49a13b643f56f04aa8b">com.example.pomodoro.BaseDeDonnees.INDEX_COLONNE_TACHE_DATE_CREATION</a></div><div class="ttdeci">static final int INDEX_COLONNE_TACHE_DATE_CREATION</div><div class="ttdef"><b>Definition:</b> <a href="_base_de_donnees_8java_source.html#l00037">BaseDeDonnees.java:37</a></div></div>
+<div class="ttc" id="aclasscom_1_1example_1_1pomodoro_1_1_base_de_donnees_html_a464f4a9b0226012baf3292708fb75961"><div class="ttname"><a href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#a464f4a9b0226012baf3292708fb75961">com.example.pomodoro.BaseDeDonnees.INDEX_COLONNE_TACHE_DESCRIPTION</a></div><div class="ttdeci">static final int INDEX_COLONNE_TACHE_DESCRIPTION</div><div class="ttdef"><b>Definition:</b> <a href="_base_de_donnees_8java_source.html#l00036">BaseDeDonnees.java:36</a></div></div>
+<div class="ttc" id="aclasscom_1_1example_1_1pomodoro_1_1_base_de_donnees_html_a30b62b1c03c1dafd1e52168c708ebb24"><div class="ttname"><a href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#a30b62b1c03c1dafd1e52168c708ebb24">com.example.pomodoro.BaseDeDonnees.INDEX_COLONNE_TACHE_DATE_DEBUT</a></div><div class="ttdeci">static final int INDEX_COLONNE_TACHE_DATE_DEBUT</div><div class="ttdef"><b>Definition:</b> <a href="_base_de_donnees_8java_source.html#l00038">BaseDeDonnees.java:38</a></div></div>
+<div class="ttc" id="aclasscom_1_1example_1_1pomodoro_1_1_base_de_donnees_html_a7df8b1176072ce89d80fa17d233bd31d"><div class="ttname"><a href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#a7df8b1176072ce89d80fa17d233bd31d">com.example.pomodoro.BaseDeDonnees.INDEX_COLONNE_TACHE_COULEUR</a></div><div class="ttdeci">static final int INDEX_COLONNE_TACHE_COULEUR</div><div class="ttdef"><b>Definition:</b> <a href="_base_de_donnees_8java_source.html#l00040">BaseDeDonnees.java:40</a></div></div>
+<div class="ttc" id="aclasscom_1_1example_1_1pomodoro_1_1_base_de_donnees_html_a68b68d872e58d842c4f3f3722088e527"><div class="ttname"><a href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#a68b68d872e58d842c4f3f3722088e527">com.example.pomodoro.BaseDeDonnees.BaseDeDonnees</a></div><div class="ttdeci">BaseDeDonnees(Context context)</div><div class="ttdoc">Constructeur de la classe BaseDeDonnees.</div><div class="ttdef"><b>Definition:</b> <a href="_base_de_donnees_8java_source.html#l00059">BaseDeDonnees.java:59</a></div></div>
+<div class="ttc" id="aclasscom_1_1example_1_1pomodoro_1_1_base_de_donnees_html_ab81dda599c0d2b91192c8404945b02f3"><div class="ttname"><a href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#ab81dda599c0d2b91192c8404945b02f3">com.example.pomodoro.BaseDeDonnees.executerRequete</a></div><div class="ttdeci">void executerRequete(String requete)</div><div class="ttdoc">Permet d'effectuer une requete de type INSERT, UPDATE ou DELETE.</div><div class="ttdef"><b>Definition:</b> <a href="_base_de_donnees_8java_source.html#l00146">BaseDeDonnees.java:146</a></div></div>
+<div class="ttc" id="aclasscom_1_1example_1_1pomodoro_1_1_base_de_donnees_html_a0df6235b5767b315b6dba60516311c73"><div class="ttname"><a href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#a0df6235b5767b315b6dba60516311c73">com.example.pomodoro.BaseDeDonnees.INDEX_COLONNE_TACHE_NOM</a></div><div class="ttdeci">static final int INDEX_COLONNE_TACHE_NOM</div><div class="ttdef"><b>Definition:</b> <a href="_base_de_donnees_8java_source.html#l00035">BaseDeDonnees.java:35</a></div></div>
+<div class="ttc" id="aclasscom_1_1example_1_1pomodoro_1_1_base_de_donnees_html"><div class="ttname"><a href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html">com.example.pomodoro.BaseDeDonnees</a></div><div class="ttdoc">Classe permettant de manipuler la base de données.</div><div class="ttdef"><b>Definition:</b> <a href="_base_de_donnees_8java_source.html#l00023">BaseDeDonnees.java:23</a></div></div>
+<div class="ttc" id="aclasscom_1_1example_1_1pomodoro_1_1_base_de_donnees_html_a24f0840d60fe59152152389aa21f270b"><div class="ttname"><a href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#a24f0840d60fe59152152389aa21f270b">com.example.pomodoro.BaseDeDonnees.INDEX_COLONNE_TACHE_ID_COLONNE</a></div><div class="ttdeci">static final int INDEX_COLONNE_TACHE_ID_COLONNE</div><div class="ttdef"><b>Definition:</b> <a href="_base_de_donnees_8java_source.html#l00041">BaseDeDonnees.java:41</a></div></div>
+<div class="ttc" id="aclasscom_1_1example_1_1pomodoro_1_1_base_de_donnees_html_a9a8015ce22ece7942f1ca74fd1d60aa0"><div class="ttname"><a href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#a9a8015ce22ece7942f1ca74fd1d60aa0">com.example.pomodoro.BaseDeDonnees.INDEX_COLONNE_TACHE_ACTIVE</a></div><div class="ttdeci">static final int INDEX_COLONNE_TACHE_ACTIVE</div><div class="ttdef"><b>Definition:</b> <a href="_base_de_donnees_8java_source.html#l00042">BaseDeDonnees.java:42</a></div></div>
+<div class="ttc" id="aclasscom_1_1example_1_1pomodoro_1_1_base_de_donnees_html_ad3d310ee4a67e7b65c41153481e54da4"><div class="ttname"><a href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#ad3d310ee4a67e7b65c41153481e54da4">com.example.pomodoro.BaseDeDonnees.INDEX_COLONNE_TACHE_ID_TACHE</a></div><div class="ttdeci">static final int INDEX_COLONNE_TACHE_ID_TACHE</div><div class="ttdef"><b>Definition:</b> <a href="_base_de_donnees_8java_source.html#l00034">BaseDeDonnees.java:34</a></div></div>
+<div class="ttc" id="aclasscom_1_1example_1_1pomodoro_1_1_base_de_donnees_html_a7c21a83d793050ad9fae2a17a2165bb8"><div class="ttname"><a href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#a7c21a83d793050ad9fae2a17a2165bb8">com.example.pomodoro.BaseDeDonnees.INDEX_COLONNE_POMODORO_NOM</a></div><div class="ttdeci">static final int INDEX_COLONNE_POMODORO_NOM</div><div class="ttdef"><b>Definition:</b> <a href="_base_de_donnees_8java_source.html#l00044">BaseDeDonnees.java:44</a></div></div>
+<div class="ttc" id="aclasscom_1_1example_1_1pomodoro_1_1_base_de_donnees_html_a368ec86fdb7c9884434fbfafe39d79dd"><div class="ttname"><a href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#a368ec86fdb7c9884434fbfafe39d79dd">com.example.pomodoro.BaseDeDonnees.sqlite</a></div><div class="ttdeci">SQLite sqlite</div><div class="ttdef"><b>Definition:</b> <a href="_base_de_donnees_8java_source.html#l00027">BaseDeDonnees.java:27</a></div></div>
+<div class="ttc" id="aclasscom_1_1example_1_1pomodoro_1_1_base_de_donnees_html_a34a9bd865720348161c36145d255eba2"><div class="ttname"><a href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#a34a9bd865720348161c36145d255eba2">com.example.pomodoro.BaseDeDonnees.INDEX_COLONNE_POMODORO_AUTO_PAUSE</a></div><div class="ttdeci">static final int INDEX_COLONNE_POMODORO_AUTO_PAUSE</div><div class="ttdef"><b>Definition:</b> <a href="_base_de_donnees_8java_source.html#l00050">BaseDeDonnees.java:50</a></div></div>
+<div class="ttc" id="aclasscom_1_1example_1_1pomodoro_1_1_base_de_donnees_html_a52f13559363feba94becf89ecbd395f2"><div class="ttname"><a href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#a52f13559363feba94becf89ecbd395f2">com.example.pomodoro.BaseDeDonnees.fermer</a></div><div class="ttdeci">void fermer()</div><div class="ttdoc">Ferme l'accés à la base de données.</div><div class="ttdef"><b>Definition:</b> <a href="_base_de_donnees_8java_source.html#l00077">BaseDeDonnees.java:77</a></div></div>
+<div class="ttc" id="aclasscom_1_1example_1_1pomodoro_1_1_base_de_donnees_html_ae7f3b15bed7768536dc1e54a57932898"><div class="ttname"><a href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#ae7f3b15bed7768536dc1e54a57932898">com.example.pomodoro.BaseDeDonnees.getNomTaches</a></div><div class="ttdeci">Vector&lt; String &gt; getNomTaches()</div><div class="ttdoc">Permet d'effectuer une requete pour récupérer touts les noms de tâche.</div><div class="ttdef"><b>Definition:</b> <a href="_base_de_donnees_8java_source.html#l00125">BaseDeDonnees.java:125</a></div></div>
+<div class="ttc" id="aclasscom_1_1example_1_1pomodoro_1_1_base_de_donnees_html_a0e9258443abb5dfaaca0cea5bb2d05f7"><div class="ttname"><a href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#a0e9258443abb5dfaaca0cea5bb2d05f7">com.example.pomodoro.BaseDeDonnees.INDEX_COLONNE_POMODORO_AUTO_POMODORO</a></div><div class="ttdeci">static final int INDEX_COLONNE_POMODORO_AUTO_POMODORO</div><div class="ttdef"><b>Definition:</b> <a href="_base_de_donnees_8java_source.html#l00049">BaseDeDonnees.java:49</a></div></div>
+<div class="ttc" id="aclasscom_1_1example_1_1pomodoro_1_1_base_de_donnees_html_a4c529dbeae215500cc430bbe998ab228"><div class="ttname"><a href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#a4c529dbeae215500cc430bbe998ab228">com.example.pomodoro.BaseDeDonnees.TAG</a></div><div class="ttdeci">static final String TAG</div><div class="ttdef"><b>Definition:</b> <a href="_base_de_donnees_8java_source.html#l00025">BaseDeDonnees.java:25</a></div></div>
+<div class="ttc" id="aclasscom_1_1example_1_1pomodoro_1_1_base_de_donnees_html_a87215b9a451be5476aa889ae4463135b"><div class="ttname"><a href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#a87215b9a451be5476aa889ae4463135b">com.example.pomodoro.BaseDeDonnees.INDEX_COLONNE_LIBELLE</a></div><div class="ttdeci">static final int INDEX_COLONNE_LIBELLE</div><div class="ttdef"><b>Definition:</b> <a href="_base_de_donnees_8java_source.html#l00033">BaseDeDonnees.java:33</a></div></div>
+<div class="ttc" id="aclasscom_1_1example_1_1pomodoro_1_1_base_de_donnees_html_a5a7cff63ab2ced909339a6772b7e5ea0"><div class="ttname"><a href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#a5a7cff63ab2ced909339a6772b7e5ea0">com.example.pomodoro.BaseDeDonnees.INDEX_COLONNE_POMODORO_ID_POMODORO</a></div><div class="ttdeci">static final int INDEX_COLONNE_POMODORO_ID_POMODORO</div><div class="ttdef"><b>Definition:</b> <a href="_base_de_donnees_8java_source.html#l00043">BaseDeDonnees.java:43</a></div></div>
+<div class="ttc" id="aclasscom_1_1example_1_1pomodoro_1_1_base_de_donnees_html_aff9bdd36cac046e77a490275433840dd"><div class="ttname"><a href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#aff9bdd36cac046e77a490275433840dd">com.example.pomodoro.BaseDeDonnees.bdd</a></div><div class="ttdeci">SQLiteDatabase bdd</div><div class="ttdef"><b>Definition:</b> <a href="_base_de_donnees_8java_source.html#l00026">BaseDeDonnees.java:26</a></div></div>
+<div class="ttc" id="aclasscom_1_1example_1_1pomodoro_1_1_base_de_donnees_html_ab4c2bddbe26ea748a81eecd69beb44e3"><div class="ttname"><a href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#ab4c2bddbe26ea748a81eecd69beb44e3">com.example.pomodoro.BaseDeDonnees.INDEX_COLONNE_POMODORO_NB_POMODORI</a></div><div class="ttdeci">static final int INDEX_COLONNE_POMODORO_NB_POMODORI</div><div class="ttdef"><b>Definition:</b> <a href="_base_de_donnees_8java_source.html#l00048">BaseDeDonnees.java:48</a></div></div>
+<div class="ttc" id="aclasscom_1_1example_1_1pomodoro_1_1_base_de_donnees_html_a86da1f1ac91114c25f6fcb3534d7ccd1"><div class="ttname"><a href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#a86da1f1ac91114c25f6fcb3534d7ccd1">com.example.pomodoro.BaseDeDonnees.INDEX_COLONNE_POMODORO_PAUSE_LONGUE</a></div><div class="ttdeci">static final int INDEX_COLONNE_POMODORO_PAUSE_LONGUE</div><div class="ttdef"><b>Definition:</b> <a href="_base_de_donnees_8java_source.html#l00047">BaseDeDonnees.java:47</a></div></div>
+<div class="ttc" id="aclasscom_1_1example_1_1pomodoro_1_1_base_de_donnees_html_a738730656c413815e9244186f53712d1"><div class="ttname"><a href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#a738730656c413815e9244186f53712d1">com.example.pomodoro.BaseDeDonnees.INDEX_COLONNE_POMODORO_PAUSE_COURTE</a></div><div class="ttdeci">static final int INDEX_COLONNE_POMODORO_PAUSE_COURTE</div><div class="ttdef"><b>Definition:</b> <a href="_base_de_donnees_8java_source.html#l00046">BaseDeDonnees.java:46</a></div></div>
+<div class="ttc" id="aclasscom_1_1example_1_1pomodoro_1_1_base_de_donnees_html_abd048930de98f12389b08eb9160e0d7a"><div class="ttname"><a href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#abd048930de98f12389b08eb9160e0d7a">com.example.pomodoro.BaseDeDonnees.effectuerRequete</a></div><div class="ttdeci">Cursor effectuerRequete(String requete)</div><div class="ttdoc">Permet d'effectuer une requete sur la base de données.</div><div class="ttdef"><b>Definition:</b> <a href="_base_de_donnees_8java_source.html#l00089">BaseDeDonnees.java:89</a></div></div>
+<div class="ttc" id="aclasscom_1_1example_1_1pomodoro_1_1_base_de_donnees_html_a67e1e946f0d04e97e6ed464057c4a01d"><div class="ttname"><a href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#a67e1e946f0d04e97e6ed464057c4a01d">com.example.pomodoro.BaseDeDonnees.INDEX_COLONNE_TACHE_DATE_FIN</a></div><div class="ttdeci">static final int INDEX_COLONNE_TACHE_DATE_FIN</div><div class="ttdef"><b>Definition:</b> <a href="_base_de_donnees_8java_source.html#l00039">BaseDeDonnees.java:39</a></div></div>
+<div class="ttc" id="aclasscom_1_1example_1_1pomodoro_1_1_base_de_donnees_html_ab68f6c36a7762cf9d440644ded0de539"><div class="ttname"><a href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#ab68f6c36a7762cf9d440644ded0de539">com.example.pomodoro.BaseDeDonnees.INDEX_COLONNE_POMODORO_DUREE_POMODORO</a></div><div class="ttdeci">static final int INDEX_COLONNE_POMODORO_DUREE_POMODORO</div><div class="ttdef"><b>Definition:</b> <a href="_base_de_donnees_8java_source.html#l00045">BaseDeDonnees.java:45</a></div></div>
+<!-- HTML footer for doxygen 1.9.1-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_382895eff9e5937f281243b03de72d54.html">Pomodoro</a></li><li class="navelem"><a class="el" href="dir_e587536096171a7fc6b0c2dd0b8b0937.html">app</a></li><li class="navelem"><a class="el" href="dir_4fc409648d5327858d1eb099876d3582.html">src</a></li><li class="navelem"><a class="el" href="dir_aa31d5ac05dc697b9835a68832162fa8.html">main</a></li><li class="navelem"><a class="el" href="dir_134c81511d55a01593cf81fed009088b.html">java</a></li><li class="navelem"><a class="el" href="dir_a4968c0117d9a517dff2d0441ec36cd0.html">com</a></li><li class="navelem"><a class="el" href="dir_bf6f156deeeecebe31bc558b82442151.html">example</a></li><li class="navelem"><a class="el" href="dir_5fede52542415f60bc1a48b67c11ba5a.html">pomodoro</a></li><li class="navelem"><a class="el" href="_base_de_donnees_8java.html">BaseDeDonnees.java</a></li>
+    <li class="footer"><img class="footer" src="lasalle-logo.png" height="31" alt="La Salle Avignon"/>&nbsp;<b>Campus La Salle Avignon</b>&nbsp;-&nbsp;9 Rue Notre Dame des 7 douleurs&nbsp;-&nbsp;BP 50165&nbsp;-&nbsp;84008 Avignon&nbsp;-&nbsp;Généré le Jeudi 26 Mai 2022 09:14:59 pour pomodoro par&nbsp;<a href="https://www.doxygen.org/index.html">doxygen</a>&nbsp;1.8.17&nbsp;</li>
+  </ul>
+</div>
+</body>
+</html>
