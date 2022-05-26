@@ -1,0 +1,178 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.17"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>pomodoro: Le projet pomodoro-2022</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="customdoxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="pomodoro.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">pomodoro
+   &#160;<span id="projectnumber">1.0</span>
+   </div>
+   <div id="projectbrief">BTS SNIR LaSalle Avignon 2022</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.8.17 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Recherche');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('md__home_tv__documents_git_projets-2022_pomodoro-2022__r_e_a_d_m_e.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="PageDoc"><div class="header">
+  <div class="headertitle">
+<div class="title">Le projet pomodoro-2022 </div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><ul>
+<li><a href="#le-projet-pomodoro-2022">Le projet pomodoro-2022</a><ul>
+<li><a href="#minuteur-connecté">Minuteur connecté</a></li>
+<li><a href="#fonctionnalités">Fonctionnalités</a></li>
+<li><a href="#todo">TODO</a></li>
+<li><a href="#historique-des-versions">Historique des versions</a></li>
+<li><a href="#documentation-du-code">Documentation du code</a></li>
+<li><a href="#auteur">Auteur</a></li>
+<li><a href="#kanban">Kanban</a></li>
+</ul>
+</li>
+</ul>
+<p>La <b>technique Pomodoro</b> est une technique de gestion du temps développée par Francesco Cirillo à la fin des années 1980. Cette méthode se base sur l'usage d'un minuteur permettant de respecter des périodes de 20 minutes appelées pomodori (qui signifie en italien « tomates »).</p>
+<p>Francesco Cirillo propose une approche se basant notamment sur un minuteur mécanique. L’idée du projet est donc de conserver un “objet concret” pour en faire un minuteur connecté.</p>
+<p>Le système est composé :</p>
+<ul>
+<li>d’un minuteur connecté (ESP32, écran tactile, avertisseur sonore et éventuellement boutons)</li>
+<li>d’une tablette tactile (Android) pour le pilotage à distance et la gestion des tâches</li>
+</ul>
+<h1>Minuteur connecté</h1>
+<ul>
+<li>Version simulateur :</li>
+</ul>
+<div class="image">
+<img src="simulateur-pomodoro.jpg" alt=""/>
+</div>
+   <h1>Fonctionnalités</h1>
+<ul>
+<li>Gérer un pomodoro (démarrer, arrêter, ...)</li>
+</ul>
+<div class="image">
+<img src="PomodoroActivity_TacheActive.png" alt=""/>
+</div>
+   <ul>
+<li>Afficher l'état du minuteur</li>
+</ul>
+<div class="image">
+<img src="PomodoroActivity_PauseCourteActive.png" alt=""/>
+</div>
+   <div class="image">
+<img src="PomodoroActivity_PauseLongueActive.png" alt=""/>
+</div>
+   <ul>
+<li>Éditer une tâche</li>
+</ul>
+<div class="image">
+<img src="EditerTacheActivity_Accueil.png" alt=""/>
+</div>
+   <ul>
+<li>Configurer les minuteries (la longueur des pomodoros, des pauses courtes et des pauses longues, mode manuel ou automatique)</li>
+</ul>
+<div class="image">
+<img src="CreerTacheActivity_ModificationTache.png" alt=""/>
+</div>
+   <ul>
+<li>Dialoguer avec le minuteur connecté</li>
+</ul>
+<h1>TODO</h1>
+<ul>
+<li>[ ] Activer/Désactiver l'alarme sonore</li>
+<li>[ ] Notifier les événements</li>
+<li>[ ] Enregistrer le suivi des tâches (statistiques)</li>
+</ul>
+<h1>Historique des versions</h1>
+<ul>
+<li>Version 0.2 : 25/05/2022</li>
+<li>Version 0.1 : 13/04/2022</li>
+</ul>
+<h1>Documentation du code</h1>
+<p><a href="https://btssn-lasalle-84.github.io/pomodoro-2022/">https://btssn-lasalle-84.github.io/pomodoro-2022/</a></p>
+<h1>Auteur</h1>
+<ul>
+<li>Version Mobile Android : Teddy Establet &lt;<a href="#" onclick="location.href='mai'+'lto:'+'ted'+'dy'+'est'+'ab'+'let'+'84'+'@gm'+'ai'+'l.c'+'om'; return false;">teddy<span style="display: none;">.nosp@m.</span>esta<span style="display: none;">.nosp@m.</span>blet8<span style="display: none;">.nosp@m.</span>4@gm<span style="display: none;">.nosp@m.</span>ail.c<span style="display: none;">.nosp@m.</span>om</a>&gt;</li>
+</ul>
+<h1>Kanban</h1>
+<p><a href="https://github.com/btssn-lasalle-84/pomodoro-2022/projects/1">pomodoro-2022</a> </p>
+</div></div><!-- contents -->
+</div><!-- PageDoc -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.9.1-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer"><img class="footer" src="lasalle-logo.png" height="31" alt="La Salle Avignon"/>&nbsp;<b>Campus La Salle Avignon</b>&nbsp;-&nbsp;9 Rue Notre Dame des 7 douleurs&nbsp;-&nbsp;BP 50165&nbsp;-&nbsp;84008 Avignon&nbsp;-&nbsp;Généré le Jeudi 26 Mai 2022 09:14:59 pour pomodoro par&nbsp;<a href="https://www.doxygen.org/index.html">doxygen</a>&nbsp;1.8.17&nbsp;</li>
+  </ul>
+</div>
+</body>
+</html>
