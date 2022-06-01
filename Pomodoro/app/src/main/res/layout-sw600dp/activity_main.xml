@@ -128,6 +128,25 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/boutonDemarrer"
-        app:layout_constraintVertical_bias="0.336" />
+        app:layout_constraintVertical_bias="0.236" />
+
+    <Switch
+        android:id="@+id/switchSonnerie"
+        style="@style/TextAppearance.AppCompat.Widget.Switch"
+        android:layout_width="172dp"
+        android:layout_height="36dp"
+        android:drawableLeft="@android:drawable/ic_popup_reminder"
+        android:gravity="center_horizontal|left|center_vertical"
+        android:scrollbarStyle="insideOverlay"
+        android:showText="true"
+        android:text="Sonnerie"
+        android:textOff="@string/switchSonnerieOFF"
+        android:textOn="@string/switchSonnerieON"
+        app:layout_constraintBottom_toTopOf="@+id/copyrightText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.453"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/boutonDemarrer"
+        app:layout_constraintVertical_bias="0.523" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

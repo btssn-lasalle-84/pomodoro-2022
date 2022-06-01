@@ -82,6 +82,7 @@ PomodoroActivity extends AppCompatActivity
     private Tache tache; //!< une tâche
     private Timer timerMinuteur = null;;
     private TimerTask tacheMinuteur;
+
     private long dureeEnCours;
     private long debutMinuteur;
 
@@ -95,8 +96,11 @@ PomodoroActivity extends AppCompatActivity
     private List<String> nomTaches;
     private ArrayAdapter<String> adapter;
     private TextView horloge;
+
     @SuppressLint("UseSwitchCompatOrMaterialCode")
     private Switch switchMinuteur;
+    @SuppressLint("UseSwitchCompatOrMaterialCode")
+    private Switch switchSonnerie;
 
     /**
      * @brief Méthode appelée à la création de l'activité
@@ -182,6 +186,7 @@ PomodoroActivity extends AppCompatActivity
         horloge = (TextView) findViewById(R.id.horloge);
         spinner = (AppCompatSpinner) findViewById(R.id.spinner);
         switchMinuteur = (Switch) findViewById(R.id.switchMinuteur);
+        switchSonnerie = (Switch) findViewById(R.id.switchSonnerie);
 
         boutonDemarrer.setBackgroundResource(R.drawable.bouton_demarrer);
         boutonEditerTache.setBackgroundResource(R.drawable.bouton_editer);
@@ -194,9 +199,15 @@ PomodoroActivity extends AppCompatActivity
             public void onClick(View v)
             {
                 Log.d(TAG, "clic boutonDemarrer");
-                peripherique.envoyer(Protocole.DEBUT_TRAME+Protocole.DEMARRER_TACHE+Protocole.DELIMITEUR_TRAME+tache.getNom()+Protocole.FIN_TRAME);
+                modeSonnerie();
+                peripherique.envoyer(Protocole.DEBUT_TRAME+Protocole.DEMARRER_TACHE+Protocole.DELIMITEUR_TRAME+tache.getNom()+Protocole.FIN_TRAME);// Trame envoyé : #T&Nom de la tâche\r\n
+                /*if(Protocole.CHAMP_ETAT == 1)
+                {
+                    peripherique.envoyer(Protocole.DEBUT_TRAME+Protocole.ARRET_TACHE_PAUSE+Protocole.FIN_TRAME); // Trame envoyé : #S\r\n
+                }*/
             }
         });
+
         boutonEditerTache.setOnClickListener(new View.OnClickListener()
         {
             public void onClick(View v)
@@ -240,7 +251,6 @@ PomodoroActivity extends AppCompatActivity
         adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
 
         spinner.setAdapter(adapter);
-
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
         {
             @Override
@@ -255,6 +265,7 @@ PomodoroActivity extends AppCompatActivity
             {
             }
         });
+
     }
 
     @SuppressLint("MissingPermission")
@@ -627,14 +638,7 @@ PomodoroActivity extends AppCompatActivity
         debutMinuteur = Calendar.getInstance().getTime().getTime();
         horloge.setText(getMMSS(duree));
 
-        if(switchMinuteur.isChecked())
-        {
-            chronometrer();
-        }
-        else
-        {
-            minuter();
-        }
+        modeMinuteur();
     }
 
     private void arreterMinuteur()
@@ -691,5 +695,32 @@ PomodoroActivity extends AppCompatActivity
         String secondesStr = secondes < 10 ? "0" + Integer.toString((int)secondes) : Integer.toString((int)secondes);
 
         return minuteStr + ":" + secondesStr;
+    }
+
+    private void modeSonnerie()
+    {
+        if(switchSonnerie.isChecked())
+        {
+            peripherique.envoyer(Protocole.DEBUT_TRAME+Protocole.MODE_SONNERIE+Protocole.DELIMITEUR_TRAME+1+Protocole.FIN_TRAME);
+        }
+        else
+        {
+            peripherique.envoyer(Protocole.DEBUT_TRAME+Protocole.MODE_SONNERIE+Protocole.DELIMITEUR_TRAME+0+Protocole.FIN_TRAME);
+        }
+    }
+    private void modeMinuteur()
+    {
+        if(switchMinuteur.isChecked())
+        {
+            chronometrer();
+            peripherique.envoyer(Protocole.DEBUT_TRAME+Protocole.MODE_MINUTEUR+Protocole.DELIMITEUR_TRAME+1+Protocole.FIN_TRAME);
+            Log.d(TAG,"Chronometre");
+        }
+        else
+        {
+            minuter();
+            peripherique.envoyer(Protocole.DEBUT_TRAME+Protocole.MODE_MINUTEUR+Protocole.DELIMITEUR_TRAME+0+Protocole.FIN_TRAME);
+            Log.d(TAG,"Minuteur");
+        }
     }
 }

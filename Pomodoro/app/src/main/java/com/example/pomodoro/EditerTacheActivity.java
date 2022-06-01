@@ -164,7 +164,7 @@ public class EditerTacheActivity extends AppCompatActivity
         });
 
         /**
-         * @brief Spinner affichant les tâches crées
+         * @brief Spinner affichant les tâches crées &| modifiées
          */
         nomTaches = new ArrayList<>();
         Vector<String> nomsTache = baseDeDonnees.getNomTaches();
