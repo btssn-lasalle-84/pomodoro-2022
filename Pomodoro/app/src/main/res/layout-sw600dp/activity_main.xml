@@ -83,10 +83,10 @@
         android:id="@+id/spinner"
         android:layout_width="203dp"
         android:layout_height="56dp"
-        android:gravity="right"
-        android:outlineAmbientShadowColor="@color/white"
         android:spinnerMode="dialog"
         android:textAlignment="center"
+        android:gravity="center"
+        style="@style/TextAppearance.AppCompat.Widget.Switch"
         app:layout_constraintBottom_toTopOf="@+id/boutonDemarrer"
         app:layout_constraintEnd_toEndOf="@+id/boutonDemarrer"
         app:layout_constraintHorizontal_bias="0.495"
@@ -114,10 +114,12 @@
 
     <Switch
         android:id="@+id/switchMinuteur"
-        android:layout_width="280dp"
-        android:layout_height="99dp"
+        style="@style/TextAppearance.AppCompat.Widget.Switch"
+        android:layout_width="277dp"
+        android:layout_height="39dp"
         android:drawableLeft="@android:drawable/ic_lock_idle_alarm"
-        android:gravity="center"
+        android:gravity="center_horizontal|center_vertical|center"
+        android:scrollbarStyle="insideOverlay"
         android:showText="true"
         android:text="Mode"
         android:textOff="@string/switchModeOFF"
@@ -126,6 +128,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/boutonDemarrer"
-        app:layout_constraintVertical_bias="0.28" />
+        app:layout_constraintVertical_bias="0.336" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

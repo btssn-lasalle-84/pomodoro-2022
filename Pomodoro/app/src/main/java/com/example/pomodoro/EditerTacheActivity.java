@@ -146,6 +146,7 @@ public class EditerTacheActivity extends AppCompatActivity
             {
                 Log.d(TAG, "clic boutonEditerTache");
                 Intent retourAccueil = new Intent(EditerTacheActivity.this,PomodoroActivity.class);
+                retourAccueil.putExtra("tache", tache);
                 startActivity(retourAccueil);
             }
         });

@@ -95,6 +95,7 @@ PomodoroActivity extends AppCompatActivity
     private List<String> nomTaches;
     private ArrayAdapter<String> adapter;
     private TextView horloge;
+    @SuppressLint("UseSwitchCompatOrMaterialCode")
     private Switch switchMinuteur;
 
     /**
