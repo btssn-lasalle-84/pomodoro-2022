@@ -25,6 +25,9 @@
     <string name="tacheExistanteText">Si vous souhaitez éditer une tache, veuillez la sélectionner.</string>
     <string name="horlogeParDefault">00 : 00</string>
 
+    <string name="switchModeOFF">Minuteur</string>
+    <string name="switchModeON">Chronomètre</string>
+
     <string name="copyrightText">© Projet Pomodoro / Développé par ESTABLET Teddy</string>
     <string name="copyrightText2">Ensemble scolaire Saint Jean Baptiste de LaSalle Avignon</string>
 </resources>

@@ -112,4 +112,20 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <Switch
+        android:id="@+id/switchMinuteur"
+        android:layout_width="280dp"
+        android:layout_height="99dp"
+        android:drawableLeft="@android:drawable/ic_lock_idle_alarm"
+        android:gravity="center"
+        android:showText="true"
+        android:text="Mode"
+        android:textOff="@string/switchModeOFF"
+        android:textOn="@string/switchModeON"
+        app:layout_constraintBottom_toTopOf="@+id/copyrightText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/boutonDemarrer"
+        app:layout_constraintVertical_bias="0.28" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

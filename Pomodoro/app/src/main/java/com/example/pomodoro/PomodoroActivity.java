@@ -30,10 +30,15 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import java.util.Timer;
@@ -78,6 +83,7 @@ PomodoroActivity extends AppCompatActivity
     private Timer timerMinuteur = null;;
     private TimerTask tacheMinuteur;
     private long dureeEnCours;
+    private long debutMinuteur;
 
     /**
      * Ressources IHM
@@ -89,6 +95,7 @@ PomodoroActivity extends AppCompatActivity
     private List<String> nomTaches;
     private ArrayAdapter<String> adapter;
     private TextView horloge;
+    private Switch switchMinuteur;
 
     /**
      * @brief Méthode appelée à la création de l'activité
@@ -173,6 +180,7 @@ PomodoroActivity extends AppCompatActivity
         boutonSeConnecterAuPomodoro = (AppCompatButton) findViewById(R.id.boutonSeConnecterAuPomodoro);
         horloge = (TextView) findViewById(R.id.horloge);
         spinner = (AppCompatSpinner) findViewById(R.id.spinner);
+        switchMinuteur = (Switch) findViewById(R.id.switchMinuteur);
 
         boutonDemarrer.setBackgroundResource(R.drawable.bouton_demarrer);
         boutonEditerTache.setBackgroundResource(R.drawable.bouton_editer);
@@ -615,9 +623,17 @@ PomodoroActivity extends AppCompatActivity
 
         timerMinuteur = new Timer();
         dureeEnCours = duree;
+        debutMinuteur = Calendar.getInstance().getTime().getTime();
         horloge.setText(getMMSS(duree));
 
-        minuter();
+        if(switchMinuteur.isChecked())
+        {
+            chronometrer();
+        }
+        else
+        {
+            minuter();
+        }
     }
 
     private void arreterMinuteur()
@@ -638,6 +654,25 @@ PomodoroActivity extends AppCompatActivity
                 runOnUiThread(new Runnable() {
                     public void run() {
                         horloge.setText(getMMSS(dureeEnCours));
+                    }
+                });
+            }
+        };
+
+        timerMinuteur.schedule(tacheMinuteur, 1000, 1000);
+    }
+
+    public void chronometrer()
+    {
+        tacheMinuteur = new TimerTask() {
+            public void run() {
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("mm:ss");
+                long enCours = Calendar.getInstance().getTime().getTime() - debutMinuteur;
+                Date affichageMinuteur = new Date(enCours);
+                final String strDate = simpleDateFormat.format(affichageMinuteur);
+                runOnUiThread(new Runnable() {
+                    public void run() {
+                        horloge.setText(strDate);
                     }
                 });
             }
