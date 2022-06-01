@@ -6,7 +6,6 @@ package com.example.pomodoro;
  * @author Teddy ESTABLET
  */
 
-import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
@@ -28,12 +27,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ToggleButton;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -98,9 +94,9 @@ PomodoroActivity extends AppCompatActivity
     private TextView horloge;
 
     @SuppressLint("UseSwitchCompatOrMaterialCode")
-    private Switch switchMinuteur;
+    private Switch changerModerHorloge;
     @SuppressLint("UseSwitchCompatOrMaterialCode")
-    private Switch switchSonnerie;
+    private Switch changerModeSonnerie;
 
     /**
      * @brief Méthode appelée à la création de l'activité
@@ -185,8 +181,8 @@ PomodoroActivity extends AppCompatActivity
         boutonSeConnecterAuPomodoro = (AppCompatButton) findViewById(R.id.boutonSeConnecterAuPomodoro);
         horloge = (TextView) findViewById(R.id.horloge);
         spinner = (AppCompatSpinner) findViewById(R.id.spinner);
-        switchMinuteur = (Switch) findViewById(R.id.switchMinuteur);
-        switchSonnerie = (Switch) findViewById(R.id.switchSonnerie);
+        changerModerHorloge = (Switch) findViewById(R.id.switchMinuteur);
+        changerModeSonnerie = (Switch) findViewById(R.id.switchSonnerie);
 
         boutonDemarrer.setBackgroundResource(R.drawable.bouton_demarrer);
         boutonEditerTache.setBackgroundResource(R.drawable.bouton_editer);
@@ -199,7 +195,7 @@ PomodoroActivity extends AppCompatActivity
             public void onClick(View v)
             {
                 Log.d(TAG, "clic boutonDemarrer");
-                modeSonnerie();
+                choisirModeSonnerie();
                 peripherique.envoyer(Protocole.DEBUT_TRAME+Protocole.DEMARRER_TACHE+Protocole.DELIMITEUR_TRAME+tache.getNom()+Protocole.FIN_TRAME);// Trame envoyé : #T&Nom de la tâche\r\n
                 /*if(Protocole.CHAMP_ETAT == 1)
                 {
@@ -638,7 +634,7 @@ PomodoroActivity extends AppCompatActivity
         debutMinuteur = Calendar.getInstance().getTime().getTime();
         horloge.setText(getMMSS(duree));
 
-        modeMinuteur();
+        choisirModeHorloge();
     }
 
     private void arreterMinuteur()
@@ -697,9 +693,9 @@ PomodoroActivity extends AppCompatActivity
         return minuteStr + ":" + secondesStr;
     }
 
-    private void modeSonnerie()
+    private void choisirModeSonnerie()
     {
-        if(switchSonnerie.isChecked())
+        if(changerModeSonnerie.isChecked())
         {
             peripherique.envoyer(Protocole.DEBUT_TRAME+Protocole.MODE_SONNERIE+Protocole.DELIMITEUR_TRAME+1+Protocole.FIN_TRAME);
         }
@@ -708,9 +704,10 @@ PomodoroActivity extends AppCompatActivity
             peripherique.envoyer(Protocole.DEBUT_TRAME+Protocole.MODE_SONNERIE+Protocole.DELIMITEUR_TRAME+0+Protocole.FIN_TRAME);
         }
     }
-    private void modeMinuteur()
+
+    private void choisirModeHorloge()
     {
-        if(switchMinuteur.isChecked())
+        if(changerModerHorloge.isChecked())
         {
             chronometrer();
             peripherique.envoyer(Protocole.DEBUT_TRAME+Protocole.MODE_MINUTEUR+Protocole.DELIMITEUR_TRAME+1+Protocole.FIN_TRAME);
