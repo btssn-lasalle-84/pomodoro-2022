@@ -94,9 +94,9 @@ PomodoroActivity extends AppCompatActivity
     private TextView horloge;
 
     @SuppressLint("UseSwitchCompatOrMaterialCode")
-    private Switch changerModerHorloge;
+    private Switch estModeHorloge;
     @SuppressLint("UseSwitchCompatOrMaterialCode")
-    private Switch changerModeSonnerie;
+    private Switch estModeSonnerie;
 
     /**
      * @brief Méthode appelée à la création de l'activité
@@ -181,8 +181,8 @@ PomodoroActivity extends AppCompatActivity
         boutonSeConnecterAuPomodoro = (AppCompatButton) findViewById(R.id.boutonSeConnecterAuPomodoro);
         horloge = (TextView) findViewById(R.id.horloge);
         spinner = (AppCompatSpinner) findViewById(R.id.spinner);
-        changerModerHorloge = (Switch) findViewById(R.id.switchMinuteur);
-        changerModeSonnerie = (Switch) findViewById(R.id.switchSonnerie);
+        estModeHorloge = (Switch) findViewById(R.id.switchMinuteur);
+        estModeSonnerie = (Switch) findViewById(R.id.switchSonnerie);
 
         boutonDemarrer.setBackgroundResource(R.drawable.bouton_demarrer);
         boutonEditerTache.setBackgroundResource(R.drawable.bouton_editer);
@@ -695,7 +695,7 @@ PomodoroActivity extends AppCompatActivity
 
     private void choisirModeSonnerie()
     {
-        if(changerModeSonnerie.isChecked())
+        if(estModeSonnerie.isChecked())
         {
             peripherique.envoyer(Protocole.DEBUT_TRAME+Protocole.MODE_SONNERIE+Protocole.DELIMITEUR_TRAME+1+Protocole.FIN_TRAME);
         }
@@ -707,7 +707,7 @@ PomodoroActivity extends AppCompatActivity
 
     private void choisirModeHorloge()
     {
-        if(changerModerHorloge.isChecked())
+        if(estModeHorloge.isChecked())
         {
             chronometrer();
             peripherique.envoyer(Protocole.DEBUT_TRAME+Protocole.MODE_MINUTEUR+Protocole.DELIMITEUR_TRAME+1+Protocole.FIN_TRAME);
