@@ -146,6 +146,7 @@ public class EditerTacheActivity extends AppCompatActivity
             {
                 Log.d(TAG, "clic boutonEditerTache");
                 Intent retourAccueil = new Intent(EditerTacheActivity.this,PomodoroActivity.class);
+                retourAccueil.putExtra("tache", tache);
                 startActivity(retourAccueil);
             }
         });
@@ -163,7 +164,7 @@ public class EditerTacheActivity extends AppCompatActivity
         });
 
         /**
-         * @brief Spinner affichant les tâches crées
+         * @brief Spinner affichant les tâches crées &| modifiées
          */
         nomTaches = new ArrayList<>();
         Vector<String> nomsTache = baseDeDonnees.getNomTaches();
