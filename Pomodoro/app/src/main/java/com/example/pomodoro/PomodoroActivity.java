@@ -610,7 +610,7 @@ PomodoroActivity extends AppCompatActivity
 
     private void mettreAJourListeTaches()
     {
-        tache = (Tache) getIntent().getSerializableExtra("tache");
+        //tache = (Tache) getIntent().getSerializableExtra("tache");
     }
 
     private void demarrerMinuteur(int duree)

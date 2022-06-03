@@ -139,7 +139,9 @@ public class CreerTacheActivity extends AppCompatActivity
             public void onClick(View view)
             {
                 Log.v(TAG, "clic boutonAccueil");
+                creerUneNouvelleTache();
                 Intent retourAccueil = new Intent(CreerTacheActivity.this,PomodoroActivity.class);
+                retourAccueil.putExtra("tache",tache);
                 startActivity(retourAccueil);
             }
         });
@@ -172,6 +174,14 @@ public class CreerTacheActivity extends AppCompatActivity
         });
 
     }
+
+    private void miseAJourBDD()
+    {
+        String idTache = null;
+        idTache = baseDeDonnees.executerRequete(BaseDeDonnees.SELECT_ID_TACHE+nomTache);
+        baseDeDonnees.executerRequete(BaseDeDonnees.UPDATE_NOM_TACHE+nomTache+"WHERE idTache="+idTache);
+    }
+
     private void creerUneNouvelleTache()
     {
         Log.d(TAG, "creerUneNouvelleTache()");
@@ -192,5 +202,6 @@ public class CreerTacheActivity extends AppCompatActivity
             tache.setNom(nomTache);
             tache.configurer(dureeTacheEntier, dureePauseCourteEntier, dureePauseLongueEntier, nombreCycleEntier);
         }
+        miseAJourBDD();
     }
 }
