@@ -59,7 +59,7 @@ PomodoroActivity extends AppCompatActivity
     private final static int CODE_DEMANDE_BLUETOOTH_CONNECT = 1;
     private final static int CODE_DEMANDE_ACCESS_FINE_LOCATION = 2;
 
-    public final static String afficheTacheTerminé = "Tâche terminé";
+    public final static String afficheTacheTermine = "Tâche terminé";
     public final static String afficheTacheDemarrer = "Démarrer";
     public final static String affichePauseCourte = "Pause courte";
     public final static String affichePauseCourteTerminee = "Pause courte terminée";
@@ -218,6 +218,7 @@ PomodoroActivity extends AppCompatActivity
         /**
          * @brief Spinner affichant les tâches crées
          */
+        mettreAJourListeTaches();
         nomTaches = new ArrayList<>();
         Vector<String> nomsTache = baseDeDonnees.getNomTaches();
         if(tache != null && !tache.getNom().isEmpty())
@@ -605,6 +606,11 @@ PomodoroActivity extends AppCompatActivity
             boutonSeConnecterAuPomodoro.setText("Se déconnecter");
         else
             boutonSeConnecterAuPomodoro.setText("Se connecter");
+    }
+
+    private void mettreAJourListeTaches()
+    {
+        tache = (Tache) getIntent().getSerializableExtra("tache");
     }
 
     private void demarrerMinuteur(int duree)

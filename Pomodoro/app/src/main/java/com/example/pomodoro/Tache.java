@@ -97,6 +97,6 @@ public class Tache implements Serializable
     public void supprimer()
     {
         Log.d(TAG, "supprimer()");
-        this.nom = "";
+        this.nom = " ";
     }
 }
