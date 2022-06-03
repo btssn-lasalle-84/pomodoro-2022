@@ -5,7 +5,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import java.util.ListIterator;
 import java.util.Vector;
 
 /**
@@ -51,6 +50,16 @@ public class BaseDeDonnees
     /**
      * @todo Définir les colonnes de la table Preferences
      */
+    public static final int INDEX_COLONNE_PREFERENCES_NOM = 1;
+    public static final int INDEX_COLONNE_PREFERENCES_PRENOM = 2;
+    public static final int INDEX_COLONNE_PREFERENCES_ID_TACHE = 3;
+    public static final int INDEX_COLONNE_PREFERENCES_ID_POMODORO = 4;
+
+    /**
+     * @brief Requête permettant de modifier la base de donnée
+     */
+    public static final String SELECT_ID_TACHE = "SELECT idTache FROM Tache WHERE nom=";
+    public static final String UPDATE_NOM_TACHE = "UPDATE Tache SET nom=";
 
     /**
      * @brief Constructeur de la classe BaseDeDonnees
@@ -143,9 +152,10 @@ public class BaseDeDonnees
      * @brief Permet d'effectuer une requete de type INSERT, UPDATE ou DELETE
      * @param requete La requête SQL à exécuter
      */
-    public void executerRequete(String requete)
+    public String executerRequete(String requete)
     {
         ouvrir();
         bdd.execSQL(requete);
+        return requete;
     }
 }
