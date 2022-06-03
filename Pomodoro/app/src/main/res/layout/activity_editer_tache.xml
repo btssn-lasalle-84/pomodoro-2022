@@ -19,7 +19,7 @@
 
 
     <Button
-        android:id="@+id/boutonAccueil"
+        android:id="@+id/boutonPomodoroActivity"
         android:layout_width="108dp"
         android:layout_height="61dp"
         android:text="@string/boutonAccueil"

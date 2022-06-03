@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import java.util.List;
 import java.util.Vector;
 
 /**
@@ -146,6 +147,49 @@ public class BaseDeDonnees
         }
 
         return nomsTache;
+    }
+
+    /**
+     * @brief Permet d'effectuer une requete pour récupérer touts les noms de tâche
+     * @return Les objets libellés récupérés
+     */
+    public Vector<List<String>> getTaches()
+    {
+        Vector<List<String>> taches = new Vector<List<String>>();
+
+        String requete = "SELECT * FROM Tache WHERE active='0'";
+        Cursor curseurResultat = effectuerRequete(requete);
+
+        for (int i = 0; i < curseurResultat.getCount(); i++)
+        {
+            curseurResultat.moveToNext();
+            Log.d(TAG, "[Tache] " + "id = " + curseurResultat.getString(INDEX_COLONNE_TACHE_ID_TACHE) + " - nom = " + curseurResultat.getString(INDEX_COLONNE_TACHE_NOM));
+            List<String> tache = new Vector<String>();
+            tache.add(new String(curseurResultat.getString(INDEX_COLONNE_TACHE_ID_TACHE)));
+            tache.add(new String(curseurResultat.getString(INDEX_COLONNE_TACHE_NOM)));
+            tache.add(new String(curseurResultat.getString(INDEX_COLONNE_TACHE_DESCRIPTION)));
+            tache.add(new String(curseurResultat.getString(INDEX_COLONNE_TACHE_DATE_CREATION)));
+            if(curseurResultat.getString(INDEX_COLONNE_TACHE_DATE_DEBUT) != null)
+                tache.add(new String(curseurResultat.getString(INDEX_COLONNE_TACHE_DATE_DEBUT)));
+            else
+                tache.add(new String(""));
+            if(curseurResultat.getString(INDEX_COLONNE_TACHE_DATE_FIN) != null)
+                tache.add(new String(curseurResultat.getString(INDEX_COLONNE_TACHE_DATE_FIN)));
+            else
+                tache.add(new String(""));
+            if(curseurResultat.getString(INDEX_COLONNE_TACHE_COULEUR) != null)
+                tache.add(new String(curseurResultat.getString(INDEX_COLONNE_TACHE_COULEUR)));
+            else
+                tache.add(new String(""));
+            if(curseurResultat.getString(INDEX_COLONNE_TACHE_ID_COLONNE) != null)
+                tache.add(new String(curseurResultat.getString(INDEX_COLONNE_TACHE_ID_COLONNE)));
+            else
+                tache.add(new String(""));
+            tache.add(new String(curseurResultat.getString(INDEX_COLONNE_TACHE_ACTIVE)));
+            taches.add(tache);
+        }
+
+        return taches;
     }
 
     /**
