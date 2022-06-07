@@ -13,10 +13,12 @@ import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.core.app.ActivityCompat;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
@@ -27,6 +29,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -194,10 +197,44 @@ public class PomodoroActivity extends AppCompatActivity
                 Log.d(TAG, "clic boutonDemarrer");
                 choisirModeSonnerie();
                 peripherique.envoyer(Protocole.DEBUT_TRAME+Protocole.DEMARRER_TACHE+Protocole.DELIMITEUR_TRAME+tache.getNom()+Protocole.FIN_TRAME);// Trame envoyé : #T&Nom de la tâche\r\n
-                /*if(Protocole.CHAMP_ETAT == 1)
+            }
+        });
+
+        boutonDemarrer.setOnLongClickListener(new View.OnLongClickListener()
+        {
+            @Override
+            public boolean onLongClick(View view)
+            {
+                Log.d(TAG,"clic long boutonDemarrer");
+                /**
+                 * @brief Boite de dialogue pour annuler une tache ou une pause
+                 */
+                AlertDialog.Builder builder = new AlertDialog.Builder(PomodoroActivity.this);
+                builder.setTitle("Vous êtes sur le point d'annuler votre tâche !");
+                builder.setMessage("Nom de la tâche : "+tache.getNom());
+                builder.setCancelable(false);
+                builder.setPositiveButton("Confirmer", new DialogInterface.OnClickListener()
                 {
-                    peripherique.envoyer(Protocole.DEBUT_TRAME+Protocole.ARRET_TACHE_PAUSE+Protocole.FIN_TRAME); // Trame envoyé : #S\r\n
-                }*/
+                    @Override
+                    public void onClick(DialogInterface dialog, int which)
+                    {
+                        peripherique.envoyer(Protocole.DEBUT_TRAME+Protocole.ANNULATION_TACHE_PAUSE+Protocole.FIN_TRAME);
+                        boutonDemarrer.setText(R.string.DemarrerPause);
+                        horloge.setBackgroundResource(R.drawable.horloge);
+
+                    }
+                });
+                builder.setNegativeButton("Retour",new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which)
+                    {
+                        dialog.cancel();
+                    }
+                });
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
+                return true;
             }
         });
 
