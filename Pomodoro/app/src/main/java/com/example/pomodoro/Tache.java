@@ -30,6 +30,7 @@ public class Tache implements Serializable
     /**
      * Attributs
      */
+    private int id = -1; //!< L'id' de la tâche
     private String nom = ""; //!< Le nom de la tâche
     private CouleurTache couleurTache = CouleurTache.Rouge; //!< La couleur par défaut
     public int duree = 25; //!< Valeur exprimée en minutes | ne peux pas être plus grand que 50
@@ -46,7 +47,7 @@ public class Tache implements Serializable
      * @param dureePauseLongue
      * @param nombreCycle
      */
-    public Tache(String nomTache, int dureeTache, int dureePauseCourte, int dureePauseLongue, int nombreCycle)
+    /*public Tache(String nomTache, int dureeTache, int dureePauseCourte, int dureePauseLongue, int nombreCycle)
     {
         this.nom = nomTache;
         this.couleurTache = CouleurTache.Rouge;
@@ -54,6 +55,16 @@ public class Tache implements Serializable
         this.dureePauseCourte = dureePauseCourte;
         this.dureePauseLongue = dureePauseLongue;
         this.nombreDeCycles = nombreCycle;
+    }*/
+
+    public int getId()
+    {
+        return this.id;
+    }
+
+    public void setId(int id)
+    {
+        this.id = id;
     }
 
     public String getNom()
@@ -97,6 +108,6 @@ public class Tache implements Serializable
     public void supprimer()
     {
         Log.d(TAG, "supprimer()");
-        this.nom = "";
+        this.nom = " ";
     }
 }

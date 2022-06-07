@@ -20,7 +20,7 @@
 
 
     <Button
-        android:id="@+id/boutonAccueil"
+        android:id="@+id/boutonPomodoroActivity"
         android:layout_width="108dp"
         android:layout_height="61dp"
         android:text="@string/boutonAccueil"
@@ -32,7 +32,7 @@
         app:layout_constraintVertical_bias="1.0" />
 
     <Button
-        android:id="@+id/boutonEditerTache"
+        android:id="@+id/boutonEditerTacheActivity"
         android:layout_width="108dp"
         android:layout_height="61dp"
         android:layout_marginStart="32dp"
@@ -40,7 +40,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/logoPomoConnect"
         app:layout_constraintEnd_toStartOf="@+id/logoPomoConnect"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/boutonAccueil"
+        app:layout_constraintStart_toEndOf="@+id/boutonPomodoroActivity"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 
@@ -166,7 +166,7 @@
                     android:inputType="time" />
 
                 <Button
-                    android:id="@+id/boutonCreerLaTache"
+                    android:id="@+id/boutonModifierTache"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/CreationTache_CreerLaTache" />

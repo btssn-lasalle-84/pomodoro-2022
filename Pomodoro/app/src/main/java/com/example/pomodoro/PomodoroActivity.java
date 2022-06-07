@@ -27,7 +27,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,8 +44,7 @@ import java.util.Vector;
  * @class PomodoroActivity
  * @brief L'activité principale de l'application Pomodoro
  */
-public class
-PomodoroActivity extends AppCompatActivity
+public class PomodoroActivity extends AppCompatActivity
 {
     /**
      * Constantes
@@ -60,7 +58,7 @@ PomodoroActivity extends AppCompatActivity
     private final static int CODE_DEMANDE_BLUETOOTH_CONNECT = 1;
     private final static int CODE_DEMANDE_ACCESS_FINE_LOCATION = 2;
 
-    public final static String afficheTacheTerminé = "Tâche terminé";
+    public final static String afficheTacheTermine = "Tâche terminé";
     public final static String afficheTacheDemarrer = "Démarrer";
     public final static String affichePauseCourte = "Pause courte";
     public final static String affichePauseCourteTerminee = "Pause courte terminée";
@@ -76,6 +74,7 @@ PomodoroActivity extends AppCompatActivity
     private BaseDeDonnees baseDeDonnees = null;
     private Minuteur minuteur; //!< le minuteur
     private Tache tache; //!< une tâche
+    Vector<List<String>> taches; //! liste des tâches
     private Timer timerMinuteur = null;;
     private TimerTask tacheMinuteur;
 
@@ -109,9 +108,7 @@ PomodoroActivity extends AppCompatActivity
         Log.d(TAG, "onCreate()");
 
         minuteur = new Minuteur();
-        tache = new Tache("Coder le projet", 25,5,20,4);
-        Log.d(TAG, "[Tache] nom = " + tache.getNom());
-
+        tache = new Tache(); // la tâche en cours
         baseDeDonnees = new BaseDeDonnees(this);
 
         initialiserHandler();
@@ -177,7 +174,7 @@ PomodoroActivity extends AppCompatActivity
     {
         Log.d(TAG, "initialiserIHM()");
         boutonDemarrer = (AppCompatButton) findViewById(R.id.boutonDemarrer);
-        boutonEditerTache = (AppCompatButton) findViewById(R.id.boutonEditerTache);
+        boutonEditerTache = (AppCompatButton) findViewById(R.id.boutonEditerTacheActivity);
         boutonSeConnecterAuPomodoro = (AppCompatButton) findViewById(R.id.boutonSeConnecterAuPomodoro);
         horloge = (TextView) findViewById(R.id.horloge);
         spinner = (AppCompatSpinner) findViewById(R.id.spinner);
@@ -209,7 +206,7 @@ PomodoroActivity extends AppCompatActivity
             public void onClick(View v)
             {
                 Log.d(TAG, "clic boutonEditerTache");
-                Log.d(TAG, "[Tache] nom = " + tache.getNom());
+                Log.d(TAG, "[Tache] " + "id = " + tache.getId() + " - nom = " + tache.getNom());
 
                 Intent editerTache = new Intent(PomodoroActivity.this, EditerTacheActivity.class);
                 // passe la tache à l'activité
@@ -234,13 +231,11 @@ PomodoroActivity extends AppCompatActivity
         /**
          * @brief Spinner affichant les tâches crées
          */
+        mettreAJourListeTaches();
         nomTaches = new ArrayList<>();
-        Vector<String> nomsTache = baseDeDonnees.getNomTaches();
-        if(tache != null && !tache.getNom().isEmpty())
-            nomTaches.add(tache.getNom());
-        for (int i = 0; i < nomsTache.size(); i++)
+        for (int i = 0; i < taches.size(); i++)
         {
-            nomTaches.add(nomsTache.get(i));
+            nomTaches.add(taches.get(i).get(BaseDeDonnees.INDEX_COLONNE_TACHE_NOM));
         }
 
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, nomTaches);
@@ -253,6 +248,8 @@ PomodoroActivity extends AppCompatActivity
             public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long id)
             {
                 Log.d(TAG, "sélection = " + position + " -> " + nomTaches.get(position));
+                Log.d(TAG, "idTache = " + taches.get(position).get(BaseDeDonnees.INDEX_COLONNE_TACHE_ID_TACHE) + " -> " + taches.get(position).get(BaseDeDonnees.INDEX_COLONNE_TACHE_NOM));
+                tache.setId(Integer.parseInt(taches.get(position).get(BaseDeDonnees.INDEX_COLONNE_TACHE_ID_TACHE)));
                 tache.setNom(nomTaches.get(position));
             }
 
@@ -621,6 +618,11 @@ PomodoroActivity extends AppCompatActivity
             boutonSeConnecterAuPomodoro.setText("Se déconnecter");
         else
             boutonSeConnecterAuPomodoro.setText("Se connecter");
+    }
+
+    private void mettreAJourListeTaches()
+    {
+        taches = baseDeDonnees.getTaches();
     }
 
     private void demarrerMinuteur(int duree)

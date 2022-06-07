@@ -5,7 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import java.util.ListIterator;
+import java.util.List;
 import java.util.Vector;
 
 /**
@@ -51,6 +51,16 @@ public class BaseDeDonnees
     /**
      * @todo Définir les colonnes de la table Preferences
      */
+    public static final int INDEX_COLONNE_PREFERENCES_NOM = 1;
+    public static final int INDEX_COLONNE_PREFERENCES_PRENOM = 2;
+    public static final int INDEX_COLONNE_PREFERENCES_ID_TACHE = 3;
+    public static final int INDEX_COLONNE_PREFERENCES_ID_POMODORO = 4;
+
+    /**
+     * @brief Requête permettant de modifier la base de donnée
+     */
+    public static final String SELECT_ID_TACHE = "SELECT idTache FROM Tache WHERE nom=";
+    public static final String UPDATE_NOM_TACHE = "UPDATE Tache SET nom=";
 
     /**
      * @brief Constructeur de la classe BaseDeDonnees
@@ -140,12 +150,56 @@ public class BaseDeDonnees
     }
 
     /**
+     * @brief Permet d'effectuer une requete pour récupérer touts les noms de tâche
+     * @return Les objets libellés récupérés
+     */
+    public Vector<List<String>> getTaches()
+    {
+        Vector<List<String>> taches = new Vector<List<String>>();
+
+        String requete = "SELECT * FROM Tache WHERE active='0'";
+        Cursor curseurResultat = effectuerRequete(requete);
+
+        for (int i = 0; i < curseurResultat.getCount(); i++)
+        {
+            curseurResultat.moveToNext();
+            Log.d(TAG, "[Tache] " + "id = " + curseurResultat.getString(INDEX_COLONNE_TACHE_ID_TACHE) + " - nom = " + curseurResultat.getString(INDEX_COLONNE_TACHE_NOM));
+            List<String> tache = new Vector<String>();
+            tache.add(new String(curseurResultat.getString(INDEX_COLONNE_TACHE_ID_TACHE)));
+            tache.add(new String(curseurResultat.getString(INDEX_COLONNE_TACHE_NOM)));
+            tache.add(new String(curseurResultat.getString(INDEX_COLONNE_TACHE_DESCRIPTION)));
+            tache.add(new String(curseurResultat.getString(INDEX_COLONNE_TACHE_DATE_CREATION)));
+            if(curseurResultat.getString(INDEX_COLONNE_TACHE_DATE_DEBUT) != null)
+                tache.add(new String(curseurResultat.getString(INDEX_COLONNE_TACHE_DATE_DEBUT)));
+            else
+                tache.add(new String(""));
+            if(curseurResultat.getString(INDEX_COLONNE_TACHE_DATE_FIN) != null)
+                tache.add(new String(curseurResultat.getString(INDEX_COLONNE_TACHE_DATE_FIN)));
+            else
+                tache.add(new String(""));
+            if(curseurResultat.getString(INDEX_COLONNE_TACHE_COULEUR) != null)
+                tache.add(new String(curseurResultat.getString(INDEX_COLONNE_TACHE_COULEUR)));
+            else
+                tache.add(new String(""));
+            if(curseurResultat.getString(INDEX_COLONNE_TACHE_ID_COLONNE) != null)
+                tache.add(new String(curseurResultat.getString(INDEX_COLONNE_TACHE_ID_COLONNE)));
+            else
+                tache.add(new String(""));
+            tache.add(new String(curseurResultat.getString(INDEX_COLONNE_TACHE_ACTIVE)));
+            taches.add(tache);
+        }
+
+        return taches;
+    }
+
+    /**
      * @brief Permet d'effectuer une requete de type INSERT, UPDATE ou DELETE
      * @param requete La requête SQL à exécuter
      */
-    public void executerRequete(String requete)
+    public String executerRequete(String requete)
     {
         ouvrir();
         bdd.execSQL(requete);
+        return requete;
     }
 }
