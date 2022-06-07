@@ -30,7 +30,10 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import java.util.Timer;
@@ -74,7 +77,9 @@ public class PomodoroActivity extends AppCompatActivity
     Vector<List<String>> taches; //! liste des tâches
     private Timer timerMinuteur = null;;
     private TimerTask tacheMinuteur;
+
     private long dureeEnCours;
+    private long debutMinuteur;
 
     /**
      * Ressources IHM
@@ -86,6 +91,11 @@ public class PomodoroActivity extends AppCompatActivity
     private List<String> nomTaches;
     private ArrayAdapter<String> adapter;
     private TextView horloge;
+
+    @SuppressLint("UseSwitchCompatOrMaterialCode")
+    private Switch modeFonctionnement;
+    @SuppressLint("UseSwitchCompatOrMaterialCode")
+    private Switch modeSonnerie;
 
     /**
      * @brief Méthode appelée à la création de l'activité
@@ -168,6 +178,8 @@ public class PomodoroActivity extends AppCompatActivity
         boutonSeConnecterAuPomodoro = (AppCompatButton) findViewById(R.id.boutonSeConnecterAuPomodoro);
         horloge = (TextView) findViewById(R.id.horloge);
         spinner = (AppCompatSpinner) findViewById(R.id.spinner);
+        modeFonctionnement = (Switch) findViewById(R.id.switchMinuteur);
+        modeSonnerie = (Switch) findViewById(R.id.switchSonnerie);
 
         boutonDemarrer.setBackgroundResource(R.drawable.bouton_demarrer);
         boutonEditerTache.setBackgroundResource(R.drawable.bouton_editer);
@@ -180,9 +192,15 @@ public class PomodoroActivity extends AppCompatActivity
             public void onClick(View v)
             {
                 Log.d(TAG, "clic boutonDemarrer");
-                peripherique.envoyer(Protocole.DEBUT_TRAME+Protocole.DEMARRER_TACHE+Protocole.DELIMITEUR_TRAME+tache.getNom()+Protocole.FIN_TRAME);
+                choisirModeSonnerie();
+                peripherique.envoyer(Protocole.DEBUT_TRAME+Protocole.DEMARRER_TACHE+Protocole.DELIMITEUR_TRAME+tache.getNom()+Protocole.FIN_TRAME);// Trame envoyé : #T&Nom de la tâche\r\n
+                /*if(Protocole.CHAMP_ETAT == 1)
+                {
+                    peripherique.envoyer(Protocole.DEBUT_TRAME+Protocole.ARRET_TACHE_PAUSE+Protocole.FIN_TRAME); // Trame envoyé : #S\r\n
+                }*/
             }
         });
+
         boutonEditerTache.setOnClickListener(new View.OnClickListener()
         {
             public void onClick(View v)
@@ -224,7 +242,6 @@ public class PomodoroActivity extends AppCompatActivity
         adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
 
         spinner.setAdapter(adapter);
-
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
         {
             @Override
@@ -241,6 +258,7 @@ public class PomodoroActivity extends AppCompatActivity
             {
             }
         });
+
     }
 
     @SuppressLint("MissingPermission")
@@ -615,9 +633,10 @@ public class PomodoroActivity extends AppCompatActivity
 
         timerMinuteur = new Timer();
         dureeEnCours = duree;
+        debutMinuteur = Calendar.getInstance().getTime().getTime();
         horloge.setText(getMMSS(duree));
 
-        minuter();
+        choisirModeHorloge();
     }
 
     private void arreterMinuteur()
@@ -646,6 +665,25 @@ public class PomodoroActivity extends AppCompatActivity
         timerMinuteur.schedule(tacheMinuteur, 1000, 1000);
     }
 
+    public void chronometrer()
+    {
+        tacheMinuteur = new TimerTask() {
+            public void run() {
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("mm:ss");
+                long enCours = Calendar.getInstance().getTime().getTime() - debutMinuteur;
+                Date affichageMinuteur = new Date(enCours);
+                final String strDate = simpleDateFormat.format(affichageMinuteur);
+                runOnUiThread(new Runnable() {
+                    public void run() {
+                        horloge.setText(strDate);
+                    }
+                });
+            }
+        };
+
+        timerMinuteur.schedule(tacheMinuteur, 1000, 1000);
+    }
+
     private String getMMSS(long valeur)
     {
         long minutes = (valeur % 3600) / 60;
@@ -655,5 +693,33 @@ public class PomodoroActivity extends AppCompatActivity
         String secondesStr = secondes < 10 ? "0" + Integer.toString((int)secondes) : Integer.toString((int)secondes);
 
         return minuteStr + ":" + secondesStr;
+    }
+
+    private void choisirModeSonnerie()
+    {
+        if(modeSonnerie.isChecked())
+        {
+            peripherique.envoyer(Protocole.DEBUT_TRAME+Protocole.MODE_SONNERIE+Protocole.DELIMITEUR_TRAME+1+Protocole.FIN_TRAME);
+        }
+        else
+        {
+            peripherique.envoyer(Protocole.DEBUT_TRAME+Protocole.MODE_SONNERIE+Protocole.DELIMITEUR_TRAME+0+Protocole.FIN_TRAME);
+        }
+    }
+
+    private void choisirModeHorloge()
+    {
+        if(modeFonctionnement.isChecked())
+        {
+            chronometrer();
+            peripherique.envoyer(Protocole.DEBUT_TRAME+Protocole.MODE_MINUTEUR+Protocole.DELIMITEUR_TRAME+1+Protocole.FIN_TRAME);
+            Log.d(TAG,"Chronometre");
+        }
+        else
+        {
+            minuter();
+            peripherique.envoyer(Protocole.DEBUT_TRAME+Protocole.MODE_MINUTEUR+Protocole.DELIMITEUR_TRAME+0+Protocole.FIN_TRAME);
+            Log.d(TAG,"Minuteur");
+        }
     }
 }

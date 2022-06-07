@@ -1,0 +1,27 @@
+var classcom_1_1example_1_1pomodoro_1_1_protocole =
+[
+    [ "ACQUITTEMENT", "classcom_1_1example_1_1pomodoro_1_1_protocole.html#afa895e2a363ece72f8d1a5f4dabd1242", null ],
+    [ "ANNULATION_TACHE_PAUSE", "classcom_1_1example_1_1pomodoro_1_1_protocole.html#a11ea95e0feaeb561c9bf9937627f92ed", null ],
+    [ "ARRET_TACHE_PAUSE", "classcom_1_1example_1_1pomodoro_1_1_protocole.html#a45195d69a8a5cabddc71bfe1193f4f8b", null ],
+    [ "CHAMP_ETAT", "classcom_1_1example_1_1pomodoro_1_1_protocole.html#a029cc24c8569a3d393e8bf5437d1d032", null ],
+    [ "CHANGEMENT_ETAT", "classcom_1_1example_1_1pomodoro_1_1_protocole.html#adb91ab1b1e46d79d9ce13474854589f7", null ],
+    [ "CONFIGURATION_POMODORO", "classcom_1_1example_1_1pomodoro_1_1_protocole.html#aa98c20fe1596bee4ba0cfcbf41e7ba03", null ],
+    [ "CONFIGURATION_UTILISATEUR", "classcom_1_1example_1_1pomodoro_1_1_protocole.html#a6d181e9aabf7afae59f223c9724c1611", null ],
+    [ "CONFIGURER_UN_POMODORO", "classcom_1_1example_1_1pomodoro_1_1_protocole.html#aa318053c1acfe66218113179cd28c329", null ],
+    [ "DEBUT_TRAME", "classcom_1_1example_1_1pomodoro_1_1_protocole.html#a49f3ded2f9d3d932c56ed75ed7415da2", null ],
+    [ "DELIMITEUR_TRAME", "classcom_1_1example_1_1pomodoro_1_1_protocole.html#adcaa05e3a65c80baf8d825c00893737c", null ],
+    [ "DEMARRER_PAUSE", "classcom_1_1example_1_1pomodoro_1_1_protocole.html#ab51bf47a3fa62be5d5da67be900acaef", null ],
+    [ "DEMARRER_TACHE", "classcom_1_1example_1_1pomodoro_1_1_protocole.html#a29f69e6708edcd1d6db19fed0c96db67", null ],
+    [ "ERREUR", "classcom_1_1example_1_1pomodoro_1_1_protocole.html#a8c70bf8447f0e1bf147be1947aeece48", null ],
+    [ "ETAT_ATTENTE", "classcom_1_1example_1_1pomodoro_1_1_protocole.html#a8dcf316dd8812d17a06dd9c9e22f0a38", null ],
+    [ "ETAT_PAUSE_COURTE_EN_COURS", "classcom_1_1example_1_1pomodoro_1_1_protocole.html#a30b7daeb48f0c9426b1c7a99e13b1e03", null ],
+    [ "ETAT_PAUSE_COURTE_TERMINEE", "classcom_1_1example_1_1pomodoro_1_1_protocole.html#a8fe3c3d030e6be2474f95b125d307d80", null ],
+    [ "ETAT_PAUSE_LONGUE_EN_COURS", "classcom_1_1example_1_1pomodoro_1_1_protocole.html#a6cc6bf8d63d23428a29d691eb66ea74e", null ],
+    [ "ETAT_PAUSE_LONGUE_TERMINEE", "classcom_1_1example_1_1pomodoro_1_1_protocole.html#a238c3f376c8054d7f038a5a772ef8007", null ],
+    [ "ETAT_TACHE_EN_COURS", "classcom_1_1example_1_1pomodoro_1_1_protocole.html#ad1afed3c78a13c2026498db204c5656f", null ],
+    [ "ETAT_TACHE_TERMINEE", "classcom_1_1example_1_1pomodoro_1_1_protocole.html#a04ec7c1b182e14e924ae287cb55c2e3f", null ],
+    [ "FIN_TRAME", "classcom_1_1example_1_1pomodoro_1_1_protocole.html#ab69ff756046b9c6ba66cd0696dbc3a72", null ],
+    [ "MAINTIEN_CONNEXION", "classcom_1_1example_1_1pomodoro_1_1_protocole.html#a76ac38ec455dc7c4f1c46b46e4157e8c", null ],
+    [ "MODE_SONNERIE", "classcom_1_1example_1_1pomodoro_1_1_protocole.html#a29c41976546fd1bb1a0c23e6f1311317", null ],
+    [ "TYPE_TRAME", "classcom_1_1example_1_1pomodoro_1_1_protocole.html#a3873103c2e8a1fcf448206949ec19357", null ]
+];

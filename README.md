@@ -5,6 +5,7 @@
   - [Fonctionnalités](#fonctionnalités)
   - [TODO](#todo)
   - [Historique des versions](#historique-des-versions)
+  - [Documentation du code](#documentation-du-code)
   - [Auteur](#auteur)
   - [Kanban](#kanban)
 
@@ -55,6 +56,10 @@ Le système est composé :
 
 - Version 0.2 : 25/05/2022
 - Version 0.1 : 13/04/2022
+
+## Documentation du code
+
+https://btssn-lasalle-84.github.io/pomodoro-2022/
 
 ## Auteur
 

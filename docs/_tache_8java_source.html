@@ -1,0 +1,200 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.17"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>pomodoro:  Fichier source de Tache.java</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="customdoxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="pomodoro.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">pomodoro
+   &#160;<span id="projectnumber">1.0</span>
+   </div>
+   <div id="projectbrief">BTS SNIR LaSalle Avignon 2022</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.8.17 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Recherche');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('_tache_8java_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">Tache.java</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="_tache_8java.html">Aller à la documentation de ce fichier.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="keyword">package </span>com.example.pomodoro;</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">import</span> android.util.Log;</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">import</span> java.io.Serializable;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="classcom_1_1example_1_1pomodoro_1_1_tache.html">   19</a></span>&#160;<span class="keyword">public</span> <span class="keyword">class </span><a class="code" href="classcom_1_1example_1_1pomodoro_1_1_tache.html">Tache</a> <span class="keyword">implements</span> Serializable</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;{</div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="classcom_1_1example_1_1pomodoro_1_1_tache.html#a6672bc1b61865328f740c217566ec975">   24</a></span>&#160;    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_tache.html#a6672bc1b61865328f740c217566ec975">TAG</a> = <span class="stringliteral">&quot;_Tache&quot;</span>;  </div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="enumcom_1_1example_1_1pomodoro_1_1_tache_1_1_couleur_tache.html">   26</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">enum</span> <a class="code" href="enumcom_1_1example_1_1pomodoro_1_1_tache_1_1_couleur_tache.html">CouleurTache</a> {</div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="enumcom_1_1example_1_1pomodoro_1_1_tache_1_1_couleur_tache.html#ab32ce7eb9786817e88be4caa74d67fb7">   27</a></span>&#160;        Bleue, Noire, Rouge, <a class="code" href="enumcom_1_1example_1_1pomodoro_1_1_tache_1_1_couleur_tache.html#ab32ce7eb9786817e88be4caa74d67fb7">Verte</a>;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    }</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="classcom_1_1example_1_1pomodoro_1_1_tache.html#aa2da2d367a0a01f7cfe3155d69669c0a">   33</a></span>&#160;    <span class="keyword">private</span> String <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_tache.html#aa2da2d367a0a01f7cfe3155d69669c0a">nom</a> = <span class="stringliteral">&quot;&quot;</span>; </div>
+<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="classcom_1_1example_1_1pomodoro_1_1_tache.html#a04c754cfb67230de6831b5d50ac3c6d3">   34</a></span>&#160;    <span class="keyword">private</span> <a class="code" href="enumcom_1_1example_1_1pomodoro_1_1_tache_1_1_couleur_tache.html">CouleurTache</a> <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_tache.html#a04c754cfb67230de6831b5d50ac3c6d3">couleurTache</a> = <a class="code" href="enumcom_1_1example_1_1pomodoro_1_1_tache_1_1_couleur_tache.html">CouleurTache</a>.<a class="code" href="enumcom_1_1example_1_1pomodoro_1_1_tache_1_1_couleur_tache.html#aaf10caa03796c5ee9e9eda9191f96069">Rouge</a>; </div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="classcom_1_1example_1_1pomodoro_1_1_tache.html#a52993528e814b5853a6c3dbd08f5e2d3">   35</a></span>&#160;    <span class="keyword">public</span> <span class="keywordtype">int</span> <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_tache.html#a52993528e814b5853a6c3dbd08f5e2d3">duree</a> = 25; </div>
+<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="classcom_1_1example_1_1pomodoro_1_1_tache.html#ab87175430613f162745feb8bf43f5697">   36</a></span>&#160;    <span class="keyword">public</span> <span class="keywordtype">int</span> <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_tache.html#ab87175430613f162745feb8bf43f5697">dureePauseCourte</a> = 5; <span class="comment">// !&lt; Valeur exprimée en minutes | ne peux pas être plus grand que 20</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="classcom_1_1example_1_1pomodoro_1_1_tache.html#a4cf422b6ba947cedac62da01a4b0a103">   37</a></span>&#160;    <span class="keyword">public</span> <span class="keywordtype">int</span> <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_tache.html#a4cf422b6ba947cedac62da01a4b0a103">dureePauseLongue</a> = 10; </div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="classcom_1_1example_1_1pomodoro_1_1_tache.html#a06e322ccbb4d1b1f8519f697fe585e66">   38</a></span>&#160;    <span class="keyword">public</span> <span class="keywordtype">int</span> <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_tache.html#a06e322ccbb4d1b1f8519f697fe585e66">nombreDeCycles</a> = 4; </div>
+<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="classcom_1_1example_1_1pomodoro_1_1_tache.html#a939950e5c464583c4a263f0a5e325962">   39</a></span>&#160;    <span class="keyword">public</span> <span class="keywordtype">boolean</span> <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_tache.html#a939950e5c464583c4a263f0a5e325962">automatique</a> = <span class="keyword">false</span>; </div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
+<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="classcom_1_1example_1_1pomodoro_1_1_tache.html#a3983d7ac8a05b6055760dc4d9f3b6f70">   49</a></span>&#160;    <span class="keyword">public</span> <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_tache.html#a3983d7ac8a05b6055760dc4d9f3b6f70">Tache</a>(String nomTache, <span class="keywordtype">int</span> dureeTache, <span class="keywordtype">int</span> <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_tache.html#ab87175430613f162745feb8bf43f5697">dureePauseCourte</a>, <span class="keywordtype">int</span> <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_tache.html#a4cf422b6ba947cedac62da01a4b0a103">dureePauseLongue</a>, <span class="keywordtype">int</span> nombreCycle)</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    {</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        this.nom = nomTache;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        this.couleurTache = <a class="code" href="enumcom_1_1example_1_1pomodoro_1_1_tache_1_1_couleur_tache.html">CouleurTache</a>.<a class="code" href="enumcom_1_1example_1_1pomodoro_1_1_tache_1_1_couleur_tache.html#aaf10caa03796c5ee9e9eda9191f96069">Rouge</a>;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        this.duree = dureeTache;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        this.dureePauseCourte = <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_tache.html#ab87175430613f162745feb8bf43f5697">dureePauseCourte</a>;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        this.dureePauseLongue = <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_tache.html#a4cf422b6ba947cedac62da01a4b0a103">dureePauseLongue</a>;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        this.nombreDeCycles = nombreCycle;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    }</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="classcom_1_1example_1_1pomodoro_1_1_tache.html#a8e27de667a50ec3346f8c45ef2d7ab71">   59</a></span>&#160;    <span class="keyword">public</span> String <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_tache.html#a8e27de667a50ec3346f8c45ef2d7ab71">getNom</a>()</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    {</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        <span class="keywordflow">return</span> this.<a class="code" href="classcom_1_1example_1_1pomodoro_1_1_tache.html#aa2da2d367a0a01f7cfe3155d69669c0a">nom</a>;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    }</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
+<div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="classcom_1_1example_1_1pomodoro_1_1_tache.html#a156c5416a65ec5d0d4a8b34617967b9f">   64</a></span>&#160;    <span class="keyword">public</span> <span class="keywordtype">void</span> <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_tache.html#a156c5416a65ec5d0d4a8b34617967b9f">setNom</a>(String <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_tache.html#aa2da2d367a0a01f7cfe3155d69669c0a">nom</a>)</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    {</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        this.nom = <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_tache.html#aa2da2d367a0a01f7cfe3155d69669c0a">nom</a>;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    }</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
+<div class="line"><a name="l00069"></a><span class="lineno"><a class="line" href="classcom_1_1example_1_1pomodoro_1_1_tache.html#ac80d833ee65201afc157ba0795ad808d">   69</a></span>&#160;    <span class="keyword">public</span> <span class="keywordtype">int</span> <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_tache.html#ac80d833ee65201afc157ba0795ad808d">getDuree</a>()</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    {</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_tache.html#a52993528e814b5853a6c3dbd08f5e2d3">duree</a>;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    }</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
+<div class="line"><a name="l00074"></a><span class="lineno"><a class="line" href="classcom_1_1example_1_1pomodoro_1_1_tache.html#aeec438554ce33a35e102d8b83d3635fd">   74</a></span>&#160;    <span class="keyword">public</span> <span class="keywordtype">int</span> <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_tache.html#aeec438554ce33a35e102d8b83d3635fd">getDureePauseCourte</a>()</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    {</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_tache.html#ab87175430613f162745feb8bf43f5697">dureePauseCourte</a>;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    }</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
+<div class="line"><a name="l00079"></a><span class="lineno"><a class="line" href="classcom_1_1example_1_1pomodoro_1_1_tache.html#ada27605821b16ad5e3e5fc5fb10fe047">   79</a></span>&#160;    <span class="keyword">public</span> <span class="keywordtype">int</span> <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_tache.html#ada27605821b16ad5e3e5fc5fb10fe047">getDureePauseLongue</a>()</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    {</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_tache.html#a4cf422b6ba947cedac62da01a4b0a103">dureePauseLongue</a>;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    }</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
+<div class="line"><a name="l00084"></a><span class="lineno"><a class="line" href="classcom_1_1example_1_1pomodoro_1_1_tache.html#a9f38625ba0a9659305109a6164856c4f">   84</a></span>&#160;    <span class="keyword">public</span> <span class="keywordtype">int</span> <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_tache.html#a9f38625ba0a9659305109a6164856c4f">getNombreDeCycles</a>()</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    {</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_tache.html#a06e322ccbb4d1b1f8519f697fe585e66">nombreDeCycles</a>;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    }</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
+<div class="line"><a name="l00089"></a><span class="lineno"><a class="line" href="classcom_1_1example_1_1pomodoro_1_1_tache.html#a16b36f0be203338e72782c0aa783a4ca">   89</a></span>&#160;    <span class="keyword">public</span> <span class="keywordtype">void</span> <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_tache.html#a16b36f0be203338e72782c0aa783a4ca">configurer</a>(<span class="keywordtype">int</span> dureeTache, <span class="keywordtype">int</span> <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_tache.html#ab87175430613f162745feb8bf43f5697">dureePauseCourte</a>, <span class="keywordtype">int</span> <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_tache.html#a4cf422b6ba947cedac62da01a4b0a103">dureePauseLongue</a>, <span class="keywordtype">int</span> nombreCycle)</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    {</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        this.duree = dureeTache;</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        this.dureePauseCourte = <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_tache.html#ab87175430613f162745feb8bf43f5697">dureePauseCourte</a>;</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        this.dureePauseLongue = <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_tache.html#a4cf422b6ba947cedac62da01a4b0a103">dureePauseLongue</a>;</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        this.nombreDeCycles = nombreCycle;</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    }</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
+<div class="line"><a name="l00097"></a><span class="lineno"><a class="line" href="classcom_1_1example_1_1pomodoro_1_1_tache.html#a0a7f21a85bb762ce93041a657226dc8a">   97</a></span>&#160;    <span class="keyword">public</span> <span class="keywordtype">void</span> <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_tache.html#a0a7f21a85bb762ce93041a657226dc8a">supprimer</a>()</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    {</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        Log.d(<a class="code" href="classcom_1_1example_1_1pomodoro_1_1_tache.html#a6672bc1b61865328f740c217566ec975">TAG</a>, <span class="stringliteral">&quot;supprimer()&quot;</span>);</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        this.nom = <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    }</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;}</div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<div class="ttc" id="aclasscom_1_1example_1_1pomodoro_1_1_tache_html_a0a7f21a85bb762ce93041a657226dc8a"><div class="ttname"><a href="classcom_1_1example_1_1pomodoro_1_1_tache.html#a0a7f21a85bb762ce93041a657226dc8a">com.example.pomodoro.Tache.supprimer</a></div><div class="ttdeci">void supprimer()</div><div class="ttdef"><b>Definition:</b> <a href="_tache_8java_source.html#l00097">Tache.java:97</a></div></div>
+<div class="ttc" id="aclasscom_1_1example_1_1pomodoro_1_1_tache_html_aeec438554ce33a35e102d8b83d3635fd"><div class="ttname"><a href="classcom_1_1example_1_1pomodoro_1_1_tache.html#aeec438554ce33a35e102d8b83d3635fd">com.example.pomodoro.Tache.getDureePauseCourte</a></div><div class="ttdeci">int getDureePauseCourte()</div><div class="ttdef"><b>Definition:</b> <a href="_tache_8java_source.html#l00074">Tache.java:74</a></div></div>
+<div class="ttc" id="aclasscom_1_1example_1_1pomodoro_1_1_tache_html"><div class="ttname"><a href="classcom_1_1example_1_1pomodoro_1_1_tache.html">com.example.pomodoro.Tache</a></div><div class="ttdoc">Définit le concept de tâche.</div><div class="ttdef"><b>Definition:</b> <a href="_tache_8java_source.html#l00019">Tache.java:19</a></div></div>
+<div class="ttc" id="aclasscom_1_1example_1_1pomodoro_1_1_tache_html_a939950e5c464583c4a263f0a5e325962"><div class="ttname"><a href="classcom_1_1example_1_1pomodoro_1_1_tache.html#a939950e5c464583c4a263f0a5e325962">com.example.pomodoro.Tache.automatique</a></div><div class="ttdeci">boolean automatique</div><div class="ttdoc">Pomodoro automatique.</div><div class="ttdef"><b>Definition:</b> <a href="_tache_8java_source.html#l00039">Tache.java:39</a></div></div>
+<div class="ttc" id="aclasscom_1_1example_1_1pomodoro_1_1_tache_html_a156c5416a65ec5d0d4a8b34617967b9f"><div class="ttname"><a href="classcom_1_1example_1_1pomodoro_1_1_tache.html#a156c5416a65ec5d0d4a8b34617967b9f">com.example.pomodoro.Tache.setNom</a></div><div class="ttdeci">void setNom(String nom)</div><div class="ttdef"><b>Definition:</b> <a href="_tache_8java_source.html#l00064">Tache.java:64</a></div></div>
+<div class="ttc" id="aclasscom_1_1example_1_1pomodoro_1_1_tache_html_ac80d833ee65201afc157ba0795ad808d"><div class="ttname"><a href="classcom_1_1example_1_1pomodoro_1_1_tache.html#ac80d833ee65201afc157ba0795ad808d">com.example.pomodoro.Tache.getDuree</a></div><div class="ttdeci">int getDuree()</div><div class="ttdef"><b>Definition:</b> <a href="_tache_8java_source.html#l00069">Tache.java:69</a></div></div>
+<div class="ttc" id="aclasscom_1_1example_1_1pomodoro_1_1_tache_html_a6672bc1b61865328f740c217566ec975"><div class="ttname"><a href="classcom_1_1example_1_1pomodoro_1_1_tache.html#a6672bc1b61865328f740c217566ec975">com.example.pomodoro.Tache.TAG</a></div><div class="ttdeci">static final String TAG</div><div class="ttdoc">TAG pour les logs.</div><div class="ttdef"><b>Definition:</b> <a href="_tache_8java_source.html#l00024">Tache.java:24</a></div></div>
+<div class="ttc" id="aenumcom_1_1example_1_1pomodoro_1_1_tache_1_1_couleur_tache_html"><div class="ttname"><a href="enumcom_1_1example_1_1pomodoro_1_1_tache_1_1_couleur_tache.html">com.example.pomodoro.Tache.CouleurTache</a></div><div class="ttdef"><b>Definition:</b> <a href="_tache_8java_source.html#l00026">Tache.java:26</a></div></div>
+<div class="ttc" id="aenumcom_1_1example_1_1pomodoro_1_1_tache_1_1_couleur_tache_html_aaf10caa03796c5ee9e9eda9191f96069"><div class="ttname"><a href="enumcom_1_1example_1_1pomodoro_1_1_tache_1_1_couleur_tache.html#aaf10caa03796c5ee9e9eda9191f96069">com.example.pomodoro.Tache.CouleurTache.Rouge</a></div><div class="ttdeci">Rouge</div><div class="ttdef"><b>Definition:</b> <a href="_tache_8java_source.html#l00027">Tache.java:27</a></div></div>
+<div class="ttc" id="aclasscom_1_1example_1_1pomodoro_1_1_tache_html_a04c754cfb67230de6831b5d50ac3c6d3"><div class="ttname"><a href="classcom_1_1example_1_1pomodoro_1_1_tache.html#a04c754cfb67230de6831b5d50ac3c6d3">com.example.pomodoro.Tache.couleurTache</a></div><div class="ttdeci">CouleurTache couleurTache</div><div class="ttdoc">La couleur par défaut.</div><div class="ttdef"><b>Definition:</b> <a href="_tache_8java_source.html#l00034">Tache.java:34</a></div></div>
+<div class="ttc" id="aclasscom_1_1example_1_1pomodoro_1_1_tache_html_a8e27de667a50ec3346f8c45ef2d7ab71"><div class="ttname"><a href="classcom_1_1example_1_1pomodoro_1_1_tache.html#a8e27de667a50ec3346f8c45ef2d7ab71">com.example.pomodoro.Tache.getNom</a></div><div class="ttdeci">String getNom()</div><div class="ttdef"><b>Definition:</b> <a href="_tache_8java_source.html#l00059">Tache.java:59</a></div></div>
+<div class="ttc" id="aclasscom_1_1example_1_1pomodoro_1_1_tache_html_a4cf422b6ba947cedac62da01a4b0a103"><div class="ttname"><a href="classcom_1_1example_1_1pomodoro_1_1_tache.html#a4cf422b6ba947cedac62da01a4b0a103">com.example.pomodoro.Tache.dureePauseLongue</a></div><div class="ttdeci">int dureePauseLongue</div><div class="ttdoc">Valeur exprimée en minutes | ne peux pas être plus grand que 30.</div><div class="ttdef"><b>Definition:</b> <a href="_tache_8java_source.html#l00037">Tache.java:37</a></div></div>
+<div class="ttc" id="aclasscom_1_1example_1_1pomodoro_1_1_tache_html_a06e322ccbb4d1b1f8519f697fe585e66"><div class="ttname"><a href="classcom_1_1example_1_1pomodoro_1_1_tache.html#a06e322ccbb4d1b1f8519f697fe585e66">com.example.pomodoro.Tache.nombreDeCycles</a></div><div class="ttdeci">int nombreDeCycles</div><div class="ttdoc">Nombre de pomodoros successifs.</div><div class="ttdef"><b>Definition:</b> <a href="_tache_8java_source.html#l00038">Tache.java:38</a></div></div>
+<div class="ttc" id="aenumcom_1_1example_1_1pomodoro_1_1_tache_1_1_couleur_tache_html_ab32ce7eb9786817e88be4caa74d67fb7"><div class="ttname"><a href="enumcom_1_1example_1_1pomodoro_1_1_tache_1_1_couleur_tache.html#ab32ce7eb9786817e88be4caa74d67fb7">com.example.pomodoro.Tache.CouleurTache.Verte</a></div><div class="ttdeci">Verte</div><div class="ttdef"><b>Definition:</b> <a href="_tache_8java_source.html#l00027">Tache.java:27</a></div></div>
+<div class="ttc" id="aclasscom_1_1example_1_1pomodoro_1_1_tache_html_ada27605821b16ad5e3e5fc5fb10fe047"><div class="ttname"><a href="classcom_1_1example_1_1pomodoro_1_1_tache.html#ada27605821b16ad5e3e5fc5fb10fe047">com.example.pomodoro.Tache.getDureePauseLongue</a></div><div class="ttdeci">int getDureePauseLongue()</div><div class="ttdef"><b>Definition:</b> <a href="_tache_8java_source.html#l00079">Tache.java:79</a></div></div>
+<div class="ttc" id="aclasscom_1_1example_1_1pomodoro_1_1_tache_html_a52993528e814b5853a6c3dbd08f5e2d3"><div class="ttname"><a href="classcom_1_1example_1_1pomodoro_1_1_tache.html#a52993528e814b5853a6c3dbd08f5e2d3">com.example.pomodoro.Tache.duree</a></div><div class="ttdeci">int duree</div><div class="ttdoc">Valeur exprimée en minutes | ne peux pas être plus grand que 50.</div><div class="ttdef"><b>Definition:</b> <a href="_tache_8java_source.html#l00035">Tache.java:35</a></div></div>
+<div class="ttc" id="aclasscom_1_1example_1_1pomodoro_1_1_tache_html_a3983d7ac8a05b6055760dc4d9f3b6f70"><div class="ttname"><a href="classcom_1_1example_1_1pomodoro_1_1_tache.html#a3983d7ac8a05b6055760dc4d9f3b6f70">com.example.pomodoro.Tache.Tache</a></div><div class="ttdeci">Tache(String nomTache, int dureeTache, int dureePauseCourte, int dureePauseLongue, int nombreCycle)</div><div class="ttdoc">Constructeur.</div><div class="ttdef"><b>Definition:</b> <a href="_tache_8java_source.html#l00049">Tache.java:49</a></div></div>
+<div class="ttc" id="aclasscom_1_1example_1_1pomodoro_1_1_tache_html_ab87175430613f162745feb8bf43f5697"><div class="ttname"><a href="classcom_1_1example_1_1pomodoro_1_1_tache.html#ab87175430613f162745feb8bf43f5697">com.example.pomodoro.Tache.dureePauseCourte</a></div><div class="ttdeci">int dureePauseCourte</div><div class="ttdef"><b>Definition:</b> <a href="_tache_8java_source.html#l00036">Tache.java:36</a></div></div>
+<div class="ttc" id="aclasscom_1_1example_1_1pomodoro_1_1_tache_html_a16b36f0be203338e72782c0aa783a4ca"><div class="ttname"><a href="classcom_1_1example_1_1pomodoro_1_1_tache.html#a16b36f0be203338e72782c0aa783a4ca">com.example.pomodoro.Tache.configurer</a></div><div class="ttdeci">void configurer(int dureeTache, int dureePauseCourte, int dureePauseLongue, int nombreCycle)</div><div class="ttdef"><b>Definition:</b> <a href="_tache_8java_source.html#l00089">Tache.java:89</a></div></div>
+<div class="ttc" id="aclasscom_1_1example_1_1pomodoro_1_1_tache_html_aa2da2d367a0a01f7cfe3155d69669c0a"><div class="ttname"><a href="classcom_1_1example_1_1pomodoro_1_1_tache.html#aa2da2d367a0a01f7cfe3155d69669c0a">com.example.pomodoro.Tache.nom</a></div><div class="ttdeci">String nom</div><div class="ttdoc">Le nom de la tâche.</div><div class="ttdef"><b>Definition:</b> <a href="_tache_8java_source.html#l00033">Tache.java:33</a></div></div>
+<div class="ttc" id="aclasscom_1_1example_1_1pomodoro_1_1_tache_html_a9f38625ba0a9659305109a6164856c4f"><div class="ttname"><a href="classcom_1_1example_1_1pomodoro_1_1_tache.html#a9f38625ba0a9659305109a6164856c4f">com.example.pomodoro.Tache.getNombreDeCycles</a></div><div class="ttdeci">int getNombreDeCycles()</div><div class="ttdef"><b>Definition:</b> <a href="_tache_8java_source.html#l00084">Tache.java:84</a></div></div>
+<!-- HTML footer for doxygen 1.9.1-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_382895eff9e5937f281243b03de72d54.html">Pomodoro</a></li><li class="navelem"><a class="el" href="dir_e587536096171a7fc6b0c2dd0b8b0937.html">app</a></li><li class="navelem"><a class="el" href="dir_4fc409648d5327858d1eb099876d3582.html">src</a></li><li class="navelem"><a class="el" href="dir_aa31d5ac05dc697b9835a68832162fa8.html">main</a></li><li class="navelem"><a class="el" href="dir_134c81511d55a01593cf81fed009088b.html">java</a></li><li class="navelem"><a class="el" href="dir_a4968c0117d9a517dff2d0441ec36cd0.html">com</a></li><li class="navelem"><a class="el" href="dir_bf6f156deeeecebe31bc558b82442151.html">example</a></li><li class="navelem"><a class="el" href="dir_5fede52542415f60bc1a48b67c11ba5a.html">pomodoro</a></li><li class="navelem"><a class="el" href="_tache_8java.html">Tache.java</a></li>
+    <li class="footer"><img class="footer" src="lasalle-logo.png" height="31" alt="La Salle Avignon"/>&nbsp;<b>Campus La Salle Avignon</b>&nbsp;-&nbsp;9 Rue Notre Dame des 7 douleurs&nbsp;-&nbsp;BP 50165&nbsp;-&nbsp;84008 Avignon&nbsp;-&nbsp;Généré le Jeudi 26 Mai 2022 09:14:59 pour pomodoro par&nbsp;<a href="https://www.doxygen.org/index.html">doxygen</a>&nbsp;1.8.17&nbsp;</li>
+  </ul>
+</div>
+</body>
+</html>
