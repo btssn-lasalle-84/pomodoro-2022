@@ -219,6 +219,9 @@ public class PomodoroActivity extends AppCompatActivity
                     public void onClick(DialogInterface dialog, int which)
                     {
                         peripherique.envoyer(Protocole.DEBUT_TRAME+Protocole.ANNULATION_TACHE_PAUSE+Protocole.FIN_TRAME);
+                        boutonDemarrer.setText(R.string.DemarrerPause);
+                        horloge.setBackgroundResource(R.drawable.horloge);
+
                     }
                 });
                 builder.setNegativeButton("Retour",new DialogInterface.OnClickListener()
