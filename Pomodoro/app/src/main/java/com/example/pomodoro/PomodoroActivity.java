@@ -7,13 +7,18 @@ package com.example.pomodoro;
  */
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
@@ -737,17 +742,9 @@ public class PomodoroActivity extends AppCompatActivity
 
     private void choisirModeSonnerie()
     {
-        final Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         if(modeSonnerie.isChecked())
         {
             peripherique.envoyer(Protocole.DEBUT_TRAME+Protocole.MODE_SONNERIE+Protocole.DELIMITEUR_TRAME+1+Protocole.FIN_TRAME);
-            final VibrationEffect vibrationEffect;
-            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-            {
-                vibrationEffect = VibrationEffect.createOneShot(1000, VibrationEffect.DEFAULT_AMPLITUDE);
-                vibrator.cancel();
-                vibrator.vibrate(vibrationEffect);
-            }
         }
         else
         {
@@ -769,5 +766,56 @@ public class PomodoroActivity extends AppCompatActivity
             peripherique.envoyer(Protocole.DEBUT_TRAME+Protocole.MODE_MINUTEUR+Protocole.DELIMITEUR_TRAME+0+Protocole.FIN_TRAME);
             Log.d(TAG,"Minuteur");
         }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void notifierEvenement(String message)
+    {
+        /**
+         * @brief Vibration de la tablette
+         */
+        final Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        final VibrationEffect vibrationEffect;
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+        {
+            vibrationEffect = VibrationEffect.createOneShot(1000, VibrationEffect.DEFAULT_AMPLITUDE);
+            vibrator.cancel();
+        }
+
+        /**
+         * @brief Notification lors d'un évenement
+         */
+        //Création du gestionnaire de notification
+        NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+        //Création du channel
+        CharSequence name = getString(R.string.app_name);
+        String description = "Description de la notification";
+        int importance = NotificationManager.IMPORTANCE_DEFAULT;
+        NotificationChannel channel = new NotificationChannel("Nom du channel", name, importance);
+        channel.setDescription(description);
+        notificationManager.createNotificationChannel(channel);
+        //Définition du titre de la notification
+        String titreNotification = getApplicationName(getApplicationContext());
+        //Définition du texte qui caractérise la notification
+        String texteNotification = message;
+        //On crée la notification
+        NotificationCompat.Builder notification = new NotificationCompat.Builder(this)
+                .setSmallIcon(R.mipmap.logo_pomodoro)
+                .setContentTitle(titreNotification)
+                .setContentText(texteNotification);
+        //Création d'une nouvelle activité
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, new Intent(), PendingIntent.FLAG_UPDATE_CURRENT);
+        //Association de la notification à l'intent
+        notification.setContentIntent(pendingIntent);
+        notification.setAutoCancel(true);
+        //Ajout d'une vibration
+        notification.setVibrate(new long[] {0,200,100,200,100,200});
+        //Ajout de la notification et son ID au gestionnaitre de notification
+        notification.notify(idNotification++, notification.build());
+    }
+    public static String getApplicationName(Context context)
+    {
+        int stringId = context.getApplicationInfo().labelRes;
+        return context.getString(stringId);
     }
 }
