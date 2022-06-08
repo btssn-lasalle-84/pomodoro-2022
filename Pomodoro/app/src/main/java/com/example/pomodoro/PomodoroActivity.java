@@ -22,9 +22,12 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -734,9 +737,17 @@ public class PomodoroActivity extends AppCompatActivity
 
     private void choisirModeSonnerie()
     {
+        final Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         if(modeSonnerie.isChecked())
         {
             peripherique.envoyer(Protocole.DEBUT_TRAME+Protocole.MODE_SONNERIE+Protocole.DELIMITEUR_TRAME+1+Protocole.FIN_TRAME);
+            final VibrationEffect vibrationEffect;
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+            {
+                vibrationEffect = VibrationEffect.createOneShot(1000, VibrationEffect.DEFAULT_AMPLITUDE);
+                vibrator.cancel();
+                vibrator.vibrate(vibrationEffect);
+            }
         }
         else
         {
