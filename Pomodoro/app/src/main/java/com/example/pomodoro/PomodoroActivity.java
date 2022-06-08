@@ -34,6 +34,7 @@ import android.os.Message;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -108,6 +109,9 @@ public class PomodoroActivity extends AppCompatActivity
     @SuppressLint("UseSwitchCompatOrMaterialCode")
     private Switch modeSonnerie;
 
+    private NotificationManager notificationManager = null;
+    private int numeroNotification = 1;
+
     /**
      * @brief Méthode appelée à la création de l'activité
      */
@@ -118,6 +122,7 @@ public class PomodoroActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Log.d(TAG, "onCreate()");
 
+        NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
         minuteur = new Minuteur();
         tache = new Tache(); // la tâche en cours
         baseDeDonnees = new BaseDeDonnees(this);
@@ -553,12 +558,12 @@ public class PomodoroActivity extends AppCompatActivity
     {
         this.handler = new Handler(this.getMainLooper())
         {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void handleMessage(@NonNull Message message)
             {
                 Log.d(TAG, "[Handler] id du message = " + message.what);
                 Log.d(TAG, "[Handler] contenu du message = " + message.obj.toString());
-
                 switch (message.what)
                 {
                     case Peripherique.CODE_CREATION:
@@ -619,6 +624,9 @@ public class PomodoroActivity extends AppCompatActivity
                                     boutonDemarrer.setText(afficheTacheDemarrer);
                                     horloge.setBackgroundResource(R.drawable.horloge);
                                     arreterMinuteur();
+                                    Toast toast = Toast.makeText(getApplicationContext(), "Tache terminée", Toast.LENGTH_SHORT);
+                                    toast.setGravity(Gravity.TOP,20,30);
+                                    toast.show();
                                     Log.v(TAG,"[Handler] Changement d'état : Bouton = Tache Terminée");
                                 }
                                 else if(champs[Protocole.CHAMP_ETAT].equals(Protocole.ETAT_PAUSE_COURTE_EN_COURS))
@@ -633,6 +641,9 @@ public class PomodoroActivity extends AppCompatActivity
                                     boutonDemarrer.setText(affichePauseCourteTerminee);
                                     horloge.setBackgroundResource(R.drawable.horloge_jaune);
                                     arreterMinuteur();
+                                    Toast toast = Toast.makeText(getApplicationContext(), "Pause courte terminée", Toast.LENGTH_SHORT);
+                                    toast.setGravity(Gravity.TOP,20,30);
+                                    toast.show();
                                     Log.v(TAG, "[Handler] Changement d'état : Bouton = Pause Courte terminée");
                                 }
                                 else if(champs[Protocole.CHAMP_ETAT].equals(Protocole.ETAT_PAUSE_LONGUE_EN_COURS))
@@ -647,6 +658,9 @@ public class PomodoroActivity extends AppCompatActivity
                                     boutonDemarrer.setText(affichePauseLongueTerminee);
                                     horloge.setBackgroundResource(R.drawable.horloge_verte);
                                     arreterMinuteur();
+                                    Toast toast = Toast.makeText(getApplicationContext(), "Pause longue terminée", Toast.LENGTH_SHORT);
+                                    toast.setGravity(Gravity.TOP,20,30);
+                                    toast.show();
                                     Log.v(TAG, "[Handler] Changement d'état : Bouton = Pause Longue Terminée");
                                 }
                                 break;
@@ -774,20 +788,22 @@ public class PomodoroActivity extends AppCompatActivity
         /**
          * @brief Vibration de la tablette
          */
-        final Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        /**final Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         final VibrationEffect vibrationEffect;
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
         {
             vibrationEffect = VibrationEffect.createOneShot(1000, VibrationEffect.DEFAULT_AMPLITUDE);
             vibrator.cancel();
-        }
+            if(modeSonnerie.isChecked())
+            {
+                vibrator.vibrate(vibrationEffect);
+            }
+        }**/
 
         /**
          * @brief Notification lors d'un évenement
          */
         //Création du gestionnaire de notification
-        NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
-        //Création du channel
         CharSequence name = getString(R.string.app_name);
         String description = "Description de la notification";
         int importance = NotificationManager.IMPORTANCE_DEFAULT;
@@ -810,8 +826,8 @@ public class PomodoroActivity extends AppCompatActivity
         notification.setAutoCancel(true);
         //Ajout d'une vibration
         notification.setVibrate(new long[] {0,200,100,200,100,200});
-        //Ajout de la notification et son ID au gestionnaitre de notification
-        notification.notify(idNotification++, notification.build());
+        //Ajout de la notification et son ID au gestionnaire de notification
+        notificationManager.notify(numeroNotification++, notification.build());
     }
     public static String getApplicationName(Context context)
     {

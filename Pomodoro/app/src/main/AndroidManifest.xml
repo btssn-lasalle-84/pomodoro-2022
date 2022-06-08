@@ -39,8 +39,8 @@
         <activity
             android:name=".CreerTacheActivity"
             android:exported="true"
-            android:windowSoftInputMode="adjustPan|stateAlwaysHidden"
-            android:noHistory="true">
+            android:noHistory="true"
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
