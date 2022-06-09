@@ -798,11 +798,12 @@ public class PomodoroActivity extends AppCompatActivity
         //Définition du texte qui caractérise la notification
         String texteNotification = message;
         //On crée la notification
-        NotificationCompat.Builder notification = new NotificationCompat.Builder(this)
+        NotificationCompat.Builder notification = new NotificationCompat.Builder(this,"Nom du channel")
                 .setSmallIcon(R.mipmap.logo_pomodoro)
                 .setContentTitle(titreNotification)
                 .setContentText(texteNotification);
         //Création d'une nouvelle activité
+        @SuppressLint("UnspecifiedImmutableFlag")
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, new Intent(), PendingIntent.FLAG_UPDATE_CURRENT);
         //Association de la notification à l'intent
         notification.setContentIntent(pendingIntent);
