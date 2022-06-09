@@ -48,9 +48,6 @@ public class BaseDeDonnees
     public static final int INDEX_COLONNE_POMODORO_NB_POMODORI = 5;
     public static final int INDEX_COLONNE_POMODORO_AUTO_POMODORO = 6;
     public static final int INDEX_COLONNE_POMODORO_AUTO_PAUSE = 7;
-    /**
-     * @todo Définir les colonnes de la table Preferences
-     */
     public static final int INDEX_COLONNE_PREFERENCES_NOM = 1;
     public static final int INDEX_COLONNE_PREFERENCES_PRENOM = 2;
     public static final int INDEX_COLONNE_PREFERENCES_ID_TACHE = 3;
