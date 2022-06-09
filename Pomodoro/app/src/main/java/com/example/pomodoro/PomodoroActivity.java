@@ -93,6 +93,9 @@ public class PomodoroActivity extends AppCompatActivity
     private long dureeEnCours;
     private long debutMinuteur;
 
+    private int numeroNotification = 1;
+    private NotificationManager notificationManager = null;
+
     /**
      * Ressources IHM
      */
@@ -108,9 +111,6 @@ public class PomodoroActivity extends AppCompatActivity
     private Switch modeFonctionnement;
     @SuppressLint("UseSwitchCompatOrMaterialCode")
     private Switch modeSonnerie;
-
-    private NotificationManager notificationManager = null;
-    private int numeroNotification = 1;
 
     /**
      * @brief Méthode appelée à la création de l'activité
@@ -627,6 +627,7 @@ public class PomodoroActivity extends AppCompatActivity
                                     Toast toast = Toast.makeText(getApplicationContext(), "Tache terminée", Toast.LENGTH_SHORT);
                                     toast.setGravity(Gravity.TOP,20,30);
                                     toast.show();
+                                    notifierEvenement("Vous avez terminé la tache : "+tache.getNom());
                                     Log.v(TAG,"[Handler] Changement d'état : Bouton = Tache Terminée");
                                 }
                                 else if(champs[Protocole.CHAMP_ETAT].equals(Protocole.ETAT_PAUSE_COURTE_EN_COURS))
@@ -785,27 +786,9 @@ public class PomodoroActivity extends AppCompatActivity
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void notifierEvenement(String message)
     {
-        /**
-         * @brief Vibration de la tablette
-         */
-        /**final Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        final VibrationEffect vibrationEffect;
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-        {
-            vibrationEffect = VibrationEffect.createOneShot(1000, VibrationEffect.DEFAULT_AMPLITUDE);
-            vibrator.cancel();
-            if(modeSonnerie.isChecked())
-            {
-                vibrator.vibrate(vibrationEffect);
-            }
-        }**/
-
-        /**
-         * @brief Notification lors d'un évenement
-         */
         //Création du gestionnaire de notification
         CharSequence name = getString(R.string.app_name);
-        String description = "Description de la notification";
+        String description = "Fin de la tache : "+tache.getNom()+" bonne pause";
         int importance = NotificationManager.IMPORTANCE_DEFAULT;
         NotificationChannel channel = new NotificationChannel("Nom du channel", name, importance);
         channel.setDescription(description);
