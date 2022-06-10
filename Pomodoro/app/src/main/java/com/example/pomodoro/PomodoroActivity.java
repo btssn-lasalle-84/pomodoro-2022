@@ -7,13 +7,18 @@ package com.example.pomodoro;
  */
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
@@ -22,10 +27,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -84,6 +93,9 @@ public class PomodoroActivity extends AppCompatActivity
     private long dureeEnCours;
     private long debutMinuteur;
 
+    private int numeroNotification = 1;
+    private NotificationManager notificationManager = null;
+
     /**
      * Ressources IHM
      */
@@ -110,6 +122,7 @@ public class PomodoroActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Log.d(TAG, "onCreate()");
 
+        notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
         minuteur = new Minuteur();
         tache = new Tache(); // la tâche en cours
         baseDeDonnees = new BaseDeDonnees(this);
@@ -207,7 +220,7 @@ public class PomodoroActivity extends AppCompatActivity
             {
                 Log.d(TAG,"clic long boutonDemarrer");
                 /**
-                 * @brief Boite de dialogue pour annuler une tache ou une pause
+                 * @brief Boite de dialogue pour annuler une tâche ou une pause
                  */
                 AlertDialog.Builder builder = new AlertDialog.Builder(PomodoroActivity.this);
                 builder.setTitle("Vous êtes sur le point d'annuler votre tâche !");
@@ -465,7 +478,7 @@ public class PomodoroActivity extends AppCompatActivity
                             Log.d(TAG, "[changementEtatBluetooth] bluetooth en cours d'activation !");
                             break;
                         default:
-                            Log.d(TAG, "[changementEtatBluetooth] etat : " + state);
+                            Log.d(TAG, "[changementEtatBluetooth] état : " + state);
                             break;
                     }
                 }
@@ -545,12 +558,12 @@ public class PomodoroActivity extends AppCompatActivity
     {
         this.handler = new Handler(this.getMainLooper())
         {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void handleMessage(@NonNull Message message)
             {
                 Log.d(TAG, "[Handler] id du message = " + message.what);
                 Log.d(TAG, "[Handler] contenu du message = " + message.obj.toString());
-
                 switch (message.what)
                 {
                     case Peripherique.CODE_CREATION:
@@ -611,6 +624,10 @@ public class PomodoroActivity extends AppCompatActivity
                                     boutonDemarrer.setText(afficheTacheDemarrer);
                                     horloge.setBackgroundResource(R.drawable.horloge);
                                     arreterMinuteur();
+                                    Toast toast = Toast.makeText(getApplicationContext(), "Tache terminée", Toast.LENGTH_SHORT);
+                                    toast.setGravity(Gravity.TOP,20,30);
+                                    toast.show();
+                                    notifierEvenement("Vous avez terminé la tâche : "+tache.getNom());
                                     Log.v(TAG,"[Handler] Changement d'état : Bouton = Tache Terminée");
                                 }
                                 else if(champs[Protocole.CHAMP_ETAT].equals(Protocole.ETAT_PAUSE_COURTE_EN_COURS))
@@ -625,6 +642,10 @@ public class PomodoroActivity extends AppCompatActivity
                                     boutonDemarrer.setText(affichePauseCourteTerminee);
                                     horloge.setBackgroundResource(R.drawable.horloge_jaune);
                                     arreterMinuteur();
+                                    Toast toast = Toast.makeText(getApplicationContext(), "Pause courte terminée", Toast.LENGTH_SHORT);
+                                    toast.setGravity(Gravity.TOP,20,30);
+                                    toast.show();
+                                    notifierEvenement("Vous avez terminé votre pause courte, retournez à la tâche : "+tache.getNom());
                                     Log.v(TAG, "[Handler] Changement d'état : Bouton = Pause Courte terminée");
                                 }
                                 else if(champs[Protocole.CHAMP_ETAT].equals(Protocole.ETAT_PAUSE_LONGUE_EN_COURS))
@@ -639,6 +660,10 @@ public class PomodoroActivity extends AppCompatActivity
                                     boutonDemarrer.setText(affichePauseLongueTerminee);
                                     horloge.setBackgroundResource(R.drawable.horloge_verte);
                                     arreterMinuteur();
+                                    Toast toast = Toast.makeText(getApplicationContext(), "Pause longue terminée", Toast.LENGTH_SHORT);
+                                    toast.setGravity(Gravity.TOP,20,30);
+                                    toast.show();
+                                    notifierEvenement("Vous avez terminé votre pause longue, retournez à la tâche : "+tache.getNom());
                                     Log.v(TAG, "[Handler] Changement d'état : Bouton = Pause Longue Terminée");
                                 }
                                 break;
@@ -758,5 +783,41 @@ public class PomodoroActivity extends AppCompatActivity
             peripherique.envoyer(Protocole.DEBUT_TRAME+Protocole.MODE_MINUTEUR+Protocole.DELIMITEUR_TRAME+0+Protocole.FIN_TRAME);
             Log.d(TAG,"Minuteur");
         }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void notifierEvenement(String message)
+    {
+        //Création du gestionnaire de notification
+        CharSequence name = getString(R.string.app_name);
+        String description = "Fin de la tâche : "+tache.getNom()+" bonne pause";
+        int importance = NotificationManager.IMPORTANCE_DEFAULT;
+        //NotificationChannel channel = new NotificationChannel("Nom du channel", name, importance);
+        //channel.setDescription(description);
+        //notificationManager.createNotificationChannel(channel);
+        //Définition du titre de la notification
+        String titreNotification = getApplicationName(getApplicationContext());
+        //Définition du texte qui caractérise la notification
+        String texteNotification = message;
+        //On crée la notification
+        NotificationCompat.Builder notification = new NotificationCompat.Builder(this,"Nom du channel")
+                .setSmallIcon(R.mipmap.logo_pomodoro)
+                .setContentTitle(titreNotification)
+                .setContentText(texteNotification);
+        //Création d'une nouvelle activité
+        @SuppressLint("UnspecifiedImmutableFlag")
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, new Intent(), PendingIntent.FLAG_UPDATE_CURRENT);
+        //Association de la notification à l'intent
+        notification.setContentIntent(pendingIntent);
+        notification.setAutoCancel(true);
+        //Ajout d'une vibration
+        notification.setVibrate(new long[] {0,200,100,200,100,200});
+        //Ajout de la notification et son ID au gestionnaire de notification
+        notificationManager.notify(numeroNotification++, notification.build());
+    }
+    public static String getApplicationName(Context context)
+    {
+        int stringId = context.getApplicationInfo().labelRes;
+        return context.getString(stringId);
     }
 }
