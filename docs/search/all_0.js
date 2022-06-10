@@ -13,7 +13,7 @@ var searchData=
   ['affichepauselongue_10',['affichePauseLongue',['../classcom_1_1example_1_1pomodoro_1_1_pomodoro_activity.html#a9189dfc77e661e0d27b2b00b9e86b0b8',1,'com::example::pomodoro::PomodoroActivity']]],
   ['affichepauselongueterminee_11',['affichePauseLongueTerminee',['../classcom_1_1example_1_1pomodoro_1_1_pomodoro_activity.html#ad2d1b10e5cdad51393c26b594553a93f',1,'com::example::pomodoro::PomodoroActivity']]],
   ['affichetachedemarrer_12',['afficheTacheDemarrer',['../classcom_1_1example_1_1pomodoro_1_1_pomodoro_activity.html#a2cd477b6612621e7fd4edd5e30bce6cb',1,'com::example::pomodoro::PomodoroActivity']]],
-  ['affichetacheterminé_13',['afficheTacheTerminé',['../classcom_1_1example_1_1pomodoro_1_1_pomodoro_activity.html#ade0bd9b43be43d4d721875c97d27a23f',1,'com::example::pomodoro::PomodoroActivity']]],
+  ['affichetachetermine_13',['afficheTacheTermine',['../classcom_1_1example_1_1pomodoro_1_1_pomodoro_activity.html#aa00aa84d6d7ed97f52b4816502b5a448',1,'com::example::pomodoro::PomodoroActivity']]],
   ['androidmanifest_2exml_14',['AndroidManifest.xml',['../_android_manifest_8xml.html',1,'']]],
   ['annulation_5ftache_5fpause_15',['ANNULATION_TACHE_PAUSE',['../classcom_1_1example_1_1pomodoro_1_1_protocole.html#a11ea95e0feaeb561c9bf9937627f92ed',1,'com::example::pomodoro::Protocole']]],
   ['arret_5ftache_5fpause_16',['ARRET_TACHE_PAUSE',['../classcom_1_1example_1_1pomodoro_1_1_protocole.html#a45195d69a8a5cabddc71bfe1193f4f8b',1,'com::example::pomodoro::Protocole']]],

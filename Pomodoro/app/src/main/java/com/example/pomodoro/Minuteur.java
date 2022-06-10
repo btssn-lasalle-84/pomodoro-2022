@@ -55,6 +55,9 @@ public class Minuteur
         this.modeAutomatiquePause = true;
     }
 
+    /**
+     * @brief Constructeur
+     */
     public Minuteur(int longueur, int dureePauseCourte, int dureePauseLongue, int nbCycles, boolean modeAutomatique, boolean modeAutomatiquePause)
     {
         this.longueur = longueur;

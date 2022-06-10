@@ -1,6 +1,6 @@
 <map id="com.example.pomodoro.CreerTacheActivity" name="com.example.pomodoro.CreerTacheActivity">
-<area shape="rect" id="node1" title="L&#39;activité creer une tache de l&#39;application Pomodoro." alt="" coords="143,740,340,1052"/>
-<area shape="rect" id="node2" href="$classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html" title="Classe permettant de manipuler la base de données." alt="" coords="5,204,280,677"/>
-<area shape="rect" id="node3" href="$classcom_1_1example_1_1pomodoro_1_1_tache.html" title="Définit le concept de tâche." alt="" coords="304,299,504,582"/>
+<area shape="rect" id="node1" title="L&#39;activité creer une tache de l&#39;application Pomodoro." alt="" coords="143,755,340,1125"/>
+<area shape="rect" id="node2" href="$classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html" title="Classe permettant de manipuler la base de données." alt="" coords="5,204,280,692"/>
+<area shape="rect" id="node3" href="$classcom_1_1example_1_1pomodoro_1_1_tache.html" title="Définit le concept de tâche." alt="" coords="304,292,504,604"/>
 <area shape="rect" id="node4" href="$enumcom_1_1example_1_1pomodoro_1_1_tache_1_1_couleur_tache.html" title=" " alt="" coords="302,5,506,141"/>
 </map>
