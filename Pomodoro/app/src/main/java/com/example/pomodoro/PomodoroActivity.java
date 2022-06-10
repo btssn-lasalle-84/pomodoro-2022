@@ -122,7 +122,7 @@ public class PomodoroActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Log.d(TAG, "onCreate()");
 
-        NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
         minuteur = new Minuteur();
         tache = new Tache(); // la tâche en cours
         baseDeDonnees = new BaseDeDonnees(this);
@@ -645,6 +645,7 @@ public class PomodoroActivity extends AppCompatActivity
                                     Toast toast = Toast.makeText(getApplicationContext(), "Pause courte terminée", Toast.LENGTH_SHORT);
                                     toast.setGravity(Gravity.TOP,20,30);
                                     toast.show();
+                                    notifierEvenement("Vous avez terminé votre pause courte, retournez à la tâche : "+tache.getNom());
                                     Log.v(TAG, "[Handler] Changement d'état : Bouton = Pause Courte terminée");
                                 }
                                 else if(champs[Protocole.CHAMP_ETAT].equals(Protocole.ETAT_PAUSE_LONGUE_EN_COURS))
@@ -662,6 +663,7 @@ public class PomodoroActivity extends AppCompatActivity
                                     Toast toast = Toast.makeText(getApplicationContext(), "Pause longue terminée", Toast.LENGTH_SHORT);
                                     toast.setGravity(Gravity.TOP,20,30);
                                     toast.show();
+                                    notifierEvenement("Vous avez terminé votre pause longue, retournez à la tache : "+tache.getNom());
                                     Log.v(TAG, "[Handler] Changement d'état : Bouton = Pause Longue Terminée");
                                 }
                                 break;
@@ -790,19 +792,20 @@ public class PomodoroActivity extends AppCompatActivity
         CharSequence name = getString(R.string.app_name);
         String description = "Fin de la tache : "+tache.getNom()+" bonne pause";
         int importance = NotificationManager.IMPORTANCE_DEFAULT;
-        NotificationChannel channel = new NotificationChannel("Nom du channel", name, importance);
-        channel.setDescription(description);
-        notificationManager.createNotificationChannel(channel);
+        //NotificationChannel channel = new NotificationChannel("Nom du channel", name, importance);
+        //channel.setDescription(description);
+        //notificationManager.createNotificationChannel(channel);
         //Définition du titre de la notification
         String titreNotification = getApplicationName(getApplicationContext());
         //Définition du texte qui caractérise la notification
         String texteNotification = message;
         //On crée la notification
-        NotificationCompat.Builder notification = new NotificationCompat.Builder(this)
+        NotificationCompat.Builder notification = new NotificationCompat.Builder(this,"Nom du channel")
                 .setSmallIcon(R.mipmap.logo_pomodoro)
                 .setContentTitle(titreNotification)
                 .setContentText(texteNotification);
         //Création d'une nouvelle activité
+        @SuppressLint("UnspecifiedImmutableFlag")
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, new Intent(), PendingIntent.FLAG_UPDATE_CURRENT);
         //Association de la notification à l'intent
         notification.setContentIntent(pendingIntent);
