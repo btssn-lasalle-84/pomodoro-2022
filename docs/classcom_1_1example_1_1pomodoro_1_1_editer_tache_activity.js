@@ -15,5 +15,7 @@ var classcom_1_1example_1_1pomodoro_1_1_editer_tache_activity =
     [ "nomTaches", "classcom_1_1example_1_1pomodoro_1_1_editer_tache_activity.html#a394214b0b2e86dfa9f9c997aa66a6bd7", null ],
     [ "spinnerTachesExistante", "classcom_1_1example_1_1pomodoro_1_1_editer_tache_activity.html#a036da134903b25d66528afaabd350f37", null ],
     [ "tache", "classcom_1_1example_1_1pomodoro_1_1_editer_tache_activity.html#ab02f0b0b0322911c844a8d9a594997c1", null ],
-    [ "TAG", "classcom_1_1example_1_1pomodoro_1_1_editer_tache_activity.html#ad1fa7a9ba936be08c60b7dc56ff6618d", null ]
+    [ "taches", "classcom_1_1example_1_1pomodoro_1_1_editer_tache_activity.html#a6470815d4dd0f2f26260bfafe7a2e5c3", null ],
+    [ "TAG", "classcom_1_1example_1_1pomodoro_1_1_editer_tache_activity.html#ad1fa7a9ba936be08c60b7dc56ff6618d", null ],
+    [ "TAG_DEMO", "classcom_1_1example_1_1pomodoro_1_1_editer_tache_activity.html#ab825a9011ac7594d92f46c4c6cceb62f", null ]
 ];
