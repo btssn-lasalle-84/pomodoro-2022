@@ -53,6 +53,7 @@ public class PomodoroActivity extends AppCompatActivity
      * Constantes
      */
     private static final String TAG = "_PomodoroActivity";  //!< TAG pour les logs
+    private static final String TAG_DEMO = "_Demo"; //!< TAG_DEMO pour les logs de la démonstration
     // Pour les tests
     private static final String NOM_MINUTEUR = "pomodoro-1";
     private static final String ADRESSE_MINUTEUR = "A4:CF:12:6D:F3:6E";
@@ -284,8 +285,8 @@ public class PomodoroActivity extends AppCompatActivity
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long id)
             {
-                Log.d(TAG, "sélection = " + position + " -> " + nomTaches.get(position));
-                Log.d(TAG, "idTache = " + taches.get(position).get(BaseDeDonnees.INDEX_COLONNE_TACHE_ID_TACHE) + " -> " + taches.get(position).get(BaseDeDonnees.INDEX_COLONNE_TACHE_NOM));
+                Log.d(TAG_DEMO, "sélection = " + position + " -> " + nomTaches.get(position));
+                Log.d(TAG_DEMO, "idTache = " + taches.get(position).get(BaseDeDonnees.INDEX_COLONNE_TACHE_ID_TACHE) + " -> " + taches.get(position).get(BaseDeDonnees.INDEX_COLONNE_TACHE_NOM));
                 tache.setId(Integer.parseInt(taches.get(position).get(BaseDeDonnees.INDEX_COLONNE_TACHE_ID_TACHE)));
                 tache.setNom(nomTaches.get(position));
             }
@@ -349,7 +350,7 @@ public class PomodoroActivity extends AppCompatActivity
             //Log.d(TAG,"[chercherMinuteur] device : " + device.getName() + " [" + device.getAddress() + "]");
             if(device.getName().equals(NOM_MINUTEUR) || device.getAddress().equals(ADRESSE_MINUTEUR))
             {
-                Log.d(TAG,"[chercherMinuteur] minuteur trouvé : " + device.getName() + " [" + device.getAddress() + "]");
+                Log.d(TAG_DEMO,"[chercherMinuteur] minuteur trouvé : " + device.getName() + " [" + device.getAddress() + "]");
                 initialiserPeripherique();
                 return;
             }
@@ -549,7 +550,7 @@ public class PomodoroActivity extends AppCompatActivity
             public void handleMessage(@NonNull Message message)
             {
                 Log.d(TAG, "[Handler] id du message = " + message.what);
-                Log.d(TAG, "[Handler] contenu du message = " + message.obj.toString());
+                Log.d(TAG_DEMO, "[Handler] contenu du message = " + message.obj.toString());
 
                 switch (message.what)
                 {
@@ -570,12 +571,12 @@ public class PomodoroActivity extends AppCompatActivity
                         mettreAJourBoutonConnexion(false);
                         break;
                     case Peripherique.CODE_RECEPTION:
-                        Log.d(TAG, "[Handler] RECEPTION = " + message.obj.toString());
+                        Log.d(TAG_DEMO, "[Handler] RECEPTION = " + message.obj.toString());
                         String trame = "";
                         // Vérification
                         if(message.obj.toString().startsWith(Protocole.DEBUT_TRAME))
                         {
-                            Log.v(TAG, "[Handler] Trame valide");
+                            Log.v(TAG_DEMO, "[Handler] Trame valide");
                             trame = message.obj.toString().replace(Protocole.DEBUT_TRAME, "");
                         } else
                         {
@@ -674,6 +675,7 @@ public class PomodoroActivity extends AppCompatActivity
         horloge.setText(getMMSS(duree));
 
         choisirModeHorloge();
+        Log.d(TAG_DEMO,"Minuteur démarré");
     }
 
     private void arreterMinuteur()
@@ -683,6 +685,7 @@ public class PomodoroActivity extends AppCompatActivity
             timerMinuteur.cancel();
             timerMinuteur = null;
             horloge.setText("00:00");
+            Log.d(TAG_DEMO,"Minuteur arrêté");
         }
     }
 
@@ -737,10 +740,12 @@ public class PomodoroActivity extends AppCompatActivity
         if(modeSonnerie.isChecked())
         {
             peripherique.envoyer(Protocole.DEBUT_TRAME+Protocole.MODE_SONNERIE+Protocole.DELIMITEUR_TRAME+1+Protocole.FIN_TRAME);
+            Log.d(TAG_DEMO,"Sonnerie activé");
         }
         else
         {
             peripherique.envoyer(Protocole.DEBUT_TRAME+Protocole.MODE_SONNERIE+Protocole.DELIMITEUR_TRAME+0+Protocole.FIN_TRAME);
+            Log.d(TAG_DEMO,"Sonnerie désactivé");
         }
     }
 
@@ -750,13 +755,13 @@ public class PomodoroActivity extends AppCompatActivity
         {
             chronometrer();
             peripherique.envoyer(Protocole.DEBUT_TRAME+Protocole.MODE_MINUTEUR+Protocole.DELIMITEUR_TRAME+1+Protocole.FIN_TRAME);
-            Log.d(TAG,"Chronometre");
+            Log.d(TAG,"Mode chronomètre");
         }
         else
         {
             minuter();
             peripherique.envoyer(Protocole.DEBUT_TRAME+Protocole.MODE_MINUTEUR+Protocole.DELIMITEUR_TRAME+0+Protocole.FIN_TRAME);
-            Log.d(TAG,"Minuteur");
+            Log.d(TAG,"Mode minuteur");
         }
     }
 }

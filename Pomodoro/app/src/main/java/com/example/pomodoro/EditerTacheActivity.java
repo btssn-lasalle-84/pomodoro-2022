@@ -29,6 +29,7 @@ public class EditerTacheActivity extends AppCompatActivity
      * @brief Constantes
      */
     private static final String TAG = "_EditerTacheActivity";  //!< TAG pour les logs
+    private static final String TAG_DEMO = "_Demo"; //!< TAG_DEMO pour les logs de la démonstration
 
     /**
      * @brief Ressources IHM
