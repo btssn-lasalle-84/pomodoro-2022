@@ -220,7 +220,7 @@ public class PomodoroActivity extends AppCompatActivity
             {
                 Log.d(TAG,"clic long boutonDemarrer");
                 /**
-                 * @brief Boite de dialogue pour annuler une tache ou une pause
+                 * @brief Boite de dialogue pour annuler une tâche ou une pause
                  */
                 AlertDialog.Builder builder = new AlertDialog.Builder(PomodoroActivity.this);
                 builder.setTitle("Vous êtes sur le point d'annuler votre tâche !");
@@ -478,7 +478,7 @@ public class PomodoroActivity extends AppCompatActivity
                             Log.d(TAG, "[changementEtatBluetooth] bluetooth en cours d'activation !");
                             break;
                         default:
-                            Log.d(TAG, "[changementEtatBluetooth] etat : " + state);
+                            Log.d(TAG, "[changementEtatBluetooth] état : " + state);
                             break;
                     }
                 }
@@ -627,7 +627,7 @@ public class PomodoroActivity extends AppCompatActivity
                                     Toast toast = Toast.makeText(getApplicationContext(), "Tache terminée", Toast.LENGTH_SHORT);
                                     toast.setGravity(Gravity.TOP,20,30);
                                     toast.show();
-                                    notifierEvenement("Vous avez terminé la tache : "+tache.getNom());
+                                    notifierEvenement("Vous avez terminé la tâche : "+tache.getNom());
                                     Log.v(TAG,"[Handler] Changement d'état : Bouton = Tache Terminée");
                                 }
                                 else if(champs[Protocole.CHAMP_ETAT].equals(Protocole.ETAT_PAUSE_COURTE_EN_COURS))
@@ -663,7 +663,7 @@ public class PomodoroActivity extends AppCompatActivity
                                     Toast toast = Toast.makeText(getApplicationContext(), "Pause longue terminée", Toast.LENGTH_SHORT);
                                     toast.setGravity(Gravity.TOP,20,30);
                                     toast.show();
-                                    notifierEvenement("Vous avez terminé votre pause longue, retournez à la tache : "+tache.getNom());
+                                    notifierEvenement("Vous avez terminé votre pause longue, retournez à la tâche : "+tache.getNom());
                                     Log.v(TAG, "[Handler] Changement d'état : Bouton = Pause Longue Terminée");
                                 }
                                 break;
@@ -790,7 +790,7 @@ public class PomodoroActivity extends AppCompatActivity
     {
         //Création du gestionnaire de notification
         CharSequence name = getString(R.string.app_name);
-        String description = "Fin de la tache : "+tache.getNom()+" bonne pause";
+        String description = "Fin de la tâche : "+tache.getNom()+" bonne pause";
         int importance = NotificationManager.IMPORTANCE_DEFAULT;
         //NotificationChannel channel = new NotificationChannel("Nom du channel", name, importance);
         //channel.setDescription(description);
