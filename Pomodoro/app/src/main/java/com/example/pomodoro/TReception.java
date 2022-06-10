@@ -22,7 +22,7 @@ import java.nio.charset.StandardCharsets;
 
 /**
  * @class TReception
- * @brief Définit le concept de TReception
+ * @brief Permet d'assurer la réception des trames dans un thread
  */
 public class TReception extends Thread
 {
@@ -32,6 +32,9 @@ public class TReception extends Thread
     InputStream receiveStream;
     private boolean fini;
 
+    /**
+     * @brief Constructeur
+     */
     TReception(Handler h, InputStream receiveStream)
     {
         this.handlerUI = h;
@@ -39,6 +42,9 @@ public class TReception extends Thread
         this.fini = false;
     }
 
+    /**
+     * @brief Le thread
+     */
     @Override
     public void run()
     {
@@ -49,6 +55,9 @@ public class TReception extends Thread
         }
     }
 
+    /**
+     * @brief réceptionne les trames et les transmet à l'IHM via un handler
+     */
     private void recevoir(BufferedReader reception)
     {
         try
@@ -82,6 +91,9 @@ public class TReception extends Thread
         }
     }
 
+    /**
+     * @brief Arrête le thread
+     */
     public void arreter()
     {
         if(fini == false)

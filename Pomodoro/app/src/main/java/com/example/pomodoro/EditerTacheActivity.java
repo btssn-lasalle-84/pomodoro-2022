@@ -29,6 +29,7 @@ public class EditerTacheActivity extends AppCompatActivity
      * @brief Constantes
      */
     private static final String TAG = "_EditerTacheActivity";  //!< TAG pour les logs
+    private static final String TAG_DEMO = "_Demo"; //!< TAG_DEMO pour les logs de la démonstration
 
     /**
      * @brief Ressources IHM
@@ -44,6 +45,7 @@ public class EditerTacheActivity extends AppCompatActivity
     private List<String> nomTaches;
     private ArrayAdapter<String> adapter;
     private Tache tache = null;
+    Vector<List<String>> taches; //! liste des tâches
     private BaseDeDonnees baseDeDonnees = null;
 
     /**
@@ -58,7 +60,7 @@ public class EditerTacheActivity extends AppCompatActivity
 
         // récupère la tâche
         tache = (Tache) getIntent().getSerializableExtra("tache");
-        Log.d(TAG, "[Tache] nom = " + tache.getNom());
+        Log.d(TAG, "[Tache] " + "id = " + tache.getId() + " - nom = " + tache.getNom());
 
         baseDeDonnees = new BaseDeDonnees(this);
         initialiserIHM();
@@ -120,7 +122,7 @@ public class EditerTacheActivity extends AppCompatActivity
     private void initialiserIHM()
     {
         Log.d(TAG, "initialiserIHM()");
-        boutonAccueil = (Button) findViewById(R.id.boutonAccueil);
+        boutonAccueil = (Button) findViewById(R.id.boutonPomodoroActivity);
         boutonCreerTache = (Button) findViewById(R.id.boutonCreerTache);
         boutonSupprimerTache = (Button) findViewById(R.id.boutonSupprimerTache);
         spinnerTachesExistante = (Spinner) findViewById(R.id.spinnerTache);
@@ -146,6 +148,7 @@ public class EditerTacheActivity extends AppCompatActivity
             {
                 Log.d(TAG, "clic boutonEditerTache");
                 Intent retourAccueil = new Intent(EditerTacheActivity.this,PomodoroActivity.class);
+                retourAccueil.putExtra("tache", tache);
                 startActivity(retourAccueil);
             }
         });
@@ -163,15 +166,13 @@ public class EditerTacheActivity extends AppCompatActivity
         });
 
         /**
-         * @brief Spinner affichant les tâches crées
+         * @brief Spinner affichant les tâches crées &| modifiées
          */
         nomTaches = new ArrayList<>();
-        Vector<String> nomsTache = baseDeDonnees.getNomTaches();
-        if(tache != null && !tache.getNom().isEmpty())
-            nomTaches.add(tache.getNom());
-        for (int i = 0; i < nomsTache.size(); i++)
+        taches = baseDeDonnees.getTaches();
+        for (int i = 0; i < taches.size(); i++)
         {
-            nomTaches.add(nomsTache.get(i));
+            nomTaches.add(taches.get(i).get(BaseDeDonnees.INDEX_COLONNE_TACHE_NOM));
         }
 
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, nomTaches);
@@ -185,6 +186,8 @@ public class EditerTacheActivity extends AppCompatActivity
             public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long id)
             {
                 Log.d(TAG, "sélection = " + position + " -> " + nomTaches.get(position));
+                Log.d(TAG, "idTache = " + taches.get(position).get(BaseDeDonnees.INDEX_COLONNE_TACHE_ID_TACHE) + " -> " + taches.get(position).get(BaseDeDonnees.INDEX_COLONNE_TACHE_NOM));
+                tache.setId(Integer.parseInt(taches.get(position).get(BaseDeDonnees.INDEX_COLONNE_TACHE_ID_TACHE)));
                 tache.setNom(nomTaches.get(position));
             }
 

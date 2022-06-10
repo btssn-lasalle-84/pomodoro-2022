@@ -11,7 +11,7 @@
 
 \author Teddy Establet <<teddyestablet84@gmail.com>>
 \date 2022
-\version 1.0
+\version 1.1
 \see https://github.com/btssn-lasalle-84/pomodoro-2022
 
 
@@ -37,11 +37,13 @@ Fonctionnalités :
 - Éditer une tâche
 - Configurer les minuteries (la longueur des pomodoros, des pauses courtes et des pauses longues, mode manuel ou automatique)
 - Dialoguer avec le minuteur connecté
+- Activer/Désactiver l'alarme sonore
+- Notifier les événements
 
 
 \author Teddy Establet <<teddyestablet84@gmail.com>>
 \date 2022
-\version 1.0
+\version 1.1
 \see https://github.com/btssn-lasalle-84/pomodoro-2022
 
 
@@ -49,7 +51,7 @@ Fonctionnalités :
 
 \author Teddy Establet <<teddyestablet84@gmail.com>>
 \date 2022
-\version 1.0
+\version 1.1
 \see https://github.com/btssn-lasalle-84/pomodoro-2022
 
 

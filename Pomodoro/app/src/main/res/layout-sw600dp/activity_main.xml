@@ -52,7 +52,7 @@
 
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/boutonEditerTache"
+        android:id="@+id/boutonEditerTacheActivity"
         android:layout_width="194dp"
         android:layout_height="123dp"
         android:layout_weight="1"
@@ -83,10 +83,10 @@
         android:id="@+id/spinner"
         android:layout_width="203dp"
         android:layout_height="56dp"
-        android:gravity="right"
-        android:outlineAmbientShadowColor="@color/white"
         android:spinnerMode="dialog"
         android:textAlignment="center"
+        android:gravity="center"
+        style="@style/TextAppearance.AppCompat.Widget.Switch"
         app:layout_constraintBottom_toTopOf="@+id/boutonDemarrer"
         app:layout_constraintEnd_toEndOf="@+id/boutonDemarrer"
         app:layout_constraintHorizontal_bias="0.495"
@@ -111,5 +111,42 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Switch
+        android:id="@+id/switchMinuteur"
+        style="@style/TextAppearance.AppCompat.Widget.Switch"
+        android:layout_width="277dp"
+        android:layout_height="39dp"
+        android:drawableLeft="@android:drawable/ic_lock_idle_alarm"
+        android:gravity="center_horizontal|center_vertical|center"
+        android:scrollbarStyle="insideOverlay"
+        android:showText="true"
+        android:text="Mode"
+        android:textOff="@string/switchModeOFF"
+        android:textOn="@string/switchModeON"
+        app:layout_constraintBottom_toTopOf="@+id/copyrightText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/boutonDemarrer"
+        app:layout_constraintVertical_bias="0.236" />
+
+    <Switch
+        android:id="@+id/switchSonnerie"
+        style="@style/TextAppearance.AppCompat.Widget.Switch"
+        android:layout_width="172dp"
+        android:layout_height="36dp"
+        android:drawableLeft="@android:drawable/ic_popup_reminder"
+        android:gravity="center_horizontal|left|center_vertical"
+        android:scrollbarStyle="insideOverlay"
+        android:showText="true"
+        android:text="Sonnerie"
+        android:textOff="@string/switchSonnerieOFF"
+        android:textOn="@string/switchSonnerieON"
+        app:layout_constraintBottom_toTopOf="@+id/copyrightText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.453"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/boutonDemarrer"
+        app:layout_constraintVertical_bias="0.523" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

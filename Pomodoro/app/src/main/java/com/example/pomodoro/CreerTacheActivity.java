@@ -14,7 +14,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import java.util.Vector;
 
 /**
  * @class CreerTacheActivity
@@ -26,23 +25,25 @@ public class CreerTacheActivity extends AppCompatActivity
      * @brief Constantes
      */
     private static final String TAG = "_CreerTacheActivity";  //!< TAG pour les logs
+    private static final String TAG_DEMO = "_Demo"; //!< TAG_DEMO pour les logs de la démonstration
 
     /**
      * @brief Ressources IHM
      */
-    private Button boutonAccueil;//!< Le bouton permettant de retourner à l'accueil
-    private Button boutonEditer;//!< Le bouton permettant de retourner au menu Editer
-    private Button boutonCreerLaTache;
+    private Button boutonPomodoroActivity;//!< Le bouton permettant de retourner à l'accueil
+    private Button boutonEditerTacheActivity;//!< Le bouton permettant de retourner au menu Editer
+    private Button boutonModifierTache;
 
     /**
      * @brief Attributs
      */
-    private EditText nomTache;
+    private EditText editNomTache;
     private EditText dureeTache;
     private EditText dureePauseCourte;
     private EditText dureePauseLongue;
     private EditText nombreCycles;
     private Tache tache = null;
+    String nomTache;
     private BaseDeDonnees baseDeDonnees = null;
 
     @Override
@@ -50,11 +51,13 @@ public class CreerTacheActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_creer_tache);
+        Log.d(TAG, "onCreate()");
 
         // récupère la tâche
         tache = (Tache) getIntent().getSerializableExtra("tache");
-        Log.d(TAG, "[Tache] nom = " + tache.getNom());
+        Log.d(TAG, "[Tache] " + "id = " + tache.getId() + " - nom = " + tache.getNom());
 
+        baseDeDonnees = new BaseDeDonnees(this);
         initialiserIHM();
     }
 
@@ -114,11 +117,11 @@ public class CreerTacheActivity extends AppCompatActivity
     private void initialiserIHM()
     {
         Log.d(TAG, "initialiserIHM()");
-        boutonAccueil = (Button) findViewById(R.id.boutonAccueil);
-        boutonEditer = (Button) findViewById(R.id.boutonEditerTache);
-        boutonCreerLaTache = (Button) findViewById(R.id.boutonCreerLaTache);
+        boutonPomodoroActivity = (Button) findViewById(R.id.boutonPomodoroActivity);
+        boutonEditerTacheActivity = (Button) findViewById(R.id.boutonEditerTacheActivity);
+        boutonModifierTache = (Button) findViewById(R.id.boutonModifierTache);
 
-        nomTache = (EditText) findViewById(R.id.nomTache);
+        editNomTache = (EditText) findViewById(R.id.nomTache);
         dureeTache = (EditText) findViewById(R.id.dureeTache);
         dureePauseCourte = (EditText) findViewById(R.id.dureePauseCourte);
         dureePauseLongue = (EditText) findViewById(R.id.dureePauseLongue);
@@ -126,31 +129,31 @@ public class CreerTacheActivity extends AppCompatActivity
 
         if(tache != null)
         {
-            nomTache.setText(tache.getNom());
+            editNomTache.setText(tache.getNom());
             dureeTache.setText(Integer.toString(tache.getDuree()));
             dureePauseCourte.setText(Integer.toString(tache.getDureePauseCourte()));
             dureePauseLongue.setText(Integer.toString(tache.getDureePauseLongue()));
             nombreCycles.setText(Integer.toString(tache.getNombreDeCycles()));
         }
 
-        boutonAccueil.setOnClickListener(new View.OnClickListener()
+        boutonPomodoroActivity.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View view)
             {
-                Log.v(TAG, "clic boutonAccueil");
+                Log.v(TAG, "clic boutonPomodoroActivity");
                 Intent retourAccueil = new Intent(CreerTacheActivity.this,PomodoroActivity.class);
+                retourAccueil.putExtra("tache",tache);
                 startActivity(retourAccueil);
             }
         });
 
-        boutonEditer.setOnClickListener(new View.OnClickListener()
+        boutonEditerTacheActivity.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View view)
             {
-                Log.v(TAG, "clic boutonEditer");
-                creerUneNouvelleTache();
+                Log.v(TAG, "clic boutonEditerTacheActivity");
                 Intent retourEditer = new Intent(CreerTacheActivity.this, EditerTacheActivity.class);
                 // passe la tache à l'activité
                 retourEditer.putExtra("tache", tache);
@@ -158,13 +161,14 @@ public class CreerTacheActivity extends AppCompatActivity
             }
         });
 
-        boutonCreerLaTache.setOnClickListener(new View.OnClickListener()
+        boutonModifierTache.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View view)
             {
                 Log.v(TAG, "clic boutonCreerLaTache");
-                creerUneNouvelleTache();
+                recupererDonneesTache();
+                modifierTacheBDD();
                 Intent retourEditer = new Intent(CreerTacheActivity.this,EditerTacheActivity.class);
                 retourEditer.putExtra("tache", tache);
                 startActivity(retourEditer);
@@ -172,24 +176,46 @@ public class CreerTacheActivity extends AppCompatActivity
         });
 
     }
-    private void creerUneNouvelleTache()
+
+    private void creerTacheBDD()
     {
-        Log.d(TAG, "creerUneNouvelleTache()");
+        Log.d(TAG, "creerTacheBDD()");
+        /**
+         * @todo Effectuer requête INSERT
+         */
+        //baseDeDonnees.executerRequete();
+        /**
+         * @todo Récupérer le nouvel id et l'affecter à l'objet tache
+         */
+    }
+
+    private void modifierTacheBDD()
+    {
+        Log.d(TAG, "modifierTacheBDD()");
+        Log.d(TAG, "[modifierTacheBDD] nomTache = " + nomTache);
+        baseDeDonnees.executerRequete(BaseDeDonnees.UPDATE_NOM_TACHE+"'"+nomTache+"' WHERE idTache='"+String.valueOf(tache.getId())+"'");
+    }
+
+    private void recupererDonneesTache()
+    {
+        Log.d(TAG, "recupererDonneesTache()");
 
         // Récupère la saisie de l'utilisateur
-        String nomTache = this.nomTache.getText().toString();
+        nomTache = this.editNomTache.getText().toString();
 
         // Convertit les saisies en entier pour les durées et le nombre de cycle
         int dureeTacheEntier = Integer.parseInt(dureeTache.getText().toString());
         int dureePauseCourteEntier = Integer.parseInt(dureePauseCourte.getText().toString());
         int dureePauseLongueEntier = Integer.parseInt(dureePauseLongue.getText().toString());
         int nombreCycleEntier = Integer.parseInt(nombreCycles.getText().toString());
-        Log.d(TAG, "[creerUneNouvelleTache] " + nomTache + " - " + dureeTacheEntier + " - " + dureePauseCourteEntier + " - "  + dureePauseLongueEntier + " - "  + nombreCycleEntier);
+        Log.d(TAG, "[recupererDonneesTache] " + nomTache + " - " + dureeTacheEntier + " - " + dureePauseCourteEntier + " - "  + dureePauseLongueEntier + " - "  + nombreCycleEntier);
 
         // Ajout des valeurs saisies dans la tache
         if(tache != null)
         {
+            Log.d(TAG, "[recupererDonneesTache] ancien nom = " + tache.getNom());
             tache.setNom(nomTache);
+            Log.d(TAG, "[recupererDonneesTache] nouveau nom = " + tache.getNom());
             tache.configurer(dureeTacheEntier, dureePauseCourteEntier, dureePauseLongueEntier, nombreCycleEntier);
         }
     }

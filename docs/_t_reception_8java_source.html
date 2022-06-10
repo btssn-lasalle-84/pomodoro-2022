@@ -27,7 +27,7 @@
   <td id="projectlogo"><img alt="Logo" src="pomodoro.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">pomodoro
-   &#160;<span id="projectnumber">1.0</span>
+   &#160;<span id="projectnumber">1.1</span>
    </div>
    <div id="projectbrief">BTS SNIR LaSalle Avignon 2022</div>
   </td>
@@ -112,92 +112,92 @@ $(document).ready(function(){initNavTree('_t_reception_8java_source.html',''); i
 <div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="classcom_1_1example_1_1pomodoro_1_1_t_reception.html#ab0ba104e77e871fad036979f35bae4a7">   32</a></span>&#160;    InputStream <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_t_reception.html#ab0ba104e77e871fad036979f35bae4a7">receiveStream</a>;</div>
 <div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="classcom_1_1example_1_1pomodoro_1_1_t_reception.html#a06bb2c96ebaa28c0577bf4ea194ceb1a">   33</a></span>&#160;    <span class="keyword">private</span> <span class="keywordtype">boolean</span> <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_t_reception.html#a06bb2c96ebaa28c0577bf4ea194ceb1a">fini</a>;</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="classcom_1_1example_1_1pomodoro_1_1_t_reception.html#af5352ae2858182fa5e4d53e22c56f017">   35</a></span>&#160;    <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_t_reception.html#af5352ae2858182fa5e4d53e22c56f017">TReception</a>(Handler h, InputStream <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_t_reception.html#ab0ba104e77e871fad036979f35bae4a7">receiveStream</a>)</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    {</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        this.handlerUI = h;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        this.receiveStream = <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_t_reception.html#ab0ba104e77e871fad036979f35bae4a7">receiveStream</a>;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        this.fini = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    }</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    @Override</div>
-<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="classcom_1_1example_1_1pomodoro_1_1_t_reception.html#aa4d91f5ba880bc40787718aca84e7bb0">   43</a></span>&#160;    <span class="keyword">public</span> <span class="keywordtype">void</span> <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_t_reception.html#aa4d91f5ba880bc40787718aca84e7bb0">run</a>()</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    {</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        BufferedReader reception = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(<a class="code" href="classcom_1_1example_1_1pomodoro_1_1_t_reception.html#ab0ba104e77e871fad036979f35bae4a7">receiveStream</a>));</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        <span class="keywordflow">while</span>(!<a class="code" href="classcom_1_1example_1_1pomodoro_1_1_t_reception.html#a06bb2c96ebaa28c0577bf4ea194ceb1a">fini</a>)</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        {</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;            <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_t_reception.html#a8ce79c0de06e07f30a1a11c80cbe9c50">recevoir</a>(reception);</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        }</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    }</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="classcom_1_1example_1_1pomodoro_1_1_t_reception.html#a8ce79c0de06e07f30a1a11c80cbe9c50">   52</a></span>&#160;    <span class="keyword">private</span> <span class="keywordtype">void</span> <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_t_reception.html#a8ce79c0de06e07f30a1a11c80cbe9c50">recevoir</a>(BufferedReader reception)</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    {</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        <span class="keywordflow">try</span></div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        {</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;            String trame = <span class="stringliteral">&quot;&quot;</span>;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;            <span class="keywordflow">if</span>(reception.ready())</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;            {</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;                trame = reception.readLine();</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;            }</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;            <span class="keywordflow">if</span>(trame.length() &gt; 0)</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;            {</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                Log.d(<a class="code" href="classcom_1_1example_1_1pomodoro_1_1_t_reception.html#a127dbc2f7f6098938be3181bd5df0ebb">TAG</a>, <span class="stringliteral">&quot;run() trame : &quot;</span> + trame);</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;                Message msg = Message.obtain();</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;                msg.what = <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_peripherique.html">Peripherique</a>.<a class="code" href="classcom_1_1example_1_1pomodoro_1_1_peripherique.html#aef787e60e5e0c9e92268060564af6ac4">CODE_RECEPTION</a>;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;                msg.obj = trame;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;                <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_t_reception.html#a11e722eca25b2f374555a3b1eb47ec69">handlerUI</a>.sendMessage(msg);</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;            }</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        }</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        <span class="keywordflow">catch</span>(IOException e)</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        {</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;            System.out.println(<span class="stringliteral">&quot;&lt;Socket&gt; error read&quot;</span>);</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;            e.printStackTrace();</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        }</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        <span class="keywordflow">try</span></div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        {</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;            <a class="code" href="class_thread.html">Thread</a>.sleep(250);</div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="classcom_1_1example_1_1pomodoro_1_1_t_reception.html#af5352ae2858182fa5e4d53e22c56f017">   38</a></span>&#160;    <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_t_reception.html#af5352ae2858182fa5e4d53e22c56f017">TReception</a>(Handler h, InputStream <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_t_reception.html#ab0ba104e77e871fad036979f35bae4a7">receiveStream</a>)</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    {</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        this.handlerUI = h;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        this.receiveStream = <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_t_reception.html#ab0ba104e77e871fad036979f35bae4a7">receiveStream</a>;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        this.fini = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    }</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    @Override</div>
+<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="classcom_1_1example_1_1pomodoro_1_1_t_reception.html#aa4d91f5ba880bc40787718aca84e7bb0">   49</a></span>&#160;    <span class="keyword">public</span> <span class="keywordtype">void</span> <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_t_reception.html#aa4d91f5ba880bc40787718aca84e7bb0">run</a>()</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    {</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        BufferedReader reception = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(<a class="code" href="classcom_1_1example_1_1pomodoro_1_1_t_reception.html#ab0ba104e77e871fad036979f35bae4a7">receiveStream</a>));</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <span class="keywordflow">while</span>(!<a class="code" href="classcom_1_1example_1_1pomodoro_1_1_t_reception.html#a06bb2c96ebaa28c0577bf4ea194ceb1a">fini</a>)</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        {</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;            <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_t_reception.html#a8ce79c0de06e07f30a1a11c80cbe9c50">recevoir</a>(reception);</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        }</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    }</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00061"></a><span class="lineno"><a class="line" href="classcom_1_1example_1_1pomodoro_1_1_t_reception.html#a8ce79c0de06e07f30a1a11c80cbe9c50">   61</a></span>&#160;    <span class="keyword">private</span> <span class="keywordtype">void</span> <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_t_reception.html#a8ce79c0de06e07f30a1a11c80cbe9c50">recevoir</a>(BufferedReader reception)</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    {</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        <span class="keywordflow">try</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        {</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;            String trame = <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;            <span class="keywordflow">if</span>(reception.ready())</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;            {</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;                trame = reception.readLine();</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;            }</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;            <span class="keywordflow">if</span>(trame.length() &gt; 0)</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;            {</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;                Log.d(<a class="code" href="classcom_1_1example_1_1pomodoro_1_1_t_reception.html#a127dbc2f7f6098938be3181bd5df0ebb">TAG</a>, <span class="stringliteral">&quot;run() trame : &quot;</span> + trame);</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;                Message msg = Message.obtain();</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;                msg.what = <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_peripherique.html">Peripherique</a>.<a class="code" href="classcom_1_1example_1_1pomodoro_1_1_peripherique.html#aef787e60e5e0c9e92268060564af6ac4">CODE_RECEPTION</a>;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;                msg.obj = trame;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;                <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_t_reception.html#a11e722eca25b2f374555a3b1eb47ec69">handlerUI</a>.sendMessage(msg);</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;            }</div>
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        }</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        <span class="keywordflow">catch</span>(InterruptedException e)</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        <span class="keywordflow">catch</span>(IOException e)</div>
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        {</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;            e.printStackTrace();</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        }</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    }</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
-<div class="line"><a name="l00085"></a><span class="lineno"><a class="line" href="classcom_1_1example_1_1pomodoro_1_1_t_reception.html#add4389edb312a2921e14678c25bd2fb6">   85</a></span>&#160;    <span class="keyword">public</span> <span class="keywordtype">void</span> <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_t_reception.html#add4389edb312a2921e14678c25bd2fb6">arreter</a>()</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    {</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        <span class="keywordflow">if</span>(<a class="code" href="classcom_1_1example_1_1pomodoro_1_1_t_reception.html#a06bb2c96ebaa28c0577bf4ea194ceb1a">fini</a> == <span class="keyword">false</span>)</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        {</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;            <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_t_reception.html#a06bb2c96ebaa28c0577bf4ea194ceb1a">fini</a> = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        }</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        <span class="keywordflow">try</span></div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        {</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;            <a class="code" href="class_thread.html">Thread</a>.sleep(250);</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        }</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        <span class="keywordflow">catch</span>(InterruptedException e)</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        {</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;            e.printStackTrace();</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        }</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    }</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;}</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;            System.out.println(<span class="stringliteral">&quot;&lt;Socket&gt; error read&quot;</span>);</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;            e.printStackTrace();</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        }</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        <span class="keywordflow">try</span></div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        {</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;            <a class="code" href="class_thread.html">Thread</a>.sleep(250);</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        }</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        <span class="keywordflow">catch</span>(InterruptedException e)</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        {</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;            e.printStackTrace();</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        }</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    }</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
+<div class="line"><a name="l00097"></a><span class="lineno"><a class="line" href="classcom_1_1example_1_1pomodoro_1_1_t_reception.html#add4389edb312a2921e14678c25bd2fb6">   97</a></span>&#160;    <span class="keyword">public</span> <span class="keywordtype">void</span> <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_t_reception.html#add4389edb312a2921e14678c25bd2fb6">arreter</a>()</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    {</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        <span class="keywordflow">if</span>(<a class="code" href="classcom_1_1example_1_1pomodoro_1_1_t_reception.html#a06bb2c96ebaa28c0577bf4ea194ceb1a">fini</a> == <span class="keyword">false</span>)</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        {</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;            <a class="code" href="classcom_1_1example_1_1pomodoro_1_1_t_reception.html#a06bb2c96ebaa28c0577bf4ea194ceb1a">fini</a> = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        }</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        <span class="keywordflow">try</span></div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        {</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;            <a class="code" href="class_thread.html">Thread</a>.sleep(250);</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        }</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        <span class="keywordflow">catch</span>(InterruptedException e)</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        {</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;            e.printStackTrace();</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        }</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    }</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="aclasscom_1_1example_1_1pomodoro_1_1_t_reception_html_a06bb2c96ebaa28c0577bf4ea194ceb1a"><div class="ttname"><a href="classcom_1_1example_1_1pomodoro_1_1_t_reception.html#a06bb2c96ebaa28c0577bf4ea194ceb1a">com.example.pomodoro.TReception.fini</a></div><div class="ttdeci">boolean fini</div><div class="ttdef"><b>Definition:</b> <a href="_t_reception_8java_source.html#l00033">TReception.java:33</a></div></div>
 <div class="ttc" id="aclasscom_1_1example_1_1pomodoro_1_1_peripherique_html_aef787e60e5e0c9e92268060564af6ac4"><div class="ttname"><a href="classcom_1_1example_1_1pomodoro_1_1_peripherique.html#aef787e60e5e0c9e92268060564af6ac4">com.example.pomodoro.Peripherique.CODE_RECEPTION</a></div><div class="ttdeci">static final int CODE_RECEPTION</div><div class="ttdef"><b>Definition:</b> <a href="_peripherique_8java_source.html#l00045">Peripherique.java:45</a></div></div>
 <div class="ttc" id="aclass_thread_html"><div class="ttname"><a href="class_thread.html">Thread</a></div></div>
 <div class="ttc" id="aclasscom_1_1example_1_1pomodoro_1_1_t_reception_html_a127dbc2f7f6098938be3181bd5df0ebb"><div class="ttname"><a href="classcom_1_1example_1_1pomodoro_1_1_t_reception.html#a127dbc2f7f6098938be3181bd5df0ebb">com.example.pomodoro.TReception.TAG</a></div><div class="ttdeci">static final String TAG</div><div class="ttdoc">TAG pour les logs.</div><div class="ttdef"><b>Definition:</b> <a href="_t_reception_8java_source.html#l00029">TReception.java:29</a></div></div>
-<div class="ttc" id="aclasscom_1_1example_1_1pomodoro_1_1_t_reception_html_add4389edb312a2921e14678c25bd2fb6"><div class="ttname"><a href="classcom_1_1example_1_1pomodoro_1_1_t_reception.html#add4389edb312a2921e14678c25bd2fb6">com.example.pomodoro.TReception.arreter</a></div><div class="ttdeci">void arreter()</div><div class="ttdef"><b>Definition:</b> <a href="_t_reception_8java_source.html#l00085">TReception.java:85</a></div></div>
-<div class="ttc" id="aclasscom_1_1example_1_1pomodoro_1_1_t_reception_html"><div class="ttname"><a href="classcom_1_1example_1_1pomodoro_1_1_t_reception.html">com.example.pomodoro.TReception</a></div><div class="ttdoc">Définit le concept de TReception.</div><div class="ttdef"><b>Definition:</b> <a href="_t_reception_8java_source.html#l00027">TReception.java:27</a></div></div>
+<div class="ttc" id="aclasscom_1_1example_1_1pomodoro_1_1_t_reception_html_add4389edb312a2921e14678c25bd2fb6"><div class="ttname"><a href="classcom_1_1example_1_1pomodoro_1_1_t_reception.html#add4389edb312a2921e14678c25bd2fb6">com.example.pomodoro.TReception.arreter</a></div><div class="ttdeci">void arreter()</div><div class="ttdoc">Arrête le thread.</div><div class="ttdef"><b>Definition:</b> <a href="_t_reception_8java_source.html#l00097">TReception.java:97</a></div></div>
+<div class="ttc" id="aclasscom_1_1example_1_1pomodoro_1_1_t_reception_html"><div class="ttname"><a href="classcom_1_1example_1_1pomodoro_1_1_t_reception.html">com.example.pomodoro.TReception</a></div><div class="ttdoc">Permet d'assurer la réception des trames dans un thread.</div><div class="ttdef"><b>Definition:</b> <a href="_t_reception_8java_source.html#l00027">TReception.java:27</a></div></div>
 <div class="ttc" id="aclasscom_1_1example_1_1pomodoro_1_1_peripherique_html"><div class="ttname"><a href="classcom_1_1example_1_1pomodoro_1_1_peripherique.html">com.example.pomodoro.Peripherique</a></div><div class="ttdoc">Définit le concept de périphérique bluetooth.</div><div class="ttdef"><b>Definition:</b> <a href="_peripherique_8java_source.html#l00029">Peripherique.java:29</a></div></div>
-<div class="ttc" id="aclasscom_1_1example_1_1pomodoro_1_1_t_reception_html_af5352ae2858182fa5e4d53e22c56f017"><div class="ttname"><a href="classcom_1_1example_1_1pomodoro_1_1_t_reception.html#af5352ae2858182fa5e4d53e22c56f017">com.example.pomodoro.TReception.TReception</a></div><div class="ttdeci">TReception(Handler h, InputStream receiveStream)</div><div class="ttdef"><b>Definition:</b> <a href="_t_reception_8java_source.html#l00035">TReception.java:35</a></div></div>
+<div class="ttc" id="aclasscom_1_1example_1_1pomodoro_1_1_t_reception_html_af5352ae2858182fa5e4d53e22c56f017"><div class="ttname"><a href="classcom_1_1example_1_1pomodoro_1_1_t_reception.html#af5352ae2858182fa5e4d53e22c56f017">com.example.pomodoro.TReception.TReception</a></div><div class="ttdeci">TReception(Handler h, InputStream receiveStream)</div><div class="ttdoc">Constructeur.</div><div class="ttdef"><b>Definition:</b> <a href="_t_reception_8java_source.html#l00038">TReception.java:38</a></div></div>
 <div class="ttc" id="aclasscom_1_1example_1_1pomodoro_1_1_t_reception_html_ab0ba104e77e871fad036979f35bae4a7"><div class="ttname"><a href="classcom_1_1example_1_1pomodoro_1_1_t_reception.html#ab0ba104e77e871fad036979f35bae4a7">com.example.pomodoro.TReception.receiveStream</a></div><div class="ttdeci">InputStream receiveStream</div><div class="ttdef"><b>Definition:</b> <a href="_t_reception_8java_source.html#l00032">TReception.java:32</a></div></div>
 <div class="ttc" id="aclasscom_1_1example_1_1pomodoro_1_1_t_reception_html_a11e722eca25b2f374555a3b1eb47ec69"><div class="ttname"><a href="classcom_1_1example_1_1pomodoro_1_1_t_reception.html#a11e722eca25b2f374555a3b1eb47ec69">com.example.pomodoro.TReception.handlerUI</a></div><div class="ttdeci">Handler handlerUI</div><div class="ttdef"><b>Definition:</b> <a href="_t_reception_8java_source.html#l00031">TReception.java:31</a></div></div>
-<div class="ttc" id="aclasscom_1_1example_1_1pomodoro_1_1_t_reception_html_a8ce79c0de06e07f30a1a11c80cbe9c50"><div class="ttname"><a href="classcom_1_1example_1_1pomodoro_1_1_t_reception.html#a8ce79c0de06e07f30a1a11c80cbe9c50">com.example.pomodoro.TReception.recevoir</a></div><div class="ttdeci">void recevoir(BufferedReader reception)</div><div class="ttdef"><b>Definition:</b> <a href="_t_reception_8java_source.html#l00052">TReception.java:52</a></div></div>
-<div class="ttc" id="aclasscom_1_1example_1_1pomodoro_1_1_t_reception_html_aa4d91f5ba880bc40787718aca84e7bb0"><div class="ttname"><a href="classcom_1_1example_1_1pomodoro_1_1_t_reception.html#aa4d91f5ba880bc40787718aca84e7bb0">com.example.pomodoro.TReception.run</a></div><div class="ttdeci">void run()</div><div class="ttdef"><b>Definition:</b> <a href="_t_reception_8java_source.html#l00043">TReception.java:43</a></div></div>
+<div class="ttc" id="aclasscom_1_1example_1_1pomodoro_1_1_t_reception_html_a8ce79c0de06e07f30a1a11c80cbe9c50"><div class="ttname"><a href="classcom_1_1example_1_1pomodoro_1_1_t_reception.html#a8ce79c0de06e07f30a1a11c80cbe9c50">com.example.pomodoro.TReception.recevoir</a></div><div class="ttdeci">void recevoir(BufferedReader reception)</div><div class="ttdoc">réceptionne les trames et les transmet à l'IHM via un handler</div><div class="ttdef"><b>Definition:</b> <a href="_t_reception_8java_source.html#l00061">TReception.java:61</a></div></div>
+<div class="ttc" id="aclasscom_1_1example_1_1pomodoro_1_1_t_reception_html_aa4d91f5ba880bc40787718aca84e7bb0"><div class="ttname"><a href="classcom_1_1example_1_1pomodoro_1_1_t_reception.html#aa4d91f5ba880bc40787718aca84e7bb0">com.example.pomodoro.TReception.run</a></div><div class="ttdeci">void run()</div><div class="ttdoc">Le thread.</div><div class="ttdef"><b>Definition:</b> <a href="_t_reception_8java_source.html#l00049">TReception.java:49</a></div></div>
 <!-- HTML footer for doxygen 1.9.1-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_382895eff9e5937f281243b03de72d54.html">Pomodoro</a></li><li class="navelem"><a class="el" href="dir_e587536096171a7fc6b0c2dd0b8b0937.html">app</a></li><li class="navelem"><a class="el" href="dir_4fc409648d5327858d1eb099876d3582.html">src</a></li><li class="navelem"><a class="el" href="dir_aa31d5ac05dc697b9835a68832162fa8.html">main</a></li><li class="navelem"><a class="el" href="dir_134c81511d55a01593cf81fed009088b.html">java</a></li><li class="navelem"><a class="el" href="dir_a4968c0117d9a517dff2d0441ec36cd0.html">com</a></li><li class="navelem"><a class="el" href="dir_bf6f156deeeecebe31bc558b82442151.html">example</a></li><li class="navelem"><a class="el" href="dir_5fede52542415f60bc1a48b67c11ba5a.html">pomodoro</a></li><li class="navelem"><a class="el" href="_t_reception_8java.html">TReception.java</a></li>
-    <li class="footer"><img class="footer" src="lasalle-logo.png" height="31" alt="La Salle Avignon"/>&nbsp;<b>Campus La Salle Avignon</b>&nbsp;-&nbsp;9 Rue Notre Dame des 7 douleurs&nbsp;-&nbsp;BP 50165&nbsp;-&nbsp;84008 Avignon&nbsp;-&nbsp;Généré le Jeudi 26 Mai 2022 09:14:59 pour pomodoro par&nbsp;<a href="https://www.doxygen.org/index.html">doxygen</a>&nbsp;1.8.17&nbsp;</li>
+    <li class="footer"><img class="footer" src="lasalle-logo.png" height="31" alt="La Salle Avignon"/>&nbsp;<b>Campus La Salle Avignon</b>&nbsp;-&nbsp;9 Rue Notre Dame des 7 douleurs&nbsp;-&nbsp;BP 50165&nbsp;-&nbsp;84008 Avignon&nbsp;-&nbsp;Généré le Vendredi 10 Juin 2022 20:22:54 pour pomodoro par&nbsp;<a href="https://www.doxygen.org/index.html">doxygen</a>&nbsp;1.8.17&nbsp;</li>
   </ul>
 </div>
 </body>

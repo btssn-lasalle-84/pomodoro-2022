@@ -26,6 +26,7 @@ public class Protocole
     public static final String CONFIGURATION_POMODORO= "P";
     public static final String CONFIGURATION_UTILISATEUR = "U";
     public static final String MODE_SONNERIE = "B";
+    public static final String MODE_MINUTEUR = "M";
     public static final String DEMARRER_TACHE = "T";
     public static final String DEMARRER_PAUSE = "R";
     public static final String ARRET_TACHE_PAUSE = "S";
