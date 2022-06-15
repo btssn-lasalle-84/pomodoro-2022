@@ -7,6 +7,8 @@
   - [Historique des versions](#historique-des-versions)
   - [Documentation du code](#documentation-du-code)
   - [Base de données](#base-de-données)
+  - [Protocole](#protocole)
+  - [Diaporama](#diaporama)
   - [Auteur](#auteur)
   - [Kanban](#kanban)
 
@@ -60,6 +62,14 @@ https://btssn-lasalle-84.github.io/pomodoro-2022/
 ## Base de données
 
 ![](sql/schema-simple-bdd-pomodoro-v1.0.png)
+
+## Protocole
+
+- [Protocole POMODORO 2022.pdf](docs/Protocole%20POMODORO%202022%20.pdf)
+
+## Diaporama
+
+- [Revue de projet final - Teddy ESTABLET.pptx](docs/Revue%20de%20projet%20final%20-%20Teddy%20ESTABLET.pptx)
 
 ## Auteur
 
