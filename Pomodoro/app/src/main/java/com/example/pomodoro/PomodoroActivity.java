@@ -214,20 +214,7 @@ public class PomodoroActivity extends AppCompatActivity
                 Log.d(TAG, "clic boutonDemarrer");
                 choisirModeSonnerie();
                 peripherique.envoyer(Protocole.DEBUT_TRAME+Protocole.DEMARRER_TACHE+Protocole.DELIMITEUR_TRAME+tache.getNom()+Protocole.FIN_TRAME);// Trame envoyé : #T&Nom de la tâche\r\n
-                if(estAppuyee == true)
-                {
-                    peripherique.envoyer(Protocole.DEBUT_TRAME+Protocole.GEL+Protocole.FIN_TRAME);
-                    geler();
-                    boutonDemarrer.setText(tache.getNom()+"\r\nen Pause");
-                    horloge.setBackgroundResource(R.drawable.horloge_pause);
-                    estAppuyee = false;
-                    estGele = true;
-                    if (estGele == true && estAppuyee == true)
-                    {
-                        peripherique.envoyer("#D&10\r\n"); // Test
-                        Log.d(TAG,"Donnée envoyée");
-                    }
-                }
+                geler();
                 estAppuyee = true;
             }
         });
@@ -750,16 +737,28 @@ public class PomodoroActivity extends AppCompatActivity
 
     public void geler()
     {
-        if (timerMinuteur != null)
+        if (estAppuyee == true)
         {
-            timerMinuteur.cancel();
-            Log.d(TAG_DEMO,"Minuteur arrêté");
+            peripherique.envoyer(Protocole.DEBUT_TRAME+Protocole.GEL+Protocole.FIN_TRAME);
+            boutonDemarrer.setText(tache.getNom()+"\r\nen Pause");
+            horloge.setBackgroundResource(R.drawable.horloge_pause);
+            if (timerMinuteur != null)
+            {
+                timerMinuteur.cancel();
+                Log.d(TAG_DEMO,"Minuteur arrêté");
+            }
+            estGele = true;
         }
+        estAppuyee = false;
     }
 
     public void reprise()
     {
-
+        if (estGele == true && estAppuyee == true)
+        {
+            peripherique.envoyer("#D&10\r\n"); // TEST
+            estGele = false;
+        }
     }
 
     public void chronometrer()
