@@ -98,6 +98,7 @@ public class PomodoroActivity extends AppCompatActivity
     private NotificationManager notificationManager = null;
 
     boolean estAppuyee = false;
+    boolean estGele = false;
 
     /**
      * Ressources IHM
@@ -215,10 +216,17 @@ public class PomodoroActivity extends AppCompatActivity
                 peripherique.envoyer(Protocole.DEBUT_TRAME+Protocole.DEMARRER_TACHE+Protocole.DELIMITEUR_TRAME+tache.getNom()+Protocole.FIN_TRAME);// Trame envoyé : #T&Nom de la tâche\r\n
                 if(estAppuyee == true)
                 {
-                    peripherique.envoyer("#W\r\n");
+                    peripherique.envoyer(Protocole.DEBUT_TRAME+Protocole.GEL+Protocole.FIN_TRAME);
                     geler();
                     boutonDemarrer.setText(tache.getNom()+"\r\nen Pause");
                     horloge.setBackgroundResource(R.drawable.horloge_pause);
+                    estAppuyee = false;
+                    estGele = true;
+                    if (estGele == true && estAppuyee == true)
+                    {
+                        peripherique.envoyer("#D&10\r\n"); // Test
+                        Log.d(TAG,"Donnée envoyée");
+                    }
                 }
                 estAppuyee = true;
             }
@@ -616,6 +624,7 @@ public class PomodoroActivity extends AppCompatActivity
                             case Protocole.CHANGEMENT_ETAT:
                                 Log.v(TAG, "[Handler] Changement d’état : " + champs[Protocole.CHAMP_ETAT]);
                                 minuteur.setEtat(Integer.parseInt(champs[Protocole.CHAMP_ETAT]));
+                                estAppuyee = false;
                                 if(champs[Protocole.CHAMP_ETAT].equals(Protocole.ETAT_ATTENTE))
                                 {
                                     boutonDemarrer.setText(afficheTacheDemarrer);

@@ -7,6 +7,8 @@ package com.example.pomodoro;
  */
 
 
+import java.security.PublicKey;
+
 /**
  * @class Protocole
  * @brief Défini le concept de protocole
@@ -32,6 +34,8 @@ public class Protocole
     public static final String ARRET_TACHE_PAUSE = "S";
     public static final String ANNULATION_TACHE_PAUSE = "X";
     public static final String MAINTIEN_CONNEXION = "H";
+    public static final String GEL = "W";
+    public static final String Reprise = "D";
 
     /**
      * @brief Sens : Pomodoro -> Application
