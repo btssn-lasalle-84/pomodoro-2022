@@ -38,7 +38,7 @@ public class SQLite extends SQLiteOpenHelper
      * Requêtes de test
      */
     private static final String INSERT_TABLE_TACHE_1 = "INSERT INTO Tache (nom,description,dateCreation,dateDebut,dateFin,idColonne) VALUES ('Planifier les tâches','Identifier et prioriser les tâches',DATETIME('now'),'2022-03-30 08:15:00','2022-03-30 08:40:00',1);";
-    private static final String INSERT_TABLE_TACHE_2 = "INSERT INTO Tache (nom,description,dateCreation,idColonne) VALUES ('Maquette IHM','Définir une interface Homme-Machine',DATETIME('now'),1);";
+    private static final String INSERT_TABLE_TACHE_2 = "INSERT INTO Tache (nom,description,dateCreation,idColonne) VALUES ('Maquette IHM','Définir une interface Homme-Machine',DATETIME('now'),0);";
     private static final String INSERT_TABLE_TACHE_3 = "INSERT INTO Tache (nom,description,dateCreation,idColonne) VALUES ('Classes du domaine','Réaliser le diagramme de classes du domaine',DATETIME('now'),1);";
     private static final String INSERT_TABLE_TACHE_4 = "INSERT INTO Tache (nom,description,dateCreation,idColonne) VALUES ('Implémenter squelettes','Coder les squelettes des classes',DATETIME('now'),1);";
     private static final String INSERT_TABLE_TACHE_5 = "INSERT INTO Tache (nom,description,dateCreation,idColonne) VALUES ('Coder le projet','Coder le projet Pomodoro',DATETIME('now'),1);";

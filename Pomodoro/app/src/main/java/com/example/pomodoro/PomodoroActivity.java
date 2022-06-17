@@ -97,6 +97,8 @@ public class PomodoroActivity extends AppCompatActivity
     private int numeroNotification = 1;
     private NotificationManager notificationManager = null;
 
+    boolean estAppuyee = false;
+
     /**
      * Ressources IHM
      */
@@ -211,6 +213,14 @@ public class PomodoroActivity extends AppCompatActivity
                 Log.d(TAG, "clic boutonDemarrer");
                 choisirModeSonnerie();
                 peripherique.envoyer(Protocole.DEBUT_TRAME+Protocole.DEMARRER_TACHE+Protocole.DELIMITEUR_TRAME+tache.getNom()+Protocole.FIN_TRAME);// Trame envoyé : #T&Nom de la tâche\r\n
+                if(estAppuyee == true)
+                {
+                    peripherique.envoyer("#W\r\n");
+                    geler();
+                    boutonDemarrer.setText(tache.getNom()+"\r\nen Pause");
+                    horloge.setBackgroundResource(R.drawable.horloge_pause);
+                }
+                estAppuyee = true;
             }
         });
 
@@ -235,7 +245,6 @@ public class PomodoroActivity extends AppCompatActivity
                         peripherique.envoyer(Protocole.DEBUT_TRAME+Protocole.ANNULATION_TACHE_PAUSE+Protocole.FIN_TRAME);
                         boutonDemarrer.setText(R.string.DemarrerPause);
                         horloge.setBackgroundResource(R.drawable.horloge);
-
                     }
                 });
                 builder.setNegativeButton("Retour",new DialogInterface.OnClickListener()
@@ -728,6 +737,20 @@ public class PomodoroActivity extends AppCompatActivity
         };
 
         timerMinuteur.schedule(tacheMinuteur, 1000, 1000);
+    }
+
+    public void geler()
+    {
+        if (timerMinuteur != null)
+        {
+            timerMinuteur.cancel();
+            Log.d(TAG_DEMO,"Minuteur arrêté");
+        }
+    }
+
+    public void reprise()
+    {
+
     }
 
     public void chronometrer()
