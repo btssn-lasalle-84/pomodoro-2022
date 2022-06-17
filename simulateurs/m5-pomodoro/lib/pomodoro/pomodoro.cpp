@@ -1186,6 +1186,11 @@ void initialiserTimers()
 
 }
 
+void setDuree(int duree)
+{
+  pomodoro.duree = duree;
+}
+
 void demarrerTimerPomodoro(int duree)
 {
   timerPomodoro.once(duree, terminerTimerPomodoro, pomodoro.id);

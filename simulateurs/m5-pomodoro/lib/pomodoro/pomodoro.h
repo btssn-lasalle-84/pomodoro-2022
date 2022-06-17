@@ -264,6 +264,7 @@ void initialiserBluetooth();
 void initialiserPreferences();
 void initialiserPomodoro();
 void initialiserTimers();
+void setDuree(int duree);
 void demarrerTimerPomodoro(int duree);
 void arreterTimerPomodoro();
 void terminerTimerPomodoro(int id);

@@ -192,7 +192,7 @@ void loop()
         reinitialiserPomodoro();
         break;
       case TypeTrame::WAIT:
-        /*if(getEtatPomodoro() == EnCours || getEtatPomodoro() == EnCourtePause || getEtatPomodoro() == EnLonguePause)
+        if(getEtatPomodoro() == EnCours || getEtatPomodoro() == EnCourtePause || getEtatPomodoro() == EnLonguePause)
         {
           envoyerTrameAcquittement();
           setEtatPomodoro(Gele);
@@ -201,21 +201,31 @@ void loop()
           #endif
         }
         else
-          envoyerTrameErreur(ERREUR_COMMANDE);*/
-        envoyerTrameErreur(ERREUR_TRAME_NON_SUPPORTEE);
+          envoyerTrameErreur(ERREUR_COMMANDE);
+        //envoyerTrameErreur(ERREUR_TRAME_NON_SUPPORTEE);
         break;
       case TypeTrame::DARN: // Reprise
-        /*if(getEtatPomodoro() == Gele)
+        if(getEtatPomodoro() == Gele)
         {
+          String tempsReprise = extraireChamp(trame, 1);
           envoyerTrameAcquittement();
+          switch(getEtatPomodoroPrecedent())
+          {
+             case EnCours:
+             case EnCourtePause:
+             case EnLonguePause:
+              setDuree(tempsReprise.toInt());
+              break;
+          }
           setEtatPomodoro(getEtatPomodoroPrecedent());
           #ifdef DEBUG
-          Serial.println("Tâche en reprise");
+          Serial.println("Tâche en reprise : ");
+          Serial.print(tempsReprise);
           #endif
         }
         else
-          envoyerTrameErreur(ERREUR_COMMANDE);*/
-        envoyerTrameErreur(ERREUR_TRAME_NON_SUPPORTEE);
+          envoyerTrameErreur(ERREUR_COMMANDE);
+        //envoyerTrameErreur(ERREUR_TRAME_NON_SUPPORTEE);
         break;
       case TypeTrame::HEARTBEAT:
         envoyerTrameAcquittement();
