@@ -126,7 +126,7 @@ public class BaseDeDonnees
     }
 
     /**
-     * @brief Permet d'effectuer une requete pour récupérer touts les noms de tâche
+     * @brief Permet d'effectuer une requête pour récupérer tous les noms de tâche
      * @return Les objets libellés récupérés
      */
     public Vector<String> getNomTaches()
@@ -147,7 +147,7 @@ public class BaseDeDonnees
     }
 
     /**
-     * @brief Permet d'effectuer une requete pour récupérer touts les noms de tâche
+     * @brief Permet d'effectuer une requête pour récupérer tous les noms de tâche
      * @return Les objets libellés récupérés
      */
     public Vector<List<String>> getTaches()

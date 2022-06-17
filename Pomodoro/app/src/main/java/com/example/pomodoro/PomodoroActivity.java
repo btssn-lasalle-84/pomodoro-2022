@@ -238,8 +238,8 @@ public class PomodoroActivity extends AppCompatActivity
             public boolean onLongClick(View view)
             {
                 Log.d(TAG,"clic long boutonDemarrer");
-                /**
-                 * @brief Boite de dialogue pour annuler une tâche ou une pause
+                /*
+                 * Boite de dialogue pour annuler une tâche ou une pause
                  */
                 AlertDialog.Builder builder = new AlertDialog.Builder(PomodoroActivity.this);
                 builder.setTitle("Vous êtes sur le point d'annuler votre tâche !");
@@ -296,8 +296,8 @@ public class PomodoroActivity extends AppCompatActivity
                 }
             }
         });
-        /**
-         * @brief Spinner affichant les tâches crées
+        /*
+         * Liste déroulante affichant les tâches crées
          */
         mettreAJourListeTaches();
         nomTaches = new ArrayList<>();
@@ -329,6 +329,10 @@ public class PomodoroActivity extends AppCompatActivity
 
     }
 
+    /**
+     * @brief Initialise le Bluetooth
+     * @fn initialiserBluetooth()
+     */
     @SuppressLint("MissingPermission")
     private void initialiserBluetooth()
     {
@@ -367,6 +371,7 @@ public class PomodoroActivity extends AppCompatActivity
 
     /**
      * @brief Méthode qui permet de chercher un périphérique bluetooth pomodoro déjà appairé
+     * @fn chercherMinuteur()
      */
     @SuppressLint("MissingPermission")
     private void chercherMinuteur()
@@ -560,6 +565,9 @@ public class PomodoroActivity extends AppCompatActivity
         return receiverDetectionBluetooth;
     };
 
+    /**
+     * @brief Initialise l'accès au minuteur Bluetooth
+     */
     private void initialiserPeripherique()
     {
         Log.d(TAG,"initialiserPeripherique()");
@@ -572,6 +580,9 @@ public class PomodoroActivity extends AppCompatActivity
         }
     }
 
+    /**
+     * @brief Initialise le Handler qui permet de communiquer entre threads
+     */
     private void initialiserHandler()
     {
         this.handler = new Handler(this.getMainLooper())
@@ -693,6 +704,9 @@ public class PomodoroActivity extends AppCompatActivity
         };
     }
 
+    /**
+     * @brief Permet la mise à jour du bouton Connexion/Déconnexion
+     */
     private void mettreAJourBoutonConnexion(boolean etatConnexion)
     {
         if(etatConnexion)
@@ -701,11 +715,17 @@ public class PomodoroActivity extends AppCompatActivity
             boutonSeConnecterAuPomodoro.setText("Se connecter");
     }
 
+    /**
+     * @brief Permet la mise à jour de la liste des tâches
+     */
     private void mettreAJourListeTaches()
     {
         taches = baseDeDonnees.getTaches();
     }
 
+    /**
+     * @brief Méthode qui démarre le minuteur pour une durée
+     */
     private void demarrerMinuteur(int duree)
     {
         if(timerMinuteur != null){
@@ -721,6 +741,9 @@ public class PomodoroActivity extends AppCompatActivity
         Log.d(TAG_DEMO,"Minuteur démarré");
     }
 
+    /**
+     * @brief Arrête le minuteur
+     */
     private void arreterMinuteur()
     {
         if (timerMinuteur != null)
@@ -732,6 +755,9 @@ public class PomodoroActivity extends AppCompatActivity
         }
     }
 
+    /**
+     * @brief Assure la gestion de la minuterie
+     */
     public void minuter()
     {
         tacheMinuteur = new TimerTask() {
@@ -761,7 +787,10 @@ public class PomodoroActivity extends AppCompatActivity
     {
 
     }
-
+    
+    /**
+     * @brief Méthode qui de chronométrer
+     */
     public void chronometrer()
     {
         tacheMinuteur = new TimerTask() {
@@ -781,6 +810,9 @@ public class PomodoroActivity extends AppCompatActivity
         timerMinuteur.schedule(tacheMinuteur, 1000, 1000);
     }
 
+    /**
+     * @brief Méthode qui permet d'obtenir le temps avec le format MM:SS
+     */
     private String getMMSS(long valeur)
     {
         long minutes = (valeur % 3600) / 60;
@@ -792,6 +824,9 @@ public class PomodoroActivity extends AppCompatActivity
         return minuteStr + ":" + secondesStr;
     }
 
+    /**
+     * @brief Méthode qui permet d'activer/désactiver le mode sonnerie
+     */
     private void choisirModeSonnerie()
     {
         if(modeSonnerie.isChecked())
@@ -806,6 +841,9 @@ public class PomodoroActivity extends AppCompatActivity
         }
     }
 
+    /**
+     * @brief Méthode qui permet de chosir le mode minuteur ou chronomètre
+     */
     private void choisirModeHorloge()
     {
         if(modeFonctionnement.isChecked())
@@ -822,6 +860,9 @@ public class PomodoroActivity extends AppCompatActivity
         }
     }
 
+    /**
+     * @brief Méthode qui notifie des évènements au système Android
+     */
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void notifierEvenement(String message)
     {
@@ -852,6 +893,10 @@ public class PomodoroActivity extends AppCompatActivity
         //Ajout de la notification et son ID au gestionnaire de notification
         notificationManager.notify(numeroNotification++, notification.build());
     }
+
+    /**
+     * @brief Méthode qui permet de récupérer le nom de l'application
+     */
     public static String getApplicationName(Context context)
     {
         int stringId = context.getApplicationInfo().labelRes;

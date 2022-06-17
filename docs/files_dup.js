@@ -20,8 +20,9 @@ var files_dup =
     [ "horloge.xml", "horloge_8xml.html", null ],
     [ "horloge_jaune.xml", "horloge__jaune_8xml.html", null ],
     [ "horloge_verte.xml", "horloge__verte_8xml.html", null ],
-    [ "ic_launcher.xml", "ic__launcher_8xml.html", null ],
-    [ "ic_launcher_round.xml", "ic__launcher__round_8xml.html", null ],
+    [ "logo_pomodoro.xml", "logo__pomodoro_8xml.html", null ],
+    [ "logo_pomodoro_background.xml", "logo__pomodoro__background_8xml.html", null ],
+    [ "logo_pomodoro_round.xml", "logo__pomodoro__round_8xml.html", null ],
     [ "Minuteur.java", "_minuteur_8java.html", [
       [ "Minuteur", "classcom_1_1example_1_1pomodoro_1_1_minuteur.html", "classcom_1_1example_1_1pomodoro_1_1_minuteur" ]
     ] ],
