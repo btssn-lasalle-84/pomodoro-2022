@@ -27,7 +27,7 @@
   <td id="projectlogo"><img alt="Logo" src="pomodoro.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">pomodoro
-   &#160;<span id="projectnumber">1.0</span>
+   &#160;<span id="projectnumber">1.1</span>
    </div>
    <div id="projectbrief">BTS SNIR LaSalle Avignon 2022</div>
   </td>
@@ -111,7 +111,16 @@ $(document).ready(function(){initNavTree('functions_func.html',''); initResizabl
 : <a class="el" href="classcom_1_1example_1_1pomodoro_1_1_pomodoro_activity.html#a20310059ca9514e244774e51641aa080">com.example.pomodoro.PomodoroActivity</a>
 </li>
 <li>chercherMinuteur()
-: <a class="el" href="classcom_1_1example_1_1pomodoro_1_1_pomodoro_activity.html#a9db7447299e42203188d383857104942">com.example.pomodoro.PomodoroActivity</a>
+: <a class="el" href="classcom_1_1example_1_1pomodoro_1_1_pomodoro_activity.html#a4696729c8f4008c3bd26ad7275d170e9">com.example.pomodoro.PomodoroActivity</a>
+</li>
+<li>choisirModeHorloge()
+: <a class="el" href="classcom_1_1example_1_1pomodoro_1_1_pomodoro_activity.html#a4e34ffdc15f6d331581f2e0b2faf8782">com.example.pomodoro.PomodoroActivity</a>
+</li>
+<li>choisirModeSonnerie()
+: <a class="el" href="classcom_1_1example_1_1pomodoro_1_1_pomodoro_activity.html#aa4e439df077a22a3762287ccb69766f9">com.example.pomodoro.PomodoroActivity</a>
+</li>
+<li>chronometrer()
+: <a class="el" href="classcom_1_1example_1_1pomodoro_1_1_pomodoro_activity.html#ae1fb8c64ecb1691f2bdb633e6cbd2614">com.example.pomodoro.PomodoroActivity</a>
 </li>
 <li>configurer()
 : <a class="el" href="classcom_1_1example_1_1pomodoro_1_1_tache.html#a16b36f0be203338e72782c0aa783a4ca">com.example.pomodoro.Tache</a>
@@ -122,8 +131,8 @@ $(document).ready(function(){initNavTree('functions_func.html',''); initResizabl
 <li>creerSocket()
 : <a class="el" href="classcom_1_1example_1_1pomodoro_1_1_peripherique.html#a20cdc0e65489733302bd7d7eed633744">com.example.pomodoro.Peripherique</a>
 </li>
-<li>creerUneNouvelleTache()
-: <a class="el" href="classcom_1_1example_1_1pomodoro_1_1_creer_tache_activity.html#a9bba84f5919cdf4449f6f70c545ab26a">com.example.pomodoro.CreerTacheActivity</a>
+<li>creerTacheBDD()
+: <a class="el" href="classcom_1_1example_1_1pomodoro_1_1_creer_tache_activity.html#a1f5591c8665aebbe4d8bcbdcc1338292">com.example.pomodoro.CreerTacheActivity</a>
 </li>
 </ul>
 
@@ -164,7 +173,7 @@ $(document).ready(function(){initNavTree('functions_func.html',''); initResizabl
 : <a class="el" href="classcom_1_1example_1_1pomodoro_1_1_minuteur.html#a1f7109cd8e73588d836c44d7352e4294">com.example.pomodoro.Minuteur</a>
 </li>
 <li>executerRequete()
-: <a class="el" href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#ab81dda599c0d2b91192c8404945b02f3">com.example.pomodoro.BaseDeDonnees</a>
+: <a class="el" href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#a497c3c84ca5f7491b4a164b71be04b0d">com.example.pomodoro.BaseDeDonnees</a>
 </li>
 </ul>
 
@@ -180,6 +189,9 @@ $(document).ready(function(){initNavTree('functions_func.html',''); initResizabl
 <li>getAdresse()
 : <a class="el" href="classcom_1_1example_1_1pomodoro_1_1_peripherique.html#a86899598ce65ea626c3267df6bf097f1">com.example.pomodoro.Peripherique</a>
 </li>
+<li>getApplicationName()
+: <a class="el" href="classcom_1_1example_1_1pomodoro_1_1_pomodoro_activity.html#a3d3bdd8b043e55791b5c890fc96194d5">com.example.pomodoro.PomodoroActivity</a>
+</li>
 <li>getDuree()
 : <a class="el" href="classcom_1_1example_1_1pomodoro_1_1_tache.html#ac80d833ee65201afc157ba0795ad808d">com.example.pomodoro.Tache</a>
 </li>
@@ -193,6 +205,9 @@ $(document).ready(function(){initNavTree('functions_func.html',''); initResizabl
 </li>
 <li>getEtat()
 : <a class="el" href="classcom_1_1example_1_1pomodoro_1_1_minuteur.html#a38c1d256f9f05182938785a1ddbd0a1d">com.example.pomodoro.Minuteur</a>
+</li>
+<li>getId()
+: <a class="el" href="classcom_1_1example_1_1pomodoro_1_1_tache.html#a158d5947191714f669ba906258f15925">com.example.pomodoro.Tache</a>
 </li>
 <li>getLongueur()
 : <a class="el" href="classcom_1_1example_1_1pomodoro_1_1_minuteur.html#a64c5b08b857bae4e7d10ee3bd129ebd3">com.example.pomodoro.Minuteur</a>
@@ -219,12 +234,15 @@ $(document).ready(function(){initNavTree('functions_func.html',''); initResizabl
 <li>getNomTaches()
 : <a class="el" href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#ae7f3b15bed7768536dc1e54a57932898">com.example.pomodoro.BaseDeDonnees</a>
 </li>
+<li>getTaches()
+: <a class="el" href="classcom_1_1example_1_1pomodoro_1_1_base_de_donnees.html#a769fa7a8248552f71405b15e0a7abc29">com.example.pomodoro.BaseDeDonnees</a>
+</li>
 </ul>
 
 
 <h3><a id="index_i"></a>- i -</h3><ul>
 <li>initialiserBluetooth()
-: <a class="el" href="classcom_1_1example_1_1pomodoro_1_1_pomodoro_activity.html#a7613cb6a4ecb4237dfd14906f11df4ed">com.example.pomodoro.PomodoroActivity</a>
+: <a class="el" href="classcom_1_1example_1_1pomodoro_1_1_pomodoro_activity.html#a4ce3e0dca3b21f0581efddc2e048816f">com.example.pomodoro.PomodoroActivity</a>
 </li>
 <li>initialiserHandler()
 : <a class="el" href="classcom_1_1example_1_1pomodoro_1_1_pomodoro_activity.html#aa90028714a5975ac133fb86e6c2cef93">com.example.pomodoro.PomodoroActivity</a>
@@ -244,11 +262,24 @@ $(document).ready(function(){initNavTree('functions_func.html',''); initResizabl
 <li>mettreAJourBoutonConnexion()
 : <a class="el" href="classcom_1_1example_1_1pomodoro_1_1_pomodoro_activity.html#a0356f58e5bb1a5a62d2ed26c69c2d500">com.example.pomodoro.PomodoroActivity</a>
 </li>
+<li>mettreAJourListeTaches()
+: <a class="el" href="classcom_1_1example_1_1pomodoro_1_1_pomodoro_activity.html#ab171e1e23c4ae3947618864573487f43">com.example.pomodoro.PomodoroActivity</a>
+</li>
 <li>minuter()
 : <a class="el" href="classcom_1_1example_1_1pomodoro_1_1_pomodoro_activity.html#ad63cf45cec33918398f2dfbd8079e958">com.example.pomodoro.PomodoroActivity</a>
 </li>
 <li>Minuteur()
 : <a class="el" href="classcom_1_1example_1_1pomodoro_1_1_minuteur.html#ab20d3ef177df5a461cc4d53e8a0deaa3">com.example.pomodoro.Minuteur</a>
+</li>
+<li>modifierTacheBDD()
+: <a class="el" href="classcom_1_1example_1_1pomodoro_1_1_creer_tache_activity.html#aca8c49089b9b5250d6134c451d7ac2fc">com.example.pomodoro.CreerTacheActivity</a>
+</li>
+</ul>
+
+
+<h3><a id="index_n"></a>- n -</h3><ul>
+<li>notifierEvenement()
+: <a class="el" href="classcom_1_1example_1_1pomodoro_1_1_pomodoro_activity.html#af4c7054f1334d55ff7eef4a9474f2432">com.example.pomodoro.PomodoroActivity</a>
 </li>
 </ul>
 
@@ -310,6 +341,9 @@ $(document).ready(function(){initNavTree('functions_func.html',''); initResizabl
 <li>rechercherPomodoro()
 : <a class="el" href="classcom_1_1example_1_1pomodoro_1_1_peripherique.html#ac4ff04c6e9d13b332f0ff017b4e9ea9c">com.example.pomodoro.Peripherique</a>
 </li>
+<li>recupererDonneesTache()
+: <a class="el" href="classcom_1_1example_1_1pomodoro_1_1_creer_tache_activity.html#a8c9ea167e64604a767f81d5de4d71d91">com.example.pomodoro.CreerTacheActivity</a>
+</li>
 <li>run()
 : <a class="el" href="classcom_1_1example_1_1pomodoro_1_1_t_reception.html#aa4d91f5ba880bc40787718aca84e7bb0">com.example.pomodoro.TReception</a>
 </li>
@@ -319,6 +353,9 @@ $(document).ready(function(){initNavTree('functions_func.html',''); initResizabl
 <h3><a id="index_s"></a>- s -</h3><ul>
 <li>setEtat()
 : <a class="el" href="classcom_1_1example_1_1pomodoro_1_1_minuteur.html#a4b2ce999dbffa3b67279ed187f5833c5">com.example.pomodoro.Minuteur</a>
+</li>
+<li>setId()
+: <a class="el" href="classcom_1_1example_1_1pomodoro_1_1_tache.html#a338cf4c50c273de8688b16a18428e086">com.example.pomodoro.Tache</a>
 </li>
 <li>setNom()
 : <a class="el" href="classcom_1_1example_1_1pomodoro_1_1_peripherique.html#a74738c179f94521421f1d4d59ab2db04">com.example.pomodoro.Peripherique</a>
@@ -331,9 +368,6 @@ $(document).ready(function(){initNavTree('functions_func.html',''); initResizabl
 
 
 <h3><a id="index_t"></a>- t -</h3><ul>
-<li>Tache()
-: <a class="el" href="classcom_1_1example_1_1pomodoro_1_1_tache.html#a3983d7ac8a05b6055760dc4d9f3b6f70">com.example.pomodoro.Tache</a>
-</li>
 <li>TReception()
 : <a class="el" href="classcom_1_1example_1_1pomodoro_1_1_t_reception.html#af5352ae2858182fa5e4d53e22c56f017">com.example.pomodoro.TReception</a>
 </li>
@@ -344,7 +378,7 @@ $(document).ready(function(){initNavTree('functions_func.html',''); initResizabl
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer"><img class="footer" src="lasalle-logo.png" height="31" alt="La Salle Avignon"/>&nbsp;<b>Campus La Salle Avignon</b>&nbsp;-&nbsp;9 Rue Notre Dame des 7 douleurs&nbsp;-&nbsp;BP 50165&nbsp;-&nbsp;84008 Avignon&nbsp;-&nbsp;Généré le Jeudi 26 Mai 2022 09:14:59 pour pomodoro par&nbsp;<a href="https://www.doxygen.org/index.html">doxygen</a>&nbsp;1.8.17&nbsp;</li>
+    <li class="footer"><img class="footer" src="lasalle-logo.png" height="31" alt="La Salle Avignon"/>&nbsp;<b>Campus La Salle Avignon</b>&nbsp;-&nbsp;9 Rue Notre Dame des 7 douleurs&nbsp;-&nbsp;BP 50165&nbsp;-&nbsp;84008 Avignon&nbsp;-&nbsp;Généré le Vendredi 10 Juin 2022 20:22:54 pour pomodoro par&nbsp;<a href="https://www.doxygen.org/index.html">doxygen</a>&nbsp;1.8.17&nbsp;</li>
   </ul>
 </div>
 </body>

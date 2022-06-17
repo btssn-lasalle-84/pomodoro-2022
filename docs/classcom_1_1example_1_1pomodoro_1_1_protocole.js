@@ -22,6 +22,7 @@ var classcom_1_1example_1_1pomodoro_1_1_protocole =
     [ "ETAT_TACHE_TERMINEE", "classcom_1_1example_1_1pomodoro_1_1_protocole.html#a04ec7c1b182e14e924ae287cb55c2e3f", null ],
     [ "FIN_TRAME", "classcom_1_1example_1_1pomodoro_1_1_protocole.html#ab69ff756046b9c6ba66cd0696dbc3a72", null ],
     [ "MAINTIEN_CONNEXION", "classcom_1_1example_1_1pomodoro_1_1_protocole.html#a76ac38ec455dc7c4f1c46b46e4157e8c", null ],
+    [ "MODE_MINUTEUR", "classcom_1_1example_1_1pomodoro_1_1_protocole.html#aa6d69b4532402f660917c88ce511b36b", null ],
     [ "MODE_SONNERIE", "classcom_1_1example_1_1pomodoro_1_1_protocole.html#a29c41976546fd1bb1a0c23e6f1311317", null ],
     [ "TYPE_TRAME", "classcom_1_1example_1_1pomodoro_1_1_protocole.html#a3873103c2e8a1fcf448206949ec19357", null ]
 ];

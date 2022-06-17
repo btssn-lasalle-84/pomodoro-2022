@@ -27,7 +27,7 @@
   <td id="projectlogo"><img alt="Logo" src="pomodoro.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">pomodoro
-   &#160;<span id="projectnumber">1.0</span>
+   &#160;<span id="projectnumber">1.1</span>
    </div>
    <div id="projectbrief">BTS SNIR LaSalle Avignon 2022</div>
   </td>
@@ -102,7 +102,10 @@ $(document).ready(function(){initNavTree('md__home_tv__documents_git_projets-202
 </ul>
 <p>La <b>technique Pomodoro</b> est une technique de gestion du temps développée par Francesco Cirillo à la fin des années 1980. Cette méthode se base sur l'usage d'un minuteur permettant de respecter des périodes de 20 minutes appelées pomodori (qui signifie en italien « tomates »).</p>
 <p>Francesco Cirillo propose une approche se basant notamment sur un minuteur mécanique. L’idée du projet est donc de conserver un “objet concret” pour en faire un minuteur connecté.</p>
-<p>Le système est composé :</p>
+<div class="image">
+<img src="methode-pomodoro.png" alt=""/>
+</div>
+   <p>Le système est composé :</p>
 <ul>
 <li>d’un minuteur connecté (ESP32, écran tactile, avertisseur sonore et éventuellement boutons)</li>
 <li>d’une tablette tactile (Android) pour le pilotage à distance et la gestion des tâches</li>
@@ -117,53 +120,39 @@ $(document).ready(function(){initNavTree('md__home_tv__documents_git_projets-202
    <h1>Fonctionnalités</h1>
 <ul>
 <li>Gérer un pomodoro (démarrer, arrêter, ...)</li>
-</ul>
-<div class="image">
-<img src="PomodoroActivity_TacheActive.png" alt=""/>
-</div>
-   <ul>
 <li>Afficher l'état du minuteur</li>
-</ul>
-<div class="image">
-<img src="PomodoroActivity_PauseCourteActive.png" alt=""/>
-</div>
-   <div class="image">
-<img src="PomodoroActivity_PauseLongueActive.png" alt=""/>
-</div>
-   <ul>
 <li>Éditer une tâche</li>
-</ul>
-<div class="image">
-<img src="EditerTacheActivity_Accueil.png" alt=""/>
-</div>
-   <ul>
 <li>Configurer les minuteries (la longueur des pomodoros, des pauses courtes et des pauses longues, mode manuel ou automatique)</li>
+<li>Dialoguer avec le minuteur connecté</li>
+<li>Activer/Désactiver l'alarme sonore</li>
+<li>Notifier les événements</li>
 </ul>
 <div class="image">
-<img src="CreerTacheActivity_ModificationTache.png" alt=""/>
+<img src="pomodoro.gif" alt=""/>
 </div>
-   <ul>
-<li>Dialoguer avec le minuteur connecté</li>
-</ul>
-<h1>TODO</h1>
+   <h1>TODO</h1>
 <ul>
-<li>[ ] Activer/Désactiver l'alarme sonore</li>
-<li>[ ] Notifier les événements</li>
 <li>[ ] Enregistrer le suivi des tâches (statistiques)</li>
 </ul>
 <h1>Historique des versions</h1>
 <ul>
+<li>Version 1.1 : 10/06/2022</li>
+<li>Version 1.0 : 27/05/2022</li>
 <li>Version 0.2 : 25/05/2022</li>
 <li>Version 0.1 : 13/04/2022</li>
 </ul>
-<h1>Documentation du code</h1>
+<div class="image">
+<img src="jira-versions-pomodoro.png" alt=""/>
+</div>
+   <h1>Documentation du code</h1>
 <p><a href="https://btssn-lasalle-84.github.io/pomodoro-2022/">https://btssn-lasalle-84.github.io/pomodoro-2022/</a></p>
 <h1>Auteur</h1>
 <ul>
 <li>Version Mobile Android : Teddy Establet &lt;<a href="#" onclick="location.href='mai'+'lto:'+'ted'+'dy'+'est'+'ab'+'let'+'84'+'@gm'+'ai'+'l.c'+'om'; return false;">teddy<span style="display: none;">.nosp@m.</span>esta<span style="display: none;">.nosp@m.</span>blet8<span style="display: none;">.nosp@m.</span>4@gm<span style="display: none;">.nosp@m.</span>ail.c<span style="display: none;">.nosp@m.</span>om</a>&gt;</li>
 </ul>
 <h1>Kanban</h1>
-<p><a href="https://github.com/btssn-lasalle-84/pomodoro-2022/projects/1">pomodoro-2022</a> </p>
+<p><a href="https://github.com/btssn-lasalle-84/pomodoro-2022/projects/1">pomodoro-2022</a></p>
+<p>©️ LaSalle Avignon 2022 </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -171,7 +160,7 @@ $(document).ready(function(){initNavTree('md__home_tv__documents_git_projets-202
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer"><img class="footer" src="lasalle-logo.png" height="31" alt="La Salle Avignon"/>&nbsp;<b>Campus La Salle Avignon</b>&nbsp;-&nbsp;9 Rue Notre Dame des 7 douleurs&nbsp;-&nbsp;BP 50165&nbsp;-&nbsp;84008 Avignon&nbsp;-&nbsp;Généré le Jeudi 26 Mai 2022 09:14:59 pour pomodoro par&nbsp;<a href="https://www.doxygen.org/index.html">doxygen</a>&nbsp;1.8.17&nbsp;</li>
+    <li class="footer"><img class="footer" src="lasalle-logo.png" height="31" alt="La Salle Avignon"/>&nbsp;<b>Campus La Salle Avignon</b>&nbsp;-&nbsp;9 Rue Notre Dame des 7 douleurs&nbsp;-&nbsp;BP 50165&nbsp;-&nbsp;84008 Avignon&nbsp;-&nbsp;Généré le Vendredi 10 Juin 2022 20:22:54 pour pomodoro par&nbsp;<a href="https://www.doxygen.org/index.html">doxygen</a>&nbsp;1.8.17&nbsp;</li>
   </ul>
 </div>
 </body>
