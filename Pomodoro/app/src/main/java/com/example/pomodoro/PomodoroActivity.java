@@ -216,22 +216,7 @@ public class PomodoroActivity extends AppCompatActivity
             {
                 Log.d(TAG, "clic boutonDemarrer");
                 choisirModeSonnerie();
-
-                if(etatBouton == BOUTON_CENTRAL_POMODORO_EN_COURS)
-                {
-                    geler();
-                    etatBouton = BOUTON_CENTRAL_POMODORO_REPRISE;
-                }
-                else if(etatBouton == BOUTON_CENTRAL_POMODORO_EN_GEL)
-                {
-                    reprise();
-                    etatBouton = BOUTON_CENTRAL_POMODORO_EN_COURS;
-                }
-                else
-                {
-                    peripherique.envoyer(Protocole.DEBUT_TRAME+Protocole.DEMARRER_TACHE+Protocole.DELIMITEUR_TRAME+tache.getNom()+Protocole.FIN_TRAME);// Trame envoyé : #T&Nom de la tâche\r\n
-                    etatBouton = BOUTON_CENTRAL_POMODORO_EN_GEL;
-                }
+                choisirEtatBouton();
             }
         });
 
@@ -330,6 +315,25 @@ public class PomodoroActivity extends AppCompatActivity
             }
         });
 
+    }
+
+    private void choisirEtatBouton()
+    {
+        if(etatBouton == BOUTON_CENTRAL_POMODORO_EN_GEL)
+        {
+            geler();
+            etatBouton = BOUTON_CENTRAL_POMODORO_REPRISE;
+        }
+        else if(etatBouton == BOUTON_CENTRAL_POMODORO_REPRISE)
+        {
+            reprise();
+            etatBouton = BOUTON_CENTRAL_POMODORO_EN_COURS;
+        }
+        else
+        {
+            peripherique.envoyer(Protocole.DEBUT_TRAME+Protocole.DEMARRER_TACHE+Protocole.DELIMITEUR_TRAME+tache.getNom()+Protocole.FIN_TRAME);// Trame envoyé : #T&Nom de la tâche\r\n
+            etatBouton = BOUTON_CENTRAL_POMODORO_EN_GEL;
+        }
     }
 
     /**
