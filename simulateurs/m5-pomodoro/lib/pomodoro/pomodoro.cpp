@@ -504,7 +504,9 @@ void setEtatPomodoro(int etat)
       reinitialiserNbPomodori();
       break;
     case Gele:
+      arreterTimerPomodoro();
       arreterTimerHorloge();
+      setActivationPomodoro(false);
       labelEtatPomodoro->SetFont(&FreeSans24pt7b);
       labelEtatPomodoro->SetBackgroundColor(CouleurPomodoro::Orange);
       boutonPomodoro->SetText("STOP");
@@ -514,12 +516,12 @@ void setEtatPomodoro(int etat)
       boutonOff->DisableControls();
       break;
     case Reprise:
-      demarrerTimerHorloge();
-      boutonPomodoro->SetText("STOP");
+      //demarrerTimerHorloge();
+      //boutonPomodoro->SetText("STOP");
       //boutonPause->SetText("PAUSE");
       //boutonPause->Show();
-      boutonOff->Hide();
-      boutonOff->DisableControls();
+      //boutonOff->Hide();
+      //boutonOff->DisableControls();
       break;
     default:
       break;
@@ -1186,9 +1188,37 @@ void initialiserTimers()
 
 }
 
+int getDuree()
+{
+    int duree = preferences.getInt("duree", DUREE_POMODORO);
+    return duree;
+}
+
+int getDureePauseCourte()
+{
+    int pauseCourte = preferences.getInt("pauseCourte", PAUSE_COURTE_POMODORO);
+    return pauseCourte;
+}
+
+int getDureePauseLongue()
+{
+    int pauseLongue = preferences.getInt("pauseLongue", PAUSE_LONGUE_POMODORO);
+    return pauseLongue;
+}
+
 void setDuree(int duree)
 {
-  pomodoro.duree = duree;
+    pomodoro.duree = duree;
+}
+
+void setDureePauseCourte(int duree)
+{
+    pomodoro.pauseCourte = duree;
+}
+
+void setDureePauseLongue(int duree)
+{
+    pomodoro.pauseLongue = duree;
 }
 
 void demarrerTimerPomodoro(int duree)

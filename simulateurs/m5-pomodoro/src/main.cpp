@@ -113,6 +113,8 @@ void loop()
           if(configrerTache(trame))
           {
             envoyerTrameAcquittement();
+            int duree = getDuree();
+            setDuree(duree);
             setEtatPomodoro(EnCours);
             #ifdef DEBUG
             Serial.println("Démarrage tâche");
@@ -139,6 +141,8 @@ void loop()
             if(getEtatPomodoro() == EnAttente)
             {
               envoyerTrameAcquittement();
+              int duree = getDureePauseCourte();
+              setDureePauseCourte(duree);
               setEtatPomodoro(EnCourtePause);
               #ifdef DEBUG
               Serial.println("Tâche en pause courte");
@@ -151,6 +155,8 @@ void loop()
             if(getEtatPomodoro() == EnAttente)
             {
               envoyerTrameAcquittement();
+              int duree = getDureePauseLongue();
+              setDureePauseLongue(duree);
               setEtatPomodoro(EnLonguePause);
               #ifdef DEBUG
               Serial.println("Tâche en pause longue");
@@ -212,10 +218,14 @@ void loop()
           switch(getEtatPomodoroPrecedent())
           {
              case EnCours:
-             case EnCourtePause:
-             case EnLonguePause:
-              setDuree(tempsReprise.toInt());
-              break;
+                setDuree(tempsReprise.toInt());
+                break;
+            case EnCourtePause:
+                setDureePauseCourte(tempsReprise.toInt());
+                break;
+            case EnLonguePause:
+                setDureePauseLongue(tempsReprise.toInt());
+                break;
           }
           setEtatPomodoro(getEtatPomodoroPrecedent());
           #ifdef DEBUG
