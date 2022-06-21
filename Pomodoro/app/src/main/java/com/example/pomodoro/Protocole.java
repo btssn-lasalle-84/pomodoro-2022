@@ -29,6 +29,7 @@ public class Protocole
     public static final String CONFIGURATION_UTILISATEUR = "U";
     public static final String MODE_SONNERIE = "B";
     public static final String MODE_MINUTEUR = "M";
+    public static final String MODE_CHRONOMETRE = "C";
     public static final String DEMARRER_TACHE = "T";
     public static final String DEMARRER_PAUSE = "R";
     public static final String ARRET_TACHE_PAUSE = "S";
@@ -60,6 +61,7 @@ public class Protocole
     public static final String ETAT_PAUSE_COURTE_TERMINEE = "3";
     public static final String ETAT_PAUSE_LONGUE_EN_COURS = "4";
     public static final String ETAT_PAUSE_LONGUE_TERMINEE = "5";
+    public static final String ETAT_GELE = "6";
 
     /**
      * @brief Trame envoyer par défaut

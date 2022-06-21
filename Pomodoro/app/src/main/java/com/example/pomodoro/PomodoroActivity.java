@@ -76,9 +76,10 @@ public class PomodoroActivity extends AppCompatActivity
     public final static String AFFICHE_PAUSE_LONGUE = "Pause longue";
     public final static String AFFICHE_PAUSE_LONGUE_TERMINEE = "Pause longue terminée";
 
-    public final static int CODE_ETAT_POMODORO = 0;
-    public final static int CODE_ETAT_GELE = 1;
-    public final static int CODE_ETAT_REPRENDRE = 2;
+    public final static int CODE_ETAT_REPOS = 0;
+    public final static int CODE_ETAT_ACTIF = 1;
+    public final static int CODE_ETAT_GELE = 2;
+    public final static int CODE_ETAT_REPRISE = 3;
 
     /**
      * Attributs
@@ -195,6 +196,7 @@ public class PomodoroActivity extends AppCompatActivity
     private void initialiserIHM()
     {
         Log.d(TAG, "initialiserIHM()");
+        etatBouton = CODE_ETAT_REPOS;
         boutonDemarrer = (AppCompatButton) findViewById(R.id.boutonDemarrer);
         boutonEditerTache = (AppCompatButton) findViewById(R.id.boutonEditerTacheActivity);
         boutonSeConnecterAuPomodoro = (AppCompatButton) findViewById(R.id.boutonSeConnecterAuPomodoro);
@@ -215,7 +217,7 @@ public class PomodoroActivity extends AppCompatActivity
             {
                 Log.d(TAG, "clic boutonDemarrer");
                 choisirModeSonnerie();
-                choisirEtatBouton();
+                gererEtatBouton();
             }
         });
 
@@ -224,8 +226,9 @@ public class PomodoroActivity extends AppCompatActivity
             @Override
             public boolean onLongClick(View view)
             {
-                etatBouton = CODE_ETAT_POMODORO;
                 Log.d(TAG,"clic long boutonDemarrer");
+                if(etatBouton == CODE_ETAT_REPOS)
+                    return false;
                 /*
                  * Boite de dialogue pour annuler une tâche ou une pause
                  */
@@ -239,6 +242,7 @@ public class PomodoroActivity extends AppCompatActivity
                     public void onClick(DialogInterface dialog, int which)
                     {
                         peripherique.envoyer(Protocole.DEBUT_TRAME+Protocole.ANNULATION_TACHE_PAUSE+Protocole.FIN_TRAME);
+                        etatBouton = CODE_ETAT_REPOS;
                         boutonDemarrer.setText(R.string.DemarrerPause);
                         horloge.setBackgroundResource(R.drawable.horloge);
                     }
@@ -261,6 +265,8 @@ public class PomodoroActivity extends AppCompatActivity
         {
             public void onClick(View v)
             {
+                if(etatBouton != CODE_ETAT_REPOS)
+                    return;
                 Log.d(TAG, "clic boutonEditerTache");
                 Log.d(TAG, "[Tache] " + "id = " + tache.getId() + " - nom = " + tache.getNom());
 
@@ -275,6 +281,8 @@ public class PomodoroActivity extends AppCompatActivity
         {
             public void onClick(View v)
             {
+                if(etatBouton != CODE_ETAT_REPOS)
+                    return;
                 if(v.getId() == R.id.boutonSeConnecterAuPomodoro)
                 {
                     if(!peripherique.estConnecte())
@@ -303,8 +311,8 @@ public class PomodoroActivity extends AppCompatActivity
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long id)
             {
-                Log.d(TAG_DEMO, "sélection = " + position + " -> " + nomTaches.get(position));
-                Log.d(TAG_DEMO, "idTache = " + taches.get(position).get(BaseDeDonnees.INDEX_COLONNE_TACHE_ID_TACHE) + " -> " + taches.get(position).get(BaseDeDonnees.INDEX_COLONNE_TACHE_NOM));
+                //Log.d(TAG_DEMO, "sélection = " + position + " -> " + nomTaches.get(position));
+                //Log.d(TAG_DEMO, "idTache = " + taches.get(position).get(BaseDeDonnees.INDEX_COLONNE_TACHE_ID_TACHE) + " -> " + taches.get(position).get(BaseDeDonnees.INDEX_COLONNE_TACHE_NOM));
                 tache.setId(Integer.parseInt(taches.get(position).get(BaseDeDonnees.INDEX_COLONNE_TACHE_ID_TACHE)));
                 tache.setNom(nomTaches.get(position));
             }
@@ -317,23 +325,24 @@ public class PomodoroActivity extends AppCompatActivity
 
     }
 
-    private void choisirEtatBouton()
+    private void gererEtatBouton()
     {
+        Log.d(TAG_DEMO,"gererEtatBouton() etatBouton " + etatBouton);
         switch(etatBouton)
         {
-            case CODE_ETAT_POMODORO:
+            case CODE_ETAT_REPOS:
                 peripherique.envoyer(Protocole.DEBUT_TRAME+Protocole.DEMARRER_TACHE+Protocole.DELIMITEUR_TRAME+tache.getNom()+Protocole.FIN_TRAME);
+                break;
+            case CODE_ETAT_ACTIF:
+                geler();
                 etatBouton = CODE_ETAT_GELE;
                 break;
             case CODE_ETAT_GELE:
-                geler();
-                etatBouton = CODE_ETAT_REPRENDRE;
-                break;
-            case CODE_ETAT_REPRENDRE:
                 reprendre();
-                etatBouton = CODE_ETAT_POMODORO;
+                etatBouton = CODE_ETAT_ACTIF;
                 break;
-
+            case CODE_ETAT_REPRISE:
+                break;
         };
     }
 
@@ -625,7 +634,7 @@ public class PomodoroActivity extends AppCompatActivity
                         // Vérification
                         if(message.obj.toString().startsWith(Protocole.DEBUT_TRAME))
                         {
-                            Log.v(TAG_DEMO, "[Handler] Trame valide");
+                            //Log.v(TAG_DEMO, "[Handler] Trame valide");
                             trame = message.obj.toString().replace(Protocole.DEBUT_TRAME, "");
                         } else
                         {
@@ -645,68 +654,80 @@ public class PomodoroActivity extends AppCompatActivity
                                 minuteur.setEtat(Integer.parseInt(champs[Protocole.CHAMP_ETAT]));
                                 if(champs[Protocole.CHAMP_ETAT].equals(Protocole.ETAT_ATTENTE))
                                 {
-                                    boutonDemarrer.setText(AFFICHE_TACHE_DEMARRE);
+                                    Log.v(TAG_DEMO,"[Handler] Protocole.ETAT_ATTENTE");
                                     arreterMinuteur();
-                                    Log.v(TAG,"[Handler] Changement d'état : Bouton = Démarrer");
+                                    etatBouton = CODE_ETAT_REPOS;
+                                    boutonDemarrer.setText(AFFICHE_TACHE_DEMARRE);
                                 }
                                 else if(champs[Protocole.CHAMP_ETAT].equals(Protocole.ETAT_TACHE_EN_COURS))
                                 {
+                                    Log.v(TAG_DEMO,"[Handler] Protocole.ETAT_TACHE_EN_COURS");
+                                    if(etatBouton == CODE_ETAT_REPOS)
+                                        demarrerMinuteur(minuteur.getLongueur());
+                                    etatBouton = CODE_ETAT_ACTIF;
                                     boutonDemarrer.setText(tache.getNom());
                                     horloge.setBackgroundResource(R.drawable.horloge);
-                                    demarrerMinuteur(minuteur.getLongueur());
-                                    Log.v(TAG,"[Handler] Changement d'état : Bouton = Tâche");
                                 }
                                 else if(champs[Protocole.CHAMP_ETAT].equals(Protocole.ETAT_TACHE_TERMINEE))
                                 {
+                                    Log.v(TAG_DEMO,"[Handler] Protocole.ETAT_TACHE_TERMINEE");
+                                    arreterMinuteur();
+                                    etatBouton = CODE_ETAT_REPOS;
                                     boutonDemarrer.setText(AFFICHE_TACHE_DEMARRE);
                                     horloge.setBackgroundResource(R.drawable.horloge);
-                                    arreterMinuteur();
+
                                     Toast toast = Toast.makeText(getApplicationContext(), "Tache terminée", Toast.LENGTH_SHORT);
                                     toast.setGravity(Gravity.TOP,20,30);
                                     toast.show();
                                     notifierEvenement("Vous avez terminé la tâche : "+tache.getNom());
-                                    etatBouton = CODE_ETAT_POMODORO;
-                                    Log.v(TAG,"[Handler] Changement d'état : Bouton = Tache Terminée");
                                 }
                                 else if(champs[Protocole.CHAMP_ETAT].equals(Protocole.ETAT_PAUSE_COURTE_EN_COURS))
                                 {
+                                    Log.v(TAG_DEMO, "[Handler] Protocole.ETAT_PAUSE_COURTE_EN_COURS");
+                                    if(etatBouton == CODE_ETAT_REPOS)
+                                        demarrerMinuteur(minuteur.getDureePauseCourte());
+                                    etatBouton = CODE_ETAT_ACTIF;
                                     boutonDemarrer.setText(AFFICHE_PAUSE_COURTE);
                                     horloge.setBackgroundResource(R.drawable.horloge_jaune);
-                                    demarrerMinuteur(minuteur.getDureePauseCourte());
-                                    etatBouton = CODE_ETAT_POMODORO;
-                                    Log.v(TAG, "[Handler] Changement d'état : Bouton = Pause Courte");
                                 }
                                 else if(champs[Protocole.CHAMP_ETAT].equals(Protocole.ETAT_PAUSE_COURTE_TERMINEE))
                                 {
+                                    Log.v(TAG_DEMO, "[Handler] Protocole.ETAT_PAUSE_COURTE_TERMINEE");
+                                    arreterMinuteur();
+                                    etatBouton = CODE_ETAT_REPOS;
                                     boutonDemarrer.setText(AFFICHE_PAUSE_COURTE_TERMINEE);
                                     horloge.setBackgroundResource(R.drawable.horloge_jaune);
-                                    arreterMinuteur();
+
                                     Toast toast = Toast.makeText(getApplicationContext(), "Pause courte terminée", Toast.LENGTH_SHORT);
                                     toast.setGravity(Gravity.TOP,20,30);
                                     toast.show();
                                     notifierEvenement("Vous avez terminé votre pause courte, retournez à la tâche : "+tache.getNom());
-                                    etatBouton = CODE_ETAT_POMODORO;
-                                    Log.v(TAG, "[Handler] Changement d'état : Bouton = Pause Courte terminée");
                                 }
                                 else if(champs[Protocole.CHAMP_ETAT].equals(Protocole.ETAT_PAUSE_LONGUE_EN_COURS))
                                 {
+                                    Log.v(TAG_DEMO, "[Handler] Protocole.ETAT_PAUSE_LONGUE_EN_COURS");
+                                    if(etatBouton == CODE_ETAT_REPOS)
+                                        demarrerMinuteur(minuteur.getDureePauseLongue());
+                                    etatBouton = CODE_ETAT_ACTIF;
                                     boutonDemarrer.setText(AFFICHE_PAUSE_LONGUE);
                                     horloge.setBackgroundResource(R.drawable.horloge_verte);
-                                    demarrerMinuteur(minuteur.getDureePauseLongue());
-                                    etatBouton = CODE_ETAT_POMODORO;
-                                    Log.v(TAG, "[Handler] Changement d'état : Bouton = Pause Longue");
                                 }
                                 else if(champs[Protocole.CHAMP_ETAT].equals(Protocole.ETAT_PAUSE_LONGUE_TERMINEE))
                                 {
+                                    Log.v(TAG_DEMO, "[Handler] Protocole.ETAT_PAUSE_LONGUE_TERMINEE");
+                                    arreterMinuteur();
+                                    etatBouton = CODE_ETAT_REPOS;
                                     boutonDemarrer.setText(AFFICHE_PAUSE_LONGUE_TERMINEE);
                                     horloge.setBackgroundResource(R.drawable.horloge_verte);
-                                    arreterMinuteur();
+
                                     Toast toast = Toast.makeText(getApplicationContext(), "Pause longue terminée", Toast.LENGTH_SHORT);
                                     toast.setGravity(Gravity.TOP,20,30);
                                     toast.show();
                                     notifierEvenement("Vous avez terminé votre pause longue, retournez à la tâche : "+tache.getNom());
-                                    etatBouton = CODE_ETAT_POMODORO;
-                                    Log.v(TAG, "[Handler] Changement d'état : Bouton = Pause Longue Terminée");
+                                }
+                                else if(champs[Protocole.CHAMP_ETAT].equals(Protocole.ETAT_GELE))
+                                {
+                                    Log.v(TAG_DEMO, "[Handler] Protocole.ETAT_GELE");
                                 }
                                 break;
                         }
@@ -738,7 +759,7 @@ public class PomodoroActivity extends AppCompatActivity
     /**
      * @brief Méthode qui démarre le minuteur pour une durée
      */
-    private void demarrerMinuteur(int duree)
+    private void demarrerMinuteur(long duree)
     {
         if(timerMinuteur != null)
         {
@@ -751,7 +772,7 @@ public class PomodoroActivity extends AppCompatActivity
         horloge.setText(getMMSS(duree));
 
         choisirModeHorloge();
-        Log.d(TAG_DEMO,"Minuteur démarré " + dureeEnCours);
+        Log.d(TAG_DEMO,"demarrerMinuteur() duree " + duree);
     }
 
     /**
@@ -764,7 +785,7 @@ public class PomodoroActivity extends AppCompatActivity
             timerMinuteur.cancel();
             timerMinuteur = null;
             horloge.setText("00:00");
-            Log.d(TAG_DEMO,"Minuteur arrêté");
+            Log.d(TAG_DEMO,"arreterMinuteur() minuteur arrêté");
         }
     }
 
@@ -776,6 +797,11 @@ public class PomodoroActivity extends AppCompatActivity
         tacheMinuteur = new TimerTask() {
             public void run() {
                 dureeEnCours--;
+                if(dureeEnCours < 0)
+                {
+                    dureeEnCours = 0;
+                    return;
+                }
                 runOnUiThread(new Runnable() {
                     public void run() {
                         horloge.setText(getMMSS(dureeEnCours));
@@ -790,7 +816,7 @@ public class PomodoroActivity extends AppCompatActivity
     public void geler()
     {
         peripherique.envoyer(Protocole.DEBUT_TRAME+Protocole.GEL+Protocole.FIN_TRAME);
-        boutonDemarrer.setText(tache.getNom()+"\r\nen Pause");
+        boutonDemarrer.setText(tache.getNom()+"\r\nInactif");
         horloge.setBackgroundResource(R.drawable.horloge_pause);
         if (timerMinuteur != null)
         {
@@ -798,17 +824,25 @@ public class PomodoroActivity extends AppCompatActivity
             Log.d(TAG_TEST,"Minuteur arrêté");
         }
         tempsRestant = dureeEnCours;
+        Log.d(TAG_DEMO,"geler() tempsRestant " + tempsRestant);
     }
 
     public void reprendre()
     {
-        Log.d(TAG_TEST, String.valueOf(tempsRestant));
-        peripherique.envoyer(Protocole.DEBUT_TRAME+Protocole.REPRISE+Protocole.DELIMITEUR_TRAME+tempsRestant+Protocole.FIN_TRAME);
-        demarrerMinuteur((int) tempsRestant);
+        Log.d(TAG_DEMO, "reprendre() tempsRestant " + tempsRestant);
+        if(tempsRestant > 0)
+        {
+            peripherique.envoyer(Protocole.DEBUT_TRAME + Protocole.REPRISE + Protocole.DELIMITEUR_TRAME + tempsRestant + Protocole.FIN_TRAME);
+            demarrerMinuteur(tempsRestant);
+        }
+        else
+        {
+            peripherique.envoyer(Protocole.DEBUT_TRAME+Protocole.ARRET_TACHE_PAUSE+Protocole.FIN_TRAME);
+        }
     }
     
     /**
-     * @brief Méthode qui de chronométrer
+     * @brief Méthode pour le chronométrage
      */
     public void chronometrer()
     {
@@ -851,12 +885,12 @@ public class PomodoroActivity extends AppCompatActivity
         if(modeSonnerie.isChecked())
         {
             peripherique.envoyer(Protocole.DEBUT_TRAME+Protocole.MODE_SONNERIE+Protocole.DELIMITEUR_TRAME+1+Protocole.FIN_TRAME);
-            Log.d(TAG_DEMO,"Sonnerie activé");
+            Log.d(TAG_DEMO,"choisirModeSonnerie() sonnerie activée");
         }
         else
         {
             peripherique.envoyer(Protocole.DEBUT_TRAME+Protocole.MODE_SONNERIE+Protocole.DELIMITEUR_TRAME+0+Protocole.FIN_TRAME);
-            Log.d(TAG_DEMO,"Sonnerie désactivé");
+            Log.d(TAG_DEMO,"choisirModeSonnerie() sonnerie désactivée");
         }
     }
 
@@ -868,14 +902,15 @@ public class PomodoroActivity extends AppCompatActivity
         if(modeFonctionnement.isChecked())
         {
             chronometrer();
-            peripherique.envoyer(Protocole.DEBUT_TRAME+Protocole.MODE_MINUTEUR+Protocole.DELIMITEUR_TRAME+1+Protocole.FIN_TRAME);
-            Log.d(TAG,"Mode chronomètre");
+            //peripherique.envoyer(Protocole.DEBUT_TRAME+Protocole.MODE_MINUTEUR+Protocole.DELIMITEUR_TRAME+1+Protocole.FIN_TRAME);
+            //peripherique.envoyer(Protocole.DEBUT_TRAME+Protocole.MODE_CHRONOMETRE+Protocole.DELIMITEUR_TRAME+1+Protocole.FIN_TRAME);
+            Log.d(TAG,"choisirModeHorloge() mode chronomètre");
         }
         else
         {
             minuter();
-            peripherique.envoyer(Protocole.DEBUT_TRAME+Protocole.MODE_MINUTEUR+Protocole.DELIMITEUR_TRAME+0+Protocole.FIN_TRAME);
-            Log.d(TAG,"Mode minuteur");
+            //peripherique.envoyer(Protocole.DEBUT_TRAME+Protocole.MODE_MINUTEUR+Protocole.DELIMITEUR_TRAME+0+Protocole.FIN_TRAME);
+            Log.d(TAG,"choisirModeHorloge() mode minuteur");
         }
     }
 
