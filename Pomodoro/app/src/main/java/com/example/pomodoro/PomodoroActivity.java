@@ -924,9 +924,13 @@ public class PomodoroActivity extends AppCompatActivity
         CharSequence name = getString(R.string.app_name);
         String description = "Fin de la tâche : "+tache.getNom()+" bonne pause";
         int importance = NotificationManager.IMPORTANCE_DEFAULT;
+        /**
+         * API 26 :
+         */
         //NotificationChannel channel = new NotificationChannel("Nom du channel", name, importance);
         //channel.setDescription(description);
         //notificationManager.createNotificationChannel(channel);
+        
         //Définition du titre de la notification
         String titreNotification = getApplicationName(getApplicationContext());
         //Définition du texte qui caractérise la notification
