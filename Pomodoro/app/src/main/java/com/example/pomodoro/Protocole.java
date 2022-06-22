@@ -7,6 +7,8 @@ package com.example.pomodoro;
  */
 
 
+import java.security.PublicKey;
+
 /**
  * @class Protocole
  * @brief Défini le concept de protocole
@@ -27,11 +29,14 @@ public class Protocole
     public static final String CONFIGURATION_UTILISATEUR = "U";
     public static final String MODE_SONNERIE = "B";
     public static final String MODE_MINUTEUR = "M";
+    public static final String MODE_CHRONOMETRE = "C";
     public static final String DEMARRER_TACHE = "T";
     public static final String DEMARRER_PAUSE = "R";
     public static final String ARRET_TACHE_PAUSE = "S";
     public static final String ANNULATION_TACHE_PAUSE = "X";
     public static final String MAINTIEN_CONNEXION = "H";
+    public static final String GEL = "W";
+    public static final String REPRISE = "D";
 
     /**
      * @brief Sens : Pomodoro -> Application
@@ -56,6 +61,7 @@ public class Protocole
     public static final String ETAT_PAUSE_COURTE_TERMINEE = "3";
     public static final String ETAT_PAUSE_LONGUE_EN_COURS = "4";
     public static final String ETAT_PAUSE_LONGUE_TERMINEE = "5";
+    public static final String ETAT_GELE = "6";
 
     /**
      * @brief Trame envoyer par défaut

@@ -29,6 +29,7 @@ import java.util.UUID;
 public class Peripherique extends Thread
 {
     private static final String TAG = "_Peripherique";  //!< TAG pour les logs
+    private static final String TAG_DEMO = "_Demo"; //!< TAG_DEMO pour les logs de la démonstration
 
     private String nom;
     private String adresse;
@@ -168,6 +169,7 @@ public class Peripherique extends Thread
                 {
                     if(socket.isConnected())
                     {
+                        Log.d(TAG_DEMO,"envoyer() " + donnees);
                         sendStream.write(donnees.getBytes());
                         sendStream.flush();
                     }
