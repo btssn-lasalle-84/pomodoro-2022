@@ -49,7 +49,7 @@ Le système est composé :
 
 ![](images/jira-versions-pomodoro.png)
 
-- [Version 1.1](https://github.com/btssn-lasalle-84/pomodoro-2022/releases/tag/1.2) : 24/06/2022
+- [Version 1.2](https://github.com/btssn-lasalle-84/pomodoro-2022/releases/tag/1.2) : 24/06/2022
 
 ![](images/version-1.2.png)
 
