@@ -1,3 +1,5 @@
+![Java Badge](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=java&logoColor=white&style=plastic) ![Android Badge](https://img.shields.io/badge/Android-3DDC84?logo=android&logoColor=fff&style=plastic)
+
 # Le projet pomodoro-2022
 
 - [Le projet pomodoro-2022](#le-projet-pomodoro-2022)
